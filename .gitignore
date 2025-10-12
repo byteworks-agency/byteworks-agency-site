@@ -1,7 +1,97 @@
+# ──────────────────────────────
+# 🌐 BYTEWORKS AGENCY — .gitignore
+# Stack: Astro + Tailwind + TypeScript + pnpm + VSCode + Vercel
+# ──────────────────────────────
 
-'node_modules
-dist
-.vercel
+# Node / pnpm
+node_modules/
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Astro build output
+dist/
+.cache/
+.astro/
+
+# Environment files
 .env
-.DS_Store' | Out-File -Encoding utf8 .gitignore
-node_modules
+.env.*.local
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+Icon?
+ehthumbs.db
+
+# Logs
+*.log
+logs
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Vercel / Deployment
+.vercel/
+.vercel_build_output/
+.netlify/
+.output/
+
+# Editor / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
+
+# Coverage / Testing
+coverage/
+*.lcov
+
+# Build caches
+.cache/
+.tmp/
+temp/
+tmp/
+__pycache__/
+*.pid
+*.seed
+*.pid.lock
+
+# Lock files (optional: uncomment if you want consistent builds)
+# pnpm-lock.yaml
+
+# TypeScript
+*.tsbuildinfo
+
+# Local tooling
+.eslintcache
+.stylelintcache
+*.local
+
+# Image optimization / generated assets
+*.webp
+*.avif
+
+# Optional backup files (Windows, macOS)
+~$*
+*.bak
+*.backup
+*.old
+
+# ──────────────────────────────
+# ✅ END — ByteWorks .gitignore
+# ──────────────────────────────
