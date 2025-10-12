@@ -1,0 +1,18 @@
+export const es = {
+  nav_plans: "Planes",
+  nav_contact: "Contacto",
+  nav_terms: "Términos",
+  nav_privacy: "Privacidad",
+  nav_cta: "Empezar",
+  footer_phrase: "Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.",
+  footer_links: "Enlaces",
+  c_home_title: "Websites that work for you — not against you.",
+  c_home_desc: "Creemos que una presencia digital profesional no debe ser complicada ni costosa. Planes claros, mantenimiento incluido y soporte real.",
+  c_home_primary: "Ver planes",
+  c_home_secondary: "Hablar por WhatsApp",
+  plans_title: "Planes",
+  badge_most_chosen: "Más elegido",
+  cta_title: "¿Listo para empezar?",
+  cta_button: "Agendar una llamada",
+  pricing_note: "Precios en USD. Conversión local disponible. Pagos manuales o transferencia. Soporte humano por WhatsApp.",
+};

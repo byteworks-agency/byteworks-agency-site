@@ -1,0 +1,18 @@
+export const en = {
+  nav_plans: "Plans",
+  nav_contact: "Contact",
+  nav_terms: "Terms",
+  nav_privacy: "Privacy",
+  nav_cta: "Get started",
+  footer_phrase: "You focus on your business — we handle the digital side.",
+  footer_links: "Links",
+  c_home_title: "Websites that work for you — not against you.",
+  c_home_desc: "We believe a professional digital presence shouldn't be complicated or expensive. Clear plans, maintenance included, real support.",
+  c_home_primary: "See plans",
+  c_home_secondary: "Chat on WhatsApp",
+  plans_title: "Plans",
+  badge_most_chosen: "Most chosen",
+  cta_title: "Ready to start?",
+  cta_button: "Schedule a call",
+  pricing_note: "Prices in USD. Local conversion available. Manual or bank transfer payments. Human support via WhatsApp.",
+};
