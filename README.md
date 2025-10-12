@@ -44,28 +44,6 @@ Official site: byteworks.agency (coming soon)
 
 ⸻
 
-💼 Plans & Pricing
-
-Plan	Monthly	Annual	Description
-🧩 Start Plan	$45	$459	One-page professional site (WhatsApp, contact form, SEO)
-🚀 Pro Plan	$55	$561	Up to 5 pages, brand-aligned design, advanced forms
-💼 Elite Plan	$70	$714	Automations, analytics dashboard, monthly optimization
-🛒 E-Commerce Pro	$95	$969	Full online store with internal checkout and management
-
-
-⸻
-
-➕ Add-ons
-
-Add-on	Price	Description
-🔍 Advanced SEO & Local Positioning	+$30/mo	Keyword optimization, Google Business setup, insights report
-📰 Blog / News Section	+$25/mo	SEO-ready blog with categories, tags, and editor-friendly blocks
-🛍 Small Online Store (≤20 products)	+$35/mo	Mini-store integrated into main site
-🎨 Basic Branding Package	$120 one-time	Logo, color palette, typography, and social kit
-
-
-⸻
-
 🧠 Tech Stack
 
 <p align="center">
