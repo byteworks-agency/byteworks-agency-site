@@ -1,9 +1,10 @@
 ---
+export const prerender = false; // <-- fuerza SSR en la 404 y elimina el warning
+
 import Base from "../layouts/Base.astro";
 import { en as tEn } from "../i18n/en";
 import { es as tEs } from "../i18n/es";
 
-// Detecta prefijo para mostrar mensajes básicos
 const path = Astro.url?.pathname || '/';
 const isEs = path.startsWith('/es/');
 const t = isEs ? tEs : tEn;

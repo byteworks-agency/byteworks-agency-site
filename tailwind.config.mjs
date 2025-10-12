@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: "media",
-  content: ["./src/**/*.{astro,html,js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{astro,html,js,ts,jsx,tsx,vue,svelte}"],
   theme: {
     extend: {
       colors: {
@@ -12,8 +12,8 @@ const config = {
         },
       },
       fontFamily: {
-        display: ["Manrope", "Inter", "system-ui", "sans-serif"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+        display: ["Manrope", "system-ui", "sans-serif"],
       },
     },
   },

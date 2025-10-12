@@ -10,8 +10,10 @@ const {
   ogImage = "/og-image.svg",
 } = Astro.props;
 
-const url = Astro.url; // disponible en dev/SSR
-const pathname = url?.pathname || '/';
+const pathname = Astro.url?.pathname ?? '/';
+const site = Astro.site?.toString(); 
+const canonical = site ? new URL(pathname, site).toString() : undefined;
+
 const isEN = lang === 'en';
 const basePath = isEN ? '/en' : '/es';
 
@@ -23,12 +25,9 @@ const nav = [
 ];
 
 function isActive(href: string) {
-  // activo si pathname coincide o si estamos en home y ancla #plans
   if (href.endsWith('#plans')) return pathname === `${basePath}/`;
   return pathname === href;
 }
-
-const canonical = url ? `${url.origin}${pathname}` : undefined;
 ---
 
 <html lang={lang}>
