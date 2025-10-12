@@ -1,9 +1,9 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const base = "https://byteworks.agency"; // cambia si usas otro dominio
   return {
-    rules: [{ userAgent: '*', allow: '/' }],
+    rules: { userAgent: "*", allow: "/", disallow: ["/api/", "/admin/"] },
     sitemap: `${base}/sitemap.xml`,
   };
 }

@@ -1,4 +1,5 @@
 'use client';
+
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import en from '@/data/en.json';
 import es from '@/data/es.json';
@@ -6,48 +7,49 @@ import es from '@/data/es.json';
 type Dict = typeof en;
 type Lang = 'en' | 'es';
 
-const dictionaries: Record<Lang, Dict> = { en, es };
-
 type I18nContextType = {
   lang: Lang;
-  t: (path: string) => string;
   dict: Dict;
+  t: (path: string) => string;
 };
 
-const I18nContext = createContext<I18nContextType | null>(null);
+const I18nContext = createContext<I18nContextType>({
+  lang: 'en',
+  dict: en,
+  t: () => '',
+});
+
+function getBrowserLang(): Lang {
+  if (typeof window === 'undefined') return 'en';
+  const nav = window.navigator?.language?.toLowerCase() || '';
+  if (nav.startsWith('es')) return 'es';
+  return 'en';
+}
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<Lang>('en');
 
-  // Auto-detect language from browser; no UI toggle, no persistence needed
   useEffect(() => {
-    const nav = (typeof navigator !== 'undefined' && (navigator.language || (navigator as any).userLanguage)) || 'en';
-    const auto: Lang = String(nav).toLowerCase().startsWith('es') ? 'es' : 'en';
-    setLang(auto);
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('lang', auto);
-    }
+    setLang(getBrowserLang());
   }, []);
 
-  const dict = useMemo(() => dictionaries[lang], [lang]);
+  const dict = useMemo(() => (lang === 'es' ? es : en), [lang]);
 
-  const t = (path: string) => {
-    const parts = path.split('.');
-    // @ts-ignore
-    let cur: any = dict;
-    for (const p of parts) {
-      if (cur && p in cur) cur = cur[p];
-      else return path;
-    }
-    return typeof cur === 'string' ? cur : JSON.stringify(cur);
-  };
+  const t = useMemo(() => {
+    return (path: string) => {
+      const parts = path.split('.');
+      let cur: any = dict;
+      for (const p of parts) {
+        if (cur && typeof cur === 'object' && p in cur) cur = cur[p];
+        else return path;
+      }
+      return typeof cur === 'string' ? cur : path;
+    };
+  }, [dict]);
 
-  const value = { lang, t, dict };
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+  return <I18nContext.Provider value={{ lang, dict, t }}>{children}</I18nContext.Provider>;
 }
 
 export function useI18n() {
-  const ctx = useContext(I18nContext);
-  if (!ctx) throw new Error('useI18n must be used within I18nProvider');
-  return ctx;
+  return useContext(I18nContext);
 }

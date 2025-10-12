@@ -13,15 +13,11 @@ import { useI18n } from '@/lib/i18n';
 export default function Home() {
   const { dict } = useI18n();
 
-  // ========= PLANS =========
-  // Estructura según tu JSON actual:
-  // dict.plans.start.title | blurb | cta | features | icon
-  // (y los precios los colocas tú, como ya lo tenías)
   const plans = [
     {
       title: dict.plans.start.title,
       priceMonthly: '$45/month',
-      priceYearly: '$459/year (save 15%)',
+      priceYearly: '$460/year (save 15%)',
       blurb: dict.plans.start.blurb,
       features: dict.plans.start.features,
       cta: dict.plans.start.cta,
@@ -29,8 +25,8 @@ export default function Home() {
     },
     {
       title: dict.plans.pro.title,
-      priceMonthly: '$55/month',
-      priceYearly: '$561/year (save 15%)',
+      priceMonthly: '$50/month',
+      priceYearly: '$510/year (save 15%)',
       blurb: dict.plans.pro.blurb,
       features: dict.plans.pro.features,
       cta: dict.plans.pro.cta,
@@ -38,8 +34,8 @@ export default function Home() {
     },
     {
       title: dict.plans.elite.title,
-      priceMonthly: '$70/month',
-      priceYearly: '$714/year (save 15%)',
+      priceMonthly: '$65/month',
+      priceYearly: '$665/year (save 15%)',
       blurb: dict.plans.elite.blurb,
       features: dict.plans.elite.features,
       cta: dict.plans.elite.cta,
@@ -47,8 +43,8 @@ export default function Home() {
     },
     {
       title: dict.plans.ecommerce.title,
-      priceMonthly: '$95/month',
-      priceYearly: '$969/year (save 15%)',
+      priceMonthly: '$90/month',
+      priceYearly: '$920/year (save 15%)',
       blurb: dict.plans.ecommerce.blurb,
       features: dict.plans.ecommerce.features,
       cta: dict.plans.ecommerce.cta,
@@ -56,20 +52,17 @@ export default function Home() {
     },
   ];
 
-  // ========= ADDONS =========
-  // Estructura según tu JSON actual:
-  // dict.addons.seo.* | dict.addons.blog.* | dict.addons.smallstore.* | dict.addons.branding.*
   const addons = [
     {
       title: dict.addons.seo.title,
-      price: '+$30/month',
+      price: '+$25/month',
       bullets: dict.addons.seo.bullets,
       description: dict.addons.seo.description,
       icon: dict.addons.seo.icon,
     },
     {
       title: dict.addons.blog.title,
-      price: '+$25/month',
+      price: '+$20/month',
       bullets: dict.addons.blog.bullets,
       description: dict.addons.blog.description,
       icon: dict.addons.blog.icon,
@@ -92,19 +85,15 @@ export default function Home() {
 
   return (
     <main>
-      {/* HERO */}
       <Hero />
 
-      {/* ABOUT */}
-      <section id="about" className="py-20">
+      <section id="about" className="py-20 scroll-mt-28">
         <AboutSection />
       </section>
 
-      {/* WHY CHOOSE */}
       <WhyChoose />
 
-      {/* PLANS */}
-      <section id="plans" className="py-20">
+      <section id="plans" className="py-20 scroll-mt-28">
         <div className="container">
           <Reveal>
             <div className="max-w-2xl">
@@ -121,8 +110,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ADDONS */}
-      <section id="addons" className="py-20 bg-[var(--card)]">
+      <section id="addons" className="py-20 bg-[var(--card)] scroll-mt-28">
         <div className="container">
           <Reveal>
             <div className="max-w-2xl">
@@ -139,11 +127,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <FAQ />
+      <section id="faq" className="py-20 scroll-mt-28">
+        <FAQ />
+      </section>
 
-      {/* CONTACT */}
-      <ContactSection />
+      <section id="contact" className="scroll-mt-28">
+        <ContactSection />
+      </section>
     </main>
   );
 }

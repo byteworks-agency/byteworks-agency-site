@@ -1,55 +1,36 @@
 'use client';
-import React from 'react';
+import Reveal from './Reveal';
 
 type Props = {
   title: string;
   price: string;
   bullets: string[];
-  description?: string;
-  icon?: string;
+  description: string;
+  icon: string;
   delay?: number;
 };
 
-export default function AddonCard({
-  title,
-  price,
-  bullets,
-  description,
-  icon,
-}: Props) {
+export default function AddonCard({ title, price, bullets, description, icon, delay = 0 }: Props) {
   return (
-    <div className="card p-5 shadow-sm hover:shadow-md transition duration-300">
-      <div className="flex items-start gap-3">
-        {icon ? (
-          <span
-            className="icon icon-md mt-1"
-            style={{ ['--icon' as any]: `url('/icons/${icon}.svg')` }}
-            aria-hidden
-          />
-        ) : null}
-        <div className="flex-1">
-          <div className="flex items-baseline justify-between">
-            <h4 className="text-lg font-semibold">{title}</h4>
-            <span className="text-sm text-slate-600">{price}</span>
-          </div>
-          {description ? (
-            <p className="mt-2 text-sm text-slate-600">{description}</p>
-          ) : null}
+    <Reveal delay={delay}>
+      <div className="card p-5 h-full flex flex-col">
+        <div className="flex items-center gap-3">
+          <span className="icon icon-md" style={{ ['--icon' as any]: `url('/icons/${icon}.svg')` }} aria-hidden />
+          <h3 className="font-semibold">{title}</h3>
         </div>
-      </div>
+        <p className="text-slate-600 mt-1 text-sm">{price}</p>
 
-      <ul className="mt-4 space-y-2 text-sm">
-        {bullets.map((b, i) => (
-          <li key={i} className="flex gap-2">
-            <span
-              className="icon icon-inline mt-[1px]"
-              style={{ ['--icon' as any]: "url('/icons/check.svg')" }}
-              aria-hidden
-            />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul className="mt-3 space-y-2 text-sm">
+          {bullets.map((b, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <span className="icon icon-check" style={{ ['--icon' as any]: "url('/icons/check.svg')" }} aria-hidden />
+              <span className="text-slate-700">{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-3 text-slate-700 text-sm">{description}</p>
+      </div>
+    </Reveal>
   );
 }

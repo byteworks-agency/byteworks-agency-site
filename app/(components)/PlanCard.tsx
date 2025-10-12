@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import Reveal from './Reveal';
 
 type Props = {
   title: string;
@@ -7,57 +7,36 @@ type Props = {
   priceYearly: string;
   blurb: string;
   features: string[];
-  cta?: string;
-  icon?: string;
+  cta: string;
+  icon: string; // nombre del svg en /public/icons
   delay?: number;
 };
 
-export default function PlanCard({
-  title,
-  priceMonthly,
-  priceYearly,
-  blurb,
-  features,
-  cta = 'Get started',
-  icon,
-}: Props) {
+export default function PlanCard(props: Props) {
+  const { title, priceMonthly, priceYearly, blurb, features, cta, icon, delay = 0 } = props;
+
   return (
-    <div className="card p-6 shadow-sm hover:shadow-md transition duration-300">
-      <div className="flex items-start gap-3">
-        {icon ? (
-          <span
-            className="icon icon-md mt-1"
-            style={{ ['--icon' as any]: `url('/icons/${icon}.svg')` }}
-            aria-hidden
-          />
-        ) : null}
-        <div className="flex-1">
-          <h3 className="text-xl font-semibold">{title}</h3>
-          <p className="mt-2 text-slate-600">{blurb}</p>
+    <Reveal delay={delay}>
+      <div className="card p-5 h-full flex flex-col">
+        <div className="flex items-center gap-3">
+          <span className="icon icon-md" style={{ ['--icon' as any]: `url('/icons/${icon}.svg')` }} aria-hidden />
+          <h3 className="font-semibold">{title}</h3>
         </div>
+        <p className="text-slate-700 mt-2 text-sm">{blurb}</p>
+        <div className="mt-3 text-sm">
+          <div>{priceMonthly}</div>
+          <div className="text-slate-600">{priceYearly}</div>
+        </div>
+        <ul className="mt-4 space-y-2 text-sm">
+          {features.map((f, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <span className="icon icon-check" style={{ ['--icon' as any]: "url('/icons/check.svg')" }} aria-hidden />
+              <span className="text-slate-700">{f}</span>
+            </li>
+          ))}
+        </ul>
+        <a href="#contact" className="btn btn-primary mt-5">{cta}</a>
       </div>
-
-      <div className="mt-4 flex items-baseline gap-3">
-        <span className="text-2xl font-bold text-[var(--brand)]">{priceMonthly}</span>
-        <span className="text-sm text-slate-500">{priceYearly}</span>
-      </div>
-
-      <ul className="mt-5 space-y-2 text-sm">
-        {features.map((feature, i) => (
-          <li key={i} className="flex items-start gap-2">
-            <span
-              className="icon icon-inline mt-[1px]"
-              style={{ ['--icon' as any]: "url('/icons/check.svg')" }}
-              aria-hidden
-            />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      <button className="btn-primary mt-6 w-full rounded-md px-4 py-2 font-medium transition-colors">
-        {cta}
-      </button>
-    </div>
+    </Reveal>
   );
 }

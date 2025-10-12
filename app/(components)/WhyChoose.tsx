@@ -1,44 +1,31 @@
 'use client';
-
-import { motion } from 'framer-motion';
 import { useI18n } from '@/lib/i18n';
 import Reveal from './Reveal';
-
-const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function WhyChoose() {
   const { dict } = useI18n();
 
   return (
-    <section id="why" className="py-20">
+    <section className="py-20 bg-[var(--card)]">
       <div className="container">
         <Reveal>
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold">{dict.why.title}</h2>
-            <p className="mt-3 text-slate-600">{dict.why.subtitle}</p>
-          </div>
+          <h2 className="text-3xl font-bold mb-2">{dict.why.title}</h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="text-slate-600 max-w-2xl">{dict.why.subtitle}</p>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {dict.why.items.map((item: any, i: number) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: EASE_OUT, delay: i * 0.1 }}
-              className="card p-6 rounded-xl shadow-sm border border-[var(--border)] bg-[var(--card)] transition hover:shadow-md"
-            >
-              <div className="mb-4 flex items-center justify-start h-14 w-14 rounded-full border border-[var(--border)] bg-[var(--bg)]">
-                <span
-                  className="icon icon-lg ml-3"
-                  style={{ ['--icon' as any]: `url('/icons/${item.icon}.svg')` }}
-                  aria-hidden
-                />
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {dict.why.items.map((it, i) => (
+            <Reveal key={i} delay={i * 0.05}>
+              <div className="card p-5 h-full">
+                <div className="flex items-center gap-3">
+                  <span className="icon icon-md" style={{ ['--icon' as any]: `url('/icons/${it.icon}.svg')` }} aria-hidden />
+                  <h3 className="font-semibold">{it.title}</h3>
+                </div>
+                <p className="text-slate-700 mt-3 text-sm">{it.description}</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>

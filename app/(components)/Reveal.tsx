@@ -1,30 +1,19 @@
 'use client';
-import { motion, useReducedMotion } from 'framer-motion';
-import React from 'react';
+import { motion } from 'framer-motion';
 
-type Props = {
+export default function Reveal({
+  children,
+  delay = 0,
+}: {
   children: React.ReactNode;
   delay?: number;
-  y?: number;
-  className?: string;
-};
-
-const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-export default function Reveal({ children, delay = 0, y = 20, className }: Props) {
-  const prefersReduced = useReducedMotion();
-
-  if (prefersReduced) {
-    return <div className={className}>{children}</div>;
-  }
-
+}) {
   return (
     <motion.div
-      className={className}
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -50px 0px' }}
-      transition={{ duration: 0.5, ease: EASE_OUT, delay }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.4, delay, ease: 'easeOut' as any }}
     >
       {children}
     </motion.div>

@@ -1,50 +1,29 @@
 'use client';
-import React from 'react';
-import Reveal from './Reveal';
 import { useI18n } from '@/lib/i18n';
+import Reveal from './Reveal';
 
-export type AboutItem = { icon: string; text: string; };
-export type AboutContent = {
-  title: string;
-  subtitle: string;
-  items?: AboutItem[];
-  points?: string[];
-};
-
-type Props = { content?: AboutContent; };
-
-export default function AboutSection({ content }: Props) {
+export default function AboutSection() {
   const { dict } = useI18n();
-  const data: AboutContent = content ?? (dict.about as AboutContent);
-
-  const list: AboutItem[] =
-    data.items && data.items.length
-      ? data.items
-      : (data.points || []).map((t) => ({ icon: 'check', text: t }));
 
   return (
-    <section id="about">
-      <div className="container">
-        <Reveal>
-          <div className="max-w-3xl">
-            <h2 className="text-3xl font-bold">{data.title}</h2>
-            <p className="mt-3 text-slate-600">{data.subtitle}</p>
-          </div>
+    <div className="container">
+      <Reveal>
+        <h2 className="text-3xl font-bold mb-2">{dict.about.title}</h2>
+      </Reveal>
+      <Reveal delay={0.05}>
+        <p className="text-slate-600 max-w-2xl">{dict.about.subtitle}</p>
+      </Reveal>
 
-          <ul className="mt-8 max-w-2xl space-y-3 text-slate-600">
-            {list.map((item, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span
-                  className="icon icon-inline"
-                  style={{ ['--icon' as any]: `url('/icons/${item.icon}.svg')` }}
-                  aria-hidden
-                />
-                <span className="text-sm">{item.text}</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {dict.about.items.map((it, i) => (
+          <Reveal key={i} delay={i * 0.05}>
+            <div className="card p-4 flex items-start gap-3">
+              <span className="icon icon-md" style={{ ['--icon' as any]: `url('/icons/${it.icon}.svg')` }} aria-hidden />
+              <p className="text-slate-700">{it.text}</p>
+            </div>
+          </Reveal>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

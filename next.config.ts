@@ -1,17 +1,16 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
-const nextConfig: NextConfig & { allowedDevOrigins?: string[] } = {
-  webpack(config: any) {
-    config.module?.rules?.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [{ loader: '@svgr/webpack', options: { icon: true } }],
-    });
-    return config;
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [],
   },
-  allowedDevOrigins: [
-    'http://localhost:3000',
-    'http://192.168.100.129:3000',
+  headers: async () => [
+    {
+      source: "/:all*(svg|jpg|jpeg|png|gif|webp|avif)",
+      headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+    },
   ],
 };
 

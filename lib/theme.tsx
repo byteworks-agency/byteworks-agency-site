@@ -1,35 +1,18 @@
 'use client';
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-type Resolved = 'light' | 'dark';
+import React, { createContext, useContext, useEffect } from 'react';
 
-type ThemeContextType = {
-  resolved: Resolved; // effective theme (auto)
-};
-
-const ThemeContext = createContext<ThemeContextType | null>(null);
+type ThemeContextType = { auto: true };
+const ThemeContext = createContext<ThemeContextType>({ auto: true });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [resolved, setResolved] = useState<Resolved>('light');
-
   useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const apply = () => {
-      const r: Resolved = media.matches ? 'dark' : 'light';
-      setResolved(r);
-      document.documentElement.setAttribute('data-theme', r);
-    };
-    apply();
-    media.addEventListener?.('change', apply);
-    return () => media.removeEventListener?.('change', apply);
+    // automático por prefers-color-scheme; no toggles.
+    document.documentElement.removeAttribute('data-theme');
   }, []);
-
-  const value = useMemo(() => ({ resolved }), [resolved]);
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return <ThemeContext.Provider value={{ auto: true }}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error('useTheme must be used within ThemeProvider');
-  return ctx;
+  return useContext(ThemeContext);
 }
