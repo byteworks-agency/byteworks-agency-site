@@ -8,7 +8,7 @@ Todo está en formato Markdown 100% compatible con GitHub, así que solo copias 
 Clean, Fast & Reliable Web Solutions
 
 <p align="center">
-  <img src="https://i.ibb.co/5rFbMZL/byteworks-logo-cyan.png" width="120" alt="ByteWorks Logo"/><br/>
+  <img src="./public/logo.png" width="120"/><br/>
   <b>Modern websites. Transparent pricing. Continuous maintenance.</b><br/>
   <i>You focus on your business — we handle the digital side.</i>
 </p>
@@ -132,15 +132,3 @@ Distributed under the MIT License.
 
 ByteWorks es una agencia creativa de diseño y desarrollo web enfocada en crear sitios modernos, rápidos y confiables.
 Este repositorio contiene el sitio oficial de la agencia, con planes, precios y complementos actualizados.
-
-⸻
-
-💡 Tip:
-Si luego subes tu logo a /public/logo.png, puedes reemplazar la imagen de arriba por:
-
-<img src="./public/logo.png" width="120" />
-
-
-⸻
-
-¿Quieres que te genere también una versión “README visual” en español (idéntico formato, pero todo traducido para tus repos en español)?
