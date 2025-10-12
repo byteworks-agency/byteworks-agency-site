@@ -1,12 +1,13 @@
 ---
 import "../styles/global.css";
+import Analytics from "../components/Analytics.astro";
 
 const {
   title = "ByteWorks — Websites that work for you",
   description = "Professional websites, clear pricing, maintenance included, real support.",
   lang = "en",
   t = {},
-  ogImage = "/og-image.png", // puedes agregar este archivo luego; si no existe, no pasa nada
+  ogImage = "/og-image.svg",
 } = Astro.props;
 
 const url = Astro.url; // disponible en dev/SSR

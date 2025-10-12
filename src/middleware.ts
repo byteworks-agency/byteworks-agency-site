@@ -1,4 +1,3 @@
-// src/middleware.ts
 import type { MiddlewareHandler } from 'astro';
 
 const isAsset = (p: string) =>
@@ -12,28 +11,36 @@ export const onRequest: MiddlewareHandler = (context, next) => {
   const url = new URL(context.request.url);
   const { pathname, searchParams } = url;
 
-  // Si ya estamos en /en o /es, o es un asset, seguimos normal
   if (/^\/(en|es)(\/|$)/.test(pathname) || isAsset(pathname)) {
-    return next();
+    return next(); // ya estamos en idioma o es asset
   }
 
-  // 1) override por query ?lang=en|es
+  // override manual: /?lang=en|es
   const qlang = searchParams.get('lang');
   if (qlang === 'en' || qlang === 'es') {
-    context.cookies.set('bw_lang', qlang, { path: '/', maxAge: 60 * 60 * 24 * 365 });
-    return Response.redirect(new URL(`/${qlang}/`, url), 302);
+    context.cookies.set('bw_lang', qlang, { path: '/', maxAge: 31536000 });
+    return new Response(null, {
+      status: 307,
+      headers: { Location: `/${qlang}/` },
+    });
   }
 
-  // 2) cookie previa
+  // cookie guardada
   const cookieLang = context.cookies.get('bw_lang')?.value;
   if (cookieLang === 'en' || cookieLang === 'es') {
-    return Response.redirect(new URL(`/${cookieLang}/`, url), 302);
+    return new Response(null, {
+      status: 307,
+      headers: { Location: `/${cookieLang}/` },
+    });
   }
 
-  // 3) Accept-Language del dispositivo
+  // idioma del navegador
   const accept = (context.request.headers.get('accept-language') || '').toLowerCase();
   const guess = accept.startsWith('es') ? 'es' : 'en';
+  context.cookies.set('bw_lang', guess, { path: '/', maxAge: 31536000 });
 
-  context.cookies.set('bw_lang', guess, { path: '/', maxAge: 60 * 60 * 24 * 365 });
-  return Response.redirect(new URL(`/${guess}/`, url), 302);
+  return new Response(null, {
+    status: 307,
+    headers: { Location: `/${guess}/` },
+  });
 };

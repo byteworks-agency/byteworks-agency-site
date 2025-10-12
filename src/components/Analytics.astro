@@ -1,0 +1,15 @@
+---
+const provider = import.meta.env.PUBLIC_ANALYTICS_PROVIDER || ''; // 'cloudflare' | 'plausible'
+const domain   = import.meta.env.PUBLIC_ANALYTICS_DOMAIN   || ''; // tu dominio, ej: byteworks.agency
+const token    = import.meta.env.PUBLIC_CLOUDFLARE_TOKEN   || ''; // token de Cloudflare Web Analytics
+// Si nada está configurado, no inyecta nada.
+---
+
+{provider === 'cloudflare' && token && (
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token":"${token}"}`}></script>
+)}
+
+{provider === 'plausible' && domain && (
+  <script defer data-domain={domain} src="https://plausible.io/js/script.js"></script>
+)}
