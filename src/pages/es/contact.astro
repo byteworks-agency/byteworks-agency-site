@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import { es as t } from "../../i18n/es";
+
+const number = import.meta.env.PUBLIC_WAPP_NUMBER || '';
+const baseMsg = import.meta.env.PUBLIC_WAPP_MESSAGE || 'Hola%20ByteWorks';
+const wa = `https://wa.me/${number}?text=${baseMsg}`;
+---
+
+<Base lang="es" t={t} title="Contacto — ByteWorks" description="Cuéntanos tu proyecto. Te respondemos por WhatsApp.">
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-semibold font-display">Contacto</h1>
+    <p class="text-neutral-600 dark:text-neutral-300 mt-2">Cuéntanos qué necesitas y te respondemos por WhatsApp.</p>
+
+    <form class="mt-6 grid gap-4" onsubmit="event.preventDefault();openWA(this)">
+      <input name="nombre" placeholder="Tu nombre" required class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2" />
+      <input name="negocio" placeholder="Nombre del negocio (opcional)" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2" />
+      <select name="plan" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2">
+        <option>Start</option><option>Pro</option><option>Elite</option><option>E-Commerce Pro</option><option>Solo consulta</option>
+      </select>
+      <textarea name="detalle" placeholder="Cuéntanos brevemente tu objetivo…" rows="4" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2"></textarea>
+      <button class="px-4 py-2 rounded-md bg-brand text-black font-medium w-fit">Enviar por WhatsApp</button>
+    </form>
+
+    <script is:inline>
+      const base = { wa: `${wa}` };
+      function openWA(form) {
+        const d = new FormData(form);
+        const txt = ` — Nombre: ${d.get('nombre')} | Negocio: ${d.get('negocio')||'-'} | Plan: ${d.get('plan')} | Detalles: ${d.get('detalle')||'-'}`;
+        const url = base.wa + encodeURIComponent(txt);
+        window.open(url, '_blank');
+      }
+    </script>
+  </section>
+</Base>
