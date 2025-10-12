@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByteWorks Web Starter (Next.js App Router, Tailwind, EN/ES i18n)
 
-## Getting Started
+Create a fresh Next.js project, then copy these files on top.
 
-First, run the development server:
-
+## Step-by-step
+1) Create project and enter folder:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest byteworks-site --ts --eslint --use-npm --app --tailwind --src-dir=false --import-alias "@/*"
+cd byteworks-site
 ```
+2) Copy the contents of this ZIP **into** your `byteworks-site/` (allow overwrite).
+3) Install and run:
+```bash
+npm install
+npm run dev
+```
+4) Open http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Edit content
+- Texts & prices: `/data/en.json` and `/data/es.json`
+- WhatsApp / Email buttons: `app/page.tsx`
+- Colors: `tailwind.config.js` (brand colors)
+- Logo: put your file in `/public/byteworks-logo.svg` and adjust `app/layout.tsx`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Notes:
+- `app/page.tsx` is a Client Component (uses i18n hook).
+- Global CSS lives in `app/globals.css` (Next.js convention).

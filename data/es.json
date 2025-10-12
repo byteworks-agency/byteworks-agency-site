@@ -1,0 +1,319 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "plans": "Planes",
+    "addons": "Add-ons",
+    "about": "Nosotros",
+    "contact": "Contacto"
+  },
+  "cta": {
+    "get_started": "Comenzar"
+  },
+  "footer": {
+    "tagline": "La tecnología debe trabajar para ti — construimos, lanzamos y mantenemos tu sitio web.",
+    "links": "Enlaces rápidos",
+    "contact": "Contacto",
+    "rights": "Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "hero": {
+    "title": "Sitios web que lanzan rápido y se mantienen sanos.",
+    "subtitle": "Construimos, alojamos y mantenemos tu sitio. Pagos manuales, tracking local y soporte real — sin pasarelas externas.",
+    "cta_primary": "Ver planes",
+    "cta_secondary": "Contáctanos",
+    "points": {
+      "fast": "Implementación rápida",
+      "secure": "Seguro y monitoreado",
+      "scalable": "Escalable",
+      "support": "Soporte real"
+    }
+  },
+  "about": {
+    "title": "Acerca de ByteWorks",
+    "subtitle": "Construimos, lanzamos y mantenemos tu sitio para que te enfoques en crecer. Planes claros, soporte real y una pila moderna.",
+    "items": [
+      {
+        "icon": "bolt",
+        "text": "Implementación hecha por nosotros y mantenimiento continuo"
+      },
+      {
+        "icon": "puzzle",
+        "text": "Pagos manuales y tracking interno de entregas — sin pasarelas externas"
+      },
+      {
+        "icon": "internet",
+        "text": "Contenido bilingüe (EN/ES) con detección automática"
+      },
+      {
+        "icon": "shield",
+        "text": "Tema claro/oscuro, SSL, copias de seguridad y monitoreo"
+      },
+      {
+        "icon": "support",
+        "text": "Diseño rápido, limpio y escalable con soporte humano real"
+      }
+    ]
+  },
+  "why": {
+    "title": "¿Por qué elegir ByteWorks?",
+    "subtitle": "Planes claros, stack moderno y soporte continuo real. No solo lanzamos — mantenemos y mejoramos.",
+    "items": [
+      {
+        "icon": "bolt",
+        "title": "Implementación rápida",
+        "description": "Estructuramos, diseñamos y publicamos rápido — sin sacrificar calidad."
+      },
+      {
+        "icon": "shield",
+        "title": "Seguro y monitoreado",
+        "description": "SSL, copias de seguridad y chequeos proactivos para que tu sitio se mantenga sano."
+      },
+      {
+        "icon": "puzzle",
+        "title": "Modular y escalable",
+        "description": "Agrega páginas, funciones o tienda más adelante — sin rehacer todo."
+      },
+      {
+        "icon": "support",
+        "title": "Soporte real",
+        "description": "Nos encargamos del mantenimiento y pequeños cambios para que te enfoques en crecer."
+      }
+    ]
+  },
+  "sections": {
+    "plans_title": "Planes",
+    "plans_subtitle": "Elige el plan que encaja con tu etapa. Puedes actualizar luego — nosotros gestionamos la migración.",
+    "addons_title": "Add-ons",
+    "addons_subtitle": "Mejora tu plan con extras puntuales, solo si y cuando los necesites."
+  },
+  "plans": {
+    "start": {
+      "title": "Plan Start — Presencia Esencial",
+      "blurb": "Sitio de una sola página, limpio y efectivo, para poner tu negocio en línea rápido.",
+      "cta": "Elegir Start",
+      "features": [
+        "Sitio de una sola página (profesional y adaptable a móviles)",
+        "Botón de WhatsApp para mensajes directos",
+        "Formulario de contacto funcional",
+        "SEO local básico (aparece en Google)",
+        "Hosting, dominio y mantenimiento incluidos",
+        "1 actualización mensual (texto, imagen o color)",
+        "Soporte técnico por WhatsApp",
+        "SSL, copias de seguridad y monitoreo"
+      ],
+      "icon": "puzzle"
+    },
+    "pro": {
+      "title": "Plan Pro — Presencia Completa",
+      "blurb": "Muestra servicios, atrae clientes y proyecta una marca profesional.",
+      "cta": "Elegir Pro",
+      "features": [
+        "Todo lo de Start",
+        "Hasta 5 páginas (Inicio, Servicios, Portafolio, Nosotros, Contacto)",
+        "Diseño a medida alineado a tu marca",
+        "Formularios avanzados (cotizaciones o reservas)",
+        "Recepción de envíos por WhatsApp o correo",
+        "Optimización SEO en todas las páginas",
+        "2 actualizaciones mensuales",
+        "Soporte técnico por WhatsApp y correo"
+      ],
+      "icon": "bolt"
+    },
+    "elite": {
+      "title": "Plan Elite — Automatización y Crecimiento",
+      "blurb": "Automatiza procesos, mide resultados y escala con eficiencia.",
+      "cta": "Elegir Elite",
+      "features": [
+        "Todo lo de Pro",
+        "Hasta 8 páginas totalmente personalizadas",
+        "Automatizaciones inteligentes (Google Sheets, Notion o CRM)",
+        "Mensajes automáticos a clientes (WhatsApp o correo)",
+        "Panel de métricas de visitas, leads y conversiones",
+        "Optimización mensual: velocidad, seguridad y SEO",
+        "Soporte prioritario (24–48h)",
+        "4 actualizaciones mensuales"
+      ],
+      "icon": "shield"
+    },
+    "ecommerce": {
+      "title": "E-Commerce Pro — Solución de Tienda en Línea",
+      "blurb": "Para negocios listos para vender en línea con una tienda completa, segura y fácil de gestionar.",
+      "cta": "Elegir E-Commerce",
+      "features": [
+        "Hasta 10 páginas personalizadas (Inicio, Tienda, Productos, Nosotros, Contacto, etc.)",
+        "Hasta 100 productos y categorías",
+        "Carrito de compras y sistema de checkout",
+        "Integración con flujos de pago internos (sin pasarelas de terceros)",
+        "Panel de gestión de pedidos con sistema de tracking interno",
+        "Confirmaciones automáticas por correo o WhatsApp",
+        "Cuentas e inicio de sesión para clientes",
+        "SEO básico para todas las páginas de producto",
+        "Gestión de productos por ByteWorks por defecto (autogestión disponible a solicitud)",
+        "3 actualizaciones mensuales",
+        "Soporte prioritario por WhatsApp y correo"
+      ],
+      "icon": "cart"
+    }
+  },
+  "addons": {
+    "seo": {
+      "title": "SEO Avanzado y Posicionamiento Local",
+      "bullets": [
+        "Investigación de keywords y optimización on-page",
+        "Ajustes técnicos y chequeos de rendimiento",
+        "Configuración/optimización de Google Business Profile",
+        "Reporte mensual de insights"
+      ],
+      "icon": "seo",
+      "description": "Impulsa la visibilidad con una estrategia disciplinada on-page/off-page."
+    },
+    "blog": {
+      "title": "Sección de Blog / Noticias",
+      "bullets": [
+        "Listado de blog y plantilla de posts",
+        "Categorías y etiquetas",
+        "Bloques de contenido listos para editar",
+        "Estructura SEO-friendly"
+      ],
+      "icon": "blog",
+      "description": "Publica novedades, artículos y noticias con plantillas optimizadas para SEO."
+    },
+    "smallstore": {
+      "title": "Tienda en Línea Pequeña (hasta 20 productos)",
+      "bullets": [
+        "Mini-tienda integrada a tu sitio",
+        "Carrito y checkout manual",
+        "Analítica básica de productos",
+        "Gestión de productos a cargo de ByteWorks (autogestión disponible a solicitud)"
+      ],
+      "icon": "store",
+      "description": "Ideal para servicios o catálogos pequeños que quieren vender sin la complejidad de un e-commerce grande."
+    },
+    "branding": {
+      "title": "Paquete Básico de Branding (pago único)",
+      "bullets": [
+        "Logo (principal + alternativo)",
+        "Paleta de colores",
+        "Recomendaciones tipográficas",
+        "Kit de avatares/banners para redes"
+      ],
+      "icon": "branding",
+      "description": "Una identidad limpia: logo, colores, tipografía y assets para redes."
+    }
+  },
+  "contact": {
+    "title": "Cuéntanos sobre tu proyecto",
+    "subtitle": "¿Pagos manuales o alcance personalizado? Adaptamos el plan a tus necesidades.",
+    "name": "Nombre",
+    "email": "Correo",
+    "project_type": "Tipo de proyecto",
+    "message": "Mensaje",
+    "placeholder": "Describe brevemente tu negocio y lo que necesitas...",
+    "send_whatsapp": "Enviar por WhatsApp",
+    "send_email": "Enviar por Email",
+    "whatsapp": "WhatsApp",
+    "email_label": "Correo"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Si no ves tu pregunta aquí, contáctanos — con gusto te ayudamos personalmente.",
+    "items": [
+      {
+        "q": "¿Cómo funcionan los pagos manuales?",
+        "a": "Los pagos se gestionan directamente entre tú y tu cliente (transferencia, efectivo u otros métodos). No integramos pasarelas externas en el checkout; la tienda genera la orden automáticamente y tú cobras el pago directamente."
+      },
+      {
+        "q": "¿Puedo cambiar o actualizar de plan más adelante?",
+        "a": "Sí, puedes subir, bajar o cambiar de plan en cualquier momento. ByteWorks se encarga de las migraciones — páginas, contenido y configuraciones — para que no pierdas nada."
+      },
+      {
+        "q": "¿Quién gestiona los productos de mi tienda?",
+        "a": "Por defecto, ByteWorks gestiona todos los productos por ti: agregar, actualizar y eliminar según necesites. Si prefieres hacerlo tú, habilitamos acceso admin seguro y te damos una guía rápida."
+      },
+      {
+        "q": "¿Podemos gestionar productos entre ambos?",
+        "a": "Totalmente. Muchos clientes prefieren gestión compartida: ByteWorks hace cambios masivos o técnicos y tú actualizas precios o descripciones. Configuramos roles para mantener todo ordenado y seguro."
+      },
+      {
+        "q": "¿El SEO está incluido?",
+        "a": "Todos los planes incluyen SEO básico para visibilidad en Google. Puedes contratar el Add-on de SEO Avanzado para optimización más profunda, analítica y estrategia de keywords."
+      },
+      {
+        "q": "¿Tienen tracking de entregas?",
+        "a": "Sí. El plan E-Commerce incluye un sistema interno de tracking para que tus clientes revisen el estado de su pedido sin depender de couriers externos."
+      }
+    ]
+  },
+  "legal": {
+    "privacy": {
+      "title": "Política de Privacidad",
+      "updated": "Última actualización: Octubre 2025",
+      "intro": "En ByteWorks respetamos tu privacidad. Solo recopilamos la información mínima necesaria para responder tus solicitudes y prestar nuestros servicios.",
+      "sections": {
+        "collect": {
+          "title": "Información que Recopilamos",
+          "body": "Cuando nos contactas, recopilamos tu nombre, correo electrónico, tipo de proyecto y tu mensaje. No recopilamos categorías sensibles de datos personales."
+        },
+        "use": {
+          "title": "Cómo Usamos tu Información",
+          "li1": "Para responder a tu consulta y preparar cotizaciones o propuestas.",
+          "li2": "Para gestionar leads y seguimientos internos en nuestro espacio de trabajo.",
+          "li3": "Para mejorar el sitio y los servicios de forma agregada (no identificable)."
+        },
+        "tools": {
+          "title": "Herramientas de Terceros",
+          "body": "Usamos proveedores confiables para ofrecer nuestros servicios de forma segura:",
+          "notion": "• Notion — almacena metadatos del lead (nombre, correo, tipo de proyecto, idioma). No guardamos tu mensaje en Notion.",
+          "resend": "• Resend — envía correos (notificación interna y auto-respuesta opcional).",
+          "vercel": "• Vercel — aloja el sitio web. Los registros de acceso pueden incluir la IP por seguridad."
+        },
+        "retention": {
+          "title": "Conservación de Datos",
+          "body": "Mantenemos la información de leads solo el tiempo necesario para la comunicación y seguimiento comercial; luego la eliminamos o anonimizamos."
+        },
+        "rights": {
+          "title": "Tus Derechos",
+          "body": "Puedes solicitar acceso, corrección o eliminación de tus datos escribiéndonos. Responderemos en un plazo razonable."
+        },
+        "contact": {
+          "title": "Contacto",
+          "body": "Para solicitudes de privacidad, escríbenos a support@byteworks.dev."
+        }
+      }
+    },
+    "terms": {
+      "title": "Términos de Servicio",
+      "updated": "Última actualización: Octubre 2025",
+      "intro": "Al usar este sitio web y nuestros servicios, aceptas estos términos.",
+      "sections": {
+        "use": {
+          "title": "Uso Aceptable",
+          "li1": "No hacer un uso indebido del sitio ni intentar interrumpir su funcionamiento.",
+          "li2": "No enviar contenido ilegal, dañino o que infrinja derechos.",
+          "li3": "Se espera un comportamiento profesional en todas las comunicaciones."
+        },
+        "content": {
+          "title": "Contenido y Propiedad",
+          "body": "Todos los recursos de marca, diseños y textos de este sitio pertenecen a ByteWorks salvo que se indique lo contrario. No se permite su reproducción sin permiso escrito."
+        },
+        "plans": {
+          "title": "Planes y Precios",
+          "body": "Los planes, funciones y precios pueden cambiar. Las cotizaciones personalizadas aplican cuando los requisitos no encajan en los planes publicados."
+        },
+        "limitation": {
+          "title": "Limitación de Responsabilidad",
+          "body": "ByteWorks no será responsable por daños indirectos, incidentales o consecuentes derivados del uso de este sitio o de los servicios."
+        },
+        "changes": {
+          "title": "Cambios a Estos Términos",
+          "body": "Podemos actualizar estos términos periódicamente. El uso continuado del sitio tras los cambios implica su aceptación."
+        },
+        "contact": {
+          "title": "Contacto",
+          "body": "Para dudas sobre estos términos, escríbenos a support@byteworks.dev."
+        }
+      }
+    }
+  }
+}

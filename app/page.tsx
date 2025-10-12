@@ -1,103 +1,149 @@
-import Image from "next/image";
+'use client';
+
+import Hero from './(components)/Hero';
+import AboutSection from './(components)/AboutSection';
+import WhyChoose from './(components)/WhyChoose';
+import PlanCard from './(components)/PlanCard';
+import AddonCard from './(components)/AddonCard';
+import FAQ from './(components)/FAQ';
+import ContactSection from './(components)/ContactSection';
+import Reveal from './(components)/Reveal';
+import { useI18n } from '@/lib/i18n';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const { dict } = useI18n();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // ========= PLANS =========
+  // Estructura según tu JSON actual:
+  // dict.plans.start.title | blurb | cta | features | icon
+  // (y los precios los colocas tú, como ya lo tenías)
+  const plans = [
+    {
+      title: dict.plans.start.title,
+      priceMonthly: '$45/month',
+      priceYearly: '$459/year (save 15%)',
+      blurb: dict.plans.start.blurb,
+      features: dict.plans.start.features,
+      cta: dict.plans.start.cta,
+      icon: dict.plans.start.icon,
+    },
+    {
+      title: dict.plans.pro.title,
+      priceMonthly: '$55/month',
+      priceYearly: '$561/year (save 15%)',
+      blurb: dict.plans.pro.blurb,
+      features: dict.plans.pro.features,
+      cta: dict.plans.pro.cta,
+      icon: dict.plans.pro.icon,
+    },
+    {
+      title: dict.plans.elite.title,
+      priceMonthly: '$70/month',
+      priceYearly: '$714/year (save 15%)',
+      blurb: dict.plans.elite.blurb,
+      features: dict.plans.elite.features,
+      cta: dict.plans.elite.cta,
+      icon: dict.plans.elite.icon,
+    },
+    {
+      title: dict.plans.ecommerce.title,
+      priceMonthly: '$95/month',
+      priceYearly: '$969/year (save 15%)',
+      blurb: dict.plans.ecommerce.blurb,
+      features: dict.plans.ecommerce.features,
+      cta: dict.plans.ecommerce.cta,
+      icon: dict.plans.ecommerce.icon,
+    },
+  ];
+
+  // ========= ADDONS =========
+  // Estructura según tu JSON actual:
+  // dict.addons.seo.* | dict.addons.blog.* | dict.addons.smallstore.* | dict.addons.branding.*
+  const addons = [
+    {
+      title: dict.addons.seo.title,
+      price: '+$30/month',
+      bullets: dict.addons.seo.bullets,
+      description: dict.addons.seo.description,
+      icon: dict.addons.seo.icon,
+    },
+    {
+      title: dict.addons.blog.title,
+      price: '+$25/month',
+      bullets: dict.addons.blog.bullets,
+      description: dict.addons.blog.description,
+      icon: dict.addons.blog.icon,
+    },
+    {
+      title: dict.addons.smallstore.title,
+      price: '+$35/month',
+      bullets: dict.addons.smallstore.bullets,
+      description: dict.addons.smallstore.description,
+      icon: dict.addons.smallstore.icon,
+    },
+    {
+      title: dict.addons.branding.title,
+      price: '$120 one-time',
+      bullets: dict.addons.branding.bullets,
+      description: dict.addons.branding.description,
+      icon: dict.addons.branding.icon,
+    },
+  ];
+
+  return (
+    <main>
+      {/* HERO */}
+      <Hero />
+
+      {/* ABOUT */}
+      <section id="about" className="py-20">
+        <AboutSection />
+      </section>
+
+      {/* WHY CHOOSE */}
+      <WhyChoose />
+
+      {/* PLANS */}
+      <section id="plans" className="py-20">
+        <div className="container">
+          <Reveal>
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold mb-2">{dict.sections.plans_title}</h2>
+              <p className="text-slate-600">{dict.sections.plans_subtitle}</p>
+            </div>
+          </Reveal>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {plans.map((plan, i) => (
+              <PlanCard key={i} {...plan} delay={i * 0.1} />
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* ADDONS */}
+      <section id="addons" className="py-20 bg-[var(--card)]">
+        <div className="container">
+          <Reveal>
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold mb-2">{dict.sections.addons_title}</h2>
+              <p className="text-slate-600">{dict.sections.addons_subtitle}</p>
+            </div>
+          </Reveal>
+
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {addons.map((addon, i) => (
+              <AddonCard key={i} {...addon} delay={i * 0.1} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQ />
+
+      {/* CONTACT */}
+      <ContactSection />
+    </main>
   );
 }
