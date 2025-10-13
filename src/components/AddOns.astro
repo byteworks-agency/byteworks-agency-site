@@ -1,12 +1,7 @@
 ---
-interface Props {
-  lang?: 'en' | 'es';
-  id?: string;
-}
 const { lang = 'es', id = 'addons' } = Astro.props;
 const isEN = lang === 'en';
 
-// Add-ons organizados y simplificados (sin emojis)
 const items = [
   {
     key: 'seo',
