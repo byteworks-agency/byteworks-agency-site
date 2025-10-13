@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
 
 const title = 'Planes — ByteWorks';
 const description =
@@ -41,7 +42,7 @@ const planes = [
     name: 'Elite',
     price: '$70/mes',
     yearly: '$714/año (ahorra 15%)',
-    bestFor: 'Marcas en crecimiento con más secciones & UX',
+    bestFor: 'Marcas en crecimiento con más secciones y UX',
     features: [
       'Hasta 7 páginas con secciones personalizadas',
       'SEO mejorado (estructura, velocidad, indexación)',
@@ -65,13 +66,6 @@ const planes = [
       'SSL, copias de seguridad',
     ],
   },
-];
-
-const addons = [
-  { name: 'SEO avanzado', note: 'arquitectura, schema, preparación de enlaces' },
-  { name: 'Kit de branding', note: 'logo, color, tipografía, avatares sociales' },
-  { name: 'Actualizaciones mensuales extra', note: 'más allá del plan' },
-  { name: 'Landing pages para campañas', note: 'secciones listas para A/B' },
 ];
 ---
 
@@ -108,40 +102,6 @@ const addons = [
       </a>
     </div>
 
-    <section class="mt-20">
-      <h3 class="text-2xl font-semibold text-center mb-8">Add-ons populares</h3>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {addons.map((a) => (
-          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h4 class="font-semibold">{a.name}</h4>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
-          </div>
-        ))}
-      </div>
-      <p class="text-center text-xs text-gray-500 mt-3">Blog/News no está incluido como add-on.</p>
-    </section>
-
-    <section class="mt-20">
-      <h3 class="text-2xl font-semibold text-center mb-8">Qué incluye el mantenimiento</h3>
-      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
-        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-          <h4 class="font-medium">Núcleo</h4>
-          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-            <li>• Hosting en Vercel</li>
-            <li>• SSL + copias de seguridad</li>
-            <li>• Actualizaciones mensuales (según plan)</li>
-            <li>• Revisiones de rendimiento</li>
-          </ul>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-          <h4 class="font-medium">Opcional</h4>
-          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-            <li>• Configuración de analytics (Plausible/Cloudflare)</li>
-            <li>• Micro-automatizaciones (Notion/Sheets)</li>
-            <li>• Landing pages para campañas</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    <AddOns lang="es" />
   </section>
 </Base>
