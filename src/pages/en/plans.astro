@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
 
 const title = 'Plans — ByteWorks';
 const description =
@@ -66,13 +67,6 @@ const plans = [
     ],
   },
 ];
-
-const addons = [
-  { name: 'Advanced SEO package', note: 'site architecture, schema, link-prep' },
-  { name: 'Branding kit', note: 'logo, color, typography, social avatars' },
-  { name: 'Extra monthly updates', note: 'beyond plan limits' },
-  { name: 'Campaign landing pages', note: 'A/B-ready sections' },
-];
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="en">
@@ -108,40 +102,6 @@ const addons = [
       </a>
     </div>
 
-    <section class="mt-20">
-      <h3 class="text-2xl font-semibold text-center mb-8">Popular add-ons</h3>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {addons.map((a) => (
-          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h4 class="font-semibold">{a.name}</h4>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
-          </div>
-        ))}
-      </div>
-      <p class="text-center text-xs text-gray-500 mt-3">Blog/News is not included as an add-on.</p>
-    </section>
-
-    <section class="mt-20">
-      <h3 class="text-2xl font-semibold text-center mb-8">What’s included in maintenance</h3>
-      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
-        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-          <h4 class="font-medium">Core</h4>
-          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-            <li>• Hosting on Vercel</li>
-            <li>• SSL + backups</li>
-            <li>• Monthly content updates (per plan)</li>
-            <li>• Performance checks</li>
-          </ul>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-          <h4 class="font-medium">Optional</h4>
-          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-            <li>• Analytics setup (Plausible/Cloudflare)</li>
-            <li>• Lightweight automations (Notion/Sheets)</li>
-            <li>• Landing pages for campaigns</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    <AddOns lang="en" />
   </section>
 </Base>
