@@ -1,4 +1,6 @@
 ---
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -7,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'ByteWorks — Websites that work for you, not against you',
-  description = 'Professional bilingual websites, built with Astro and Tailwind. Fast, secure, and affordable — you focus on your business, we handle the digital side.',
+  title = 'ByteWorks — Modern web design & hosting',
+  description = 'Websites that work for you — not against you. Bilingual, fast, and affordable.',
   image = '/og-image.png',
   lang = 'en',
 } = Astro.props;
@@ -73,9 +75,7 @@ const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
     <!-- Global styles -->
     <style is:global>
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
       body {
         font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       }
@@ -96,5 +96,6 @@ const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
   <body class="min-h-screen antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100">
     <slot />
+    <Footer lang={lang} />
   </body>
 </html>
