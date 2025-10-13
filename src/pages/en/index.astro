@@ -5,11 +5,6 @@ const title = 'ByteWorks — Websites that work for you';
 const description =
   'Modern, bilingual websites. Transparent pricing, maintenance included, and real support. You focus on your business — we handle the digital side.';
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // e.g. 18687759858
-const message =
-  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
-const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : '/en/contact';
-
 const plans = [
   {
     name: 'Start',
@@ -86,12 +81,10 @@ const addons = [
       </p>
       <div class="flex items-center justify-center gap-3">
         <a
-          href={wa}
-          target={phone ? '_blank' : '_self'}
-          rel="noopener noreferrer"
+          href="/en/contact"
           class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
         >
-          Talk on WhatsApp
+          Request a Quote
         </a>
         <a href="/en/plans" class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
           See Plans
@@ -127,7 +120,7 @@ const addons = [
             <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
               {p.features.map((f) => <li>• {f}</li>)}
             </ul>
-            <a href="/en/plans" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Choose</a>
+            <a href="/en/contact" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Request a Quote</a>
           </div>
         ))}
       </div>
