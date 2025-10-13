@@ -1,31 +1,53 @@
 ---
-import Base from "../../layouts/Base.astro";
-import { en as t } from "../../i18n/en";
+import Base from '../../layouts/Base.astro';
+
+const title = 'Terms of Service — ByteWorks';
+const description = 'Terms and conditions of use for ByteWorks websites and digital services.';
 ---
 
-<Base lang="en" t={t} title="Terms of Service — ByteWorks" description="Terms of Service for ByteWorks clients.">
-  <section class="max-w-3xl mx-auto px-4 py-16 prose dark:prose-invert">
-    <h1>Terms of Service</h1>
-    <p>Last updated: October 2025</p>
+<Base title={title} description={description} image="/og-image.png" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 space-y-8">
+    <h1 class="text-3xl md:text-5xl font-semibold text-center">Terms of Service</h1>
 
-    <p>By subscribing to any ByteWorks plan, you agree to the following terms:</p>
+    <p class="text-gray-600 dark:text-gray-300">
+      Welcome to ByteWorks. By accessing or using our website and services, you agree to these Terms of Service. Please read them carefully.
+    </p>
 
-    <h2>1. Service Scope</h2>
-    <p>Each plan includes the features listed on our website. Additional work, custom development, or requests beyond your plan will be quoted separately.</p>
+    <h2 class="text-2xl font-semibold mt-10">1. Services</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      ByteWorks provides web design, hosting, and digital support under subscription plans. Each plan includes specific features as described on our website. Custom work or additional services may require a separate agreement.
+    </p>
 
-    <h2>2. Payments</h2>
-    <p>Payments are made monthly or annually as stated on the website. Plans renew automatically unless canceled before the renewal date.</p>
+    <h2 class="text-2xl font-semibold mt-10">2. Payments</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      All prices are listed in USD unless otherwise noted. Subscriptions renew automatically unless canceled before the renewal date. Cancellations take effect at the end of the current billing cycle.
+    </p>
 
-    <h2>3. Cancellations</h2>
-    <p>You can cancel anytime. Hosting and domain will remain active until the end of the paid period.</p>
+    <h2 class="text-2xl font-semibold mt-10">3. Updates and Maintenance</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      Maintenance and content updates are included as stated in each plan. Requests exceeding the plan limits may incur additional charges.
+    </p>
 
-    <h2>4. Ownership</h2>
-    <p>ByteWorks retains ownership of all hosting infrastructure. You own your content, images, and text. If you cancel, you can request a static export of your site files.</p>
+    <h2 class="text-2xl font-semibold mt-10">4. Intellectual Property</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      The design, code, and structure of websites created by ByteWorks remain the intellectual property of ByteWorks unless otherwise stated. Clients retain rights to their own content, branding, and materials.
+    </p>
 
-    <h2>5. Liability</h2>
-    <p>ByteWorks is not liable for losses caused by misuse, third-party integrations, or external system outages.</p>
+    <h2 class="text-2xl font-semibold mt-10">5. Limitation of Liability</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      ByteWorks will not be liable for indirect or incidental damages arising from the use or inability to use our services, including downtime, loss of data, or third-party service interruptions.
+    </p>
 
-    <h2>6. Contact</h2>
-    <p>For questions about these terms, contact us via WhatsApp or email.</p>
+    <h2 class="text-2xl font-semibold mt-10">6. Modifications</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      ByteWorks may update these Terms from time to time. Continued use of the services constitutes acceptance of any modifications.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-10">7. Contact</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      For questions about these Terms, please contact:
+      <br />📧 <a class="underline" href="mailto:macrodriguez2512@gmail.com">macrodriguez2512@gmail.com</a>
+      <br />💬 <a class="underline" href="https://wa.me/18687759858" target="_blank">WhatsApp +1 868 775 9858</a>
+    </p>
   </section>
 </Base>
