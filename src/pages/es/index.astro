@@ -2,12 +2,21 @@
 import Base from "../../layouts/Base.astro";
 import Hero from "../../components/Hero.astro";
 import Plans from "../../components/Plans.astro";
-import AddOns from "../../components/AddOns.astro";   // ← O mayúscula
+import AddOns from "../../components/AddOns.astro";
 import FAQ from "../../components/FAQ.astro";
 
 const title = "ByteWorks — Sitios web que trabajan para ti";
 const description =
   "Sitios profesionales, precios claros, mantenimiento incluido y soporte real. ByteWorks crea sitios web que funcionan para ti, no en tu contra.";
+
+const faqs_es = [
+  { q: "¿Qué incluye el mantenimiento?", a: "Hosting, SSL, copias de seguridad, actualizaciones del core y correcciones menores. Incluye las actualizaciones mensuales según tu plan." },
+  { q: "¿Puedo cambiar de plan más adelante?", a: "Sí. Puedes subir o bajar de plan cuando quieras. Ajustamos el periodo para no pagar de más y mantener el servicio." },
+  { q: "¿En cuánto tiempo puede estar mi sitio online?", a: "Start suele publicarse en 3–7 días según contenidos. Pro/Elite/E-Commerce pueden requerir más tiempo por páginas personalizadas e integraciones." },
+  { q: "¿Soy dueño de mi dominio y de mi contenido?", a: "Sí. Tu marca, dominio y contenido son tuyos. Si necesitas migrar, te entregamos una exportación limpia." },
+  { q: "¿Cómo funcionan los formularios por WhatsApp?", a: "Los formularios de contacto, cotización o reserva pueden enviarse directamente a WhatsApp. En Elite/E-Commerce también podemos registrar en Sheets y enviar notificaciones." },
+  { q: "Mini-tienda y E-Commerce: ¿quién gestiona los productos?", a: "Por defecto, ByteWorks gestiona los ítems (agregar, editar, eliminar). Si quieres autogestión, la habilitamos a pedido con una guía rápida y soporte." }
+];
 ---
 
 <Base lang="es" title={title} description={description}>
@@ -22,36 +31,15 @@ const description =
     img="/logo-light.png"
   />
 
-  <Plans
-    lang="es"
-    title="Planes claros, resultados reales"
-    description="Elige el plan que mejor se adapte a tu negocio. Todos incluyen dominio, hosting y mantenimiento mensual."
-  />
+  <Plans lang="es" />
 
-  <AddOns
-    lang="es"
-    title="Add-ons opcionales"
-    description="Mejora tu sitio con funciones adicionales que puedes activar cuando lo necesites."
-  />
+  <AddOns lang="es" />
 
-  <FAQ
-    lang="es"
-    title="Preguntas frecuentes"
-    description="Resolvemos las dudas más comunes sobre los planes y el funcionamiento del servicio."
-  />
+  <FAQ lang="es" items={faqs_es} />
 
   <section class="section text-center py-16">
-    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">
-      ¿Listo para dar el siguiente paso?
-    </h2>
-    <p class="text-neutral-600 dark:text-neutral-300 mb-8">
-      Nos encargamos de la parte técnica, tú te concentras en tu negocio.
-    </p>
-    <a
-      href="/es/contact"
-      class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition"
-    >
-      Contáctanos hoy
-    </a>
+    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">¿Listo para dar el siguiente paso?</h2>
+    <p class="text-neutral-600 dark:text-neutral-300 mb-8">Nos encargamos de la parte técnica, tú te concentras en tu negocio.</p>
+    <a href="/es/contact" class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition">Contáctanos hoy</a>
   </section>
 </Base>
