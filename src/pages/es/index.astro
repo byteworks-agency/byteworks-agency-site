@@ -1,15 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-// Meta de página
 const title = 'ByteWorks — Sitios web que trabajan a tu favor';
 const description =
-  'Webs modernas y bilingües con Astro. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
+  'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
 const wa = phone ? `https://wa.me/${phone}` : '/contacto';
 
-// Precios actuales (alineados con el sitio en vivo)
 const planes = [
   {
     name: 'Start',
@@ -92,7 +90,6 @@ const addons = [
           Ver Planes
         </a>
       </div>
-      <p class="text-xs text-gray-500">Hosting en Vercel · Astro 5 · TailwindCSS</p>
     </div>
 
     <!-- BENEFICIOS -->
@@ -107,7 +104,7 @@ const addons = [
       </div>
       <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Rápido y seguro</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300">Astro + Vercel: rendimiento, SSL y copias de seguridad incluidas.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Construcciones enfocadas en rendimiento, SSL y copias de seguridad.</p>
       </div>
     </div>
 
@@ -132,7 +129,7 @@ const addons = [
       </p>
     </div>
 
-    <!-- ADD-ONS -->
+    <!-- ADD-ONS (resumen) -->
     <div class="mt-20">
       <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Add-ons populares</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -143,33 +140,6 @@ const addons = [
           </div>
         ))}
       </div>
-    </div>
-
-    <!-- FAQ -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Preguntas frecuentes</h2>
-      <div class="max-w-3xl mx-auto space-y-6">
-        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-          <summary class="font-medium cursor-pointer">¿Qué incluye el mantenimiento?</summary>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Hosting, SSL, copias de seguridad y actualizaciones mensuales según el plan.</p>
-        </details>
-        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-          <summary class="font-medium cursor-pointer">¿Pueden trabajar con flujos vía WhatsApp?</summary>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Sí. Integramos acciones rápidas para dirigir leads y pedidos a WhatsApp o email.</p>
-        </details>
-        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
-          <summary class="font-medium cursor-pointer">¿Puedo subir de plan más adelante?</summary>
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Claro. Puedes cambiar de plan a medida que tu negocio crece.</p>
-        </details>
-      </div>
-    </div>
-
-    <!-- CTA -->
-    <div class="text-center mt-20">
-      <a href={wa} class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-        Empezar por WhatsApp
-      </a>
-      <p class="text-xs text-gray-500 mt-2">¿Prefieres email? <a class="underline" href="/es/contacto">Contáctanos</a></p>
     </div>
   </section>
 </Base>
