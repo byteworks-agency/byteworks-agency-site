@@ -1,188 +1,62 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Hero from "../../components/Hero.astro";
 import Plans from "../../components/Plans.astro";
-import AddOns from "../../components/AddOns.astro";
-import FAQSection from "../../components/FAQSection.astro";
+import Addons from "../../components/Addons.astro";
+import FAQ from "../../components/FAQ.astro";
 
-const planes = [
-  {
-    id: "start",
-    title: "Start — Presencia Esencial",
-    price: "$45/mes",
-    period: "o $459/año (ahorra 15%)",
-    icon: "/icons/start.svg",
-    bullets: [
-      "Sitio de una página, responsive",
-      "Botón de WhatsApp y formulario",
-      "SEO local básico",
-      "Dominio, hosting y mantenimiento",
-      "1 actualización mensual",
-      "SSL, copias y monitoreo",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Empezar",
-  },
-  {
-    id: "pro",
-    title: "Pro — Presencia Completa",
-    price: "$55/mes",
-    period: "o $561/año (ahorra 15%)",
-    icon: "/icons/pro.svg",
-    bullets: [
-      "Hasta 5 secciones/páginas",
-      "Diseño alineado a tu marca",
-      "Formularios avanzados (cotización/reserva)",
-      "Envío de formularios a WhatsApp",
-      "SEO en todas las páginas",
-      "2 actualizaciones mensuales",
-    ],
-    highlight: true,
-    ctaHref: "/es/contact",
-    ctaText: "Elegir Pro",
-  },
-  {
-    id: "elite",
-    title: "Elite — Automatización y Crecimiento",
-    price: "$70/mes",
-    period: "o $714/año (ahorra 15%)",
-    icon: "/icons/elite.svg",
-    bullets: [
-      "Hasta 8 páginas",
-      "Automatizaciones con Google",
-      "Notificaciones por WhatsApp",
-      "Panel de métricas",
-      "Optimización mensual",
-      "Soporte prioritario (24–48 h)",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Escalar con Elite",
-  },
-  {
-    id: "ecommerce",
-    title: "E-Commerce Pro — Tienda Online",
-    price: "$95/mes",
-    period: "o $969/año (ahorra 15%)",
-    icon: "/icons/ecommerce.svg",
-    bullets: [
-      "Hasta 100 productos y categorías",
-      "Catálogo, carrito y checkout manual",
-      "Integración con flujos internos o WhatsApp",
-      "Panel de pedidos y confirmaciones",
-      "SEO para productos",
-      "Soporte prioritario + 3 actualizaciones/mes",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Lanzar mi tienda",
-  },
-];
-
-const addons = [
-  {
-    id: "seo",
-    title: "SEO Avanzado & Posicionamiento Local",
-    price: "+$30/mes",
-    icon: "/icons/seo.svg",
-    bullets: [
-      "Investigación de palabras clave y optimización técnica",
-      "Mejoras de velocidad",
-      "Configuración de Google Business",
-      "Reporte mensual con insights",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Mejorar ranking",
-  },
-  {
-    id: "blog",
-    title: "Sección Blog / Noticias",
-    price: "+$25/mes",
-    icon: "/icons/blog.svg",
-    bullets: [
-      "Sección de blog con plantilla de artículos",
-      "Categorías y etiquetas",
-      "Estructura lista para SEO",
-      "Manejo por ByteWorks o autogestión",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Agregar blog",
-  },
-  {
-    id: "small-store",
-    title: "Mini-tienda (hasta 20 productos)",
-    price: "+$35/mes",
-    icon: "/icons/store.svg",
-    bullets: [
-      "Mini-tienda integrada",
-      "Carrito y checkout manual",
-      "Analíticas básicas",
-      "Gestión por ByteWorks o autogestión",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Agregar mini-tienda",
-  },
-  {
-    id: "branding",
-    title: "Branding Básico (único pago)",
-    price: "$120",
-    badge: "Único",
-    icon: "/icons/branding.svg",
-    bullets: [
-      "Logo (principal y alternativo)",
-      "Paleta de colores y tipografía",
-      "Kit para redes sociales",
-      "Manual básico de marca",
-    ],
-    ctaHref: "/es/contact",
-    ctaText: "Quiero mi branding",
-  },
-];
-
-const faqs_es = [
-  {
-    q: "¿Qué incluye el mantenimiento?",
-    a: "Nos encargamos del hosting, seguridad (SSL), copias de seguridad, actualizaciones del core y correcciones menores. Además, tu plan incluye las actualizaciones de contenido mensuales indicadas."
-  },
-  {
-    q: "¿Puedo cambiar de plan más adelante?",
-    a: "Sí. Puedes subir o bajar de plan cuando quieras. Ajustamos el periodo para que no pagues de más y mantengas la continuidad del servicio."
-  },
-  {
-    q: "¿En cuánto tiempo puede estar mi sitio online?",
-    a: "El plan Start suele publicarse en 3–7 días según la disponibilidad de contenidos. Pro, Elite y E-Commerce pueden requerir más tiempo por páginas personalizadas e integraciones."
-  },
-  {
-    q: "¿Soy dueño de mi dominio y de mi contenido?",
-    a: "Sí. Tu marca, dominio y contenido son tuyos. Si en algún momento necesitas migrar, te ayudamos con una exportación limpia para que no pierdas nada."
-  },
-  {
-    q: "¿Cómo funcionan los formularios por WhatsApp?",
-    a: "Los formularios de contacto, cotización o reserva pueden enviarse directamente a WhatsApp. En los planes Elite y E-Commerce también podemos registrar automáticamente los datos en Google Sheets y enviar notificaciones."
-  },
-  {
-    q: "Mini-tienda y E-Commerce: ¿quién gestiona los productos?",
-    a: "Por defecto, la gestión de productos la realiza ByteWorks (agregar, editar o eliminar ítems). Si prefieres autogestión, la habilitamos a pedido: te damos acceso, una guía rápida y soporte para que puedas administrar tu catálogo cuando lo necesites."
-  }
-];
-
+const title = "ByteWorks — Sitios web que trabajan para ti";
+const description =
+  "Sitios profesionales, precios claros, mantenimiento incluido y soporte real. ByteWorks crea sitios web que funcionan para ti, no en tu contra.";
 ---
 
-<Base lang="es" title="ByteWorks — Websites that work for you">
-  <section class="section text-center py-20">
-    <div class="container max-w-3xl mx-auto">
-      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-        Websites that work for you — not against you.
-      </h1>
-      <p class="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-300">
-        Presencia profesional sin complicaciones. Precios claros, mantenimiento incluido y soporte real.
-      </p>
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <a href="#plans" class="px-5 py-2.5 rounded-md bg-brand text-black font-medium">Ver planes</a>
-        <a href="/es/contact" class="px-5 py-2.5 rounded-md border border-neutral-300 dark:border-neutral-700">Contacto</a>
-      </div>
-    </div>
-  </section>
+<Base lang="es" title={title} description={description}>
+  <!-- Hero principal -->
+  <Hero
+    lang="es"
+    title="Sitios web que trabajan para ti, no en tu contra"
+    description="Sitios profesionales, precios claros, mantenimiento incluido y soporte real."
+    primaryHref="/es/#plans"
+    primaryText="Ver planes"
+    secondaryHref="/es/contact"
+    secondaryText="Contáctanos"
+    img="/logo-light.png"
+  />
 
-  <Plans lang="es" items={planes} anchorId="plans" />
-  <AddOns lang="es" items={addons} anchorId="addons" />
-  <FAQSection faqs={faqs_es} lang="es" />
-</Base>
+  <!-- Planes -->
+  <Plans
+    lang="es"
+    title="Planes claros, resultados reales"
+    description="Elige el plan que mejor se adapte a tu negocio. Todos incluyen dominio, hosting y mantenimiento mensual."
+  />
+
+  <!-- Add-ons -->
+  <Addons
+    lang="es"
+    title="Add-ons opcionales"
+    description="Mejora tu sitio con funciones adicionales que puedes activar cuando lo necesites."
+  />
+
+  <!-- FAQ -->
+  <FAQ
+    lang="es"
+    title="Preguntas frecuentes"
+    description="Resolvemos las dudas más comunes sobre los planes y el funcionamiento del servicio."
+  />
+
+  <!-- CTA final -->
+  <section class="section text-center py-16">
+    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">
+      ¿Listo para dar el siguiente paso?
+    </h2>
+    <p class="text-neutral-600 dark:text-neutral-300 mb-8">
+      Nos encargamos de la parte técnica, tú te concentras en tu negocio.
+    </p>
+    <a
+      href="/es/contact"
+      class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition"
+    >
+      Contáctanos hoy
+    </a>
+  </section>
 </Base>
