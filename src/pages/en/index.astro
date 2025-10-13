@@ -2,193 +2,61 @@
 import Base from "../../layouts/Base.astro";
 import Hero from "../../components/Hero.astro";
 import Plans from "../../components/Plans.astro";
-import AddOns from "../../components/AddOns.astro";   // ← O mayúscula
+import AddOns from "../../components/AddOns.astro"; // O mayúscula
 import FAQ from "../../components/FAQ.astro";
+
+const title = "ByteWorks — Websites that work for you";
+const description =
+  "Professional websites, clear pricing, maintenance included, and real support. ByteWorks builds sites that work for you — not against you.";
 ---
 
-const plans = [
-  {
-    id: "start",
-    title: "Start — Essential Presence",
-    price: "$45/month",
-    period: "or $459/year (save 15%)",
-    icon: "/icons/start.svg",
-    bullets: [
-      "Modern one-page site, fully responsive",
-      "WhatsApp button & contact form",
-      "Basic local SEO",
-      "Domain, hosting & maintenance",
-      "1 monthly update",
-      "SSL, backups & monitoring",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Get started",
-  },
-  {
-    id: "pro",
-    title: "Pro — Complete Presence",
-    price: "$55/month",
-    period: "or $561/year (save 15%)",
-    icon: "/icons/pro.svg",
-    bullets: [
-      "Up to 5 sections/pages",
-      "Brand-aligned custom design",
-      "Advanced forms (quote/booking)",
-      "Form-to-WhatsApp delivery",
-      "Full-page SEO",
-      "2 monthly updates",
-    ],
-    highlight: true,
-    ctaHref: "/en/contact",
-    ctaText: "Choose Pro",
-  },
-  {
-    id: "elite",
-    title: "Elite — Automation & Growth",
-    price: "$70/month",
-    period: "or $714/year (save 15%)",
-    icon: "/icons/elite.svg",
-    bullets: [
-      "Up to 8 pages",
-      "Google Sheets/Forms/Drive automations",
-      "WhatsApp notifications",
-      "Analytics dashboard",
-      "Monthly optimization",
-      "Priority support (24–48 h)",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Scale with Elite",
-  },
-  {
-    id: "ecommerce",
-    title: "E-Commerce Pro — Sell Smart",
-    price: "$95/month",
-    period: "or $969/year (save 15%)",
-    icon: "/icons/ecommerce.svg",
-    bullets: [
-      "Up to 100 products & categories",
-      "Product catalog, cart & manual checkout",
-      "WhatsApp or internal flow checkout",
-      "Orders dashboard & confirmations",
-      "SEO for products",
-      "Priority support + 3 monthly updates",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Start selling",
-  },
-];
+<Base lang="en" title={title} description={description}>
+  <!-- Hero -->
+  <Hero
+    lang="en"
+    title="Websites that work for you — not against you"
+    description="Professional presence without the headache. Clear pricing, maintenance included, real support."
+    primaryHref="/en/#plans"
+    primaryText="See plans"
+    secondaryHref="/en/contact"
+    secondaryText="Contact"
+    img="/logo-light.png"
+  />
 
-const addons = [
-  {
-    id: "seo",
-    title: "Advanced SEO & Local Positioning",
-    price: "+$30/month",
-    icon: "/icons/seo.svg",
-    bullets: [
-      "Keyword research & technical optimization",
-      "Speed improvements",
-      "Google Business profile setup",
-      "Monthly report with insights",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Improve ranking",
-  },
-  {
-    id: "blog",
-    title: "Blog / News Section",
-    price: "+$25/month",
-    icon: "/icons/blog.svg",
-    bullets: [
-      "Blog section with article template",
-      "Categories & tags",
-      "SEO-optimized structure",
-      "Managed by ByteWorks or self-managed",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Add blog",
-  },
-  {
-    id: "small-store",
-    title: "Small Online Store (up to 20)",
-    price: "+$35/month",
-    icon: "/icons/store.svg",
-    bullets: [
-      "Mini-store inside your site",
-      "Cart & manual checkout",
-      "Basic analytics",
-      "Managed or self-managed products",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Add mini-store",
-  },
-  {
-    id: "branding",
-    title: "Basic Branding Package",
-    price: "$120",
-    badge: "One-time",
-    icon: "/icons/branding.svg",
-    bullets: [
-      "Logo (primary & alt)",
-      "Color palette & typography",
-      "Social avatars & banners kit",
-      "Basic brand guidelines",
-    ],
-    ctaHref: "/en/contact",
-    ctaText: "Get branding",
-  },
-];
+  <!-- Plans -->
+  <Plans
+    lang="en"
+    title="Clear plans, real results"
+    description="Pick the plan that fits your stage. All include domain, hosting, and monthly maintenance."
+  />
 
-const faqs_en = [
-  {
-    q: "What does maintenance include?",
-    a: "We handle hosting, security (SSL), backups, core updates, and minor fixes. Each plan also includes the monthly content updates specified."
-  },
-  {
-    q: "Can I change my plan later?",
-    a: "Yes. You can upgrade or downgrade anytime. We’ll adjust your billing period so you don’t overpay and keep your service uninterrupted."
-  },
-  {
-    q: "How long does it take to launch my site?",
-    a: "The Start plan usually goes live in 3–7 days depending on the content provided. Pro, Elite, and E-Commerce may take longer due to custom pages or integrations."
-  },
-  {
-    q: "Do I own my domain and my content?",
-    a: "Yes. Your brand, domain, and content belong entirely to you. If you ever decide to migrate, we’ll help you export everything cleanly."
-  },
-  {
-    q: "How do WhatsApp forms work?",
-    a: "Contact, quote, or booking forms can be sent directly to WhatsApp. In Elite and E-Commerce plans, submissions can also be automatically logged into Google Sheets and send notifications."
-  },
-  {
-    q: "Mini-store & E-Commerce: who manages the products?",
-    a: "By default, ByteWorks manages your products (adding, editing, or removing items). If you prefer self-management, we can enable it on request — you’ll get access, a quick guide, and support to manage your catalog anytime."
-  }
-];
+  <!-- Add-ons -->
+  <AddOns
+    lang="en"
+    title="Optional add-ons"
+    description="Enhance your site with extra features you can activate whenever you need them."
+  />
 
----
+  <!-- FAQ -->
+  <FAQ
+    lang="en"
+    title="Frequently Asked Questions"
+    description="We answer the most common questions about plans, support, and our process."
+  />
 
-<Base lang="en" title="ByteWorks — Websites that work for you">
-  <section class="section text-center py-20">
-    <div class="container max-w-3xl mx-auto">
-      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-        Websites that work for you — not against you.
-      </h1>
-      <p class="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-300">
-        Professional presence without the headache. Clear pricing, maintenance included, real support.
-      </p>
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <a href="#plans" class="px-5 py-2.5 rounded-md bg-brand text-black font-medium">
-          See plans
-        </a>
-        <a href="/en/contact" class="px-5 py-2.5 rounded-md border border-neutral-300 dark:border-neutral-700">
-          Contact
-        </a>
-      </div>
-    </div>
+  <!-- Final CTA -->
+  <section class="section text-center py-16">
+    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">
+      Ready to ship your site?
+    </h2>
+    <p class="text-neutral-600 dark:text-neutral-300 mb-8">
+      We handle the tech side — you focus on your business.
+    </p>
+    <a
+      href="/en/contact"
+      class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition"
+    >
+      Let’s talk
+    </a>
   </section>
-
-  <Plans lang="en" items={plans} anchorId="plans" />
-  <AddOns lang="en" items={addons} anchorId="addons" />
-  <FAQSection faqs={faqs_en} lang="en" />
-</Base>
 </Base>
