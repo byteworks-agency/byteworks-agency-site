@@ -1,0 +1,47 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Contacto — ByteWorks';
+const description =
+  'Conversemos sobre tu sitio web o tu idea. Contacta a ByteWorks por WhatsApp o correo — soporte directo, rápido y personal.';
+
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
+const email = 'macrodriguez2512@gmail.com';
+const wa = phone ? `https://wa.me/${phone}` : null;
+---
+
+<Base title={title} description={description} image="/og-image.png" lang="es">
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8">
+    <h1 class="text-3xl md:text-5xl font-semibold">Trabajemos juntos</h1>
+    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      ¿Listo para tener una web moderna, bilingüe y con mantenimiento incluido?  
+      Escríbenos directo — respondemos rápido y de forma personal.
+    </p>
+
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
+      {wa && (
+        <a
+          href={wa}
+          class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chatear por WhatsApp
+        </a>
+      )}
+      <a
+        href={`mailto:${email}`}
+        class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+      >
+        Enviar correo
+      </a>
+    </div>
+
+    <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
+      <p>¿Prefieres una llamada o reunión? Podemos agendarla después de un breve chat.</p>
+      <p class="mt-2 text-xs text-gray-500">
+        Horario de atención: Lunes a Viernes, 9:00 AM – 6:00 PM (AST)
+      </p>
+    </div>
+  </section>
+</Base>
