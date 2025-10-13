@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Plans — ByteWorks';
+const description =
+  'Transparent plans with maintenance included. Pick the plan that fits your stage, upgrade anytime. Hosting, SSL, backups and monthly updates included.';
+
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // e.g. 18687759858
+const wa = phone ? `https://wa.me/${phone}` : '/en/contact';
+
+const plans = [
+  {
+    name: 'Start',
+    price: '$45/mo',
+    yearly: '$459/yr (save 15%)',
+    bestFor: 'Solo founders, personal brands, simple presence',
+    features: [
+      'One-page modern website (responsive)',
+      'WhatsApp button + contact form',
+      'Basic local SEO',
+      'Domain, hosting & maintenance included',
+      '1 monthly update (text/image/color)',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mo',
+    yearly: '$561/yr (save 15%)',
+    bestFor: 'Service businesses needing 3–4 pages',
+    features: [
+      'Up to 4 pages (Home, About, Services, Contact)',
+      'WhatsApp + simple automations (Notion/Sheets)',
+      'Local SEO + performance',
+      'Domain, hosting & maintenance included',
+      '2 monthly updates',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mo',
+    yearly: '$714/yr (save 15%)',
+    bestFor: 'Growing brands needing more sections & UX',
+    features: [
+      'Up to 7 pages with custom sections',
+      'Enhanced SEO (structure, speed, indexation)',
+      'Lead capture flows + micro-integrations',
+      'Domain, hosting & maintenance included',
+      '3 monthly updates',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mo',
+    yearly: '$969/yr (save 15%)',
+    bestFor: 'Catalog + basic order intake via WhatsApp/Email',
+    features: [
+      'Product catalog + basic checkout workflow',
+      'Order inbox via WhatsApp/Email',
+      'SEO for products/categories',
+      'Domain, hosting & maintenance included',
+      '4 monthly updates',
+      'SSL, backups',
+    ],
+  },
+];
+
+const addons = [
+  { name: 'Advanced SEO package', note: 'site architecture, schema, link-prep' },
+  { name: 'Branding kit', note: 'logo, color, typography, social avatars' },
+  { name: 'Extra monthly updates', note: 'beyond plan limits' },
+  { name: 'Campaign landing pages', note: 'A/B-ready sections' },
+];
+---
+
+<Base title={title} description={description} image="/og-image.png" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-14 md:py-20">
+    <header class="text-center space-y-3">
+      <h1 class="text-3xl md:text-5xl font-semibold">Plans</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Websites that work for you — not against you. Maintenance included. Upgrade anytime.
+      </p>
+      <p class="text-xs text-gray-500">Prices in USD. For other payment methods/currencies, contact us.</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+      {plans.map((p) => (
+        <article class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h2 class="text-lg font-semibold">{p.name}</h2>
+          <p class="mt-1 text-2xl">{p.price}</p>
+          <p class="text-xs text-gray-500">{p.yearly}</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+            {p.features.map((f) => <li>• {f}</li>)}
+          </ul>
+          <a href={wa} class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+            Get started on WhatsApp
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href={wa} class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        Not sure? Talk to us
+      </a>
+    </div>
+
+    <section class="mt-20">
+      <h3 class="text-2xl font-semibold text-center mb-8">Popular add-ons</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {addons.map((a) => (
+          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+            <h4 class="font-semibold">{a.name}</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-gray-500 mt-3">Blog/News is not included as an add-on.</p>
+    </section>
+
+    <section class="mt-20">
+      <h3 class="text-2xl font-semibold text-center mb-8">What’s included in maintenance</h3>
+      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
+        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h4 class="font-medium">Core</h4>
+          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+            <li>• Hosting on Vercel</li>
+            <li>• SSL + backups</li>
+            <li>• Monthly content updates (per plan)</li>
+            <li>• Performance checks</li>
+          </ul>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h4 class="font-medium">Optional</h4>
+          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+            <li>• Analytics setup (Plausible/Cloudflare)</li>
+            <li>• Lightweight automations (Notion/Sheets)</li>
+            <li>• Landing pages for campaigns</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </section>
+</Base>
