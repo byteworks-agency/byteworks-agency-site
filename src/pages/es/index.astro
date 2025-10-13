@@ -1,45 +1,175 @@
 ---
-import Base from "../../layouts/Base.astro";
-import Hero from "../../components/Hero.astro";
-import Plans from "../../components/Plans.astro";
-import AddOns from "../../components/AddOns.astro";
-import FAQ from "../../components/FAQ.astro";
+import Base from '../../layouts/Base.astro';
 
-const title = "ByteWorks — Sitios web que trabajan para ti";
+// Meta de página
+const title = 'ByteWorks — Sitios web que trabajan a tu favor';
 const description =
-  "Sitios profesionales, precios claros, mantenimiento incluido y soporte real. ByteWorks crea sitios web que funcionan para ti, no en tu contra.";
+  'Webs modernas y bilingües con Astro. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
 
-const faqs_es = [
-  { q: "¿Qué incluye el mantenimiento?", a: "Hosting, SSL, copias de seguridad, actualizaciones del core y correcciones menores. Incluye las actualizaciones mensuales según tu plan." },
-  { q: "¿Puedo cambiar de plan más adelante?", a: "Sí. Puedes subir o bajar de plan cuando quieras. Ajustamos el periodo para no pagar de más y mantener el servicio." },
-  { q: "¿En cuánto tiempo puede estar mi sitio online?", a: "Start suele publicarse en 3–7 días según contenidos. Pro/Elite/E-Commerce pueden requerir más tiempo por páginas personalizadas e integraciones." },
-  { q: "¿Soy dueño de mi dominio y de mi contenido?", a: "Sí. Tu marca, dominio y contenido son tuyos. Si necesitas migrar, te entregamos una exportación limpia." },
-  { q: "¿Cómo funcionan los formularios por WhatsApp?", a: "Los formularios de contacto, cotización o reserva pueden enviarse directamente a WhatsApp. En Elite/E-Commerce también podemos registrar en Sheets y enviar notificaciones." },
-  { q: "Mini-tienda y E-Commerce: ¿quién gestiona los productos?", a: "Por defecto, ByteWorks gestiona los ítems (agregar, editar, eliminar). Si quieres autogestión, la habilitamos a pedido con una guía rápida y soporte." }
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
+const wa = phone ? `https://wa.me/${phone}` : '/contacto';
+
+// Precios actuales (alineados con el sitio en vivo)
+const planes = [
+  {
+    name: 'Start',
+    price: '$45/mes',
+    yearly: '$459/año (ahorra 15%)',
+    features: [
+      'Sitio de una sola página (responsive)',
+      'Botón de WhatsApp + formulario de contacto',
+      'SEO local básico',
+      'Dominio, hosting y mantenimiento incluidos',
+      '1 actualización mensual (texto/imagen/color)',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mes',
+    yearly: '$561/año (ahorra 15%)',
+    features: [
+      'Hasta 4 páginas (Inicio, Sobre mí, Servicios, Contacto)',
+      'WhatsApp + automatizaciones simples (Notion/Sheets)',
+      'SEO local + alto rendimiento',
+      'Dominio, hosting y mantenimiento incluidos',
+      '2 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mes',
+    yearly: '$714/año (ahorra 15%)',
+    features: [
+      'Hasta 7 páginas con secciones personalizadas',
+      'SEO mejorado (estructura, velocidad, indexación)',
+      'Flujos de captación + micro-integraciones',
+      'Dominio, hosting y mantenimiento incluidos',
+      '3 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mes',
+    yearly: '$969/año (ahorra 15%)',
+    features: [
+      'Catálogo de productos + flujo de checkout básico',
+      'Bandeja de pedidos por WhatsApp/Email',
+      'SEO para productos/categorías',
+      'Dominio, hosting y mantenimiento incluidos',
+      '4 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+];
+
+const addons = [
+  { name: 'SEO avanzado', note: 'arquitectura, schema, preparación de enlaces' },
+  { name: 'Kit de branding', note: 'logo, color, tipografía, avatares sociales' },
+  { name: 'Actualizaciones mensuales extra', note: 'más allá del plan' },
+  { name: 'Landing pages para campañas', note: 'secciones listas para A/B' },
 ];
 ---
 
-<Base lang="es" title={title} description={description}>
-  <Hero
-    lang="es"
-    title="Sitios web que trabajan para ti, no en tu contra"
-    description="Sitios profesionales, precios claros, mantenimiento incluido y soporte real."
-    primaryHref="/es/#plans"
-    primaryText="Ver planes"
-    secondaryHref="/es/contact"
-    secondaryText="Contáctanos"
-    img="/logo-light.png"
-  />
+<Base title={title} description={description} image="/og-image.png" lang="es">
+  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-16 md:py-24">
+    <!-- HERO -->
+    <div class="text-center space-y-6">
+      <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
+        Websites que trabajan a tu favor — no en tu contra.
+      </h1>
+      <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Presencia profesional sin complicaciones: planes claros, mantenimiento incluido y soporte real.
+        Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.
+      </p>
+      <div class="flex items-center justify-center gap-3">
+        <a href={wa} class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Hablar por WhatsApp
+        </a>
+        <a href="/es/planes" class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+          Ver Planes
+        </a>
+      </div>
+      <p class="text-xs text-gray-500">Hosting en Vercel · Astro 5 · TailwindCSS</p>
+    </div>
 
-  <Plans lang="es" />
+    <!-- BENEFICIOS -->
+    <div class="grid md:grid-cols-3 gap-6 mt-16">
+      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
+        <h3 class="font-semibold mb-2">Bilingüe desde el inicio</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Estructura en Inglés y Español con rutas amigables para SEO.</p>
+      </div>
+      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
+        <h3 class="font-semibold mb-2">Precios transparentes</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Opciones mensuales/anuales, mantenimiento incluido y sin sorpresas.</p>
+      </div>
+      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
+        <h3 class="font-semibold mb-2">Rápido y seguro</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Astro + Vercel: rendimiento, SSL y copias de seguridad incluidas.</p>
+      </div>
+    </div>
 
-  <AddOns lang="es" />
+    <!-- PLANES -->
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Planes</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {planes.map((p) => (
+          <div class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+            <h3 class="text-lg font-semibold">{p.name}</h3>
+            <p class="mt-1 text-xl">{p.price}</p>
+            <p class="text-xs text-gray-500">{p.yearly}</p>
+            <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+              {p.features.map((f) => <li>• {f}</li>)}
+            </ul>
+            <a href="/es/planes" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Elegir</a>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-gray-500 mt-3">
+        Precios en USD. Para otros métodos de pago/monedas, contáctanos.
+      </p>
+    </div>
 
-  <FAQ lang="es" items={faqs_es} />
+    <!-- ADD-ONS -->
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Add-ons populares</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {addons.map((a) => (
+          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+            <h3 class="font-semibold">{a.name}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
 
-  <section class="section text-center py-16">
-    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">¿Listo para dar el siguiente paso?</h2>
-    <p class="text-neutral-600 dark:text-neutral-300 mb-8">Nos encargamos de la parte técnica, tú te concentras en tu negocio.</p>
-    <a href="/es/contact" class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition">Contáctanos hoy</a>
+    <!-- FAQ -->
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Preguntas frecuentes</h2>
+      <div class="max-w-3xl mx-auto space-y-6">
+        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+          <summary class="font-medium cursor-pointer">¿Qué incluye el mantenimiento?</summary>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Hosting, SSL, copias de seguridad y actualizaciones mensuales según el plan.</p>
+        </details>
+        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+          <summary class="font-medium cursor-pointer">¿Pueden trabajar con flujos vía WhatsApp?</summary>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Sí. Integramos acciones rápidas para dirigir leads y pedidos a WhatsApp o email.</p>
+        </details>
+        <details class="border border-gray-200 dark:border-gray-800 rounded-lg p-4">
+          <summary class="font-medium cursor-pointer">¿Puedo subir de plan más adelante?</summary>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Claro. Puedes cambiar de plan a medida que tu negocio crece.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-20">
+      <a href={wa} class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        Empezar por WhatsApp
+      </a>
+      <p class="text-xs text-gray-500 mt-2">¿Prefieres email? <a class="underline" href="/es/contacto">Contáctanos</a></p>
+    </div>
   </section>
 </Base>
