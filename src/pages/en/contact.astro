@@ -5,14 +5,17 @@ const title = 'Contact — ByteWorks';
 const description =
   'Let’s talk about your website or project idea. Contact ByteWorks through WhatsApp or our contact form — simple, direct and fast support.';
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // SOLO DÍGITOS, SIN "+"
 const message =
   import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="en">
-  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8">
+  <section
+    class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8"
+    data-wa={phone || ''}
+  >
     <h1 class="text-3xl md:text-5xl font-semibold">Let's work together</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
       Ready to build a modern, bilingual website with maintenance included?
@@ -23,6 +26,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       {wa && (
         <a
           href={wa}
+          data-wa={phone}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
@@ -32,12 +36,8 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       )}
     </div>
 
-    <!-- CONTACT FORM -->
-    <form
-      id="contact-form"
-      class="mt-12 text-left space-y-5 max-w-md mx-auto"
-      onsubmit="event.preventDefault(); alert('Form submission simulated — backend coming soon.')"
-    >
+    <!-- CONTACT FORM (mismo estilo/clases) -->
+    <form id="contact-form" class="mt-12 text-left space-y-5 max-w-md mx-auto">
       <div>
         <label for="name" class="block text-sm font-medium mb-1">Name</label>
         <input
@@ -74,7 +74,19 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         ></textarea>
       </div>
 
+      <!-- Honeypot (invisible) -->
+      <input
+        type="text"
+        id="website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+        aria-hidden="true"
+      />
+
       <button
+        id="submitBtn"
         type="submit"
         class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
       >
@@ -89,4 +101,87 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       </p>
     </div>
   </section>
+
+  <!-- JS: envía por WhatsApp (sin tocar estilos) -->
+  <script>
+    (function () {
+      const root = document.querySelector('section[data-wa]') as HTMLElement | null;
+      const form = document.getElementById('contact-form') as HTMLFormElement | null;
+      const nameEl = document.getElementById('name') as HTMLInputElement | null;
+      const emailEl = document.getElementById('email') as HTMLInputElement | null;
+      const messageEl = document.getElementById('message') as HTMLTextAreaElement | null;
+      const hpEl = document.getElementById('website') as HTMLInputElement | null;
+      const btn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+
+      if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
+
+      // 1) section[data-wa]
+      let WA_NUMBER = (root?.dataset.wa || '').trim();
+      // 2) body[data-wa]
+      if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
+      // 3) botón "Chat on WhatsApp"
+      if (!WA_NUMBER) {
+        const waBtn = document.querySelector('a[href^="https://wa.me/"]') as HTMLAnchorElement | null;
+        if (waBtn?.dataset?.wa) {
+          WA_NUMBER = waBtn.dataset.wa.trim();
+        } else if (waBtn?.href) {
+          try {
+            const u = new URL(waBtn.href);
+            WA_NUMBER = u.pathname.replace('/', '').trim();
+          } catch {}
+        }
+      }
+      // 4) query param ?wa=...
+      if (!WA_NUMBER) {
+        try {
+          const u = new URL(window.location.href);
+          const qp = u.searchParams.get('wa');
+          if (qp) WA_NUMBER = qp.trim();
+        } catch {}
+      }
+      // saneo: solo dígitos
+      WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
+
+      form.addEventListener('submit', (ev: SubmitEvent) => {
+        ev.preventDefault();
+
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        const msg = messageEl.value.trim();
+        const hp = hpEl.value.trim();
+
+        if (hp) return; // honeypot
+        if (!name || !email || !msg) {
+          alert('Please fill out all fields.');
+          return;
+        }
+        if (!WA_NUMBER) {
+          alert('WhatsApp is not configured. Please try again later.');
+          console.warn('[Contact] Missing PUBLIC_WHATSAPP_PHONE, body[data-wa], or ?wa= param.');
+          return;
+        }
+
+        const text =
+          `Hello ByteWorks!\n\n` +
+          `New inquiry (EN):\n` +
+          `Name: ${name}\n` +
+          `Email: ${email}\n` +
+          `Message:\n${msg}\n\n` +
+          `Source: /en/contact`;
+
+        const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+
+        const original = btn ? btn.textContent : null;
+        if (btn) { btn.disabled = true; btn.textContent = 'Opening WhatsApp...'; }
+
+        window.open(url, '_blank');
+
+        nameEl.value = '';
+        emailEl.value = '';
+        messageEl.value = '';
+        hpEl.value = '';
+        if (btn) { btn.disabled = false; btn.textContent = original || 'Send Message'; }
+      });
+    })();
+  </script>
 </Base>

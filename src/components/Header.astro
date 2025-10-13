@@ -1,4 +1,7 @@
 ---
+interface Props {
+  lang?: 'en' | 'es';
+}
 const { lang = 'en' } = Astro.props;
 const isEN = lang === 'en';
 
@@ -7,110 +10,135 @@ const navLinks = isEN
       { href: '/en', label: 'Home' },
       { href: '/en/plans', label: 'Plans' },
       { href: '/en/contact', label: 'Contact' },
-      { href: '/en/terms', label: 'Terms' },
     ]
   : [
       { href: '/es', label: 'Inicio' },
       { href: '/es/planes', label: 'Planes' },
       { href: '/es/contacto', label: 'Contacto' },
-      { href: '/es/terminos', label: 'Términos' },
     ];
 ---
 
-<header class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-  <nav class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-    <!-- Logo -->
-    <a href={isEN ? '/en' : '/es'} class="flex items-center gap-2 font-semibold text-lg">
-      <img
-        src="/logo-light.png"
-        alt="ByteWorks logo"
-        class="w-6 h-6 md:w-7 md:h-7 object-contain"
-      />
-      <span>ByteWorks</span>
-    </a>
+<header class="container mx-auto px-4 py-6 flex items-center justify-between">
+  <!-- Brand con logo -->
+  <a href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-white">
+    <img
+      src="/logo.png"
+      alt="ByteWorks logo"
+      width="28"
+      height="28"
+      loading="eager"
+      decoding="async"
+      class="block"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+    />
+    <span class="font-display text-xl" style="display:none;">ByteWorks</span>
+  </a>
 
-    <!-- Desktop nav -->
-    <div class="hidden md:flex items-center gap-6 text-sm">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="hover:text-gray-900 dark:hover:text-white text-gray-700 dark:text-gray-300 transition"
-        >
-          {link.label}
-        </a>
-      ))}
-    </div>
-
-    <!-- Mobile toggle -->
-    <button
-      id="mobile-menu-button"
-      class="md:hidden inline-flex items-center justify-center rounded-md p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 dark:focus:ring-gray-700"
-      aria-label={isEN ? 'Open menu' : 'Abrir menú'}
-      aria-controls="mobile-menu-panel"
-      aria-expanded="false"
-      type="button"
-    >
-      <!-- Icon: hamburger -->
-      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 block" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/>
-      </svg>
-      <!-- Icon: close -->
-      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
+  <!-- Desktop nav -->
+  <nav class="hidden md:flex gap-6 text-gray-900 dark:text-gray-100">
+    {navLinks.map((link) => (
+      <a href={link.href} class="hover:underline">{link.label}</a>
+    ))}
   </nav>
 
-  <!-- Mobile panel -->
-  <div id="mobile-menu-panel" class="md:hidden hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-black/95 backdrop-blur-md">
-    <div class="px-6 py-3 space-y-1">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="block px-3 py-2 rounded-md text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-        >
-          {link.label}
-        </a>
-      ))}
-    </div>
-  </div>
+  <!-- Mobile: Hamburger (usa currentColor) -->
+  <button
+    id="hamburger"
+    class="md:hidden relative h-10 w-10 flex items-center justify-center text-gray-900 dark:text-white"
+    aria-label={isEN ? 'Open menu' : 'Abrir menú'}
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    type="button"
+  >
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
 </header>
 
+<!-- Mobile menu panel -->
+<nav
+  id="mobile-menu"
+  class="md:hidden mx-4 -mt-2 overflow-hidden transition-[max-height,opacity] duration-300 ease-out max-h-0 opacity-0 border rounded-lg bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100"
+>
+  <div class="flex flex-col gap-2 p-4">
+    {navLinks.map((link) => (
+      <a href={link.href} class="py-2 border-b last:border-b-0 border-gray-200 dark:border-gray-700">{link.label}</a>
+    ))}
+  </div>
+</nav>
+
+<style>
+  /* Hamburger usa currentColor para heredar contraste */
+  #hamburger .bar {
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease, top 200ms ease;
+  }
+  #hamburger .bar:nth-child(1) { top: 12px; }
+  #hamburger .bar:nth-child(2) { top: 18px; }
+  #hamburger .bar:nth-child(3) { top: 24px; }
+
+  /* Estado abierto: cruz (X) */
+  #hamburger.open .bar:nth-child(1) {
+    top: 18px;
+    transform: rotate(45deg);
+  }
+  #hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  #hamburger.open .bar:nth-child(3) {
+    top: 18px;
+    transform: rotate(-45deg);
+  }
+</style>
+
 <script>
-  // Menú móvil: toggle accesible
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('mobile-menu-button');
-    const panel = document.getElementById('mobile-menu-panel');
-    const iconOpen = document.getElementById('icon-open');
-    const iconClose = document.getElementById('icon-close');
+  // TS-safe refs
+  const btnEl = document.getElementById('hamburger') as HTMLButtonElement | null;
+  const menuEl = document.getElementById('mobile-menu') as HTMLElement | null;
 
-    if (!btn || !panel) return;
+  if (btnEl && menuEl) {
+    const btn: HTMLButtonElement = btnEl;
+    const menu: HTMLElement = menuEl;
 
-    const toggle = () => {
-      const hidden = panel.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', (!hidden).toString());
-      // Icon swap
-      if (iconOpen && iconClose) {
-        if (hidden) {
-          iconOpen.classList.remove('hidden');
-          iconClose.classList.add('hidden');
-        } else {
-          iconOpen.classList.add('hidden');
-          iconClose.classList.remove('hidden');
-        }
+    function closeOnEscape(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.style.maxHeight = '0px';
+        menu.style.opacity = '0';
+        document.removeEventListener('keydown', closeOnEscape as EventListener);
       }
-      // Optional: lock scroll when open
-      if (!hidden) {
-        document.documentElement.classList.add('overflow-hidden', 'md:overflow-auto');
+    }
+
+    btn.addEventListener('click', () => {
+      const isOpen = btn.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        menu.style.maxHeight = menu.scrollHeight + 'px';
+        menu.style.opacity = '1';
+        document.addEventListener('keydown', closeOnEscape as EventListener);
       } else {
-        document.documentElement.classList.remove('overflow-hidden', 'md:overflow-auto');
+        menu.style.maxHeight = '0px';
+        menu.style.opacity = '0';
+        document.removeEventListener('keydown', closeOnEscape as EventListener);
       }
-    };
+    });
 
-    btn.addEventListener('click', toggle);
-    // Cierra al navegar (mejor UX)
-    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      if (!panel.classList.contains('hidden')) toggle();
-    }));
-  });
+    const mql = window.matchMedia('(min-width: 768px)');
+    mql.addEventListener('change', (ev: MediaQueryListEvent) => {
+      if (ev.matches) {
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.style.maxHeight = '0px';
+        menu.style.opacity = '0';
+      }
+    });
+  }
 </script>

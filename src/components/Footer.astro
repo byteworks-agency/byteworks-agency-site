@@ -1,17 +1,11 @@
 ---
-interface Props {
-  lang?: 'en' | 'es';
-}
-
+interface Props { lang?: 'en' | 'es'; }
 const { lang = 'en' } = Astro.props;
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
 const wa = phone ? `https://wa.me/${phone}` : null;
-const email = 'macrodriguez2512@gmail.com';
-
 const year = new Date().getFullYear();
 
-// Paths por idioma
 const isEN = lang === 'en';
 const base = isEN ? '/en' : '/es';
 const home = `${base}/`;
@@ -20,41 +14,27 @@ const contact = isEN ? `${base}/contact` : `${base}/contacto`;
 const terms = isEN ? `${base}/terms` : `${base}/terminos`;
 const privacy = isEN ? `${base}/privacy` : `${base}/privacidad`;
 ---
-
-<footer class="mt-16 border-top border-gray-200 dark:border-gray-800">
-  <div class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-10">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <div class="space-y-1">
-        <p class="text-sm font-semibold">ByteWorks</p>
-        <p class="text-xs text-gray-600 dark:text-gray-400">
-          {isEN
-            ? 'Websites that work for you — not against you.'
-            : 'Websites que trabajan a tu favor — no en tu contra.'}
-        </p>
-      </div>
-
-      <nav class="text-sm flex flex-wrap items-center gap-x-5 gap-y-2">
-        <a href={home} class="hover:underline">{isEN ? 'Home' : 'Inicio'}</a>
-        <a href={plans} class="hover:underline">{isEN ? 'Plans' : 'Planes'}</a>
-        <a href={contact} class="hover:underline">{isEN ? 'Contact' : 'Contacto'}</a>
-        <a href={terms} class="hover:underline">{isEN ? 'Terms' : 'Términos'}</a>
-        <a href={privacy} class="hover:underline">{isEN ? 'Privacy' : 'Privacidad'}</a>
-      </nav>
-
-      <div class="text-sm">
-        <div class="flex items-center gap-3">
-          {wa && (
-            <a href={wa} target="_blank" rel="noopener noreferrer" class="hover:underline">
-              WhatsApp
-            </a>
-          )}
-          <a href={`mailto:${email}`} class="hover:underline">Email</a>
-        </div>
-      </div>
+<footer class="border-t py-10 text-sm">
+  <div class="container mx-auto px-4 grid gap-6 md:grid-cols-3">
+    <div>
+      <div class="font-display text-lg">ByteWorks</div>
+      <p class="text-gray-600 mt-2">
+        {isEN ? 'Websites that work for you — not against you.' : 'Websites que trabajan a tu favor — no en tu contra.'}
+      </p>
     </div>
 
-    <div class="mt-6 text-xs text-gray-500 flex items-center justify-between flex-wrap gap-2">
-      <span>© {year} ByteWorks. {isEN ? 'All rights reserved.' : 'Todos los derechos reservados.'}</span>
+    <nav class="flex flex-col gap-2">
+      <a href={home}>{isEN ? 'Home' : 'Inicio'}</a>
+      <a href={plans}>{isEN ? 'Plans' : 'Planes'}</a>
+      <a href={contact}>{isEN ? 'Contact' : 'Contacto'}</a>
+      <a href={terms}>{isEN ? 'Terms' : 'Términos'}</a>
+      <a href={privacy}>{isEN ? 'Privacy' : 'Privacidad'}</a>
+    </nav>
+
+    <div class="flex flex-col gap-2">
+      {wa && (<a class="underline" href={wa} target="_blank" rel="noopener">WhatsApp</a>)}
+      <!-- Email eliminado a petición -->
+      <div>© {year} ByteWorks. {isEN ? 'All rights reserved.' : 'Todos los derechos reservados.'}</div>
     </div>
   </div>
 </footer>

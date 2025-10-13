@@ -11,12 +11,11 @@ interface Props {
 
 const {
   title = 'ByteWorks — Modern web design & hosting',
-  description = 'Websites that work for you — not against you. Bilingual, fast, and affordable.',
+  description = 'Websites that work for you — not against you.\nBilingual, fast, and affordable.',
   image = '/og-image.png',
   lang = 'en',
 } = Astro.props;
 
-// URL actual y alternates EN/ES
 const url = new URL(Astro.url.pathname, Astro.site);
 const pathname = url.pathname;
 
@@ -31,58 +30,31 @@ function altHref(targetLang: 'en' | 'es') {
   return `/${parts.join('/')}/`;
 }
 
-// Analytics (opcional)
 const PLAUSIBLE = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+
+// ✅ expone el número al DOM como data attribute
+const WA_FROM_ENV = import.meta.env.PUBLIC_WHATSAPP_PHONE || '';
 ---
 
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta property="og:image" content={image} />
 
-    <!-- Canonical -->
-    <link rel="canonical" href={url.toString()} />
+    <link rel="alternate" hreflang="en" href={altHref('en')} />
+    <link rel="alternate" hreflang="es" href={altHref('es')} />
 
-    <!-- Alternate hreflang -->
-    <link rel="alternate" href={new URL(altHref('en'), Astro.site).toString()} hreflang="en" />
-    <link rel="alternate" href={new URL(altHref('es'), Astro.site).toString()} hreflang="es" />
-    <link rel="alternate" href={url.toString()} hreflang="x-default" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Open Graph -->
-    <meta property="og:site_name" content="ByteWorks" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={url.toString()} />
-    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site).toString()} />
-
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-    <!-- Theme colors -->
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0b0b" />
-
-    <!-- Global styles -->
-    <style is:global>
-      html { scroll-behavior: smooth; }
-      body {
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      }
-    </style>
-
-    <!-- Analytics -->
     {PLAUSIBLE && (
       <script defer data-domain={PLAUSIBLE} src="https://plausible.io/js/script.js"></script>
     )}
@@ -94,10 +66,13 @@ const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
       ></script>
     )}
   </head>
-
-  <body class="min-h-screen antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100">
+  <body
+    class="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950"
+    data-wa={WA_FROM_ENV}>
     <Header lang={lang} />
-    <slot />
+    <main class="flex-1 container mx-auto px-4 py-10">
+      <slot />
+    </main>
     <Footer lang={lang} />
   </body>
 </html>
