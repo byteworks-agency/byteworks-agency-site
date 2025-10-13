@@ -1,28 +1,48 @@
 ---
-import Base from "../../layouts/Base.astro";
-import { en as t } from "../../i18n/en";
+import Base from '../../layouts/Base.astro';
+
+const title = 'Privacy Policy — ByteWorks';
+const description = 'How ByteWorks collects, uses, and protects your information.';
 ---
 
-<Base lang="en" t={t} title="Privacy Policy — ByteWorks" description="Privacy Policy for ByteWorks websites.">
-  <section class="max-w-3xl mx-auto px-4 py-16 prose dark:prose-invert">
-    <h1>Privacy Policy</h1>
-    <p>Last updated: October 2025</p>
+<Base title={title} description={description} image="/og-image.png" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 space-y-8">
+    <h1 class="text-3xl md:text-5xl font-semibold text-center">Privacy Policy</h1>
 
-    <p>At ByteWorks, we respect your privacy and are committed to protecting your personal data.</p>
+    <p class="text-gray-600 dark:text-gray-300">
+      ByteWorks respects your privacy. This Policy explains how we handle your personal information when you visit our website or communicate with us.
+    </p>
 
-    <h2>1. Information We Collect</h2>
-    <p>We collect basic information such as your name, email, and WhatsApp number when you contact us or subscribe to a plan.</p>
+    <h2 class="text-2xl font-semibold mt-10">1. Information We Collect</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      We may collect basic contact details such as your name, email, phone number, and messages you send through forms or WhatsApp links.
+    </p>
 
-    <h2>2. How We Use Your Data</h2>
-    <p>We use your data to provide our services, send updates, and improve your experience. We never sell your data.</p>
+    <h2 class="text-2xl font-semibold mt-10">2. How We Use Information</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      Your information is used solely to communicate with you, provide services, process support requests, or send updates about your project.
+    </p>
 
-    <h2>3. Data Storage</h2>
-    <p>All client information is stored securely on trusted platforms like Google Workspace and Vercel.</p>
+    <h2 class="text-2xl font-semibold mt-10">3. Data Security</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      We take reasonable technical measures to protect data. ByteWorks does not sell or share personal information with third parties.
+    </p>
 
-    <h2>4. Third-Party Services</h2>
-    <p>Some integrations (Google Analytics, WhatsApp, etc.) may collect usage data under their own privacy policies.</p>
+    <h2 class="text-2xl font-semibold mt-10">4. External Links</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      Our website may link to external platforms (e.g., WhatsApp, Notion, Google Sheets). We are not responsible for their privacy practices.
+    </p>
 
-    <h2>5. Your Rights</h2>
-    <p>You may request access, correction, or deletion of your data at any time.</p>
+    <h2 class="text-2xl font-semibold mt-10">5. Cookies</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      ByteWorks uses only essential and analytical cookies (e.g., Plausible or Cloudflare Analytics) to improve site performance. No personal tracking is performed.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-10">6. Contact</h2>
+    <p class="text-gray-600 dark:text-gray-300">
+      If you have any questions about this Policy, contact us at:
+      <br />📧 <a class="underline" href="mailto:macrodriguez2512@gmail.com">macrodriguez2512@gmail.com</a>
+      <br />💬 <a class="underline" href="https://wa.me/18687759858" target="_blank">WhatsApp +1 868 775 9858</a>
+    </p>
   </section>
 </Base>
