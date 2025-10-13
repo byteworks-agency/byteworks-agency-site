@@ -3,12 +3,16 @@ interface Props { lang: 'en' | 'es' }
 const { lang = 'en' } = Astro.props;
 
 const links = lang === 'es'
-  ? [{ href: '/es/', label: 'Inicio' }, { href: '/es/about', label: 'Sobre nosotros' }, { href: '/es/contact', label: 'Contacto' }]
-  : [{ href: '/en/', label: 'Home'  }, { href: '/en/about', label: 'About' }, { href: '/en/contact', label: 'Contact' }];
-
-const WAPP = import.meta.env.PUBLIC_WAPP_NUMBER;
-const MSG  = import.meta.env.PUBLIC_WAPP_MESSAGE || (lang === 'es' ? 'Hola%20ByteWorks' : 'Hello%20ByteWorks');
-const wappUrl = WAPP ? `https://wa.me/${WAPP}?text=${MSG}` : null;
+  ? [
+      { href: '/es/', label: 'Inicio' },
+      { href: '/es/about', label: 'Sobre nosotros' },
+      { href: '/es/contact', label: 'Contacto' },
+    ]
+  : [
+      { href: '/en/', label: 'Home' },
+      { href: '/en/about', label: 'About' },
+      { href: '/en/contact', label: 'Contact' },
+    ];
 ---
 
 <header class="sticky top-0 z-50 w-full bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
@@ -26,26 +30,22 @@ const wappUrl = WAPP ? `https://wa.me/${WAPP}?text=${MSG}` : null;
         <a href={l.href} class="hover:text-brand transition-colors">{l.label}</a>
       ))}
 
-      {wappUrl && (
-        <a href={wappUrl} target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60"
-           aria-label={lang === 'es' ? 'Chatear por WhatsApp' : 'Chat on WhatsApp'}>
-          <img src="/icons/whatsapp.svg" alt="" class="w-4 h-4 dark:invert" />
-          <span>WhatsApp</span>
-        </a>
-      )}
-
-      <a href={lang === 'es' ? '/?lang=en' : '/?lang=es'}
-         class="px-2 py-1 border border-neutral-300 dark:border-neutral-700 rounded-md"
-         aria-label={lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}>
+      <a
+        href={lang === 'es' ? '/?lang=en' : '/?lang=es'}
+        class="px-2 py-1 border border-neutral-300 dark:border-neutral-700 rounded-md"
+        aria-label={lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
+      >
         {lang === 'es' ? 'EN' : 'ES'}
       </a>
     </nav>
 
-    <button id="menu-btn"
+    <button
+      id="menu-btn"
       class="md:hidden p-2 rounded-md border border-neutral-300 dark:border-neutral-700"
       aria-label={lang === 'es' ? 'Abrir menú' : 'Open menu'}
-      aria-expanded="false" aria-controls="mobile-menu">
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
       <img src="/icons/hamburger.svg" alt="" class="w-5 h-5 dark:invert" />
     </button>
   </div>
@@ -54,7 +54,11 @@ const wappUrl = WAPP ? `https://wa.me/${WAPP}?text=${MSG}` : null;
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-sm">
       <div class="flex items-center justify-between">
         <span class="font-medium">{lang === 'es' ? 'Menú' : 'Menu'}</span>
-        <button id="menu-close" class="p-2 rounded-md border border-neutral-300 dark:border-neutral-700" aria-label={lang === 'es' ? 'Cerrar menú' : 'Close menu'}>
+        <button
+          id="menu-close"
+          class="p-2 rounded-md border border-neutral-300 dark:border-neutral-700"
+          aria-label={lang === 'es' ? 'Cerrar menú' : 'Close menu'}
+        >
           <img src="/icons/close.svg" alt="" class="w-5 h-5 dark:invert" />
         </button>
       </div>
@@ -63,18 +67,11 @@ const wappUrl = WAPP ? `https://wa.me/${WAPP}?text=${MSG}` : null;
         <a href={l.href} class="py-2 border-b border-neutral-200/70 dark:border-neutral-800 hover:text-brand">{l.label}</a>
       ))}
 
-      {wappUrl && (
-        <a href={wappUrl} target="_blank" rel="noopener noreferrer"
-           class="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60"
-           aria-label={lang === 'es' ? 'Chatear por WhatsApp' : 'Chat on WhatsApp'}>
-          <img src="/icons/whatsapp.svg" alt="" class="w-5 h-5 dark:invert" />
-          <span>WhatsApp</span>
-        </a>
-      )}
-
-      <a href={lang === 'es' ? '/?lang=en' : '/?lang=es'}
-         class="inline-block px-3 py-2 rounded-md border border-neutral-300 dark:border-neutral-700"
-         aria-label={lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}>
+      <a
+        href={lang === 'es' ? '/?lang=en' : '/?lang=es'}
+        class="inline-block px-3 py-2 rounded-md border border-neutral-300 dark:border-neutral-700"
+        aria-label={lang === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
+      >
         {lang === 'es' ? 'EN' : 'ES'}
       </a>
     </div>
