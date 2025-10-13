@@ -1,9 +1,7 @@
 ---
 import "../styles/global.css";
-import Analytics from "../components/Analytics.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
-import FloatingWhatsApp from "../components/FloatingWhatsApp.astro";
 
 const {
   title = "ByteWorks — Websites that work for you",
@@ -32,17 +30,15 @@ const canonical = site ? new URL(pathname, site).toString() : undefined;
     <link rel="alternate" href="/es/" hreflang="es" />
     <link rel="alternate" href="/" hreflang="x-default" />
 
-    <!-- 🔰 FAVICONS (asegúrate de tener estos archivos en /public) -->
+    <!-- Favicons (asegúrate que existan en /public) -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <!-- theme-color por esquema -->
     <meta name="theme-color" content="#06b6d4" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
-    <!-- OG / Twitter -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -55,23 +51,9 @@ const canonical = site ? new URL(pathname, site).toString() : undefined;
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
-
-    <!-- Schema.org Organization -->
-    {canonical && (
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "ByteWorks",
-          url: canonical.replace(/(\/en|\/es)\/?$/, "/"),
-          logo: `${site ?? ""}/favicon-32x32.png`,
-          sameAs: [],
-        })}
-      </script>
-    )}
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet"/>
   </head>
 
   <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased">
@@ -87,9 +69,6 @@ const canonical = site ? new URL(pathname, site).toString() : undefined;
 
     <Footer lang={lang} />
 
-    <!-- Botón flotante (usa .env; si falta, no se muestra) -->
-    <FloatingWhatsApp lang={lang} />
-
-    <Analytics />
+    <!-- WA con envs o fallback via props -->
   </body>
 </html>

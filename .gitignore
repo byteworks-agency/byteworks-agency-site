@@ -1,14 +1,14 @@
-# dependencias y build
+# deps & build
 node_modules/
 dist/
 .astro/
 
-# editor / sistema
+# editor / os
 .vscode/
 .DS_Store
 Thumbs.db
 
-# envs
+# env
 .env
 .env.*
 !.env.example
@@ -22,5 +22,5 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# NO ignores: public/**
-# (asegúrate de NO tener líneas que ignoren "public/" o "icons/")
+!public/**
+!public/icons/**
