@@ -11,11 +11,11 @@ const plans = [
     price: '$45/mo',
     yearly: '$459/yr (save 15%)',
     features: [
-      'One-page modern website (mobile-ready)',
-      'Contact form integration',
-      'Basic local SEO',
+      'One-page modern website (responsive)',
+      'Contact form integration (email or Google Sheets)',
+      'Basic SEO (titles, meta, OG, sitemap)',
       'Domain, hosting & maintenance included',
-      '1 monthly update (text/image/color)',
+      '1 monthly update (≤30 min)',
       'SSL, backups',
     ],
   },
@@ -26,9 +26,9 @@ const plans = [
     features: [
       'Up to 4 pages (Home, About, Services, Contact)',
       'Contact + Google Sheets automations',
-      'Local SEO + fast performance',
+      'Light technical optimization and performance',
       'Domain, hosting & maintenance included',
-      '2 monthly updates',
+      '2 monthly updates (≤45 min each)',
       'SSL, backups',
     ],
   },
@@ -41,7 +41,7 @@ const plans = [
       'Enhanced SEO (structure, speed, indexation)',
       'Lead capture flows + Google integrations',
       'Domain, hosting & maintenance included',
-      '3 monthly updates',
+      '3 monthly updates (≤60 min each)',
       'SSL, backups',
     ],
   },
@@ -50,22 +50,51 @@ const plans = [
     price: '$95/mo',
     yearly: '$969/yr (save 15%)',
     features: [
-      'Product catalog + basic checkout workflow',
-      'Order inbox via Email + Google Sheet sync',
-      'SEO for products/categories',
-      'Domain, hosting & maintenance included',
-      '4 monthly updates',
-      'SSL, backups',
+      'Product catalog (up to 20 items)',
+      'Local cart + manual checkout flow',
+      'Order logging to Email / Google Sheets',
+      'Internal order tracking by code (no gateway)',
+      '4 monthly updates (products or copy)',
+      'SSL, backups, domain & hosting included',
     ],
   },
 ];
 
-const addons = [
-  { name: 'Advanced SEO package', note: 'site architecture, schema, link-prep' },
-  { name: 'Branding kit', note: 'logo, color, typography, social avatars' },
-  { name: 'Extra monthly updates', note: 'beyond plan limits' },
-  { name: 'Landing pages for campaigns', note: 'A/B-ready sections' },
+const faqs = [
+  {
+    q: 'How fast can you deliver my website?',
+    a: 'Start usually launches within 7–10 business days after we receive copy and assets. Pro/Elite take 2–4 weeks depending on scope and reviews.',
+  },
+  {
+    q: 'What does “monthly update” include?',
+    a: 'Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They’re time-boxed per plan and don’t roll over (see Terms → Service Levels).',
+  },
+  {
+    q: 'Do you handle online payments?',
+    a: 'Not by default. Our E-Commerce Pro uses a manual order flow (no gateways). If you need payments later, we can quote a custom add-on.',
+  },
+  {
+    q: 'Can I track delivery orders?',
+    a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed via Google Sheets and displayed on a tracking page.',
+  },
+  {
+    q: 'Who owns the domain and content?',
+    a: 'You do. While your subscription is active we manage the technical stack; you retain ownership of brand assets, domain and content.',
+  },
+  {
+    q: 'Bilingual by default?',
+    a: 'Yes. English and Spanish routes/structure are included. If you only need one language, we can keep the other hidden.',
+  },
+  {
+    q: 'SEO included?',
+    a: 'All plans include basic SEO (structure, meta, sitemap). For ongoing improvements and local visibility, consider the Advanced SEO add-on.',
+  },
+  {
+    q: 'Can I migrate later?',
+    a: 'Yes. We can export your static site and hand over assets/data upon cancellation per our Terms.',
+  },
 ];
+
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="en">
@@ -127,15 +156,60 @@ const addons = [
       <p class="text-center text-xs text-gray-500 mt-3">Prices in USD. For other payment methods/currencies, contact us.</p>
     </div>
 
-    <!-- ADD-ONS SNAPSHOT -->
+    <!-- PROJECTS (empty state for now) -->
     <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Popular add-ons</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {addons.map((a) => (
-          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h3 class="font-semibold">{a.name}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
-          </div>
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Projects</h2>
+      <div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center max-w-3xl mx-auto">
+        <p class="text-gray-600 dark:text-gray-300">
+          Case studies and client projects will appear here soon.
+        </p>
+        <a href="/en/contact" class="mt-4 inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Request a Quote
+        </a>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="mt-20 grid md:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4">
+        <h2 class="text-2xl md:text-3xl font-semibold">About ByteWorks</h2>
+        <p class="text-gray-700 dark:text-gray-200">
+          We build lean, bilingual websites focused on results, not trends. Clear plans, ongoing maintenance,
+          and a pragmatic toolkit (Astro + Google) keep your site fast, stable, and easy to update.
+        </p>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Clear pricing and simple scope.</li>
+          <li>Lightweight stack for speed and reliability.</li>
+          <li>Updates included, support that actually answers.</li>
+        </ul>
+        <a href="/en/contact" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Work with us
+        </a>
+      </div>
+      <div class="space-y-3">
+        <h3 class="font-semibold">Our process</h3>
+        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Brief & requirements</li>
+          <li>Structure & copy guidance</li>
+          <li>Design & implementation</li>
+          <li>QA, launch, and handover</li>
+          <li>Ongoing updates and support</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">FAQ</h2>
+      <div class="max-w-3xl mx-auto divide-y divide-gray-200 dark:divide-gray-800">
+        {faqs.map((item) => (
+          <details class="py-4 group">
+            <summary class="flex cursor-pointer list-none items-center justify-between">
+              <span class="font-medium">{item.q}</span>
+              <span class="text-gray-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
+          </details>
         ))}
       </div>
     </div>
