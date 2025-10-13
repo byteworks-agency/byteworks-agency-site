@@ -1,0 +1,30 @@
+---
+interface Props { lang: 'en' | 'es' }
+const { lang = 'en' } = Astro.props;
+
+const text = {
+  en: { rights: 'All rights reserved.', terms: 'Terms', privacy: 'Privacy' },
+  es: { rights: 'Todos los derechos reservados.', terms: 'Términos', privacy: 'Privacidad' },
+};
+---
+
+<footer class="border-t border-neutral-200 dark:border-neutral-800 mt-12">
+  <div class="max-w-6xl mx-auto px-4 py-8 text-sm text-neutral-600 dark:text-neutral-400 grid gap-6 sm:grid-cols-3">
+    <div class="flex items-center gap-2">
+      <picture>
+        <source srcset="/logo-dark.png" media="(prefers-color-scheme: dark)" />
+        <img src="/logo-light.png" alt="ByteWorks" class="h-6 w-auto" loading="lazy" decoding="async" />
+      </picture>
+      <span class="sr-only">ByteWorks</span>
+    </div>
+
+    <div class="sm:text-center">
+      <p>© {new Date().getFullYear()} ByteWorks. {text[lang].rights}</p>
+    </div>
+
+    <div class="sm:text-right flex sm:justify-end gap-4">
+      <a href={`/${lang}/terms`} class="hover:text-brand transition">{text[lang].terms}</a>
+      <a href={`/${lang}/privacy`} class="hover:text-brand transition">{text[lang].privacy}</a>
+    </div>
+  </div>
+</footer>

@@ -1,53 +1,44 @@
 ---
 import "../styles/global.css";
 import Analytics from "../components/Analytics.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import FloatingWhatsApp from "../components/FloatingWhatsApp.astro";
 
 const {
   title = "ByteWorks — Websites that work for you",
   description = "Professional websites, clear pricing, maintenance included, real support.",
   lang = "en",
   t = {},
-  ogImage = "/og-image.svg",
+  ogImage = "/og-image.png",
 } = Astro.props;
 
-const pathname = Astro.url?.pathname ?? '/';
-const site = Astro.site?.toString(); 
+const pathname = Astro.url?.pathname ?? "/";
+const site = Astro.site?.toString();
 const canonical = site ? new URL(pathname, site).toString() : undefined;
-
-const isEN = lang === 'en';
-const basePath = isEN ? '/en' : '/es';
-
-const nav = [
-  { href: `${basePath}/#plans`, key: 'nav_plans' },
-  { href: `${basePath}/contact`, key: 'nav_contact' },
-  { href: `${basePath}/terms`, key: 'nav_terms' },
-  { href: `${basePath}/privacy`, key: 'nav_privacy' },
-];
-
-function isActive(href: string) {
-  if (href.endsWith('#plans')) return pathname === `${basePath}/`;
-  return pathname === href;
-}
 ---
 
-<html lang={lang}>
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="light dark" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Canonical + alternates -->
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="alternate" href="/en/" hreflang="en" />
     <link rel="alternate" href="/es/" hreflang="es" />
     <link rel="alternate" href="/" hreflang="x-default" />
 
-    <!-- Favicon + manifest -->
-    <link rel="icon" href="./favicon.ico" sizes="any" />
-    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- 🔰 FAVICONS (asegúrate de tener estos archivos en /public) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <!-- theme-color por esquema -->
     <meta name="theme-color" content="#06b6d4" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
@@ -64,91 +55,41 @@ function isActive(href: string) {
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
 
-    <!-- Schema.org Organization (mínimo) -->
+    <!-- Schema.org Organization -->
     {canonical && (
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "ByteWorks",
-          "url": canonical.replace(/(\/en|\/es)\/?$/, '/'),
-          "logo": `${url?.origin || ''}/favicon.ico`,
-          "sameAs": []
+          name: "ByteWorks",
+          url: canonical.replace(/(\/en|\/es)\/?$/, "/"),
+          logo: `${site ?? ""}/favicon-32x32.png`,
+          sameAs: [],
         })}
       </script>
     )}
   </head>
-  <body class="antialiased bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
-    <!-- Skip link -->
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-[60] focus:top-3 focus:left-3 px-3 py-2 rounded-md bg-brand text-black">Skip to content</a>
 
-    <!-- Header -->
-    <header class="border-b border-neutral-200/70 dark:border-neutral-800 sticky top-0 backdrop-blur bg-white/75 dark:bg-neutral-950/70 z-50">
-      <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href={basePath + '/'} class="font-semibold tracking-tight font-display">ByteWorks</a>
+  <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-[60] focus:top-3 focus:left-3 px-3 py-2 rounded-md bg-brand text-black">
+      {lang === "es" ? "Ir al contenido" : "Skip to content"}
+    </a>
 
-        <div class="flex items-center gap-1 sm:gap-3 text-sm">
-          {nav.map(item => (
-            <a
-              href={item.href}
-              class={`px-2 py-1 rounded-md hover:text-neutral-900 dark:hover:text-white ${isActive(item.href) ? 'text-neutral-900 dark:text-white font-medium bg-neutral-200/50 dark:bg-neutral-800/50' : 'text-neutral-600 dark:text-neutral-300'}`}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-            >
-              {t[item.key]}
-            </a>
-          ))}
-          <a href={basePath + '#cta'} class="px-3 py-1.5 rounded-md bg-brand text-black font-medium hidden sm:inline">{t.nav_cta}</a>
-
-          <!-- Toggle de idioma: va a /?lang= -->
-          <button id="lang-btn" class="px-2 py-1 border border-neutral-300 dark:border-neutral-700 rounded-md">
-            {isEN ? 'EN' : 'ES'}
-          </button>
-        </div>
-      </nav>
-    </header>
+    <Navbar lang={lang} />
 
     <main id="main" class="min-h-[70vh]">
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-neutral-200/70 dark:border-neutral-800 mt-16">
-      <div class="max-w-6xl mx-auto px-4 py-10 grid gap-6 sm:grid-cols-3 text-neutral-600 dark:text-neutral-300">
-        <div>
-          <div class="font-semibold text-neutral-900 dark:text-white font-display">ByteWorks</div>
-          <p class="mt-2 text-sm">{t.footer_phrase}</p>
-        </div>
-        <div>
-          <div class="font-semibold text-neutral-900 dark:text-white font-display">{t.footer_links}</div>
-          <ul class="mt-2 space-y-1 text-sm">
-            <li><a href={basePath + '/#plans'} class="hover:text-neutral-900 dark:hover:text-white">{t.nav_plans}</a></li>
-            <li><a href={basePath + '/contact'} class="hover:text-neutral-900 dark:hover:text-white">{t.nav_contact}</a></li>
-            <li><a href={basePath + '/terms'} class="hover:text-neutral-900 dark:hover:text-white">{t.nav_terms}</a></li>
-            <li><a href={basePath + '/privacy'} class="hover:text-neutral-900 dark:hover:text-white">{t.nav_privacy}</a></li>
-          </ul>
-        </div>
-        <div id="cta" class="sm:text-right">
-          <div class="font-semibold text-neutral-900 dark:text-white font-display">{t.cta_title}</div>
-          <a href={basePath + '/contact'} class="inline-block mt-2 px-4 py-2 rounded-md bg-brand text-black font-medium">{t.cta_button}</a>
-          <p class="mt-2 text-xs">{t.pricing_note}</p>
-        </div>
-      </div>
-    </footer>
+    <Footer lang={lang} />
 
-    <script is:inline>
-      // Toggle idioma: delega en el middleware (?lang=)
-      const btn = document.getElementById('lang-btn');
-      if (btn) {
-        btn.addEventListener('click', () => {
-          const current = document.documentElement.lang || 'en';
-          const next = current === 'es' ? 'en' : 'es';
-          location.href = '/?lang=' + next;
-        });
-      }
-    </script>
+    <!-- Botón flotante (usa .env; si falta, no se muestra) -->
+    <FloatingWhatsApp lang={lang} />
+
+    <Analytics />
   </body>
 </html>

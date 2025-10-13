@@ -6,7 +6,7 @@ export const es = {
   nav_cta: "Empezar",
   footer_phrase: "Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.",
   footer_links: "Enlaces",
-  c_home_title: "Websites that work for you — not against you.",
+  c_home_title: "Sitios web que trabajan para ti, no en tu contra.",
   c_home_desc: "Creemos que una presencia digital profesional no debe ser complicada ni costosa. Planes claros, mantenimiento incluido y soporte real.",
   c_home_primary: "Ver planes",
   c_home_secondary: "Hablar por WhatsApp",

@@ -1,0 +1,71 @@
+---
+interface Props {
+  lang: 'en' | 'es';
+  title: string;
+  description: string;
+  primaryHref: string;
+  primaryText: string;
+  secondaryHref: string;
+  secondaryText: string;
+  img?: string; // opcional: /hero.webp
+  imgAlt?: string;
+}
+
+const {
+  lang = 'en',
+  title,
+  description,
+  primaryHref,
+  primaryText,
+  secondaryHref,
+  secondaryText,
+  img,
+  imgAlt = lang === 'es' ? 'Ilustración de ByteWorks' : 'ByteWorks illustration',
+} = Astro.props;
+---
+
+<section class="max-w-6xl mx-auto px-4 pt-16 pb-10 grid gap-8 lg:grid-cols-2 items-center">
+  <div>
+    <h1 class="font-display font-semibold leading-tight"
+        style="font-size: clamp(2rem, 2.8vw + 1rem, 3.25rem);">
+      {title}
+    </h1>
+    <p class="mt-4 text-neutral-600 dark:text-neutral-300 max-w-prose"
+       style="font-size: clamp(1rem, 0.4vw + 0.9rem, 1.125rem);">
+      {description}
+    </p>
+
+    <div class="mt-6 flex flex-col sm:flex-row gap-3">
+      <a href={primaryHref}
+         class="px-4 py-2 rounded-md bg-brand text-black font-medium text-sm sm:text-base text-center"
+         aria-label={primaryText}>
+        {primaryText}
+      </a>
+      <a href={secondaryHref}
+         class="px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60 text-sm sm:text-base text-center"
+         aria-label={secondaryText}>
+        {secondaryText}
+      </a>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-4 text-sm text-neutral-600 dark:text-neutral-300">
+      {lang === 'es'
+        ? <>Incluye: dominio, hosting, SSL, copias de seguridad, monitoreo básico y soporte humano por WhatsApp.</>
+        : <>Includes: domain, hosting, SSL, backups, basic monitoring, and human support via WhatsApp.</>}
+    </div>
+  </div>
+
+  {img && (
+    <div class="order-first lg:order-none">
+      <img
+        src={img}
+        alt={imgAlt}
+        width="960" height="720"
+        loading="lazy" decoding="async"
+        class="w-full h-auto rounded-xl border border-neutral-200 dark:border-neutral-800 object-cover bg-neutral-50 dark:bg-neutral-900"
+        srcset={`${img} 960w`}
+        sizes="(min-width:1024px) 50vw, 100vw"
+      />
+    </div>
+  )}
+</section>
