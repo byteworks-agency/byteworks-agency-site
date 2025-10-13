@@ -6,7 +6,9 @@ const description =
   'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
-const wa = phone ? `https://wa.me/${phone}` : '/contacto';
+const message =
+  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hola ByteWorks, estoy interesado en un sitio web.';
+const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : '/es/contacto';
 
 const planes = [
   {
@@ -83,7 +85,12 @@ const addons = [
         Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.
       </p>
       <div class="flex items-center justify-center gap-3">
-        <a href={wa} class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        <a
+          href={wa}
+          target={phone ? '_blank' : '_self'}
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+        >
           Hablar por WhatsApp
         </a>
         <a href="/es/planes" class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
@@ -129,7 +136,7 @@ const addons = [
       </p>
     </div>
 
-    <!-- ADD-ONS (resumen) -->
+    <!-- ADD-ONS -->
     <div class="mt-20">
       <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Add-ons populares</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
