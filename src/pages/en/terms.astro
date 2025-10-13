@@ -1,53 +1,138 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Terms of Service — ByteWorks';
-const description = 'Terms and conditions of use for ByteWorks websites and digital services.';
+const title = 'Terms — ByteWorks';
+const description =
+  'Service Levels & Updates Policy, support hours, backups and ownership terms for ByteWorks clients.';
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="en">
-  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 space-y-8">
-    <h1 class="text-3xl md:text-5xl font-semibold text-center">Terms of Service</h1>
+  <section class="px-6 md:px-10 lg:px-16 max-w-4xl mx-auto py-14 md:py-20">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl md:text-5xl font-semibold">Terms</h1>
+      <p class="mt-2 text-gray-600 dark:text-gray-300">
+        Service Levels & Updates Policy for ByteWorks websites.
+      </p>
+    </header>
 
-    <p class="text-gray-600 dark:text-gray-300">
-      Welcome to ByteWorks. By accessing or using our website and services, you agree to these Terms of Service. Please read them carefully.
-    </p>
+    <!-- Service Levels & Updates Policy -->
+    <section class="prose dark:prose-invert max-w-none">
+      <h2>Service Levels &amp; Updates Policy</h2>
 
-    <h2 class="text-2xl font-semibold mt-10">1. Services</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      ByteWorks provides web design, hosting, and digital support under subscription plans. Each plan includes specific features as described on our website. Custom work or additional services may require a separate agreement.
-    </p>
+      <h3>1. Maintenance &amp; Monitoring</h3>
+      <p>
+        All active plans include hosting, domain, SSL certificates, and automatic weekly backups.
+        ByteWorks monitors uptime and site integrity periodically, performing preventive maintenance
+        every quarter or when critical updates are required.
+      </p>
 
-    <h2 class="text-2xl font-semibold mt-10">2. Payments</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      All prices are listed in USD unless otherwise noted. Subscriptions renew automatically unless canceled before the renewal date. Cancellations take effect at the end of the current billing cycle.
-    </p>
+      <h3>2. Support Hours &amp; Response Time</h3>
+      <p>
+        Support is provided Monday to Friday, from 9:00 AM to 6:00 PM (AST).
+        Communication channels include WhatsApp and email. Response times are based on the request type:
+      </p>
 
-    <h2 class="text-2xl font-semibold mt-10">3. Updates and Maintenance</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      Maintenance and content updates are included as stated in each plan. Requests exceeding the plan limits may incur additional charges.
-    </p>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <th class="text-left py-2">Type</th>
+              <th class="text-left py-2">Example</th>
+              <th class="text-left py-2">Target Response Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <td class="py-2 font-medium">Critical issue</td>
+              <td class="py-2">Site offline, SSL expired, broken form</td>
+              <td class="py-2">≤ 4 business hours</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <td class="py-2 font-medium">Standard support</td>
+              <td class="py-2">Update request, content change</td>
+              <td class="py-2">≤ 24 business hours</td>
+            </tr>
+            <tr>
+              <td class="py-2 font-medium">General inquiries</td>
+              <td class="py-2">Billing, feature questions</td>
+              <td class="py-2">≤ 48 business hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+        Requests received outside business hours are processed the next business day.
+      </p>
 
-    <h2 class="text-2xl font-semibold mt-10">4. Intellectual Property</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      The design, code, and structure of websites created by ByteWorks remain the intellectual property of ByteWorks unless otherwise stated. Clients retain rights to their own content, branding, and materials.
-    </p>
+      <h3>3. Monthly Updates Scope</h3>
+      <p>
+        Each plan includes a defined number of updates per month, measured in task units or time blocks.
+        Tasks do not roll over from month to month.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <th class="text-left py-2">Plan</th>
+              <th class="text-left py-2">Monthly Updates</th>
+              <th class="text-left py-2">Approx. Time per Task</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <td class="py-2 font-medium">Start</td>
+              <td class="py-2">1</td>
+              <td class="py-2">up to 30 min</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <td class="py-2 font-medium">Pro</td>
+              <td class="py-2">2</td>
+              <td class="py-2">up to 45 min each</td>
+            </tr>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <td class="py-2 font-medium">Elite</td>
+              <td class="py-2">3</td>
+              <td class="py-2">up to 60 min each</td>
+            </tr>
+            <tr>
+              <td class="py-2 font-medium">E-Commerce Pro</td>
+              <td class="py-2">4</td>
+              <td class="py-2">up to 60 min each</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <h2 class="text-2xl font-semibold mt-10">5. Limitation of Liability</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      ByteWorks will not be liable for indirect or incidental damages arising from the use or inability to use our services, including downtime, loss of data, or third-party service interruptions.
-    </p>
+      <p class="mt-3"><strong>Examples of included updates:</strong></p>
+      <ul>
+        <li>Text or image replacement</li>
+        <li>Color or layout adjustment</li>
+        <li>Product or service information edit</li>
+        <li>Adding a new testimonial or section within scope</li>
+      </ul>
+      <p class="mt-3"><strong>Not included:</strong> new pages, redesigns, additional stores, or complex integrations (these require a quote or plan upgrade).</p>
 
-    <h2 class="text-2xl font-semibold mt-10">6. Modifications</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      ByteWorks may update these Terms from time to time. Continued use of the services constitutes acceptance of any modifications.
-    </p>
+      <h3>4. E-Commerce Product Limit</h3>
+      <p>
+        The E-Commerce Pro plan includes up to 20 active products.
+        If the catalog exceeds this limit, the <em>Extended Catalog</em> Add-on applies (+$25/month per block of 20 products).
+        Catalogs exceeding 60 products require a custom <em>E-Commerce Plus</em> plan.
+        These limits ensure performance, predictable maintenance time, and proper optimization.
+      </p>
 
-    <h2 class="text-2xl font-semibold mt-10">7. Contact</h2>
-    <p class="text-gray-600 dark:text-gray-300">
-      For questions about these Terms, please contact:
-      <br />📧 <a class="underline" href="mailto:macrodriguez2512@gmail.com">macrodriguez2512@gmail.com</a>
-      <br />💬 <a class="underline" href="https://wa.me/18687759858" target="_blank">WhatsApp +1 868 775 9858</a>
-    </p>
+      <h3>5. Backups &amp; Security</h3>
+      <p>
+        Backups are performed automatically once every 7 days and stored securely.
+        Restores caused by client-side deletion or external changes are available on request.
+        Security monitoring covers SSL validity, file integrity, and critical dependency updates.
+      </p>
+
+      <h3>6. Ownership &amp; Access</h3>
+      <p>
+        ByteWorks retains technical ownership of the hosting and maintenance environment during the active subscription period.
+        Clients retain full ownership of their brand assets, domain, and site content.
+        Upon cancellation, ByteWorks can provide a downloadable version of the site and data upon request.
+      </p>
+    </section>
   </section>
 </Base>
