@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'Planes — ByteWorks';
+const description =
+  'Planes claros con mantenimiento incluido. Elige el plan que se ajuste a tu etapa y sube cuando quieras. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
+
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
+const wa = phone ? `https://wa.me/${phone}` : '/es/contacto';
+
+const planes = [
+  {
+    name: 'Start',
+    price: '$45/mes',
+    yearly: '$459/año (ahorra 15%)',
+    bestFor: 'Emprendedores solo, marcas personales, presencia simple',
+    features: [
+      'Sitio de una sola página (responsive)',
+      'Botón de WhatsApp + formulario de contacto',
+      'SEO local básico',
+      'Dominio, hosting y mantenimiento incluidos',
+      '1 actualización mensual (texto/imagen/color)',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mes',
+    yearly: '$561/año (ahorra 15%)',
+    bestFor: 'Negocios de servicios con 3–4 páginas',
+    features: [
+      'Hasta 4 páginas (Inicio, Sobre mí, Servicios, Contacto)',
+      'WhatsApp + automatizaciones simples (Notion/Sheets)',
+      'SEO local + rendimiento',
+      'Dominio, hosting y mantenimiento incluidos',
+      '2 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mes',
+    yearly: '$714/año (ahorra 15%)',
+    bestFor: 'Marcas en crecimiento con más secciones & UX',
+    features: [
+      'Hasta 7 páginas con secciones personalizadas',
+      'SEO mejorado (estructura, velocidad, indexación)',
+      'Flujos de captación + micro-integraciones',
+      'Dominio, hosting y mantenimiento incluidos',
+      '3 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mes',
+    yearly: '$969/año (ahorra 15%)',
+    bestFor: 'Catálogo + pedidos básicos por WhatsApp/Email',
+    features: [
+      'Catálogo de productos + flujo de checkout básico',
+      'Bandeja de pedidos por WhatsApp/Email',
+      'SEO para productos/categorías',
+      'Dominio, hosting y mantenimiento incluidos',
+      '4 actualizaciones mensuales',
+      'SSL, copias de seguridad',
+    ],
+  },
+];
+
+const addons = [
+  { name: 'SEO avanzado', note: 'arquitectura, schema, preparación de enlaces' },
+  { name: 'Kit de branding', note: 'logo, color, tipografía, avatares sociales' },
+  { name: 'Actualizaciones mensuales extra', note: 'más allá del plan' },
+  { name: 'Landing pages para campañas', note: 'secciones listas para A/B' },
+];
+---
+
+<Base title={title} description={description} image="/og-image.png" lang="es">
+  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-14 md:py-20">
+    <header class="text-center space-y-3">
+      <h1 class="text-3xl md:text-5xl font-semibold">Planes</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Websites que trabajan a tu favor. Mantenimiento incluido. Puedes subir de plan cuando quieras.
+      </p>
+      <p class="text-xs text-gray-500">Precios en USD. Para otros métodos de pago/monedas, contáctanos.</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+      {planes.map((p) => (
+        <article class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h2 class="text-lg font-semibold">{p.name}</h2>
+          <p class="mt-1 text-2xl">{p.price}</p>
+          <p class="text-xs text-gray-500">{p.yearly}</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
+          <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+            {p.features.map((f) => <li>• {f}</li>)}
+          </ul>
+          <a href={wa} class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+            Empezar por WhatsApp
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href={wa} class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        ¿Dudas? Hablemos
+      </a>
+    </div>
+
+    <section class="mt-20">
+      <h3 class="text-2xl font-semibold text-center mb-8">Add-ons populares</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {addons.map((a) => (
+          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+            <h4 class="font-semibold">{a.name}</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-gray-500 mt-3">Blog/News no está incluido como add-on.</p>
+    </section>
+
+    <section class="mt-20">
+      <h3 class="text-2xl font-semibold text-center mb-8">Qué incluye el mantenimiento</h3>
+      <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6">
+        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h4 class="font-medium">Núcleo</h4>
+          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+            <li>• Hosting en Vercel</li>
+            <li>• SSL + copias de seguridad</li>
+            <li>• Actualizaciones mensuales (según plan)</li>
+            <li>• Revisiones de rendimiento</li>
+          </ul>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <h4 class="font-medium">Opcional</h4>
+          <ul class="mt-2 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+            <li>• Configuración de analytics (Plausible/Cloudflare)</li>
+            <li>• Micro-automatizaciones (Notion/Sheets)</li>
+            <li>• Landing pages para campañas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </section>
+</Base>
