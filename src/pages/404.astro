@@ -1,25 +1,8 @@
 ---
-export const prerender = false; // <-- fuerza SSR en la 404 y elimina el warning
-
-import Base from "../layouts/Base.astro";
-import { en as tEn } from "../i18n/en";
-import { es as tEs } from "../i18n/es";
-
-const path = Astro.url?.pathname || '/';
-const isEs = path.startsWith('/es/');
-const t = isEs ? tEs : tEn;
-const lang = isEs ? 'es' : 'en';
+export const prerender = false;
 ---
-
-<Base lang={lang} t={t} title="404 — Not found" description="Page not found">
-  <section class="max-w-3xl mx-auto px-4 py-20 text-center">
-    <h1 class="text-3xl font-display font-semibold">404 — {isEs ? 'Página no encontrada' : 'Page not found'}</h1>
-    <p class="mt-2 text-neutral-600 dark:text-neutral-300">
-      {isEs ? 'La página que buscas no existe.' : 'The page you are looking for does not exist.'}
-    </p>
-    <div class="mt-6 flex items-center justify-center gap-3">
-      <a href="/en/" class="px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60">English</a>
-      <a href="/es/" class="px-4 py-2 rounded-md bg-brand text-black font-medium">Español</a>
-    </div>
-  </section>
-</Base>
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Not found</title></head>
+  <body>Not found</body>
+</html>

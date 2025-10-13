@@ -1,0 +1,19 @@
+---
+/** Redirección automática según Accept-Language (SSR) */
+export const prerender = false;
+
+const accept = (Astro.request.headers.get('accept-language') || '').toLowerCase();
+
+// Detecta español de forma simple (es, es-*, etc.)
+const toES = /\bes\b/.test(accept) || accept.startsWith('es');
+
+// Ajusta aquí si quieres forzar un idioma por query (?lang=)
+const url = new URL(Astro.request.url);
+const forced = url.searchParams.get('lang');
+const target =
+  forced === 'es' ? '/es/' :
+  forced === 'en' ? '/en/' :
+  toES ? '/es/' : '/en/';
+
+return Astro.redirect(target);
+---
