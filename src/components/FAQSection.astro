@@ -1,0 +1,36 @@
+---
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+const { faqs, lang } = Astro.props;
+---
+
+<section id="faq" class="max-w-6xl mx-auto px-4 py-20">
+  <h2 class="text-3xl sm:text-4xl font-bold font-display text-center mb-10">
+    {lang === "es" ? "Preguntas frecuentes" : "Frequently Asked Questions"}
+  </h2>
+
+  <div class="space-y-6">
+    {faqs.map((faq: FAQItem) => (
+      <details class="group border border-neutral-200 dark:border-neutral-800 rounded-lg p-5 transition-all">
+        <summary class="cursor-pointer flex justify-between items-center font-medium text-lg text-neutral-900 dark:text-neutral-100">
+          {faq.q}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 ml-2 transition-transform duration-300 group-open:rotate-180"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <p class="mt-3 text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          {faq.a}
+        </p>
+      </details>
+    ))}
+  </div>
+</section>
