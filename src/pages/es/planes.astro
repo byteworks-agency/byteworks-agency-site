@@ -6,11 +6,6 @@ const title = 'Planes — ByteWorks';
 const description =
   'Planes claros con mantenimiento incluido. Elige el plan que se ajuste a tu etapa y sube cuando quieras. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
-const message =
-  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hola ByteWorks, estoy interesado en un sitio web.';
-const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : '/es/contacto';
-
 const planes = [
   {
     name: 'Start',
@@ -82,7 +77,7 @@ const planes = [
     </header>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-      {planes.map((p) => (
+      {plans.map((p) => (
         <article class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
           <h2 class="text-lg font-semibold">{p.name}</h2>
           <p class="mt-1 text-2xl">{p.price}</p>
@@ -91,16 +86,16 @@ const planes = [
           <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
             {p.features.map((f) => <li>• {f}</li>)}
           </ul>
-          <a href={wa} target={phone ? '_blank' : '_self'} rel="noopener noreferrer" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-            Empezar por WhatsApp
+          <a href="/es/contacto" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+            Solicitar Cotización
           </a>
         </article>
       ))}
     </div>
 
     <div class="mt-16 text-center">
-      <a href={wa} target={phone ? '_blank' : '_self'} rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-        ¿Dudas? Hablemos
+      <a href="/es/contacto" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        ¿Dudas? Solicita tu cotización
       </a>
     </div>
 
