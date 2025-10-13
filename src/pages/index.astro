@@ -1,5 +1,5 @@
 ---
-/** Redirección automática según Accept-Language (SSR) */
+/** SSR: redirige / a /en/ o /es/ por Accept-Language o ?lang= */
 export const prerender = false;
 
 const accept = (Astro.request.headers.get('accept-language') || '').toLowerCase();
@@ -7,6 +7,7 @@ const toES = /\bes\b/.test(accept) || accept.startsWith('es');
 
 const url = new URL(Astro.request.url);
 const forced = url.searchParams.get('lang');
+
 const target =
   forced === 'es' ? '/es/' :
   forced === 'en' ? '/en/' :

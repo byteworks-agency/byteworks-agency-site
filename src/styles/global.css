@@ -1,22 +1,54 @@
+/* Tailwind v3 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Tema base */
+/* Brand */
 :root {
-  color-scheme: light dark;
+  --brand: #06b6d4;
 }
 
+/* Tipografías */
 body {
-  @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/* Reduce motion para usuarios sensibles */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+.font-display {
+  font-family: Manrope, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Helpers */
+.bg-brand {
+  background-color: var(--brand);
+}
+
+.text-brand {
+  color: var(--brand);
+}
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 72rem;
+  /* ~ 1152px */
+}
+
+.section {
+  padding-block: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 5rem;
   }
 }

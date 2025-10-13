@@ -7,7 +7,6 @@ const {
   title = "ByteWorks — Websites that work for you",
   description = "Professional websites, clear pricing, maintenance included, real support.",
   lang = "en",
-  t = {},
   ogImage = "/og-image.png",
 } = Astro.props;
 
@@ -49,9 +48,10 @@ const canonical = site ? new URL(pathname, site).toString() : undefined;
     <meta name="twitter:description" content={description} />
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
+    <!-- Fuentes (Inter body, Manrope display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet"/>
   </head>
 
   <body class="bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased">

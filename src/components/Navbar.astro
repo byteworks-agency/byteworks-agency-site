@@ -22,11 +22,11 @@ const links = lang === 'es'
         <source srcset="/logo-dark.png" media="(prefers-color-scheme: dark)" />
         <img src="/logo-light.png" alt="ByteWorks" class="h-7 w-auto" loading="eager" decoding="sync" />
       </picture>
-      <span class="sr-only">ByteWorks</span>
+      <span class="text-base sm:text-lg font-semibold font-display tracking-tight">ByteWorks</span>
     </a>
 
     <nav class="hidden md:flex items-center gap-6 text-sm">
-      {links.map(l => (
+      {links.map((l) => (
         <a href={l.href} class="hover:text-brand transition-colors">{l.label}</a>
       ))}
 
@@ -50,6 +50,7 @@ const links = lang === 'es'
     </button>
   </div>
 
+  <!-- Menú móvil -->
   <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95">
     <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3 text-sm">
       <div class="flex items-center justify-between">
@@ -63,7 +64,7 @@ const links = lang === 'es'
         </button>
       </div>
 
-      {links.map(l => (
+      {links.map((l) => (
         <a href={l.href} class="py-2 border-b border-neutral-200/70 dark:border-neutral-800 hover:text-brand">{l.label}</a>
       ))}
 

@@ -1,156 +1,161 @@
 ---
 import Base from "../../layouts/Base.astro";
-import Hero from "../../components/Hero.astro";
-import { en as t } from "../../i18n/en";
+import Plans from "../../components/Plans.astro";
+import AddOns from "../../components/AddOns.astro";
+
+const plans = [
+  {
+    id: "start",
+    title: "Start — Essential Presence",
+    price: "$45/month",
+    period: "or $459/year (save 15%)",
+    icon: "/icons/start.svg",
+    bullets: [
+      "Modern one-page site, fully responsive",
+      "WhatsApp button & contact form",
+      "Basic local SEO",
+      "Domain, hosting & maintenance",
+      "1 monthly update",
+      "SSL, backups & monitoring",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Get started",
+  },
+  {
+    id: "pro",
+    title: "Pro — Complete Presence",
+    price: "$55/month",
+    period: "or $561/year (save 15%)",
+    icon: "/icons/pro.svg",
+    bullets: [
+      "Up to 5 sections/pages",
+      "Brand-aligned custom design",
+      "Advanced forms (quote/booking)",
+      "Form-to-WhatsApp delivery",
+      "Full-page SEO",
+      "2 monthly updates",
+    ],
+    highlight: true,
+    ctaHref: "/en/contact",
+    ctaText: "Choose Pro",
+  },
+  {
+    id: "elite",
+    title: "Elite — Automation & Growth",
+    price: "$70/month",
+    period: "or $714/year (save 15%)",
+    icon: "/icons/elite.svg",
+    bullets: [
+      "Up to 8 pages",
+      "Google Sheets/Forms/Drive automations",
+      "WhatsApp notifications",
+      "Analytics dashboard",
+      "Monthly optimization",
+      "Priority support (24–48 h)",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Scale with Elite",
+  },
+  {
+    id: "ecommerce",
+    title: "E-Commerce Pro — Sell Smart",
+    price: "$95/month",
+    period: "or $969/year (save 15%)",
+    icon: "/icons/ecommerce.svg",
+    bullets: [
+      "Up to 100 products & categories",
+      "Product catalog, cart & manual checkout",
+      "WhatsApp or internal flow checkout",
+      "Orders dashboard & confirmations",
+      "SEO for products",
+      "Priority support + 3 monthly updates",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Start selling",
+  },
+];
+
+const addons = [
+  {
+    id: "seo",
+    title: "Advanced SEO & Local Positioning",
+    price: "+$30/month",
+    icon: "/icons/seo.svg",
+    bullets: [
+      "Keyword research & technical optimization",
+      "Speed improvements",
+      "Google Business profile setup",
+      "Monthly report with insights",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Improve ranking",
+  },
+  {
+    id: "blog",
+    title: "Blog / News Section",
+    price: "+$25/month",
+    icon: "/icons/blog.svg",
+    bullets: [
+      "Blog section with article template",
+      "Categories & tags",
+      "SEO-optimized structure",
+      "Managed by ByteWorks or self-managed",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Add blog",
+  },
+  {
+    id: "small-store",
+    title: "Small Online Store (up to 20)",
+    price: "+$35/month",
+    icon: "/icons/store.svg",
+    bullets: [
+      "Mini-store inside your site",
+      "Cart & manual checkout",
+      "Basic analytics",
+      "Managed or self-managed products",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Add mini-store",
+  },
+  {
+    id: "branding",
+    title: "Basic Branding Package",
+    price: "$120",
+    badge: "One-time",
+    icon: "/icons/branding.svg",
+    bullets: [
+      "Logo (primary & alt)",
+      "Color palette & typography",
+      "Social avatars & banners kit",
+      "Basic brand guidelines",
+    ],
+    ctaHref: "/en/contact",
+    ctaText: "Get branding",
+  },
+];
 ---
 
-<Base lang="en" t={t} title="ByteWorks — Websites that work for you" description={t.c_home_desc}>
-  <Hero
-    lang="en"
-    title={t.c_home_title}
-    description={t.c_home_desc}
-    primaryHref="#plans"
-    primaryText={t.c_home_primary}
-    secondaryHref="/en/contact"
-    secondaryText={t.c_home_secondary}
-  />
-
-  <!-- PLANS -->
-  <section id="plans" class="max-w-6xl mx-auto px-4 py-12">
-  <h2 class="text-2xl font-semibold font-display">Plans</h2>
-
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Start -->
-    <article class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-6 hover:shadow-sm transition">
-      <header class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img src="/icons/start.svg" alt="" class="w-6 h-6 dark:invert" />
-          <div>
-            <h3 class="text-lg font-semibold">Start — Essential Presence</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-0.5">$45/mo → $459/yr</p>
-          </div>
-        </div>
-      </header>
-      <div class="flex items-baseline gap-2 mt-2">
-        <span class="text-3xl font-semibold">$45</span>
-        <span class="text-sm text-neutral-600 dark:text-neutral-300">/mo</span>
-      </div>
-      <ul class="mt-3 space-y-1 text-sm">
-        <li>• One-page responsive</li>
-        <li>• WhatsApp button + Contact form</li>
-        <li>• Local SEO basics</li>
-        <li>• Domain, hosting, maintenance included</li>
-        <li>• 1 monthly update</li>
-        <li>• WhatsApp support</li>
-        <li>• SSL, backups, basic monitoring</li>
-      </ul>
-      <a href="/en/contact" class="mt-4 inline-block px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60">Choose this plan</a>
-    </article>
-
-    <!-- Pro -->
-    <article class="rounded-xl border border-brand/40 bg-white/60 dark:bg-neutral-900/50 p-6 hover:shadow-sm transition">
-      <header class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img src="/icons/pro.svg" alt="" class="w-6 h-6 dark:invert" />
-          <div>
-            <h3 class="text-lg font-semibold">Pro — Complete Presence</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-0.5">$55/mo → $561/yr</p>
-          </div>
-        </div>
-        <span class="text-xs px-2 py-1 rounded-md bg-brand/20 text-neutral-900 dark:text-white font-medium">Most chosen</span>
-      </header>
-      <div class="flex items-baseline gap-2 mt-2">
-        <span class="text-3xl font-semibold">$55</span>
-        <span class="text-sm text-neutral-600 dark:text-neutral-300">/mo</span>
-      </div>
-      <ul class="mt-3 space-y-1 text-sm">
-        <li>• Everything in Start</li>
-        <li>• Up to 5 sections/pages</li>
-        <li>• Brand-aligned design</li>
-        <li>• Advanced forms (quotes/reservations)</li>
-        <li>• Direct WhatsApp submissions</li>
-        <li>• SEO on all pages</li>
-        <li>• 2 monthly updates</li>
-        <li>• Ongoing WhatsApp support</li>
-      </ul>
-      <a href="/en/contact" class="mt-4 inline-block px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60">Choose this plan</a>
-    </article>
-
-    <!-- Elite -->
-    <article class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-6 hover:shadow-sm transition">
-      <header class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img src="/icons/elite.svg" alt="" class="w-6 h-6 dark:invert" />
-          <div>
-            <h3 class="text-lg font-semibold">Elite — Automation & Growth</h3>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-0.5">$70/mo → $714/yr</p>
-          </div>
-        </div>
-      </header>
-      <div class="flex items-baseline gap-2 mt-2">
-        <span class="text-3xl font-semibold">$70</span>
-        <span class="text-sm text-neutral-600 dark:text-neutral-300">/mo</span>
-      </div>
-      <ul class="mt-3 space-y-1 text-sm">
-        <li>• Everything in Pro</li>
-        <li>• Up to 8 custom pages</li>
-        <li>• Google automation (Sheets, Forms, Drive, Analytics)</li>
-        <li>• Forms → Sheets + WhatsApp alerts</li>
-        <li>• Auto lead logging + Analytics panel</li>
-        <li>• Monthly optimization (speed, security, SEO)</li>
-        <li>• Priority support (24–48h)</li>
-        <li>• 4 monthly updates</li>
-      </ul>
-      <a href="/en/contact" class="mt-4 inline-block px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60">Choose this plan</a>
-    </article>
-  </div>
-
-  <!-- E-Commerce + Add-ons -->
-  <div class="mt-10 grid gap-6 lg:grid-cols-2">
-    <article class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-6">
-      <div class="flex items-center gap-3">
-        <img src="/icons/ecommerce.svg" alt="" class="w-6 h-6 dark:invert" />
-        <h3 class="text-lg font-semibold">E-Commerce Pro — Online Store Solution</h3>
-        <div class="text-2xl font-semibold">$95 <span class="text-sm text-neutral-600 dark:text-neutral-300">/mo</span></div>
-      </div>
-      <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-2">For businesses ready to sell online with a secure, easy-to-manage store.</p>
-      <ul class="mt-3 space-y-1 text-sm">
-        <li>• Up to 10 pages</li><li>• Up to 100 products</li><li>• Cart & manual checkout</li><li>• Internal payment flows</li>
-        <li>• Orders panel + WhatsApp confirmations</li><li>• Customer accounts</li><li>• Basic SEO per product</li><li>• 3 updates • Priority support</li>
-      </ul>
-      <a href="/en/contact" class="mt-4 inline-block px-4 py-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:border-brand/60">Choose this plan</a>
-    </article>
-
-    <article class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-6">
-      <h4 class="font-semibold font-display">Add-ons (optional)</h4>
-      <ul class="mt-3 space-y-1 text-sm">
-        <li>• Advanced SEO & Local +$30/mo</li>
-        <li>• Blog / News +$25/mo</li>
-        <li>• Small Store (≤20 products) +$35/mo</li>
-        <li>• Basic Branding (one-time) $120</li>
-      </ul>
-    </article>
-  </div>
-</section>
-  <!-- CTA FOOTER -->
-  <section class="max-w-6xl mx-auto px-4 pb-12" id="cta">
-    <div class="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/40 p-6 grid md:grid-cols-2 gap-6">
-      <div>
-        <h3 class="text-xl font-semibold font-display">{t.cta_title}</h3>
-        <p class="text-neutral-600 dark:text-neutral-300 text-sm mt-2">{t.pricing_note}</p>
-      </div>
-      <div class="self-center md:text-right">
-        <a href="/en/contact" class="inline-block px-4 py-2 rounded-md bg-brand text-black font-medium">Schedule a call</a>
+<Base lang="en" title="ByteWorks — Websites that work for you">
+  <section class="section text-center py-20">
+    <div class="container max-w-3xl mx-auto">
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+        Websites that work for you — not against you.
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-neutral-600 dark:text-neutral-300">
+        Professional presence without the headache. Clear pricing, maintenance included, real support.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="#plans" class="px-5 py-2.5 rounded-md bg-brand text-black font-medium">
+          See plans
+        </a>
+        <a href="/en/contact" class="px-5 py-2.5 rounded-md border border-neutral-300 dark:border-neutral-700">
+          Contact
+        </a>
       </div>
     </div>
   </section>
 
-  <script is:inline>
-    const toggle = document.getElementById('toggle');
-    const prices = () => document.querySelectorAll('.price');
-    const periods = () => document.querySelectorAll('.period');
-    function apply(yearly) { prices().forEach(p => p.textContent = yearly ? p.dataset.year : p.dataset.month);
-                             periods().forEach(el => el.textContent = yearly ? '/yr' : '/mo'); }
-    toggle?.addEventListener('change', e => apply(e.target.checked));
-  </script>
+  <Plans lang="en" items={plans} anchorId="plans" />
+  <AddOns lang="en" items={addons} anchorId="addons" />
 </Base>
