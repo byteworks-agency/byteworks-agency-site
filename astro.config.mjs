@@ -1,13 +1,34 @@
-import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
-import tailwind from "@astrojs/tailwind";
+
+
+> Define `site` para URLs canónicas, sitemap y robots correctos. No toco integraciones “raras”; sólo las comunes y seguras.
+
+```js
+import { defineConfig } from 'astro/config';
+import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
+
+// ⚠️ Ajusta a tu dominio final cuando lo tengas.
+// Mientras tanto dejamos el de Vercel para no dejarlo vacío:
+const SITE = 'https://byteworksagency.vercel.app';
 
 export default defineConfig({
-  output: "server", // usamos SSR (detección de idioma/headers)
-  adapter: vercel(), // runtime vercel (serverless por defecto)
-  integrations: [tailwind({ applyBaseStyles: false })],
-  site: "https://byteworksagency.vercel.app",
-  // Quita la relajación de fs.strict para evitar el aviso de seguridad
-  // Si antes pusimos algo, lo removemos:
-  // vite: { server: { fs: { strict: false } } },
+  site: SITE,
+  integrations: [
+    tailwind({
+      // No forzamos config especial; usa tu tailwind.config.mjs
+      applyBaseStyles: true,
+    }),
+    sitemap({
+      filter: (page) => {
+        // Opcional: si necesitas excluir páginas (drafts, etc.)
+        return true;
+      },
+      i18n: {
+        // Si no todas las rutas tienen mirror EN/ES, deja esto vacío
+        // y usa <link rel="alternate"> en el layout (ya implementado).
+      },
+    }),
+  ],
+  // Si usas rutas con base, adapters, etc., agrégalo aquí.
+  // output: 'static' | 'server' (por defecto queda en 'static' si no se cambia).
 });
