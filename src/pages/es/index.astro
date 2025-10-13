@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Plans from "../../components/Plans.astro";
 import AddOns from "../../components/AddOns.astro";
+import FAQSection from "../../components/FAQSection.astro";
 
 const planes = [
   {
@@ -134,6 +135,34 @@ const addons = [
     ctaText: "Quiero mi branding",
   },
 ];
+
+const faqs_es = [
+  {
+    q: "¿Qué incluye el mantenimiento?",
+    a: "Nos encargamos del hosting, seguridad (SSL), copias de seguridad, actualizaciones del core y correcciones menores. Además, tu plan incluye las actualizaciones de contenido mensuales indicadas."
+  },
+  {
+    q: "¿Puedo cambiar de plan más adelante?",
+    a: "Sí. Puedes subir o bajar de plan cuando quieras. Ajustamos el periodo para que no pagues de más y mantengas la continuidad del servicio."
+  },
+  {
+    q: "¿En cuánto tiempo puede estar mi sitio online?",
+    a: "El plan Start suele publicarse en 3–7 días según la disponibilidad de contenidos. Pro, Elite y E-Commerce pueden requerir más tiempo por páginas personalizadas e integraciones."
+  },
+  {
+    q: "¿Soy dueño de mi dominio y de mi contenido?",
+    a: "Sí. Tu marca, dominio y contenido son tuyos. Si en algún momento necesitas migrar, te ayudamos con una exportación limpia para que no pierdas nada."
+  },
+  {
+    q: "¿Cómo funcionan los formularios por WhatsApp?",
+    a: "Los formularios de contacto, cotización o reserva pueden enviarse directamente a WhatsApp. En los planes Elite y E-Commerce también podemos registrar automáticamente los datos en Google Sheets y enviar notificaciones."
+  },
+  {
+    q: "Mini-tienda y E-Commerce: ¿quién gestiona los productos?",
+    a: "Por defecto, la gestión de productos la realiza ByteWorks (agregar, editar o eliminar ítems). Si prefieres autogestión, la habilitamos a pedido: te damos acceso, una guía rápida y soporte para que puedas administrar tu catálogo cuando lo necesites."
+  }
+];
+
 ---
 
 <Base lang="es" title="ByteWorks — Websites that work for you">
@@ -154,4 +183,6 @@ const addons = [
 
   <Plans lang="es" items={planes} anchorId="plans" />
   <AddOns lang="es" items={addons} anchorId="addons" />
+  <FAQSection faqs={faqs_es} lang="es" />
+</Base>
 </Base>
