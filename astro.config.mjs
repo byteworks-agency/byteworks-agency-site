@@ -1,4 +1,6 @@
+---
 
+## `/astro.config.mjs` (reemplazo completo)
 
 > Define `site` para URLs canónicas, sitemap y robots correctos. No toco integraciones “raras”; sólo las comunes y seguras.
 
