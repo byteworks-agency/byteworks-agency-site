@@ -12,11 +12,11 @@ const planes = [
     yearly: '$459/año (ahorra 15%)',
     features: [
       'Sitio de una sola página (responsive)',
-      'Formulario de contacto integrado',
-      'SEO local básico',
+      'Formulario de contacto (email o Google Sheets)',
+      'SEO básico (título, meta, OG, sitemap)',
       'Dominio, hosting y mantenimiento incluidos',
-      '1 actualización mensual (texto/imagen/color)',
-      'SSL, copias de seguridad',
+      '1 actualización mensual (≤30 min)',
+      'SSL y copias de seguridad',
     ],
   },
   {
@@ -24,12 +24,12 @@ const planes = [
     price: '$55/mes',
     yearly: '$561/año (ahorra 15%)',
     features: [
-      'Hasta 4 páginas (Inicio, Sobre mí, Servicios, Contacto)',
+      'Hasta 4 páginas (Inicio, Sobre, Servicios, Contacto)',
       'Contacto + automatizaciones con Google Sheets',
-      'SEO local + alto rendimiento',
+      'Optimización técnica y rendimiento ligeros',
       'Dominio, hosting y mantenimiento incluidos',
-      '2 actualizaciones mensuales',
-      'SSL, copias de seguridad',
+      '2 actualizaciones mensuales (≤45 min c/u)',
+      'SSL y copias de seguridad',
     ],
   },
   {
@@ -41,8 +41,8 @@ const planes = [
       'SEO mejorado (estructura, velocidad, indexación)',
       'Flujos de captación + integraciones con Google',
       'Dominio, hosting y mantenimiento incluidos',
-      '3 actualizaciones mensuales',
-      'SSL, copias de seguridad',
+      '3 actualizaciones mensuales (≤60 min c/u)',
+      'SSL y copias de seguridad',
     ],
   },
   {
@@ -50,22 +50,51 @@ const planes = [
     price: '$95/mes',
     yearly: '$969/año (ahorra 15%)',
     features: [
-      'Catálogo de productos + flujo de checkout básico',
-      'Bandeja de pedidos por Email + sincronización con Google Sheets',
-      'SEO para productos/categorías',
-      'Dominio, hosting y mantenimiento incluidos',
-      '4 actualizaciones mensuales',
-      'SSL, copias de seguridad',
+      'Catálogo de productos (hasta 20 ítems)',
+      'Carrito local + flujo de checkout manual',
+      'Registro de pedidos por Email / Google Sheets',
+      'Tracking interno por código (sin pasarela)',
+      '4 actualizaciones mensuales (productos o textos)',
+      'SSL, copias, dominio y hosting incluidos',
     ],
   },
 ];
 
-const addons = [
-  { name: 'SEO avanzado', note: 'arquitectura, schema, preparación de enlaces' },
-  { name: 'Kit de branding', note: 'logo, color, tipografía, avatares sociales' },
-  { name: 'Actualizaciones mensuales extra', note: 'más allá del plan' },
-  { name: 'Landing pages para campañas', note: 'secciones listas para A/B' },
+const faqs = [
+  {
+    q: '¿En cuánto tiempo puedo tener mi sitio?',
+    a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos y assets. Pro/Elite toman 2–4 semanas según alcance y revisiones.',
+  },
+  {
+    q: '¿Qué incluye la “actualización mensual”?',
+    a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos → SLA).',
+  },
+  {
+    q: '¿Incluye pagos en línea?',
+    a: 'No por defecto. E-Commerce Pro usa flujo de pedido manual (sin pasarela). Si luego necesitas pagos, podemos cotizarlo como add-on.',
+  },
+  {
+    q: '¿Puedo dar seguimiento a pedidos de delivery?',
+    a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en Google Sheets y se muestra en una página de tracking.',
+  },
+  {
+    q: '¿Quién es dueño del dominio y el contenido?',
+    a: 'Tú. Mientras la suscripción esté activa, nosotros administramos la parte técnica; tú conservas dominio, marca y contenidos.',
+  },
+  {
+    q: '¿El sitio es bilingüe?',
+    a: 'Sí. Estructura y rutas en Inglés y Español. Si solo quieres un idioma, podemos mantener el otro oculto.',
+  },
+  {
+    q: '¿Incluye SEO?',
+    a: 'Todos los planes incluyen SEO básico. Para mejoras constantes y ranking local, está el add-on de SEO avanzado.',
+  },
+  {
+    q: '¿Puedo migrar en el futuro?',
+    a: 'Sí. Podemos exportar el sitio y entregar assets/datos al cancelar, según Términos.',
+  },
 ];
+
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="es">
@@ -129,15 +158,60 @@ const addons = [
       </p>
     </div>
 
-    <!-- ADD-ONS -->
+    <!-- PROYECTOS (estado vacío por ahora) -->
     <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Add-ons populares</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {addons.map((a) => (
-          <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h3 class="font-semibold">{a.name}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">{a.note}</p>
-          </div>
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Proyectos</h2>
+      <div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center max-w-3xl mx-auto">
+        <p class="text-gray-600 dark:text-gray-300">
+          Aquí verás casos de estudio y proyectos de clientes muy pronto.
+        </p>
+        <a href="/es/contacto" class="mt-4 inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Solicitar Cotización
+        </a>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="mt-20 grid md:grid-cols-2 gap-8 items-start">
+      <div class="space-y-4">
+        <h2 class="text-2xl md:text-3xl font-semibold">Sobre ByteWorks</h2>
+        <p class="text-gray-700 dark:text-gray-200">
+          Construimos sitios bilingües y ligeros, enfocados en resultados. Planes claros, mantenimiento continuo
+          y un stack pragmático (Astro + Google) mantienen tu web rápida, estable y fácil de actualizar.
+        </p>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Precios y alcance claros.</li>
+          <li>Stack liviano para velocidad y confiabilidad.</li>
+          <li>Actualizaciones incluidas y soporte real.</li>
+        </ul>
+        <a href="/es/contacto" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Trabaja con nosotros
+        </a>
+      </div>
+      <div class="space-y-3">
+        <h3 class="font-semibold">Nuestro proceso</h3>
+        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Brief y requisitos</li>
+          <li>Estructura y guía de contenidos</li>
+          <li>Diseño e implementación</li>
+          <li>QA, lanzamiento y traspaso</li>
+          <li>Actualizaciones y soporte continuo</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">FAQ</h2>
+      <div class="max-w-3xl mx-auto divide-y divide-gray-200 dark:divide-gray-800">
+        {faqs.map((item) => (
+          <details class="py-4 group">
+            <summary class="flex cursor-pointer list-none items-center justify-between">
+              <span class="font-medium">{item.q}</span>
+              <span class="text-gray-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
+          </details>
         ))}
       </div>
     </div>
