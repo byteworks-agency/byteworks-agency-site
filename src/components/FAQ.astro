@@ -1,115 +1,69 @@
 ---
-interface FAQItem {
-  q: string;
-  a: string;
-}
-
+interface FAQItem { q: string; a: string; }
 interface Props {
   lang?: 'en' | 'es';
   title?: string;
   description?: string;
-  items?: FAQItem[]; // opcional si usas slots
+  items?: FAQItem[];
 }
-
-const {
-  lang = 'en',
-  title = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions',
-  description = lang === 'es'
-    ? 'Resolvemos las dudas más comunes sobre planes, soporte y proceso.'
-    : 'We answer the most common questions about plans, support, and process.',
-  items = [],
-} = Astro.props;
-
-// Permite usar <FAQ> con items o con children personalizados
-const hasItems = Array.isArray(items) && items.length > 0;
-
-const faqSchema = hasItems
-  ? {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": items.map((it) => ({
-        "@type": "Question",
-        "name": it.q,
-        "acceptedAnswer": { "@type": "Answer", "text": it.a }
-      }))
-    }
-  : null;
+const { lang = 'en', title, description, items = [] } = Astro.props;
+const defaultTitle = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions';
+const defaultDesc  = lang === 'es'
+  ? 'Resolvemos las dudas más comunes sobre planes, soporte y proceso.'
+  : 'We answer the most common questions about plans, support, and process.';
 ---
 
 <section id="faq" class="max-w-6xl mx-auto px-4 py-20">
   <header class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-    <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">{title}</h2>
-    <p class="mt-3 text-sm sm:text-base text-neutral-600 dark:text-neutral-300">{description}</p>
+    <h2 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight">{title ?? defaultTitle}</h2>
+    <p class="mt-3 text-sm sm:text-base text-neutral-600 dark:text-neutral-300">{description ?? defaultDesc}</p>
   </header>
 
   <div class="space-y-6 max-w-3xl mx-auto">
-    {hasItems ? (
-      items.map((faq) => (
-        <details class="faq group border border-neutral-200 dark:border-neutral-800 rounded-lg p-5 transition-all bg-white dark:bg-neutral-950">
-          <summary class="cursor-pointer flex justify-between items-center font-medium text-lg text-neutral-900 dark:text-neutral-100">
-            {faq.q}
-            <svg class="h-5 w-5 ml-2 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </summary>
-          <div class="faq-panel mt-3 text-neutral-700 dark:text-neutral-300 leading-relaxed">
-            {faq.a}
-          </div>
-        </details>
-      ))
-    ) : (
-      <slot />
-    )}
+    {items.map((faq) => (
+      <details class="faq group border border-neutral-200 dark:border-neutral-800 rounded-lg p-5 transition-all bg-white dark:bg-neutral-950">
+        <summary class="cursor-pointer flex justify-between items-center font-medium text-lg text-neutral-900 dark:text-neutral-100">
+          {faq.q}
+          <svg class="h-5 w-5 ml-2 transition-transform duration-300 group-open:rotate-180" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M19 9l-7 7-7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </summary>
+        <div class="faq-panel mt-3 text-neutral-700 dark:text-neutral-300 leading-relaxed">{faq.a}</div>
+      </details>
+    ))}
   </div>
-
-  {faqSchema && (
-    <script type="application/ld+json">
-      {JSON.stringify(faqSchema)}
-    </script>
-  )}
 </section>
 
 <style>
-  .faq-panel {
-    overflow: hidden;
-    height: 0;
-    transition: height 220ms ease;
-  }
-  details > summary { list-style: none; }
-  details > summary::-webkit-details-marker { display: none; }
+  .faq-panel{ overflow:hidden; height:0; transition:height 220ms ease; }
+  details>summary{ list-style:none; }
+  details>summary::-webkit-details-marker{ display:none; }
 </style>
-
 <script is:inline>
-  // Transición suave de altura en <details>
   const items = document.querySelectorAll('.faq');
-  items.forEach((d) => {
+  items.forEach((d)=>{
     const panel = d.querySelector('.faq-panel');
-    if (!panel) return;
-
-    if (d.hasAttribute('open')) {
-      panel.style.height = panel.scrollHeight + 'px';
-      panel.addEventListener('transitionend', () => {
-        if (d.open) panel.style.height = 'auto';
-      }, { once: true });
+    if(!panel) return;
+    if(d.hasAttribute('open')){
+      panel.style.height = panel.scrollHeight+'px';
+      panel.addEventListener('transitionend',()=>{
+        if(d.open) panel.style.height='auto';
+      },{once:true});
     }
-
-    d.addEventListener('toggle', () => {
-      if (!d.open) {
-        if (panel.style.height === 'auto' || panel.style.height === '') {
-          panel.style.height = panel.scrollHeight + 'px';
+    d.addEventListener('toggle',()=>{
+      if(!d.open){
+        if(panel.style.height==='auto'||panel.style.height===''){
+          panel.style.height = panel.scrollHeight+'px';
           panel.getBoundingClientRect();
         }
-        panel.style.height = '0px';
+        panel.style.height='0px';
         return;
       }
-      panel.style.height = '0px';
+      panel.style.height='0px';
       panel.getBoundingClientRect();
-      panel.style.height = panel.scrollHeight + 'px';
-      const onEnd = () => {
-        if (d.open) panel.style.height = 'auto';
-        panel.removeEventListener('transitionend', onEnd);
-      };
-      panel.addEventListener('transitionend', onEnd);
+      panel.style.height = panel.scrollHeight+'px';
+      const onEnd=()=>{ if(d.open) panel.style.height='auto'; panel.removeEventListener('transitionend',onEnd); };
+      panel.addEventListener('transitionend',onEnd);
     });
   });
 </script>
