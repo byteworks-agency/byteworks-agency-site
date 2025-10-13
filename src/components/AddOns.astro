@@ -1,11 +1,93 @@
 ---
 interface Props {
   lang?: 'en' | 'es';
-  id?: string; // opcional para anclar (#addons)
+  id?: string;
 }
 const { lang = 'es', id = 'addons' } = Astro.props;
-
 const isEN = lang === 'en';
+
+const items = [
+  {
+    titleEN: 'Advanced SEO & Local Positioning',
+    titleES: 'Advanced SEO & Local Positioning',
+    priceEN: '+$30/month',
+    priceES: '+$30/mes',
+    bulletsEN: [
+      'Keyword research.',
+      'Technical and speed optimization.',
+      'Google Business profile setup.',
+      'Monthly report with metrics and insights.',
+    ],
+    bulletsES: [
+      'Investigación de palabras clave.',
+      'Optimización técnica y de velocidad.',
+      'Configuración de perfil en Google Business.',
+      'Reporte mensual con métricas e insights.',
+    ],
+    footEN: 'Improve your rankings and local visibility.',
+    footES: 'Mejora tu posicionamiento y visibilidad local.',
+  },
+  {
+    titleEN: 'Blog / News Section',
+    titleES: 'Blog / News Section',
+    priceEN: '+$25/month',
+    priceES: '+$25/mes',
+    bulletsEN: [
+      'Blog section with article template.',
+      'Categories, tags, and editable blocks.',
+      'SEO-ready structure.',
+      'Posts managed by ByteWorks or self-managed option.',
+    ],
+    bulletsES: [
+      'Sección de blog con plantilla para artículos.',
+      'Categorías, etiquetas y bloques editables.',
+      'Estructura lista para SEO.',
+      'Publicaciones manejadas por ByteWorks o autogestión disponible.',
+    ],
+    footEN: 'Keep your site active and attract organic traffic.',
+    footES: 'Mantén tu sitio activo y atrae tráfico orgánico.',
+  },
+  {
+    titleEN: 'Small Online Store (up to 20 products)',
+    titleES: 'Small Online Store (hasta 20 productos)',
+    priceEN: '+$35/month',
+    priceES: '+$35/mes',
+    bulletsEN: [
+      'Mini-store integrated into the site.',
+      'Cart and manual checkout system.',
+      'Basic analytics with Google.',
+      'Product management by ByteWorks (self-management available).',
+    ],
+    bulletsES: [
+      'Mini-tienda integrada dentro del sitio.',
+      'Carrito y sistema de checkout manual.',
+      'Analíticas básicas con Google.',
+      'Gestión de productos por ByteWorks (autogestión disponible).',
+    ],
+    footEN: 'Perfect for small businesses or limited catalogs.',
+    footES: 'Perfecto para negocios pequeños o catálogos limitados.',
+  },
+  {
+    titleEN: 'Basic Branding Package (one-time)',
+    titleES: 'Basic Branding Package (único pago)',
+    priceEN: '$120 (one-time)',
+    priceES: '$120 (único pago)',
+    bulletsEN: [
+      'Logo (primary and alternate).',
+      'Color palette and recommended typography.',
+      'Social avatars and banners kit.',
+      'Basic brand guidelines.',
+    ],
+    bulletsES: [
+      'Logo (principal y alternativo).',
+      'Paleta de colores y tipografía recomendada.',
+      'Kit de avatares y banners para redes sociales.',
+      'Manual básico de identidad visual.',
+    ],
+    footEN: 'A clear, professional identity consistent with your brand.',
+    footES: 'Una identidad clara, profesional y coherente con tu marca.',
+  },
+];
 ---
 
 <section id={id} class="mt-20">
@@ -24,151 +106,29 @@ const isEN = lang === 'en';
     </p>
   </header>
 
-  <div class="max-w-4xl mx-auto">
-    <div class="border-t border-gray-200 dark:border-gray-800 my-8"></div>
+  <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+    {items.map((it) => (
+      <article class="border border-gray-200 dark:border-gray-800 rounded-lg p-5 flex flex-col">
+        <div class="flex items-start justify-between gap-4">
+          <h3 class="text-lg font-semibold">
+            {isEN ? it.titleEN : it.titleES}
+          </h3>
+          <span class="text-sm font-medium bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+            {isEN ? it.priceEN : it.priceES}
+          </span>
+        </div>
 
-    <!-- Advanced SEO & Local Positioning -->
-    <article class="space-y-3">
-      <h3 class="text-xl font-semibold">
-        {isEN ? 'Advanced SEO & Local Positioning' : 'Advanced SEO & Local Positioning'}
-      </h3>
-      <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
-        {isEN ? '+$30/month' : '+$30/mes'}
-      </p>
-      <div>
-        <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
-          {isEN ? (
-            <>
-              <li>Keyword research.</li>
-              <li>Technical and speed optimization.</li>
-              <li>Google Business profile setup.</li>
-              <li>Monthly report with metrics and insights.</li>
-            </>
-          ) : (
-            <>
-              <li>Investigación de palabras clave.</li>
-              <li>Optimización técnica y de velocidad.</li>
-              <li>Configuración de perfil en Google Business.</li>
-              <li>Reporte mensual con métricas e insights.</li>
-            </>
-          )}
-        </ul>
-      </div>
-      <p class="text-sm text-gray-600 dark:text-gray-300">
-        {isEN
-          ? 'Improve your rankings and local visibility.'
-          : 'Mejora tu posicionamiento y visibilidad local.'}
-      </p>
-    </article>
+        <div class="mt-3">
+          <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
+          <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
+            {(isEN ? it.bulletsEN : it.bulletsES).map((b) => <li>{b}</li>)}
+          </ul>
+        </div>
 
-    <div class="border-t border-gray-200 dark:border-gray-800 my-8"></div>
-
-    <!-- Blog / News Section -->
-    <article class="space-y-3">
-      <h3 class="text-xl font-semibold">Blog / News Section</h3>
-      <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
-        {isEN ? '+$25/month' : '+$25/mes'}
-      </p>
-      <div>
-        <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
-          {isEN ? (
-            <>
-              <li>Blog section with article template.</li>
-              <li>Categories, tags, and editable blocks.</li>
-              <li>SEO-ready structure.</li>
-              <li>Posts managed by ByteWorks or self-managed option.</li>
-            </>
-          ) : (
-            <>
-              <li>Sección de blog con plantilla para artículos.</li>
-              <li>Categorías, etiquetas y bloques editables.</li>
-              <li>Estructura lista para SEO.</li>
-              <li>Publicaciones manejadas por ByteWorks o autogestión disponible.</li>
-            </>
-          )}
-        </ul>
-      </div>
-      <p class="text-sm text-gray-600 dark:text-gray-300">
-        {isEN
-          ? 'Keep your site active and attract organic traffic.'
-          : 'Mantén tu sitio activo y atrae tráfico orgánico.'}
-      </p>
-    </article>
-
-    <div class="border-t border-gray-200 dark:border-gray-800 my-8"></div>
-
-    <!-- Small Online Store -->
-    <article class="space-y-3">
-      <h3 class="text-xl font-semibold">
-        {isEN ? 'Small Online Store (up to 20 products)' : 'Small Online Store (hasta 20 productos)'}
-      </h3>
-      <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
-        {isEN ? '+$35/month' : '+$35/mes'}
-      </p>
-      <div>
-        <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
-          {isEN ? (
-            <>
-              <li>Mini-store integrated into the site.</li>
-              <li>Cart and manual checkout system.</li>
-              <li>Basic analytics with Google.</li>
-              <li>Product management by ByteWorks (self-management available).</li>
-            </>
-          ) : (
-            <>
-              <li>Mini-tienda integrada dentro del sitio.</li>
-              <li>Carrito y sistema de checkout manual.</li>
-              <li>Analíticas básicas con Google.</li>
-              <li>Gestión de productos por ByteWorks (autogestión disponible).</li>
-            </>
-          )}
-        </ul>
-      </div>
-      <p class="text-sm text-gray-600 dark:text-gray-300">
-        {isEN
-          ? 'Perfect for small businesses or limited catalogs.'
-          : 'Perfecto para negocios pequeños o catálogos limitados.'}
-      </p>
-    </article>
-
-    <div class="border-t border-gray-200 dark:border-gray-800 my-8"></div>
-
-    <!-- Basic Branding Package -->
-    <article class="space-y-3">
-      <h3 class="text-xl font-semibold">
-        {isEN ? 'Basic Branding Package (one-time)' : 'Basic Branding Package (único pago)'}
-      </h3>
-      <p class="text-sm font-medium text-gray-800 dark:text-gray-200">
-        {isEN ? '$120 (one-time)' : '$120 (único pago)'}
-      </p>
-      <div>
-        <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
-          {isEN ? (
-            <>
-              <li>Logo (primary and alternate).</li>
-              <li>Color palette and recommended typography.</li>
-              <li>Social avatars and banners kit.</li>
-              <li>Basic brand guidelines.</li>
-            </>
-          ) : (
-            <>
-              <li>Logo (principal y alternativo).</li>
-              <li>Paleta de colores y tipografía recomendada.</li>
-              <li>Kit de avatares y banners para redes sociales.</li>
-              <li>Manual básico de identidad visual.</li>
-            </>
-          )}
-        </ul>
-      </div>
-      <p class="text-sm text-gray-600 dark:text-gray-300">
-        {isEN
-          ? 'A clear, professional identity consistent with your brand.'
-          : 'Una identidad clara, profesional y coherente con tu marca.'}
-      </p>
-    </article>
+        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
+          {isEN ? it.footEN : it.footES}
+        </p>
+      </article>
+    ))}
   </div>
 </section>
