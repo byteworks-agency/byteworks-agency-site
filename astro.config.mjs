@@ -1,41 +1,23 @@
-// astro.config.mjs
 import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import sitemap from "@astrojs/sitemap";
-
-// Pon aquí tu dominio final cuando publiques
-const SITE_URL = "https://byteworksagency.vercel.app";
+import vercel from "@astrojs/vercel/serverless"; // 👈 serverless (no /server)
+import tailwind from "@astrojs/tailwind"; // si lo usas
 
 export default defineConfig({
-  site: SITE_URL,
-  // 👇 Requerido para middleware (SSR). "hybrid" no es válido en tu versión.
+  // Usamos SSR porque lees headers (detección de idioma / 404 con headers)
   output: "server",
+
+  adapter: vercel(), // Vercel serverless runtime
+
   integrations: [
-    tailwind({
-      config: { applyBaseStyles: true },
-    }),
-    sitemap({
-      serialize(item) {
-        const url = new URL(item.url, SITE_URL).pathname;
-        let priority = 0.6;
-        let changefreq = "monthly";
-        if (url === "/en/" || url === "/es/") {
-          priority = 1.0;
-          changefreq = "weekly";
-        } else if (url.endsWith("/contact")) {
-          priority = 0.8;
-          changefreq = "monthly";
-        } else if (url.endsWith("/terms") || url.endsWith("/privacy")) {
-          priority = 0.4;
-          changefreq = "yearly";
-        }
-        return { ...item, priority, changefreq };
-      },
-    }),
+    tailwind({ applyBaseStyles: false }), // si ya tienes estilos base, déjalo en false
   ],
+
+  // Opcional: ajusta a tu deploy real para canónicos/og:url
+  site: "https://byteworks-agency-site.vercel.app",
+
   vite: {
     server: {
-      watch: { usePolling: true }, // ayuda en Windows/OneDrive
+      fs: { strict: false },
     },
   },
 });
