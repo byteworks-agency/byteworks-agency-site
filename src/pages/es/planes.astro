@@ -7,7 +7,9 @@ const description =
   'Planes claros con mantenimiento incluido. Elige el plan que se ajuste a tu etapa y sube cuando quieras. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
-const wa = phone ? `https://wa.me/${phone}` : '/es/contacto';
+const message =
+  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hola ByteWorks, estoy interesado en un sitio web.';
+const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : '/es/contacto';
 
 const planes = [
   {
@@ -89,7 +91,7 @@ const planes = [
           <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
             {p.features.map((f) => <li>• {f}</li>)}
           </ul>
-          <a href={wa} class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          <a href={wa} target={phone ? '_blank' : '_self'} rel="noopener noreferrer" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
             Empezar por WhatsApp
           </a>
         </article>
@@ -97,7 +99,7 @@ const planes = [
     </div>
 
     <div class="mt-16 text-center">
-      <a href={wa} class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+      <a href={wa} target={phone ? '_blank' : '_self'} rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
         ¿Dudas? Hablemos
       </a>
     </div>
