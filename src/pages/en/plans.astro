@@ -5,7 +5,7 @@ import AddOns from '../../components/AddOns.astro';
 const title = 'Plans — ByteWorks';
 const description =
   'Transparent plans with maintenance included. Pick the plan that fits your stage, upgrade anytime. Hosting, SSL, backups and monthly updates included.';
-  
+
 const plans = [
   {
     name: 'Start',
@@ -14,10 +14,10 @@ const plans = [
     bestFor: 'Solo founders, personal brands, simple presence',
     features: [
       'One-page modern website (responsive)',
-      'WhatsApp button + contact form',
-      'Basic local SEO',
+      'Contact form integration (email or Google Sheets)',
+      'Basic SEO (titles, meta, OG, sitemap)',
       'Domain, hosting & maintenance included',
-      '1 monthly update (text/image/color)',
+      '1 monthly update (≤30 min)',
       'SSL, backups',
     ],
   },
@@ -28,10 +28,10 @@ const plans = [
     bestFor: 'Service businesses needing 3–4 pages',
     features: [
       'Up to 4 pages (Home, About, Services, Contact)',
-      'WhatsApp + simple automations (Notion/Sheets)',
-      'Local SEO + performance',
+      'Contact + Google Sheets automations',
+      'Light technical optimization and performance',
       'Domain, hosting & maintenance included',
-      '2 monthly updates',
+      '2 monthly updates (≤45 min each)',
       'SSL, backups',
     ],
   },
@@ -43,9 +43,9 @@ const plans = [
     features: [
       'Up to 7 pages with custom sections',
       'Enhanced SEO (structure, speed, indexation)',
-      'Lead capture flows + micro-integrations',
+      'Lead capture flows + Google integrations',
       'Domain, hosting & maintenance included',
-      '3 monthly updates',
+      '3 monthly updates (≤60 min each)',
       'SSL, backups',
     ],
   },
@@ -53,14 +53,14 @@ const plans = [
     name: 'E-Commerce Pro',
     price: '$95/mo',
     yearly: '$969/yr (save 15%)',
-    bestFor: 'Catalog + basic order intake via WhatsApp/Email',
+    bestFor: 'Catalog + manual order intake (no payment gateway)',
     features: [
-      'Product catalog + basic checkout workflow',
-      'Order inbox via WhatsApp/Email',
-      'SEO for products/categories',
-      'Domain, hosting & maintenance included',
-      '4 monthly updates',
-      'SSL, backups',
+      'Product catalog (up to 20 items)',
+      'Local cart + manual checkout flow',
+      'Order logging to Email / Google Sheets',
+      'Internal order tracking by code',
+      '4 monthly updates (products or copy)',
+      'SSL, backups, domain & hosting included',
     ],
   },
 ];
