@@ -2,6 +2,7 @@
 import Base from "../../layouts/Base.astro";
 import Plans from "../../components/Plans.astro";
 import AddOns from "../../components/AddOns.astro";
+import FAQSection from "../../components/FAQSection.astro";
 
 const plans = [
   {
@@ -134,6 +135,34 @@ const addons = [
     ctaText: "Get branding",
   },
 ];
+
+const faqs_en = [
+  {
+    q: "What does maintenance include?",
+    a: "We handle hosting, security (SSL), backups, core updates, and minor fixes. Each plan also includes the monthly content updates specified."
+  },
+  {
+    q: "Can I change my plan later?",
+    a: "Yes. You can upgrade or downgrade anytime. We’ll adjust your billing period so you don’t overpay and keep your service uninterrupted."
+  },
+  {
+    q: "How long does it take to launch my site?",
+    a: "The Start plan usually goes live in 3–7 days depending on the content provided. Pro, Elite, and E-Commerce may take longer due to custom pages or integrations."
+  },
+  {
+    q: "Do I own my domain and my content?",
+    a: "Yes. Your brand, domain, and content belong entirely to you. If you ever decide to migrate, we’ll help you export everything cleanly."
+  },
+  {
+    q: "How do WhatsApp forms work?",
+    a: "Contact, quote, or booking forms can be sent directly to WhatsApp. In Elite and E-Commerce plans, submissions can also be automatically logged into Google Sheets and send notifications."
+  },
+  {
+    q: "Mini-store & E-Commerce: who manages the products?",
+    a: "By default, ByteWorks manages your products (adding, editing, or removing items). If you prefer self-management, we can enable it on request — you’ll get access, a quick guide, and support to manage your catalog anytime."
+  }
+];
+
 ---
 
 <Base lang="en" title="ByteWorks — Websites that work for you">
@@ -158,4 +187,6 @@ const addons = [
 
   <Plans lang="en" items={plans} anchorId="plans" />
   <AddOns lang="en" items={addons} anchorId="addons" />
+  <FAQSection faqs={faqs_en} lang="en" />
+</Base>
 </Base>
