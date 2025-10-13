@@ -21,7 +21,7 @@ const terms = isEN ? `${base}/terms` : `${base}/terminos`;
 const privacy = isEN ? `${base}/privacy` : `${base}/privacidad`;
 ---
 
-<footer class="mt-16 border-t border-gray-200 dark:border-gray-800">
+<footer class="mt-16 border-top border-gray-200 dark:border-gray-800">
   <div class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-10">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
       <div class="space-y-1">
@@ -55,9 +55,6 @@ const privacy = isEN ? `${base}/privacy` : `${base}/privacidad`;
 
     <div class="mt-6 text-xs text-gray-500 flex items-center justify-between flex-wrap gap-2">
       <span>© {year} ByteWorks. {isEN ? 'All rights reserved.' : 'Todos los derechos reservados.'}</span>
-      <span class="text-[11px]">
-        {isEN ? 'Built with Astro & Vercel' : 'Hecho con Astro & Vercel'}
-      </span>
     </div>
   </div>
 </footer>
