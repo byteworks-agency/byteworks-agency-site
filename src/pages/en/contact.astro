@@ -1,35 +1,47 @@
 ---
-import Base from "../../layouts/Base.astro";
-import { en as t } from "../../i18n/en";
+import Base from '../../layouts/Base.astro';
 
-const number = import.meta.env.PUBLIC_WAPP_NUMBER || '';
-const baseMsg = import.meta.env.PUBLIC_WAPP_MESSAGE || 'Hello%20ByteWorks';
-const wa = `https://wa.me/${number}?text=${baseMsg}`;
+const title = 'Contact — ByteWorks';
+const description =
+  'Let’s talk about your website or project idea. Contact ByteWorks through WhatsApp or email — simple, direct and fast support.';
+
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // e.g. 18687759858
+const email = 'macrodriguez2512@gmail.com';
+const wa = phone ? `https://wa.me/${phone}` : null;
 ---
 
-<Base lang="en" t={t} title="Contact — ByteWorks" description="Tell us about your project. We'll reply on WhatsApp.">
-  <section class="max-w-3xl mx-auto px-4 py-16">
-    <h1 class="text-3xl font-semibold font-display">Contact</h1>
-    <p class="text-neutral-600 dark:text-neutral-300 mt-2">Tell us what you need and we’ll answer via WhatsApp.</p>
+<Base title={title} description={description} image="/og-image.png" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8">
+    <h1 class="text-3xl md:text-5xl font-semibold">Let's work together</h1>
+    <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      Ready to build a modern, bilingual, maintenance-included website?  
+      Reach us directly — we respond fast and personally.
+    </p>
 
-    <form class="mt-6 grid gap-4" onsubmit="event.preventDefault();openWA(this)">
-      <input name="name" placeholder="Your name" required class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2" />
-      <input name="business" placeholder="Business name (optional)" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2" />
-      <select name="plan" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2">
-        <option>Start</option><option>Pro</option><option>Elite</option><option>E-Commerce Pro</option><option>Just a question</option>
-      </select>
-      <textarea name="details" placeholder="Briefly describe your goal…" rows="4" class="bg-white/50 dark:bg-neutral-900/40 border border-neutral-200 dark:border-neutral-800 rounded-md px-3 py-2"></textarea>
-      <button class="px-4 py-2 rounded-md bg-brand text-black font-medium w-fit">Send via WhatsApp</button>
-    </form>
+    <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
+      {wa && (
+        <a
+          href={wa}
+          class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Chat on WhatsApp
+        </a>
+      )}
+      <a
+        href={`mailto:${email}`}
+        class="inline-flex items-center justify-center px-6 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+      >
+        Send Email
+      </a>
+    </div>
 
-    <script is:inline>
-      const base = { wa: `${wa}` };
-      function openWA(form) {
-        const d = new FormData(form);
-        const txt = ` — Name: ${d.get('name')} | Business: ${d.get('business')||'-'} | Plan: ${d.get('plan')} | Details: ${d.get('details')||'-'}`;
-        const url = base.wa + encodeURIComponent(txt);
-        window.open(url, '_blank');
-      }
-    </script>
+    <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
+      <p>Prefer a call or meeting? We’ll schedule one after a quick chat.</p>
+      <p class="mt-2 text-xs text-gray-500">
+        Support hours: Monday–Friday, 9:00 AM – 6:00 PM (AST)
+      </p>
+    </div>
   </section>
 </Base>
