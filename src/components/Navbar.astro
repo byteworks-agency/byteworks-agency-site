@@ -7,79 +7,63 @@ const links = isEN
       { href: "/en/", label: "Home" },
       { href: "/en/about", label: "About" },
       { href: "/en/contact", label: "Contact" },
-      { href: "/en/#plans", label: "Plans" },
     ]
   : [
       { href: "/es/", label: "Inicio" },
       { href: "/es/about", label: "Sobre nosotros" },
       { href: "/es/contact", label: "Contacto" },
-      { href: "/es/#plans", label: "Planes" },
     ];
-
-const toggleLang = isEN ? "es" : "en";
 ---
 
-<nav class="border-b border-neutral-200/70 dark:border-neutral-800 sticky top-0 backdrop-blur bg-white/75 dark:bg-neutral-950/70 z-50">
-  <div class="container flex items-center justify-between h-16">
-    <!-- Logo + nombre -->
-    <a href={isEN ? "/en/" : "/es/"} class="flex items-center gap-2">
+<header class="sticky top-0 z-50 border-b border-neutral-200/70 dark:border-neutral-800 backdrop-blur bg-white/80 dark:bg-neutral-950/80">
+  <nav class="max-w-6xl mx-auto flex items-center justify-between h-16 px-4">
+    <a href={isEN ? "/en/" : "/es/"} class="flex items-center gap-2 font-display text-lg font-bold">
       <img src="/logo-light.png" alt="ByteWorks Logo" class="h-7 w-auto dark:hidden" />
-      <img src="/logo-dark.png" alt="ByteWorks Logo" class="h-7 w-auto hidden dark:block" />
-      <span class="font-display font-semibold text-lg">ByteWorks</span>
+      <img src="/logo-dark.png" alt="ByteWorks Logo" class="h-7 w-auto hidden dark:inline" />
+      <span>ByteWorks</span>
     </a>
 
     <!-- Desktop menu -->
-    <ul class="hidden md:flex items-center gap-6 text-sm">
-      {links.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class="hover:text-brand transition-colors duration-200"
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-      <li>
-        <button
-          onclick={`location.href='/?lang=${toggleLang}'`}
-          class="px-3 py-1 border border-neutral-300 dark:border-neutral-700 rounded-md text-sm"
+    <div class="hidden sm:flex items-center gap-6 text-sm">
+      {links.map((item) => (
+        <a
+          href={item.href}
+          class="hover:text-brand transition-colors duration-200"
         >
-          {isEN ? "ES" : "EN"}
-        </button>
-      </li>
-    </ul>
+          {item.label}
+        </a>
+      ))}
+    </div>
 
-    <!-- Mobile hamburger -->
+    <!-- Hamburger button -->
     <button
-      id="menu-toggle"
-      class="md:hidden p-2 rounded-md border border-neutral-300 dark:border-neutral-700"
+      id="menu-btn"
+      class="sm:hidden flex items-center justify-center p-2 rounded-md border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+      aria-label="Open menu"
     >
-      <img src="/icons/menu.svg" alt="Menu" class="h-5 w-5 dark:invert" />
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
     </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden sm:hidden border-t border-neutral-200/70 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+    <div class="flex flex-col items-start p-4 space-y-4">
+      {links.map((item) => (
+        <a href={item.href} class="w-full text-left hover:text-brand transition-colors duration-200">
+          {item.label}
+        </a>
+      ))}
+    </div>
   </div>
+</header>
 
-  <!-- Mobile menu dropdown -->
-  <div id="mobile-menu" class="hidden flex-col gap-4 items-start px-6 py-4 bg-white dark:bg-neutral-950 border-t border-neutral-200 dark:border-neutral-800 md:hidden">
-    {links.map((link) => (
-      <a href={link.href} class="text-sm hover:text-brand transition-colors duration-200">
-        {link.label}
-      </a>
-    ))}
-    <button
-      onclick={`location.href='/?lang=${toggleLang}'`}
-      class="px-3 py-1 border border-neutral-300 dark:border-neutral-700 rounded-md text-sm"
-    >
-      {isEN ? "ES" : "EN"}
-    </button>
-  </div>
+<script is:inline>
+  const btn = document.getElementById("menu-btn");
+  const menu = document.getElementById("mobile-menu");
 
-  <script is:inline>
-    const btn = document.getElementById('menu-toggle');
-    const menu = document.getElementById('mobile-menu');
-
-    btn?.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-    });
-  </script>
-</nav>
+  btn?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+  });
+</script>
