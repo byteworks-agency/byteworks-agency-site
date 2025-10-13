@@ -2,16 +2,24 @@
 import Base from "../../layouts/Base.astro";
 import Hero from "../../components/Hero.astro";
 import Plans from "../../components/Plans.astro";
-import AddOns from "../../components/AddOns.astro"; // O mayúscula
+import AddOns from "../../components/AddOns.astro";
 import FAQ from "../../components/FAQ.astro";
 
 const title = "ByteWorks — Websites that work for you";
 const description =
   "Professional websites, clear pricing, maintenance included, and real support. ByteWorks builds sites that work for you — not against you.";
+
+const faqs_en = [
+  { q: "What does maintenance include?", a: "Hosting, SSL, backups, core updates, and minor fixes. Monthly content updates are included per plan." },
+  { q: "Can I switch plans later?", a: "Yes. Upgrade/downgrade anytime. We adjust billing so you don’t overpay and keep service uninterrupted." },
+  { q: "How fast can you launch?", a: "Start typically ships in 3–7 days depending on content. Pro/Elite/E-Commerce may take longer due to custom pages/integrations." },
+  { q: "Do I own my domain and content?", a: "Yes. Your brand, domain, and content are yours. If you ever migrate, we provide a clean export." },
+  { q: "How do WhatsApp forms work?", a: "Contact/quote/booking forms can be sent directly to WhatsApp. In Elite/E-Commerce, we can also log to Sheets and send notifications." },
+  { q: "Mini-store & E-Commerce: who manages products?", a: "By default, ByteWorks manages items (add, edit, remove). If you prefer self-management, we enable it on request with a quick guide and support." }
+];
 ---
 
 <Base lang="en" title={title} description={description}>
-  <!-- Hero -->
   <Hero
     lang="en"
     title="Websites that work for you — not against you"
@@ -23,40 +31,15 @@ const description =
     img="/logo-light.png"
   />
 
-  <!-- Plans -->
-  <Plans
-    lang="en"
-    title="Clear plans, real results"
-    description="Pick the plan that fits your stage. All include domain, hosting, and monthly maintenance."
-  />
+  <Plans lang="en" />
 
-  <!-- Add-ons -->
-  <AddOns
-    lang="en"
-    title="Optional add-ons"
-    description="Enhance your site with extra features you can activate whenever you need them."
-  />
+  <AddOns lang="en" />
 
-  <!-- FAQ -->
-  <FAQ
-    lang="en"
-    title="Frequently Asked Questions"
-    description="We answer the most common questions about plans, support, and our process."
-  />
+  <FAQ lang="en" items={faqs_en} />
 
-  <!-- Final CTA -->
   <section class="section text-center py-16">
-    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">
-      Ready to ship your site?
-    </h2>
-    <p class="text-neutral-600 dark:text-neutral-300 mb-8">
-      We handle the tech side — you focus on your business.
-    </p>
-    <a
-      href="/en/contact"
-      class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition"
-    >
-      Let’s talk
-    </a>
+    <h2 class="font-display text-2xl sm:text-3xl font-semibold mb-4">Ready to ship your site?</h2>
+    <p class="text-neutral-600 dark:text-neutral-300 mb-8">We handle the tech side — you focus on your business.</p>
+    <a href="/en/contact" class="inline-block px-6 py-3 bg-brand text-black rounded-md font-medium hover:opacity-90 transition">Let’s talk</a>
   </section>
 </Base>
