@@ -41,6 +41,9 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
+    <!-- 👇 Hace el sitio realmente responsive en móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta property="og:image" content={image} />
@@ -66,15 +69,31 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
         data-cf-beacon={`{"token": "${CF_TOKEN}"}`}
       ></script>
     )}
+
+    <!-- Ajustes globales muy seguros para mobile -->
+    <style is:global>
+      /* Evita scroll horizontal accidental en móviles */
+      html, body { max-width: 100%; overflow-x: hidden; }
+
+      /* Imágenes y videos nunca deben desbordar el contenedor */
+      img, video { max-width: 100%; height: auto; }
+
+      /* Asegura que iframes se escalen correctamente (si los usas) */
+      iframe { max-width: 100%; }
+
+      /* Tipografías declaradas (Inter / Manrope) ya cargan desde Google Fonts */
+      body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+      h1, h2, h3, .font-display { font-family: Manrope, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+    </style>
   </head>
 
-  <!-- el número queda disponible para el front en data-wa -->
   <body
     class="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950"
     data-wa={WA_FROM_ENV}
   >
     <Header lang={lang} />
-    <main class="flex-1 container mx-auto px-4 py-10">
+    <!-- Contenedor con padding horizontal responsivo -->
+    <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <slot />
     </main>
     <Footer lang={lang} />
