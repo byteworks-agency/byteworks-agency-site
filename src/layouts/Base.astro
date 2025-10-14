@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { DEFAULT_WA } from '../config/whatsapp';
 
 interface Props {
   title?: string;
@@ -33,8 +34,8 @@ function altHref(targetLang: 'en' | 'es') {
 const PLAUSIBLE = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
-// ✅ expone el número al DOM como data attribute
-const WA_FROM_ENV = import.meta.env.PUBLIC_WHATSAPP_PHONE || '';
+// expone el número al DOM como data attribute (usa env o fallback temporal)
+const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
 ---
 
 <html lang={lang}>
@@ -66,9 +67,12 @@ const WA_FROM_ENV = import.meta.env.PUBLIC_WHATSAPP_PHONE || '';
       ></script>
     )}
   </head>
+
+  <!-- el número queda disponible para el front en data-wa -->
   <body
     class="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950"
-    data-wa={WA_FROM_ENV}>
+    data-wa={WA_FROM_ENV}
+  >
     <Header lang={lang} />
     <main class="flex-1 container mx-auto px-4 py-10">
       <slot />
