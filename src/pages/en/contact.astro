@@ -5,7 +5,7 @@ const title = 'Contact — ByteWorks';
 const description =
   'Let’s talk about your website or project idea. Contact ByteWorks through WhatsApp or our contact form — simple, direct and fast support.';
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // SOLO DÍGITOS, SIN "+"
+const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // SOLO dígitos, sin "+"
 const message =
   import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
@@ -36,7 +36,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       )}
     </div>
 
-    <!-- CONTACT FORM (mismo estilo/clases) -->
+    <!-- CONTACT FORM -->
     <form id="contact-form" class="mt-12 text-left space-y-5 max-w-md mx-auto">
       <div>
         <label for="name" class="block text-sm font-medium mb-1">Name</label>
@@ -102,30 +102,27 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     </div>
   </section>
 
-  <!-- JS: envía por WhatsApp (tipado y sin tocar estilos) -->
+  <!-- TS-friendly script -->
   <script>
     (function () {
-      // Helper tipado para evitar Element
-      const qs = <T extends Element>(sel: string) =>
-        document.querySelector(sel) as T | null;
-
-      const root = qs<HTMLElement>('section[data-wa]');
-      const form = qs<HTMLFormElement>('#contact-form');
-      const nameEl = qs<HTMLInputElement>('#name');
-      const emailEl = qs<HTMLInputElement>('#email');
-      const messageEl = qs<HTMLTextAreaElement>('#message');
-      const hpEl = qs<HTMLInputElement>('#website');
-      const btn = qs<HTMLButtonElement>('#submitBtn');
+      // Selecciones tipadas con genéricos
+      const root = document.querySelector<HTMLElement>('section[data-wa]');
+      const form = document.querySelector<HTMLFormElement>('#contact-form');
+      const nameEl = document.querySelector<HTMLInputElement>('#name');
+      const emailEl = document.querySelector<HTMLInputElement>('#email');
+      const messageEl = document.querySelector<HTMLTextAreaElement>('#message');
+      const hpEl = document.querySelector<HTMLInputElement>('#website');
+      const btn = document.querySelector<HTMLButtonElement>('#submitBtn');
 
       if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
 
       // 1) section[data-wa]
-      let WA_NUMBER = (root?.dataset.wa || '').trim();
+      let WA_NUMBER = (root?.dataset?.wa || '').trim();
       // 2) body[data-wa]
       if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
       // 3) botón "Chat on WhatsApp"
       if (!WA_NUMBER) {
-        const waBtn = qs<HTMLAnchorElement>('a[href^="https://wa.me/"]');
+        const waBtn = document.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]');
         if (waBtn?.dataset?.wa) {
           WA_NUMBER = waBtn.dataset.wa.trim();
         } else if (waBtn?.href) {
@@ -135,7 +132,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           } catch {}
         }
       }
-      // 4) query param ?wa=...
+      // 4) query param ?wa=
       if (!WA_NUMBER) {
         try {
           const u = new URL(window.location.href);
