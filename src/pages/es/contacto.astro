@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'Contacto — ByteWorks';
 const description =
-  'Conversemos sobre tu sitio web o idea de proyecto. Escríbenos por WhatsApp o usa nuestro formulario de contacto — soporte directo, rápido y personal.';
+  'Conversemos sobre tu sitio web o idea de proyecto. Escríbenos por WhatsApp o usa el formulario — soporte directo, rápido y personal.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
 const message =
@@ -12,17 +12,21 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
 ---
 
 <Base title={title} description={description} image="/og-image.png" lang="es">
-  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8">
+  <section
+    class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8"
+    data-wa={phone || ''}
+  >
     <h1 class="text-3xl md:text-5xl font-semibold">Trabajemos juntos</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-      ¿Listo para tener una web moderna, bilingüe y con mantenimiento incluido?
-      Escríbenos directo por WhatsApp o envíanos un mensaje usando el formulario.
+      ¿Listo para una web moderna, bilingüe y con mantenimiento incluido?
+      Escríbenos directo por WhatsApp o envíanos un mensaje con el formulario.
     </p>
 
     <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
       {wa && (
         <a
           href={wa}
+          data-wa={phone}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
@@ -32,17 +36,12 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       )}
     </div>
 
-    <!-- FORMULARIO -->
-    <form
-      id="contact-form"
-      class="mt-12 text-left space-y-5 max-w-md mx-auto"
-      onsubmit="event.preventDefault(); alert('Envío simulado — el backend se agregará pronto.')"
-    >
+    <form id="contact-form" class="mt-12 text-left space-y-5 max-w-md mx-auto">
       <div>
-        <label for="nombre" class="block text-sm font-medium mb-1">Nombre</label>
+        <label for="name" class="block text-sm font-medium mb-1">Nombre</label>
         <input
-          id="nombre"
-          name="nombre"
+          id="name"
+          name="name"
           type="text"
           required
           placeholder="Tu nombre"
@@ -57,16 +56,16 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           name="email"
           type="email"
           required
-          placeholder="tucorreo@ejemplo.com"
+          placeholder="tu@ejemplo.com"
           class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
         />
       </div>
 
       <div>
-        <label for="mensaje" class="block text-sm font-medium mb-1">Mensaje</label>
+        <label for="message" class="block text-sm font-medium mb-1">Mensaje</label>
         <textarea
-          id="mensaje"
-          name="mensaje"
+          id="message"
+          name="message"
           rows="5"
           required
           placeholder="Cuéntanos un poco sobre tu proyecto..."
@@ -74,7 +73,18 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         ></textarea>
       </div>
 
+      <input
+        type="text"
+        id="website"
+        name="website"
+        tabindex="-1"
+        autocomplete="off"
+        style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+        aria-hidden="true"
+      />
+
       <button
+        id="submitBtn"
         type="submit"
         class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
       >
@@ -83,10 +93,81 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     </form>
 
     <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
-      <p>¿Prefieres una llamada o reunión? Podemos agendarla después de un breve chat.</p>
+      <p>¿Prefieres llamada o reunión? La agendamos después de un breve chat.</p>
       <p class="mt-2 text-xs text-gray-500">
-        Horario de atención: Lunes a Viernes, 9:00 AM – 6:00 PM (AST)
+        Horario: Lunes a Viernes, 9:00 AM – 6:00 PM (AST)
       </p>
     </div>
   </section>
+
+  <script>
+    (function () {
+      const root = document.querySelector<HTMLElement>('section[data-wa]');
+      const form = document.querySelector<HTMLFormElement>('#contact-form');
+      const nameEl = document.querySelector<HTMLInputElement>('#name');
+      const emailEl = document.querySelector<HTMLInputElement>('#email');
+      const messageEl = document.querySelector<HTMLTextAreaElement>('#message');
+      const hpEl = document.querySelector<HTMLInputElement>('#website');
+      const btn = document.querySelector<HTMLButtonElement>('#submitBtn');
+      if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
+
+      let WA_NUMBER = (root?.dataset?.wa || '').trim();
+      if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
+      if (!WA_NUMBER) {
+        const waBtn = document.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]');
+        if (waBtn?.dataset?.wa) WA_NUMBER = waBtn.dataset.wa.trim();
+        else if (waBtn?.href) {
+          try {
+            const u = new URL(waBtn.href);
+            WA_NUMBER = u.pathname.replace('/', '').trim();
+          } catch {}
+        }
+      }
+      if (!WA_NUMBER) {
+        try {
+          const u = new URL(window.location.href);
+          const qp = u.searchParams.get('wa');
+          if (qp) WA_NUMBER = qp.trim();
+        } catch {}
+      }
+      WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
+
+      form.addEventListener('submit', (ev: SubmitEvent) => {
+        ev.preventDefault();
+
+        const name = nameEl.value.trim();
+        const email = emailEl.value.trim();
+        const msg = messageEl.value.trim();
+        const hp = hpEl.value.trim();
+
+        if (hp) return;
+        if (!name || !email || !msg) {
+          alert('Por favor completa todos los campos.');
+          return;
+        }
+        if (!WA_NUMBER) {
+          alert('WhatsApp no está configurado. Intenta más tarde.');
+          return;
+        }
+
+        const text =
+          `¡Hola ByteWorks!\n\n` +
+          `Nuevo contacto:\n` +
+          `Nombre: ${name}\n` +
+          `Email: ${email}\n` +
+          `Mensaje:\n${msg}`;
+
+        const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+        const original = btn ? btn.textContent : null;
+        if (btn) { btn.disabled = true; btn.textContent = 'Abriendo WhatsApp...'; }
+
+        window.open(url, '_blank');
+        nameEl.value = '';
+        emailEl.value = '';
+        messageEl.value = '';
+        hpEl.value = '';
+        if (btn) { btn.disabled = false; btn.textContent = original || 'Enviar mensaje'; }
+      });
+    })();
+  </script>
 </Base>
