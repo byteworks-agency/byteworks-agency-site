@@ -102,16 +102,20 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     </div>
   </section>
 
-  <!-- JS: envía por WhatsApp (sin tocar estilos) -->
+  <!-- JS: envía por WhatsApp (tipado y sin tocar estilos) -->
   <script>
     (function () {
-      const root = document.querySelector('section[data-wa]') as HTMLElement | null;
-      const form = document.getElementById('contact-form') as HTMLFormElement | null;
-      const nameEl = document.getElementById('name') as HTMLInputElement | null;
-      const emailEl = document.getElementById('email') as HTMLInputElement | null;
-      const messageEl = document.getElementById('message') as HTMLTextAreaElement | null;
-      const hpEl = document.getElementById('website') as HTMLInputElement | null;
-      const btn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+      // Helper tipado para evitar Element
+      const qs = <T extends Element>(sel: string) =>
+        document.querySelector(sel) as T | null;
+
+      const root = qs<HTMLElement>('section[data-wa]');
+      const form = qs<HTMLFormElement>('#contact-form');
+      const nameEl = qs<HTMLInputElement>('#name');
+      const emailEl = qs<HTMLInputElement>('#email');
+      const messageEl = qs<HTMLTextAreaElement>('#message');
+      const hpEl = qs<HTMLInputElement>('#website');
+      const btn = qs<HTMLButtonElement>('#submitBtn');
 
       if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
 
@@ -121,7 +125,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
       // 3) botón "Chat on WhatsApp"
       if (!WA_NUMBER) {
-        const waBtn = document.querySelector('a[href^="https://wa.me/"]') as HTMLAnchorElement | null;
+        const waBtn = qs<HTMLAnchorElement>('a[href^="https://wa.me/"]');
         if (waBtn?.dataset?.wa) {
           WA_NUMBER = waBtn.dataset.wa.trim();
         } else if (waBtn?.href) {
@@ -139,7 +143,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           if (qp) WA_NUMBER = qp.trim();
         } catch {}
       }
-      // saneo: solo dígitos
+      // Solo dígitos
       WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
 
       form.addEventListener('submit', (ev: SubmitEvent) => {
@@ -157,7 +161,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         }
         if (!WA_NUMBER) {
           alert('WhatsApp is not configured. Please try again later.');
-          console.warn('[Contact] Missing PUBLIC_WHATSAPP_PHONE, body[data-wa], or ?wa= param.');
+          console.warn('[Contact EN] Missing PUBLIC_WHATSAPP_PHONE/body[data-wa]/?wa=');
           return;
         }
 
