@@ -1,0 +1,1 @@
+export const DEFAULT_WA = '18687759858';
