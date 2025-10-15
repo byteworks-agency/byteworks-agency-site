@@ -42,6 +42,30 @@ const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
 // expone el número al DOM como data attribute (usa env o fallback temporal)
 const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
+// Social profiles (optional) to enrich JSON-LD
+const socials = [
+  import.meta.env.PUBLIC_SOCIAL_TWITTER,
+  import.meta.env.PUBLIC_SOCIAL_LINKEDIN,
+  import.meta.env.PUBLIC_SOCIAL_INSTAGRAM,
+  import.meta.env.PUBLIC_SOCIAL_FACEBOOK,
+  import.meta.env.PUBLIC_SOCIAL_YOUTUBE,
+  import.meta.env.PUBLIC_SOCIAL_GITHUB,
+].filter((x) => typeof x === 'string' && x);
+const orgJson = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ByteWorks',
+  url: siteOrigin,
+  logo: siteOrigin + '/logo.png',
+  ...(socials.length ? { sameAs: socials } : {}),
+};
+const siteJson = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'ByteWorks',
+  url: siteOrigin,
+  inLanguage: lang,
+};
 ---
 
 <html lang={lang}>
@@ -67,25 +91,8 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
     <link rel="alternate" hreflang="en" href={altHref('en')} />
     <link rel="alternate" hreflang="es" href={altHref('es')} />
 
-    <script is:inline type="application/ld+json">
-    {JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: 'ByteWorks',
-      url: siteOrigin,
-      logo: siteOrigin + '/logo.png'
-    })}
-    </script>
-
-    <script is:inline type="application/ld+json">
-    {JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'ByteWorks',
-      url: siteOrigin,
-      inLanguage: lang
-    })}
-    </script>
+    <script is:inline type="application/ld+json">{JSON.stringify(orgJson)}</script>
+    <script is:inline type="application/ld+json">{JSON.stringify(siteJson)}</script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

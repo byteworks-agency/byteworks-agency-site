@@ -1,22 +1,18 @@
-﻿---
+---
 import Base from '../../layouts/Base.astro';
 
 const title = 'Contact — ByteWorks';
 const description =
-  'Letâ€™s talk about your website or project idea. Contact — ByteWorks through WhatsApp or our contact form â€” simple, direct and fast support.';
+  'Let’s talk about your website or project. Contact ByteWorks via WhatsApp or our form — simple, direct, fast support.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
-const message =
-  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, Iâ€™m interested in a website.';
+const message = import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="en">
-  <section
-    class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8"
-    data-wa={phone || ''}
-  >
-    <h1 class="text-3xl md:text-5xl font-semibold">Let's work together</h1>
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8" data-wa={phone || ''}>
+    <h1 class="text-3xl md:text-5xl font-semibold">Let’s work together</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
       Ready to build a modern, bilingual website with maintenance included?
       Reach us directly via WhatsApp or send us a message using the form below.
@@ -39,84 +35,49 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     <form id="contact-form" class="mt-12 text-left space-y-5 max-w-md mx-auto">
       <div>
         <label for="name" class="block text-sm font-medium mb-1">Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          required
-          placeholder="Your name"
-          class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
-        />
+        <input id="name" name="name" type="text" required placeholder="Your name" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
       <div>
         <label for="email" class="block text-sm font-medium mb-1">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          placeholder="you@example.com"
-          class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
-        />
+        <input id="email" name="email" type="email" required placeholder="you@example.com" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
       <div>
         <label for="message" class="block text-sm font-medium mb-1">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="5"
-          required
-          placeholder="Tell us a bit about your project..."
-          class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
-        ></textarea>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell us a bit about your project..." class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"></textarea>
       </div>
 
-      <input
-        type="text"
-        id="website"
-        name="website"
-        tabindex="-1"
-        autocomplete="off"
-        style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
-        aria-hidden="true"
-      />
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" aria-hidden="true" />
 
-      <button
-        id="submitBtn"
-        type="submit"
-        class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
-      >
+      <button id="submitBtn" type="submit" class="w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
         Send Message
       </button>
     </form>
 
-    <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
-      <p>Prefer a call or meeting? Weâ€™ll schedule one after a quick chat.</p>
-      <p class="mt-2 text-xs text-gray-500">
-        Support hours: Mondayâ€“Friday, 9:00 AM â€“ 6:00 PM (AST)
-      </p>
+    <div class="border-top border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
+      <p>Prefer a call or meeting? We’ll schedule one after a quick chat.</p>
+      <p class="mt-2 text-xs text-gray-500">Support hours: Monday–Friday, 9:00 AM – 6:00 PM (AST)</p>
     </div>
   </section>
 
   <script>
     (function () {
-      const root = document.querySelector<HTMLElement>('section[data-wa]');
-      const form = document.querySelector<HTMLFormElement>('#contact-form');
-      const nameEl = document.querySelector<HTMLInputElement>('#name');
-      const emailEl = document.querySelector<HTMLInputElement>('#email');
-      const messageEl = document.querySelector<HTMLTextAreaElement>('#message');
-      const hpEl = document.querySelector<HTMLInputElement>('#website');
-      const btn = document.querySelector<HTMLButtonElement>('#submitBtn');
+      const root = document.querySelector('section[data-wa]');
+      const form = document.querySelector('#contact-form');
+      const nameEl = document.querySelector('#name');
+      const emailEl = document.querySelector('#email');
+      const messageEl = document.querySelector('#message');
+      const hpEl = document.querySelector('#website');
+      const btn = document.querySelector('#submitBtn');
       if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
 
-      let WA_NUMBER = (root?.dataset?.wa || '').trim();
-      if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
+      let WA_NUMBER = (root && root.dataset ? (root.dataset.wa || '').trim() : '');
+      if (!WA_NUMBER) WA_NUMBER = (document.body && document.body.dataset ? (document.body.dataset.wa || '').trim() : '');
       if (!WA_NUMBER) {
-        const waBtn = document.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]');
-        if (waBtn?.dataset?.wa) WA_NUMBER = waBtn.dataset.wa.trim();
-        else if (waBtn?.href) {
+        const waBtn = document.querySelector('a[href^="https://wa.me/"]');
+        if (waBtn && waBtn.dataset && waBtn.dataset.wa) WA_NUMBER = waBtn.dataset.wa.trim();
+        else if (waBtn && waBtn.href) {
           try {
             const u = new URL(waBtn.href);
             WA_NUMBER = u.pathname.replace('/', '').trim();
@@ -130,9 +91,9 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           if (qp) WA_NUMBER = qp.trim();
         } catch {}
       }
-      WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
+      WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
 
-      form.addEventListener('submit', async (ev: SubmitEvent) => {
+      form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
@@ -186,3 +147,4 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     })();
   </script>
 </Base>
+
