@@ -5,68 +5,13 @@ const title = 'ByteWorks — Websites that work for you';
 const description =
   'Modern, bilingual websites. Transparent pricing, maintenance included, and real support. You focus on your business — we handle the digital side.';
 
-const plans = [
-  {
-    name: 'Start',
-    price: '$45/mo',
-    yearly: '$459/yr (save 15%)',
-    features: [
-      'One-page modern website (responsive)',
-      'Contact form integration (email or Google Sheets)',
-      'Basic SEO (titles, meta, OG, sitemap)',
-      'Domain, hosting & maintenance included',
-      '1 monthly update (≤30 min)',
-      'SSL, backups',
-    ],
-  },
-  {
-    name: 'Pro',
-    price: '$55/mo',
-    yearly: '$561/yr (save 15%)',
-    features: [
-      'Up to 4 pages (Home, About, Services, Contact)',
-      'Contact + Google Sheets automations',
-      'Light technical optimization and performance',
-      'Domain, hosting & maintenance included',
-      '2 monthly updates (≤45 min each)',
-      'SSL, backups',
-    ],
-  },
-  {
-    name: 'Elite',
-    price: '$70/mo',
-    yearly: '$714/yr (save 15%)',
-    features: [
-      'Up to 7 pages with custom sections',
-      'Enhanced SEO (structure, speed, indexation)',
-      'Lead capture flows + Google integrations',
-      'Domain, hosting & maintenance included',
-      '3 monthly updates (≤60 min each)',
-      'SSL, backups',
-    ],
-  },
-  {
-    name: 'E-Commerce Pro',
-    price: '$95/mo',
-    yearly: '$969/yr (save 15%)',
-    features: [
-      'Product catalog (up to 20 items)',
-      'Local cart + manual checkout flow',
-      'Order logging to Email / Google Sheets',
-      'Internal order tracking by code (no gateway)',
-      '4 monthly updates (products or copy)',
-      'SSL, backups, domain & hosting included',
-    ],
-  },
-];
-
 const homePlans = [
   {
     name: 'Start',
     price: '$45/mo',
     yearly: '$459/yr (save 15%)',
     features: [
-      'Launch fast with a clean one‑page site',
+      'Launch fast with a clean one-page site',
       'Looks great on mobile',
       'Simple contact so people can reach you',
     ],
@@ -76,9 +21,9 @@ const homePlans = [
     price: '$55/mo',
     yearly: '$561/yr (save 15%)',
     features: [
-      'Multi‑page site for services',
+      'Multi-page site for services',
       'Explain what you do clearly',
-      'Brand‑aligned look that builds trust',
+      'Brand-aligned look that builds trust',
     ],
   },
   {
@@ -92,7 +37,7 @@ const homePlans = [
     ],
   },
   {
-    name: 'E‑Commerce Pro',
+    name: 'E-Commerce Pro',
     price: '$95/mo',
     yearly: '$969/yr (save 15%)',
     features: [
@@ -106,11 +51,11 @@ const homePlans = [
 const faqs = [
   {
     q: 'How fast can you deliver my website?',
-    a: 'Start usually launches within 7–10 business days after we receive copy and assets. Pro/Elite take 2–4 weeks depending on scope and reviews.',
+    a: 'Start usually launches within 7-10 business days after we receive copy and assets. Pro/Elite take 2-4 weeks depending on scope and reviews.',
   },
   {
-    q: 'What does “monthly update” include?',
-    a: 'Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They’re time-boxed per plan and don’t roll over (see Terms → Service Levels).',
+    q: 'What does "monthly update" include?',
+    a: "Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They're time-boxed per plan and don't roll over (see Terms + Service Levels).",
   },
   {
     q: 'Do you handle online payments?',
@@ -185,16 +130,16 @@ const faqs = [
       <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Plans</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {homePlans.map((p) => (
-          <div class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
+          <div class="flex h-full flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
             <h3 class="text-lg font-semibold">{p.name}</h3>
             <p class="mt-1 text-xl">{p.price}</p>
             <p class="text-xs text-gray-500">{p.yearly}</p>
             <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-              {p.features.map((f) => <li>• {f}</li>)}
+              {p.features.map((f) => <li>- {f}</li>)}
             </ul>
-            <div class="mt-5 flex flex-wrap gap-2">
-              <a href="/en/plans" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">See Plans</a>
-              <a href="/en/contact" class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Request a Quote</a>
+            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <a href="/en/plans" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">See Plans</a>
+              <a href="/en/contact" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Request a Quote</a>
             </div>
           </div>
         ))}
@@ -215,49 +160,9 @@ const faqs = [
       </div>
     </div>
 
-    <!-- ABOUT -->
-    <div class="mt-20 grid md:grid-cols-2 gap-8 items-start">
-      <div class="space-y-4">
-        <h2 class="text-2xl md:text-3xl font-semibold">About ByteWorks</h2>
-        <p class="text-gray-700 dark:text-gray-200">
-          We build lean, bilingual websites focused on results, not trends. Clear plans, ongoing maintenance,
-          and a pragmatic toolkit (Astro + Google) keep your site fast, stable, and easy to update.
-        </p>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
-          <li>Clear pricing and simple scope.</li>
-          <li>Lightweight stack for speed and reliability.</li>
-          <li>Updates included, support that actually answers.</li>
-        </ul>
-        <a href="/en/contact" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-          Work with us
-        </a>
-      </div>
-      <div class="space-y-3">
-        <h3 class="font-semibold">Our process</h3>
-        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
-          <li>Brief & requirements</li>
-          <li>Structure & copy guidance</li>
-          <li>Design & implementation</li>
-          <li>QA, launch, and handover</li>
-          <li>Ongoing updates and support</li>
-        </ol>
-      </div>
-    </div>
+    
 
-    <!-- FAQ -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">FAQ</h2>
-      <div class="max-w-3xl mx-auto divide-y divide-gray-200 dark:divide-gray-800">
-        {faqs.map((item) => (
-          <details class="py-4 group">
-            <summary class="flex cursor-pointer list-none items-center justify-between">
-              <span class="font-medium">{item.q}</span>
-              <span class="text-gray-500 group-open:rotate-180 transition">⌄</span>
-            </summary>
-            <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
-          </details>
-        ))}
-      </div>
-    </div>
+    
   </section>
 </Base>
+

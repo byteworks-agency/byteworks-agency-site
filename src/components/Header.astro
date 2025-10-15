@@ -1,4 +1,4 @@
-﻿---
+---
 interface Props {
   lang?: 'en' | 'es';
 }
@@ -8,11 +8,13 @@ const isEN = lang === 'en';
 const navLinks = isEN
   ? [
       { href: '/en', label: 'Home' },
+      { href: '/en/about', label: 'About' },
       { href: '/en/plans', label: 'Plans' },
       { href: '/en/contact', label: 'Contact' },
     ]
   : [
       { href: '/es', label: 'Inicio' },
+      { href: '/es/about', label: 'Sobre' },
       { href: '/es/planes', label: 'Planes' },
       { href: '/es/contacto', label: 'Contacto' },
     ];
@@ -162,7 +164,7 @@ const navLinks = isEN
       menu.classList.add('open');
       menu.dataset.state = 'open';
       menu.removeAttribute('aria-hidden');
-      menu.removeAttribute('inert');
+      (menu as any).inert = false;
       if (overlayEl) {
         overlayEl.style.opacity = '1';
         overlayEl.style.pointerEvents = 'auto';
@@ -210,3 +212,4 @@ const navLinks = isEN
     });
   }
 </script>
+

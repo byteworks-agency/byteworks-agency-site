@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'About — ByteWorks';
+const description = 'Who we are, how we work, and what to expect when you partner with us.';
+---
+
+<Base title={title} description={description} image="/og-image.svg" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-16 md:py-24">
+    <header class="text-center max-w-3xl mx-auto space-y-3 mb-10">
+      <h1 class="text-3xl md:text-5xl font-semibold">About ByteWorks</h1>
+      <p class="text-gray-600 dark:text-gray-300">
+        We build lean, bilingual websites focused on results — not trends. Clear plans, real support, and
+        ongoing maintenance keep your site fast, stable, and easy to update.
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 items-start">
+      <article class="space-y-4">
+        <h2 class="text-xl md:text-2xl font-semibold">Our approach</h2>
+        <p class="text-gray-700 dark:text-gray-200">
+          Simple scope, transparent pricing, and a pragmatic toolkit (Astro + Google). We prioritize
+          speed, clarity and long-term maintainability so your site works for you.
+        </p>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Clear pricing and simple scope.</li>
+          <li>Lightweight stack for performance and reliability.</li>
+          <li>Updates included, support that actually answers.</li>
+        </ul>
+        <a href="/en/contact" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+          Work with us
+        </a>
+      </article>
+
+      <article class="space-y-3">
+        <h2 class="text-xl md:text-2xl font-semibold">Our process</h2>
+        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Brief & requirements</li>
+          <li>Structure & copy guidance</li>
+          <li>Design & implementation</li>
+          <li>QA, launch, and handover</li>
+          <li>Ongoing updates and support</li>
+        </ol>
+      </article>
+    </div>
+  </section>
+</Base>
+

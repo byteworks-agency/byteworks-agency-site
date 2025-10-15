@@ -2,11 +2,12 @@
 const { lang = 'es', id = 'addons' } = Astro.props;
 const isEN = lang === 'en';
 
+// Flat list (no categories), preserving a clear, scannable layout
 const items = [
   {
     key: 'seo',
     titleEN: 'Advanced SEO & Local Positioning',
-    titleES: 'Advanced SEO & Local Positioning',
+    titleES: 'SEO avanzado y posicionamiento local',
     priceEN: '+$30/month',
     priceES: '+$30/mes',
     bulletsEN: [
@@ -16,9 +17,9 @@ const items = [
       'One monthly SEO improvement action.',
     ],
     bulletsES: [
-      'Optimización técnica y de velocidad (preparación Core Web Vitals).',
+      'Optimización técnica y de velocidad (Core Web Vitals).',
       'Schema básico y saneamiento de metadatos.',
-      'Alta/mantenimiento de perfil en Google Business.',
+      'Alta y mantenimiento de Google Business Profile.',
       'Una acción mensual de mejora SEO.',
     ],
     footEN: 'Sustainable SEO maintenance focused on technical foundations.',
@@ -27,7 +28,7 @@ const items = [
   {
     key: 'blog',
     titleEN: 'Blog / News Section',
-    titleES: 'Blog / News Section',
+    titleES: 'Blog / Noticias',
     priceEN: '+$25/month',
     priceES: '+$25/mes',
     bulletsEN: [
@@ -37,10 +38,10 @@ const items = [
       'Publishing assisted by ByteWorks or simple self-management.',
     ],
     bulletsES: [
-      'Sección de blog con plantilla para artículos.',
+      'Sección de blog con plantilla de artículos.',
       'Categorías, etiquetas y bloques editables.',
       'Estructura lista para SEO.',
-      'Publicación asistida por ByteWorks o autogestión simple.',
+      'Publicación asistida o autogestión simple.',
     ],
     footEN: 'Keep your site active and attract organic traffic.',
     footES: 'Mantén tu sitio activo y atrae tráfico orgánico.',
@@ -48,7 +49,7 @@ const items = [
   {
     key: 'mini-store',
     titleEN: 'Small Online Store (up to 10 products)',
-    titleES: 'Small Online Store (hasta 10 productos)',
+    titleES: 'Mini tienda online (hasta 10 productos)',
     priceEN: '+$35/month',
     priceES: '+$35/mes',
     bulletsEN: [
@@ -59,7 +60,7 @@ const items = [
     ],
     bulletsES: [
       'Mini-tienda integrada dentro del sitio.',
-      'Carrito y flujo de checkout manual.',
+      'Carrito y checkout manual.',
       'Registro de pedidos en Google Sheets.',
       'Analíticas básicas con Google.',
     ],
@@ -67,9 +68,30 @@ const items = [
     footES: 'Perfecto para catálogos pequeños o lanzamientos piloto.',
   },
   {
+    key: 'extended-catalog',
+    titleEN: 'Extended Catalog (extra product blocks)',
+    titleES: 'Catálogo extendido (bloques adicionales de productos)',
+    priceEN: '+$25/month per extra block of 20 products',
+    priceES: '+$25/mes por bloque adicional de 20 productos',
+    bulletsEN: [
+      'Scale your catalog to 40, 60, or more products.',
+      'Performance optimization and lazy loading for larger lists.',
+      'Category-ready product organization.',
+      'Full management via Google Sheets.',
+    ],
+    bulletsES: [
+      'Escala tu catálogo a 40, 60 o más productos.',
+      'Optimización y carga diferida para listados grandes.',
+      'Organización por categorías lista para usar.',
+      'Gestión completa desde Google Sheets.',
+    ],
+    footEN: 'Over 60 products may require a custom E‑Commerce Plus plan.',
+    footES: 'Más de 60 productos puede requerir un plan E-Commerce Plus.',
+  },
+  {
     key: 'branding',
     titleEN: 'Basic Branding Package (one-time)',
-    titleES: 'Basic Branding Package (único pago)',
+    titleES: 'Paquete básico de branding (único pago)',
     priceEN: '$120 (one-time)',
     priceES: '$120 (único pago)',
     bulletsEN: [
@@ -86,27 +108,6 @@ const items = [
     ],
     footEN: 'A clear, professional identity consistent with your brand.',
     footES: 'Identidad clara, profesional y coherente con tu marca.',
-  },
-  {
-    key: 'extended-catalog',
-    titleEN: 'Extended Catalog (extra product blocks)',
-    titleES: 'Catálogo extendido (bloques adicionales de productos)',
-    priceEN: '+$25/month per extra block of 20 products',
-    priceES: '+$25/mes por cada bloque adicional de 20 productos',
-    bulletsEN: [
-      'Scale your catalog to 40, 60, or more products.',
-      'Performance optimization and lazy loading for larger lists.',
-      'Category-ready product organization.',
-      'Full management via Google Sheets.',
-    ],
-    bulletsES: [
-      'Escala tu catálogo a 40, 60 o más productos.',
-      'Optimización de rendimiento y carga diferida en listados grandes.',
-      'Organización por categorías lista para usar.',
-      'Gestión completa desde Google Sheets.',
-    ],
-    footEN: 'Over 60 products may require a custom “E-Commerce Plus” plan.',
-    footES: 'Más de 60 productos puede requerir un plan personalizado “E-Commerce Plus”.',
   },
 ];
 ---
@@ -130,17 +131,17 @@ const items = [
   <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
     {items.map((it) => (
       <article class="border border-gray-200 dark:border-gray-800 rounded-lg p-5 flex flex-col">
-        <div class="flex items-start justify-between gap-4">
-          <h3 class="text-lg font-semibold">
-            {isEN ? it.titleEN : it.titleES}
-          </h3>
-          <span class="text-sm font-medium bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+        <h3 class="text-lg font-semibold leading-snug">
+          {isEN ? it.titleEN : it.titleES}
+        </h3>
+        <div class="mt-1">
+          <span class="inline-block text-[11px] md:text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-2 py-0.5 rounded">
             {isEN ? it.priceEN : it.priceES}
           </span>
         </div>
 
         <div class="mt-3">
-          <p class="font-medium">{isEN ? 'Includes:' : 'Incluye:'}</p>
+          <p class="font-medium text-sm md:text-base">{isEN ? 'Includes:' : 'Incluye:'}</p>
           <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
             {(isEN ? it.bulletsEN : it.bulletsES).map((b) => <li>{b}</li>)}
           </ul>

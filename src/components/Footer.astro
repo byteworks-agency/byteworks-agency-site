@@ -1,8 +1,9 @@
-﻿---
+---
 interface Props { lang?: 'en' | 'es'; }
 const { lang = 'en' } = Astro.props;
+import { DEFAULT_WA } from '../config/whatsapp';
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
+const phone = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString(); // ej. 18687759858
 const wa = phone ? `https://wa.me/${phone}` : null;
 const year = new Date().getFullYear();
 
@@ -11,30 +12,70 @@ const base = isEN ? '/en' : '/es';
 const home = `${base}/`;
 const plans = isEN ? `${base}/plans` : `${base}/planes`;
 const contact = isEN ? `${base}/contact` : `${base}/contacto`;
+const faq = `${base}/faq`;
 const terms = isEN ? `${base}/terms` : `${base}/terminos`;
 const privacy = isEN ? `${base}/privacy` : `${base}/privacidad`;
+const about = `${base}/about`;
+
+const t = isEN
+  ? {
+      tagline: 'Websites that work for you - not against you.',
+      links: 'Links',
+      quick: 'Contact',
+      whatsapp: 'WhatsApp',
+      rights: 'All rights reserved.',
+      footerLabel: 'Footer',
+      quickMsg: 'Reach us via WhatsApp for quick support.'
+    }
+  : {
+      tagline: 'Sitios web que trabajan a tu favor, no en tu contra.',
+      links: 'Enlaces',
+      quick: 'Contacto',
+      whatsapp: 'WhatsApp',
+      rights: 'Todos los derechos reservados.',
+      footerLabel: 'Pie de página',
+      quickMsg: 'Escríbenos por WhatsApp para soporte rápido.'
+    };
 ---
-<footer class="border-t py-10 text-sm">
-  <div class="container mx-auto px-4 grid gap-6 md:grid-cols-3">
+<footer class="border-t border-gray-200/70 dark:border-gray-800 mt-16">
+  <div class="container mx-auto px-4 py-10 grid gap-8 md:grid-cols-3 text-sm">
     <div>
       <div class="font-display text-lg">ByteWorks</div>
-      <p class="text-gray-600 mt-2">
-        {isEN ? 'Websites that work for you — not against you.' : 'Websites que trabajan a tu favor — no en tu contra.'}
-      </p>
+      <p class="text-gray-600 dark:text-gray-300 mt-2">{t.tagline}</p>
     </div>
 
-    <nav class="flex flex-col gap-2">
-      <a href={home}>{isEN ? 'Home' : 'Inicio'}</a>
-      <a href={plans}>{isEN ? 'Plans' : 'Planes'}</a>
-      <a href={contact}>{isEN ? 'Contact' : 'Contacto'}</a>
-      <a href={terms}>{isEN ? 'Terms' : 'Términos'}</a>
-      <a href={privacy}>{isEN ? 'Privacy' : 'Privacidad'}</a>
+    <nav aria-label={t.footerLabel} class="grid md:grid-cols-2 gap-6">
+      <div>
+        <div class="font-semibold text-gray-900 dark:text-white">{t.links}</div>
+        <ul class="mt-2 space-y-1">
+          <li><a href={home}>{isEN ? 'Home' : 'Inicio'}</a></li>
+          <li><a href={plans}>{isEN ? 'Plans' : 'Planes'}</a></li>
+          <li><a href={about}>{isEN ? 'About' : 'Sobre'}</a></li>
+          <li><a href={contact}>{isEN ? 'Contact' : 'Contacto'}</a></li>
+          <li><a href={faq}>FAQ</a></li>
+          <li><a href={terms}>{isEN ? 'Terms' : 'Términos'}</a></li>
+          <li><a href={privacy}>{isEN ? 'Privacy' : 'Privacidad'}</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-semibold text-gray-900 dark:text-white">{t.quick}</div>
+        <ul class="mt-2 space-y-1">
+          {wa && (
+            <li>
+              <a class="inline-flex items-center gap-2 underline" href={wa} target="_blank" rel="noopener">
+                <img src="/icons/whatsapp.svg" alt="" width="14" height="14" class="opacity-80 dark:invert" />
+                {t.whatsapp}
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
     </nav>
 
-    <div class="flex flex-col gap-2">
-      {wa && (<a class="underline" href={wa} target="_blank" rel="noopener">WhatsApp</a>)}
-      <!-- Email eliminado a petición -->
-      <div>© {year} ByteWorks. {isEN ? 'All rights reserved.' : 'Todos los derechos reservados.'}</div>
+    <div class="md:text-right">
+      <div class="text-gray-600 dark:text-gray-300">{wa ? t.quickMsg : (isEN ? 'Support via WhatsApp.' : 'Soporte por WhatsApp.')}</div>
+      <div class="mt-2 text-gray-500">© {year} ByteWorks. {t.rights}</div>
     </div>
   </div>
 </footer>
+

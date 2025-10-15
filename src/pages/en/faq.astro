@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'FAQ — ByteWorks';
+const description = 'Common questions about our plans, delivery times, and support.';
+
+const faqs = [
+  {
+    q: 'How fast can you deliver my website?',
+    a: 'Start usually launches within 7-10 business days after we receive copy and assets. Pro/Elite take 2-4 weeks depending on scope and reviews.',
+  },
+  {
+    q: 'What does "monthly update" include?',
+    a: "Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They're time-boxed per plan and don't roll over (see Terms + Service Levels).",
+  },
+  {
+    q: 'Do you handle online payments?',
+    a: 'Not by default. Our E-Commerce Pro uses a manual order flow (no gateways). If you need payments later, we can quote a custom add-on.',
+  },
+  {
+    q: 'Can I track delivery orders?',
+    a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed via Google Sheets and displayed on a tracking page.',
+  },
+  {
+    q: 'Bilingual by default?',
+    a: 'Yes. English and Spanish routes/structure are included. If you only need one language, we can keep the other hidden.',
+  },
+  {
+    q: 'SEO included?',
+    a: 'All plans include basic SEO (structure, meta, sitemap). For ongoing improvements and local visibility, consider the Advanced SEO add-on.',
+  },
+];
+---
+
+<Base title={title} description={description} image="/og-image.svg" lang="en">
+  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24">
+    <header class="text-center mb-8">
+      <h1 class="text-3xl md:text-5xl font-semibold">FAQ</h1>
+    </header>
+    <div class="divide-y divide-gray-200 dark:divide-gray-800">
+      {faqs.map((item) => (
+        <details class="py-4 group">
+          <summary class="flex cursor-pointer list-none items-center justify-between">
+            <span class="font-medium">{item.q}</span>
+            <span class="text-gray-500 group-open:rotate-180 transition">⌄</span>
+          </summary>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>
+

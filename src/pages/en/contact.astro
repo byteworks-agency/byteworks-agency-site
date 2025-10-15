@@ -1,13 +1,13 @@
----
+﻿---
 import Base from '../../layouts/Base.astro';
 
 const title = 'Contact — ByteWorks';
 const description =
-  'Let’s talk about your website or project idea. Contact ByteWorks through WhatsApp or our contact form — simple, direct and fast support.';
+  'Letâ€™s talk about your website or project idea. Contact — ByteWorks through WhatsApp or our contact form â€” simple, direct and fast support.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
 const message =
-  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
+  import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, Iâ€™m interested in a website.';
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
@@ -93,9 +93,9 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     </form>
 
     <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
-      <p>Prefer a call or meeting? We’ll schedule one after a quick chat.</p>
+      <p>Prefer a call or meeting? Weâ€™ll schedule one after a quick chat.</p>
       <p class="mt-2 text-xs text-gray-500">
-        Support hours: Monday–Friday, 9:00 AM – 6:00 PM (AST)
+        Support hours: Mondayâ€“Friday, 9:00 AM â€“ 6:00 PM (AST)
       </p>
     </div>
   </section>
