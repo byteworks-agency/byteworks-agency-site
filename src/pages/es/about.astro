@@ -2,46 +2,85 @@
 import Base from '../../layouts/Base.astro';
 
 const title = 'Sobre — ByteWorks';
-const description = 'Quiénes somos, cómo trabajamos y qué puedes esperar al trabajar con nosotros.';
+const description = 'Quiénes somos, qué hacemos y cómo entregamos sitios bilingües confiables con planes claros y soporte continuo.';
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">
-  <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-16 md:py-24">
-    <header class="text-center max-w-3xl mx-auto space-y-3 mb-10">
+  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-16 md:py-24">
+    <header class="text-center max-w-3xl mx-auto space-y-3 mb-12">
       <h1 class="text-3xl md:text-5xl font-semibold">Sobre ByteWorks</h1>
       <p class="text-gray-600 dark:text-gray-300">
-        Construimos sitios bilingües, claros y ligeros, enfocados en resultados — no en modas. Planes claros,
-        soporte real y mantenimiento continuo para que tu web funcione bien y sin complicaciones.
+        Construimos sitios bilingües, claros y rápidos — enfocados en resultados. Planes transparentes,
+        soporte real y mantenimiento incluido.
       </p>
     </header>
 
-    <div class="grid md:grid-cols-2 gap-8 items-start">
+    <div class="grid md:grid-cols-2 gap-10 items-start">
       <article class="space-y-4">
-        <h2 class="text-xl md:text-2xl font-semibold">Nuestro enfoque</h2>
+        <h2 class="text-xl md:text-2xl font-semibold">Qué hacemos</h2>
         <p class="text-gray-700 dark:text-gray-200">
-          Alcance simple, precios transparentes y una pila pragmática (Astro + Google). Priorizamos
-          velocidad, claridad y mantenimiento a largo plazo para que tu sitio trabaje a tu favor.
+          Un servicio web pragmático para negocios y emprendedores. Mantenemos el alcance simple,
+          el rendimiento alto y las mejoras predecibles.
         </p>
         <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
-          <li>Precios y alcance claros.</li>
-          <li>Pila liviana para rendimiento y confiabilidad.</li>
-          <li>Actualizaciones incluidas y soporte real.</li>
+          <li>Sitios bilingües por defecto (Inglés + Español).</li>
+          <li>Estructura limpia, SEO básico, sitemap y Open Graph.</li>
+          <li>Hosting, SSL y copias a cargo nuestro.</li>
+          <li>Actualizaciones mensuales incluidas según plan.</li>
+          <li>Add‑ons opcionales para SEO, blog y catálogo.</li>
         </ul>
-        <a href="/es/contacto" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-          Trabaja con nosotros
-        </a>
+      </article>
+
+      <article class="space-y-4">
+        <h2 class="text-xl md:text-2xl font-semibold">Cómo trabajamos</h2>
+        <p class="text-gray-700 dark:text-gray-200">
+          Alcance simple. Precios claros. Una pila moderna rápida y confiable.
+        </p>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Toolkit pragmático: Astro, Tailwind, Vercel, Google.</li>
+          <li>Rendimiento y accesibilidad por defecto.</li>
+          <li>Modelo de contenido estable y escalable.</li>
+          <li>Soporte directo por WhatsApp + email.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-start mt-12">
+      <article class="space-y-3">
+        <h2 class="text-xl md:text-2xl font-semibold">Proceso</h2>
+        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Brief y objetivos</li>
+          <li>Estructura del sitio + guía de contenidos</li>
+          <li>Diseño + implementación</li>
+          <li>QA, lanzamiento y traspaso</li>
+          <li>Actualizaciones y soporte</li>
+        </ol>
       </article>
 
       <article class="space-y-3">
-        <h2 class="text-xl md:text-2xl font-semibold">Nuestro proceso</h2>
-        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
-          <li>Brief y requisitos</li>
-          <li>Estructura y guía de contenidos</li>
-          <li>Diseño e implementación</li>
-          <li>QA, lanzamiento y traspaso</li>
-          <li>Actualizaciones y soporte continuo</li>
-        </ol>
+        <h2 class="text-xl md:text-2xl font-semibold">Qué recibes</h2>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Mapa del sitio y estructura clara</li>
+          <li>Diseño responsive y cargas rápidas</li>
+          <li>SEO básico on‑page (títulos, meta, OG)</li>
+          <li>Analytics y privacidad simple</li>
+          <li>Mantenimiento, copias y soporte</li>
+        </ul>
       </article>
+    </div>
+
+    <div class="mt-12 border border-gray-200 dark:border-gray-800 rounded-lg p-6">
+      <h2 class="text-xl md:text-2xl font-semibold mb-2">Stack</h2>
+      <p class="text-sm text-gray-700 dark:text-gray-200">
+        Usamos una pila pequeña y probada: <strong>Astro</strong> (velocidad, islands), <strong>Tailwind</strong> (consistencia),
+        <strong>Vercel</strong> (deploys, SSL) e integraciones con <strong>Google</strong> (Sheets, Analytics, Business).
+      </p>
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href="/es/contacto" class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
+        Trabaja con nosotros
+      </a>
     </div>
   </section>
 </Base>
