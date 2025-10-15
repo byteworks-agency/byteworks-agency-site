@@ -49,6 +49,13 @@ const planesHome = [
   },
 ];
 
+const planIcons: Record<string, string> = {
+  'Start': '/icons/plans/start.svg',
+  'Pro': '/icons/plans/pro.svg',
+  'Elite': '/icons/plans/elite.svg',
+  'E-Commerce Pro': '/icons/plans/ecommerce.svg',
+};
+
 const faqs = [
   {
     q: '¿En cuánto tiempo puedo tener mi sitio?',
@@ -115,7 +122,10 @@ const faqs = [
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {planesHome.map((p) => (
           <div class="flex h-full flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h3 class="text-lg font-semibold">{p.name}</h3>
+            <h3 class="text-lg font-semibold flex items-center gap-3">
+              <img src={planIcons[p.name] || '/icons/plans/start.svg'} alt="" width="32" height="32" class="opacity-95 dark:invert shrink-0" />
+              {p.name}
+            </h3>
             <p class="mt-1 text-xl">{p.price}</p>
             <p class="text-xs text-gray-500">{p.yearly}</p>
             <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
@@ -146,9 +156,6 @@ const faqs = [
       </div>
     </div>
 
-    
-
-    
   </section>
 </Base>
 

@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro';
+import Header from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
 import '../styles/global.css';
@@ -9,6 +9,7 @@ interface Props {
   description?: string;
   image?: string;
   lang?: 'en' | 'es';
+  robots?: string;
 }
 
 const {
@@ -16,10 +17,14 @@ const {
   description = 'Websites that work for you — not against you.\nBilingual, fast, and affordable.',
   image = '/og-image.svg',
   lang = 'en',
-} = Astro.props;
+  robots = 'index,follow',
+} = Astro.props as Props;
 
 const url = new URL(Astro.url.pathname, Astro.site);
+let siteOrigin = '';
+try { siteOrigin = new URL('/', Astro.site).origin; } catch { siteOrigin = url.origin; }
 const pathname = url.pathname;
+const ogImage = image && image.startsWith('http') ? image : siteOrigin + image;
 
 function altHref(targetLang: 'en' | 'es') {
   const parts = pathname.split('/').filter(Boolean);
@@ -42,15 +47,45 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
 <html lang={lang}>
   <head>
     <meta charset="utf-8" />
-    <!-- Hace el sitio realmente responsive en móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={url.href} />
+    <meta property="og:site_name" content="ByteWorks" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={url.href} />
 
     <link rel="alternate" hreflang="en" href={altHref('en')} />
     <link rel="alternate" hreflang="es" href={altHref('es')} />
+
+    <script is:inline type="application/ld+json">
+    {JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'ByteWorks',
+      url: siteOrigin,
+      logo: siteOrigin + '/logo.png'
+    })}
+    </script>
+
+    <script is:inline type="application/ld+json">
+    {JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'ByteWorks',
+      url: siteOrigin,
+      inLanguage: lang
+    })}
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -76,18 +111,10 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-    <!-- Ajustes globales muy seguros para mobile -->
     <style is:global>
-      /* Evita scroll horizontal accidental en móviles */
       html, body { max-width: 100%; overflow-x: hidden; }
-
-      /* Imágenes y videos nunca deben desbordar el contenedor */
       img, video { max-width: 100%; height: auto; }
-
-      /* Asegura que iframes se escalen correctamente (si los usas) */
       iframe { max-width: 100%; }
-
-      /* Tipografías declaradas (Inter / Manrope) ya cargan desde Google Fonts */
       body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
       h1, h2, h3, .font-display { font-family: Manrope, Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
     </style>
@@ -98,11 +125,9 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
     data-wa={WA_FROM_ENV}
   >
     <Header lang={lang} />
-    <!-- Contenedor con padding horizontal responsivo -->
     <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10">
       <slot />
     </main>
     <Footer lang={lang} />
   </body>
 </html>
-

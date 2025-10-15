@@ -48,7 +48,7 @@ const navLinks = isEN
   <button
     id="hamburger"
     class="md:hidden relative h-10 w-10 flex items-center justify-center text-gray-900 dark:text-white"
-    aria-label={isEN ? 'Open menu' : 'Abrir menú'}
+    aria-label={isEN ? 'Open menu' : 'Abrir menÃº'}
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -63,14 +63,14 @@ const navLinks = isEN
 <!-- Overlay for mobile menu -->
 <div
   id="menu-overlay"
-  class="md:hidden fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity duration-200 ease-in-out z-30"
+  class="md:hidden fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity duration-200 ease-in-out z-[55]"
 ></div>
 
 <!-- Mobile menu panel -->
 <nav
   id="mobile-menu"
   data-state="closed"
-  class="md:hidden mx-4 mt-2 origin-top transform scale-y-0 opacity-0 pointer-events-none transition-transform duration-200 ease-in-out [will-change:transform,opacity] border rounded-lg bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 z-40"
+  class="md:hidden fixed left-4 right-4 top-16 origin-top transform scale-y-0 opacity-0 pointer-events-none transition-transform duration-200 ease-in-out [will-change:transform,opacity] border rounded-lg bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 shadow-lg z-[60] max-h-[75vh] overflow-auto"
   aria-hidden="true"
   inert
 >
@@ -142,19 +142,18 @@ const navLinks = isEN
 </style>
 
 <script>
-  // TS-safe refs
-  const btnEl = document.getElementById('hamburger') as HTMLButtonElement | null;
-  const menuEl = document.getElementById('mobile-menu') as HTMLElement | null;
-  const overlayEl = document.getElementById('menu-overlay') as HTMLElement | null;
+  const btnEl = document.getElementById('hamburger');
+  const menuEl = document.getElementById('mobile-menu');
+  const overlayEl = document.getElementById('menu-overlay');
 
   if (btnEl && menuEl) {
-    const btn: HTMLButtonElement = btnEl;
-    const menu: HTMLElement = menuEl;
+    const btn = btnEl;
+    const menu = menuEl;
 
-    function lockScroll(on: boolean) {
+    function lockScroll(on) {
       try {
-        const el = document.documentElement as HTMLElement;
-        if (on) el.style.overflow = 'hidden'; else el.style.overflow = '';
+        const el = document.documentElement;
+        el.style.overflow = on ? 'hidden' : '';
       } catch {}
     }
 
@@ -164,15 +163,15 @@ const navLinks = isEN
       menu.classList.add('open');
       menu.dataset.state = 'open';
       menu.removeAttribute('aria-hidden');
-      (menu as any).inert = false;
+      if ('inert' in menu) menu.inert = false;
       if (overlayEl) {
         overlayEl.style.opacity = '1';
         overlayEl.style.pointerEvents = 'auto';
       }
       lockScroll(true);
-      const firstLink = menu.querySelector('a') as HTMLAnchorElement | null;
+      const firstLink = menu.querySelector('a');
       if (firstLink) firstLink.focus();
-      document.addEventListener('keydown', closeOnEscape as EventListener);
+      document.addEventListener('keydown', closeOnEscape);
     }
 
     function closeMenu() {
@@ -181,17 +180,17 @@ const navLinks = isEN
       menu.classList.remove('open');
       menu.dataset.state = 'closed';
       menu.setAttribute('aria-hidden', 'true');
-      (menu as any).inert = true;
+      if ('inert' in menu) menu.inert = true;
       if (overlayEl) {
         overlayEl.style.opacity = '0';
         overlayEl.style.pointerEvents = 'none';
       }
       lockScroll(false);
-      document.removeEventListener('keydown', closeOnEscape as EventListener);
+      document.removeEventListener('keydown', closeOnEscape);
       btn.focus();
     }
 
-    function closeOnEscape(e: KeyboardEvent) {
+    function closeOnEscape(e) {
       if (e.key === 'Escape') closeMenu();
     }
 
@@ -200,16 +199,17 @@ const navLinks = isEN
       if (expanded) closeMenu(); else openMenu();
     });
 
-    overlayEl?.addEventListener('click', () => closeMenu());
+    if (overlayEl) overlayEl.addEventListener('click', () => closeMenu());
     menu.addEventListener('click', (e) => {
-      const t = e.target as HTMLElement | null;
+      const t = e.target;
       if (t && t.tagName === 'A') closeMenu();
     });
 
     const mql = window.matchMedia('(min-width: 768px)');
-    mql.addEventListener('change', (ev: MediaQueryListEvent) => {
-      if (ev.matches) closeMenu();
-    });
+    if (mql && mql.addEventListener) {
+      mql.addEventListener('change', (ev) => {
+        if (ev.matches) closeMenu();
+      });
+    }
   }
 </script>
-

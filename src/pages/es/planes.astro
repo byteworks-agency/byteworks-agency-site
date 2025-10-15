@@ -4,7 +4,7 @@ import AddOns from '../../components/AddOns.astro';
 
 const title = 'Planes — ByteWorks';
 const description =
-  'Planes claros con mantenimiento incluido. Elige el plan que se ajuste a tu etapa y sube cuando quieras. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
+  'Planes claros con mantenimiento incluido. Elige el plan que se ajuste a tu etapa. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
 
 const plans = [
   {
@@ -25,7 +25,7 @@ const plans = [
     name: 'Pro',
     price: '$55/mes',
     yearly: '$561/año (ahorra 15%)',
-    bestFor: 'Negocios de servicios con 3-4 páginas',
+    bestFor: 'Negocios de servicios con 3–4 páginas',
     features: [
       'Hasta 4 páginas (Inicio, Sobre, Servicios, Contacto)',
       'Contacto + automatizaciones con Google Sheets',
@@ -64,6 +64,13 @@ const plans = [
     ],
   },
 ];
+
+const planIcons: Record<string, string> = {
+  'Start': '/icons/plans/start.svg',
+  'Pro': '/icons/plans/pro.svg',
+  'Elite': '/icons/plans/elite.svg',
+  'E-Commerce Pro': '/icons/plans/ecommerce.svg',
+};
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">
@@ -71,7 +78,7 @@ const plans = [
     <header class="text-center space-y-3">
       <h1 class="text-3xl md:text-5xl font-semibold">Planes</h1>
       <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Websites que trabajan a tu favor. Mantenimiento incluido. Puedes subir de plan cuando quieras.
+        Sitios web que trabajan a tu favor. Mantenimiento incluido. Puedes subir de plan cuando quieras.
       </p>
       <p class="text-xs text-gray-500">Precios en USD. Para otros métodos de pago/monedas, contáctanos.</p>
     </header>
@@ -79,7 +86,10 @@ const plans = [
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
       {plans.map((p) => (
         <article class="flex h-full flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-          <h2 class="text-lg font-semibold">{p.name}</h2>
+          <h2 class="text-lg font-semibold flex items-center gap-3">
+            <img src={planIcons[p.name] || '/icons/plans/start.svg'} alt="" width="32" height="32" class="opacity-95 dark:invert shrink-0" />
+            {p.name}
+          </h2>
           <p class="mt-1 text-2xl">{p.price}</p>
           <p class="text-xs text-gray-500">{p.yearly}</p>
           <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
