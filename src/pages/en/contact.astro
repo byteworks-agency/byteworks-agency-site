@@ -11,7 +11,7 @@ const message =
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en">
+<Base title={title} description={description} image="/og-image.svg" lang="en">
   <section
     class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8"
     data-wa={phone || ''}
@@ -132,7 +132,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       }
       WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
 
-      form.addEventListener('submit', (ev: SubmitEvent) => {
+      form.addEventListener('submit', async (ev: SubmitEvent) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
@@ -160,6 +160,21 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
         const original = btn ? btn.textContent : null;
         if (btn) { btn.disabled = true; btn.textContent = 'Opening WhatsApp...'; }
+
+        try {
+          await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              message: msg,
+              lang: 'en',
+              sourceUrl: window.location.href,
+              waNumber: WA_NUMBER,
+            }),
+          });
+        } catch {}
 
         window.open(url, '_blank');
         nameEl.value = '';

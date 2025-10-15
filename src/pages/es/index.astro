@@ -1,3 +1,4 @@
+];
 ---
 import Base from '../../layouts/Base.astro';
 
@@ -5,18 +6,16 @@ const title = 'ByteWorks — Sitios web que trabajan a tu favor';
 const description =
   'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
 
-const planes = [
+// Copia simple y clara para la página de inicio
+const planesHome = [
   {
     name: 'Start',
     price: '$45/mes',
     yearly: '$459/año (ahorra 15%)',
     features: [
-      'Sitio de una sola página (responsive)',
-      'Formulario de contacto (email o Google Sheets)',
-      'SEO básico (título, meta, OG, sitemap)',
-      'Dominio, hosting y mantenimiento incluidos',
-      '1 actualización mensual (≤30 min)',
-      'SSL y copias de seguridad',
+      'Empieza rápido con una página clara',
+      'Se ve perfecto en el móvil',
+      'Contacto simple para que te escriban',
     ],
   },
   {
@@ -24,12 +23,9 @@ const planes = [
     price: '$55/mes',
     yearly: '$561/año (ahorra 15%)',
     features: [
-      'Hasta 4 páginas (Inicio, Sobre, Servicios, Contacto)',
-      'Contacto + automatizaciones con Google Sheets',
-      'Optimización técnica y rendimiento ligeros',
-      'Dominio, hosting y mantenimiento incluidos',
-      '2 actualizaciones mensuales (≤45 min c/u)',
-      'SSL y copias de seguridad',
+      'Sitio con varias secciones',
+      'Explica fácil lo que haces',
+      'Diseño alineado a tu marca',
     ],
   },
   {
@@ -37,12 +33,9 @@ const planes = [
     price: '$70/mes',
     yearly: '$714/año (ahorra 15%)',
     features: [
-      'Hasta 7 páginas con secciones personalizadas',
-      'SEO mejorado (estructura, velocidad, indexación)',
-      'Flujos de captación + integraciones con Google',
-      'Dominio, hosting y mantenimiento incluidos',
-      '3 actualizaciones mensuales (≤60 min c/u)',
-      'SSL y copias de seguridad',
+      'Sitio más completo y a medida',
+      'Más rápido y pulido',
+      'Mejoras mensuales incluidas',
     ],
   },
   {
@@ -50,12 +43,9 @@ const planes = [
     price: '$95/mes',
     yearly: '$969/año (ahorra 15%)',
     features: [
-      'Catálogo de productos (hasta 20 ítems)',
-      'Carrito local + flujo de checkout manual',
-      'Registro de pedidos por Email / Google Sheets',
-      'Tracking interno por código (sin pasarela)',
-      '4 actualizaciones mensuales (productos o textos)',
-      'SSL, copias, dominio y hosting incluidos',
+      'Muestra productos y recibe pedidos',
+      'Carrito simple y checkout manual',
+      'Gestión fácil de pedidos',
     ],
   },
 ];
@@ -67,37 +57,20 @@ const faqs = [
   },
   {
     q: '¿Qué incluye la “actualización mensual”?',
-    a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos → SLA).',
+    a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos + SLA).',
   },
   {
     q: '¿Incluye pagos en línea?',
-    a: 'No por defecto. E-Commerce Pro usa flujo de pedido manual (sin pasarela). Si luego necesitas pagos, podemos cotizarlo como add-on.',
+    a: 'No por defecto. E‑Commerce Pro usa flujo de pedido manual (sin pasarela). Si luego necesitas pagos, podemos cotizarlo como add‑on.',
   },
   {
     q: '¿Puedo dar seguimiento a pedidos de delivery?',
     a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en Google Sheets y se muestra en una página de tracking.',
   },
-  {
-    q: '¿Quién es dueño del dominio y el contenido?',
-    a: 'Tú. Mientras la suscripción esté activa, nosotros administramos la parte técnica; tú conservas dominio, marca y contenidos.',
-  },
-  {
-    q: '¿El sitio es bilingüe?',
-    a: 'Sí. Estructura y rutas en Inglés y Español. Si solo quieres un idioma, podemos mantener el otro oculto.',
-  },
-  {
-    q: '¿Incluye SEO?',
-    a: 'Todos los planes incluyen SEO básico. Para mejoras constantes y ranking local, está el add-on de SEO avanzado.',
-  },
-  {
-    q: '¿Puedo migrar en el futuro?',
-    a: 'Sí. Podemos exportar el sitio y entregar assets/datos al cancelar, según Términos.',
-  },
 ];
-
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es">
+<Base title={title} description={description} image="/og-image.svg" lang="es">
   <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-16 md:py-24">
     <!-- HERO -->
     <div class="text-center space-y-6">
@@ -133,7 +106,7 @@ const faqs = [
       </div>
       <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
         <h3 class="font-semibold mb-2">Rápido y seguro</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300">Construcciones enfocadas en rendimiento, SSL y copias de seguridad.</p>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Rendimiento, SSL y copias de seguridad incluidos.</p>
       </div>
     </div>
 
@@ -141,7 +114,7 @@ const faqs = [
     <div class="mt-20">
       <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Planes</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {planes.map((p) => (
+        {planesHome.map((p) => (
           <div class="flex flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
             <h3 class="text-lg font-semibold">{p.name}</h3>
             <p class="mt-1 text-xl">{p.price}</p>
@@ -149,7 +122,10 @@ const faqs = [
             <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
               {p.features.map((f) => <li>• {f}</li>)}
             </ul>
-            <a href="/es/contacto" class="mt-5 inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Solicitar Cotización</a>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <a href="/es/planes" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Ver Planes</a>
+              <a href="/es/contacto" class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Solicitar Cotización</a>
+            </div>
           </div>
         ))}
       </div>
@@ -181,7 +157,7 @@ const faqs = [
         </p>
         <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
           <li>Precios y alcance claros.</li>
-          <li>Stack liviano para velocidad y confiabilidad.</li>
+          <li>Pila liviana para velocidad y confiabilidad.</li>
           <li>Actualizaciones incluidas y soporte real.</li>
         </ul>
         <a href="/es/contacto" class="inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">

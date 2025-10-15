@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
+import '../styles/global.css';
 
 interface Props {
   title?: string;
@@ -13,7 +14,7 @@ interface Props {
 const {
   title = 'ByteWorks — Modern web design & hosting',
   description = 'Websites that work for you — not against you.\nBilingual, fast, and affordable.',
-  image = '/og-image.png',
+  image = '/og-image.svg',
   lang = 'en',
 } = Astro.props;
 
@@ -70,6 +71,11 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
       ></script>
     )}
 
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
     <!-- Ajustes globales muy seguros para mobile -->
     <style is:global>
       /* Evita scroll horizontal accidental en móviles */
@@ -93,7 +99,7 @@ const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').
   >
     <Header lang={lang} />
     <!-- Contenedor con padding horizontal responsivo -->
-    <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <main class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10">
       <slot />
     </main>
     <Footer lang={lang} />
