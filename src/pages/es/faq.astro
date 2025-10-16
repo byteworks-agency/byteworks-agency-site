@@ -41,8 +41,32 @@ const faqs = [
 <Base title={title} description={description} image="/og-image.svg" lang="es">
   <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24">
     <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-5xl font-semibold">Preguntas Frecuentes</h1>
+      <h1 class="text-3xl md:text-5xl font-semibold">FAQ · Preguntas Frecuentes</h1>
     </header>
+    <div class="mb-8 border border-gray-200 dark:border-gray-800 rounded-lg p-5 bg-white/60 dark:bg-gray-900/60">
+      <h2 class="text-lg md:text-xl font-semibold mb-2">Qué hace ByteWorks</h2>
+      <p class="text-sm text-gray-700 dark:text-gray-200">
+        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso.
+        Nos encargamos de todo el proceso — desde el diseño hasta el mantenimiento — para que cualquier negocio,
+        marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
+      </p>
+      <p class="mt-3 text-sm text-gray-700 dark:text-gray-200">
+        Cada sitio web está diseñado para adaptarse a celulares, verse bien en cualquier dispositivo y transmitir una imagen moderna y confiable.
+      </p>
+      <div class="mt-4">
+        <div class="font-medium mb-1">Incluye todo lo necesario:</div>
+        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+          <li>Dominio y hosting (no tienes que pagar aparte).</li>
+          <li>Diseño profesional y funcional.</li>
+          <li>Botón de WhatsApp y formulario de contacto.</li>
+          <li>SEO básico para aparecer en Google.</li>
+          <li>Mantenimiento mensual y soporte real.</li>
+        </ul>
+      </div>
+      <p class="mt-3 text-sm text-gray-700 dark:text-gray-200">
+        En pocas palabras: tú manejas tu negocio, nosotros nos encargamos del lado digital.
+      </p>
+    </div>
     <FAQAccordion faqs={faqs} lang="es" />
   </section>
 </Base>
