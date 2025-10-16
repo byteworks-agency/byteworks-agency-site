@@ -1,94 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { HOME_FAQS, HOME_PLAN_ICONS, HOME_PLANS } from '../../content/home';
 
 const title = 'ByteWorks — Websites that work for you';
 const description =
   'Modern, bilingual websites. Transparent pricing, maintenance included, and real support. You focus on your business — we handle the digital side.';
 
-const homePlans = [
-  {
-    name: 'Start',
-    price: '$45/mo',
-    yearly: '$459/yr (save 15%)',
-    features: [
-      'Launch fast with a clean one-page site',
-      'Looks great on mobile',
-      'Simple contact so people can reach you',
-    ],
-  },
-  {
-    name: 'Pro',
-    price: '$55/mo',
-    yearly: '$561/yr (save 15%)',
-    features: [
-      'Multi-page site for services',
-      'Explain what you do clearly',
-      'Brand-aligned look that builds trust',
-    ],
-  },
-  {
-    name: 'Elite',
-    price: '$70/mo',
-    yearly: '$714/yr (save 15%)',
-    features: [
-      'Bigger site with custom sections',
-      'Faster, more polished experience',
-      'Monthly improvements included',
-    ],
-  },
-  {
-    name: 'E-Commerce Pro',
-    price: '$95/mo',
-    yearly: '$969/yr (save 15%)',
-    features: [
-      'Show products and take orders',
-      'Simple cart and manual checkout',
-      'Easy order management',
-    ],
-  },
-];
-
-const planIcons: Record<string, string> = {
-  'Start': '/icons/plans/start.svg',
-  'Pro': '/icons/plans/pro.svg',
-  'Elite': '/icons/plans/elite.svg',
-  'E-Commerce Pro': '/icons/plans/ecommerce.svg',
-};
-
-const faqs = [
-  {
-    q: 'How fast can you deliver my website?',
-    a: 'Start usually launches within 7-10 business days after we receive copy and assets. Pro/Elite take 2-4 weeks depending on scope and reviews.',
-  },
-  {
-    q: 'What does "monthly update" include?',
-    a: "Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They're time-boxed per plan and don't roll over (see Terms + Service Levels).",
-  },
-  {
-    q: 'Do you handle online payments?',
-    a: 'Not by default. Our E-Commerce Pro uses a manual order flow (no gateways). If you need payments later, we can quote a custom add-on.',
-  },
-  {
-    q: 'Can I track delivery orders?',
-    a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed via Google Sheets and displayed on a tracking page.',
-  },
-  {
-    q: 'Who owns the domain and content?',
-    a: 'You do. While your subscription is active we manage the technical stack; you retain ownership of brand assets, domain and content.',
-  },
-  {
-    q: 'Bilingual by default?',
-    a: 'Yes. English and Spanish routes/structure are included. If you only need one language, we can keep the other hidden.',
-  },
-  {
-    q: 'SEO included?',
-    a: 'All plans include basic SEO (structure, meta, sitemap). For ongoing improvements and local visibility, consider the Advanced SEO add-on.',
-  },
-  {
-    q: 'Can I migrate later?',
-    a: 'Yes. We can export your static site and hand over assets/data upon cancellation per our Terms.',
-  },
-];
+const homePlans = HOME_PLANS.en;
+const planIcons = HOME_PLAN_ICONS;
+const faqs = HOME_FAQS.en;
 
 ---
 
