@@ -1,79 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { HOME_FAQS, HOME_PLAN_ICONS, HOME_PLANS } from '../../content/home';
 
 const title = 'ByteWorks — Sitios web que trabajan a tu favor';
 const description =
   'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
 
 // Copia simple y clara para la página de inicio
-const planesHome = [
-  {
-    name: 'Start',
-    price: '$45/mes',
-    yearly: '$459/año (ahorra 15%)',
-    features: [
-      'Empieza rápido con una página clara',
-      'Se ve perfecto en el móvil',
-      'Contacto simple para que te escriban',
-    ],
-  },
-  {
-    name: 'Pro',
-    price: '$55/mes',
-    yearly: '$561/año (ahorra 15%)',
-    features: [
-      'Sitio con varias secciones',
-      'Explica fácil lo que haces',
-      'Diseño alineado a tu marca',
-    ],
-  },
-  {
-    name: 'Elite',
-    price: '$70/mes',
-    yearly: '$714/año (ahorra 15%)',
-    features: [
-      'Sitio más completo y a medida',
-      'Más rápido y pulido',
-      'Mejoras mensuales incluidas',
-    ],
-  },
-  {
-    name: 'E-Commerce Pro',
-    price: '$95/mes',
-    yearly: '$969/año (ahorra 15%)',
-    features: [
-      'Muestra productos y recibe pedidos',
-      'Carrito simple y checkout manual',
-      'Gestión fácil de pedidos',
-    ],
-  },
-];
-
-const planIcons: Record<string, string> = {
-  'Start': '/icons/plans/start.svg',
-  'Pro': '/icons/plans/pro.svg',
-  'Elite': '/icons/plans/elite.svg',
-  'E-Commerce Pro': '/icons/plans/ecommerce.svg',
-};
-
-const faqs = [
-  {
-    q: '¿En cuánto tiempo puedo tener mi sitio?',
-    a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos y assets. Pro/Elite toman 2–4 semanas según alcance y revisiones.',
-  },
-  {
-    q: '¿Qué incluye la "actualización mensual"?',
-    a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos + SLA).',
-  },
-  {
-    q: '¿Incluye pagos en línea?',
-    a: 'No por defecto. E‑Commerce Pro usa flujo de pedido manual (sin pasarela). Si luego necesitas pagos, podemos cotizarlo como add‑on.',
-  },
-  {
-    q: '¿Puedo dar seguimiento a pedidos de delivery?',
-    a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en Google Sheets y se muestra en una página de tracking.',
-  },
-];
+const planesHome = HOME_PLANS.es;
+const planIcons = HOME_PLAN_ICONS;
+const faqs = HOME_FAQS.es;
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">

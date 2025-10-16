@@ -90,6 +90,14 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       >
         Enviar mensaje
       </button>
+
+      <p
+        id="formStatus"
+        role="status"
+        aria-live="polite"
+        class="text-sm text-gray-600 dark:text-gray-300 min-h-[1.5rem]"
+        data-tone="idle"
+      ></p>
     </form>
 
     <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
@@ -109,6 +117,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const messageEl = document.querySelector<HTMLTextAreaElement>('#message');
       const hpEl = document.querySelector<HTMLInputElement>('#website');
       const btn = document.querySelector<HTMLButtonElement>('#submitBtn');
+      const statusEl = document.querySelector<HTMLParagraphElement>('#formStatus');
       if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
 
       let WA_NUMBER = (root?.dataset?.wa || '').trim();
@@ -141,12 +150,42 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         const hp = hpEl.value.trim();
 
         if (hp) return;
+        const setStatus = (
+          message: string,
+          tone: 'info' | 'error' | 'success' = 'info'
+        ) => {
+          if (!statusEl) return;
+          statusEl.textContent = message;
+          statusEl.dataset.tone = tone;
+          statusEl.classList.remove(
+            'text-red-600',
+            'dark:text-red-400',
+            'text-green-600',
+            'dark:text-green-400',
+            'text-amber-600',
+            'dark:text-amber-400'
+          );
+
+          if (!message) {
+            statusEl.dataset.tone = 'idle';
+            return;
+          }
+
+          const toneClasses =
+            tone === 'error'
+              ? ['text-red-600', 'dark:text-red-400']
+              : tone === 'success'
+                ? ['text-green-600', 'dark:text-green-400']
+                : ['text-amber-600', 'dark:text-amber-400'];
+
+          statusEl.classList.add(...toneClasses);
+        };
         if (!name || !email || !msg) {
-          alert('Por favor completa todos los campos.');
+          setStatus('Por favor completa todos los campos.', 'error');
           return;
         }
         if (!WA_NUMBER) {
-          alert('WhatsApp no está configurado. Intenta más tarde.');
+          setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
           return;
         }
 
@@ -159,6 +198,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
 
         const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
         const original = btn ? btn.textContent : null;
+        setStatus('Abriendo WhatsApp...', 'info');
         if (btn) { btn.disabled = true; btn.textContent = 'Abriendo WhatsApp...'; }
 
         try {
@@ -182,6 +222,10 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         messageEl.value = '';
         hpEl.value = '';
         if (btn) { btn.disabled = false; btn.textContent = original || 'Enviar mensaje'; }
+        setStatus(
+          'Abrimos WhatsApp en una nueva pestaña. Si no lo ves, revisa tu bloqueador de ventanas emergentes.',
+          'success'
+        );
       });
     })();
   </script>

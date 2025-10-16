@@ -35,8 +35,47 @@ export const onRequest: MiddlewareHandler = (context, next) => {
   }
 
   // idioma del navegador
-  const accept = (context.request.headers.get('accept-language') || '').toLowerCase();
-  const guess = accept.startsWith('es') ? 'es' : 'en';
+  const accept = context.request.headers.get('accept-language') || '';
+
+  const parseAcceptLanguage = (header: string, supported: string[], fallback: string) => {
+    const cleaned = header.trim();
+    if (!cleaned) return fallback;
+
+    const entries = cleaned
+      .split(',')
+      .map((raw, index) => {
+        const [range, ...params] = raw.trim().split(';');
+        let weight = 1;
+
+        for (const param of params) {
+          const [key, value] = param.split('=').map((part) => part?.trim().toLowerCase());
+          if (key === 'q' && value) {
+            const parsed = Number.parseFloat(value);
+            if (!Number.isNaN(parsed)) {
+              weight = Math.min(Math.max(parsed, 0), 1);
+            }
+          }
+        }
+
+        return { range: range.toLowerCase(), weight, index };
+      })
+      .filter((entry) => Boolean(entry.range))
+      .sort((a, b) => {
+        if (b.weight === a.weight) return a.index - b.index;
+        return b.weight - a.weight;
+      });
+
+    for (const { range } of entries) {
+      if (supported.includes(range)) return range;
+
+      const base = range.split('-')[0];
+      if (supported.includes(base)) return base;
+    }
+
+    return fallback;
+  };
+
+  const guess = parseAcceptLanguage(accept, ['en', 'es'], 'en');
   context.cookies.set('bw_lang', guess, { path: '/', maxAge: 31536000 });
 
   return new Response(null, {
