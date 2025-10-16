@@ -1,26 +1,40 @@
 ---
 import Base from '../../layouts/Base.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 
 const title = 'Preguntas Frecuentes — ByteWorks';
-const description = 'Respuestas sobre planes, tiempos de entrega y soporte.';
+const description = 'Respuestas claras para clientes no técnicos sobre planes, tiempos, propiedad, SEO, tienda y soporte.';
 
 const faqs = [
-  {
-    q: '¿En cuánto tiempo puedo tener mi sitio?',
-    a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos y assets. Pro/Elite toman 2–4 semanas según alcance y revisiones.',
-  },
-  {
-    q: '¿Qué incluye la “actualización mensual”?',
-    a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos + SLA).',
-  },
-  {
-    q: '¿Incluye pagos en línea?',
-    a: 'No por defecto. E‑Commerce Pro usa un flujo de pedido manual (sin pasarela). Si luego necesitas pagos, podemos cotizarlo como add‑on.',
-  },
-  {
-    q: '¿Puedo dar seguimiento a pedidos de delivery?',
-    a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en Google Sheets y se muestra en una página de tracking.',
-  },
+  { q: '¿En cuánto tiempo puedo tener mi sitio?', a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos, logo e imágenes. Pro/Elite toman 2–4 semanas según alcance y velocidad de revisión.' },
+  { q: '¿Qué necesitan de mí para empezar?', a: 'Logo, colores (si tienes), esquema de páginas, textos básicos, imágenes (o usamos temporales) y datos de contacto. Para tienda: nombres de productos, precios y fotos.' },
+  { q: '¿Qué incluye la “actualización mensual”?', a: 'Tareas acotadas: cambios de texto o imagen, ajustes menores de diseño, edición de productos o pequeñas secciones. El tiempo es limitado por plan y no se acumula.' },
+  { q: '¿Qué no incluye la actualización mensual?', a: 'Páginas nuevas, rediseños, integraciones complejas, pasarelas de pago o producción de contenidos a gran escala. Eso requiere cotización o cambio de plan/add‑on.' },
+  { q: '¿Ustedes redactan los textos?', a: 'Damos estructura y guía, y podemos pulir textos. Redacción completa no está incluida por defecto, pero podemos cotizarla.' },
+  { q: '¿Hacen logos o branding?', a: 'Sí. El add‑on de Branding Básico incluye logo (principal/alternativo), paleta de colores, tipografía sugerida y avatares/banners para redes.' },
+  { q: '¿Trabajan con CMS?', a: 'Por defecto evitamos CMS pesados para priorizar velocidad y estabilidad. Nosotros mantenemos tu sitio. Si realmente necesitas CMS, lo cotizamos.' },
+  { q: '¿El sitio es bilingüe?', a: 'Sí. Rutas en Español e Inglés por defecto. Si solo necesitas un idioma, podemos ocultar el otro.' },
+  { q: '¿Cómo funciona el hosting?', a: 'Hosting, SSL y monitoreo básico están incluidos en todos los planes. Nos encargamos de la parte técnica.' },
+  { q: '¿Soy dueño de mi dominio y contenidos?', a: 'Sí. El dominio y tus contenidos son tuyos. Nosotros operamos la parte técnica mientras tu suscripción esté activa.' },
+  { q: '¿Pueden usar mi dominio actual?', a: 'Sí. Te ayudamos a apuntar el DNS al nuevo sitio. También podemos ayudarte a comprar uno nuevo si hace falta.' },
+  { q: '¿Crean cuentas de correo?', a: 'No incluimos correo. Recomendamos Google Workspace u otro proveedor. Podemos orientarte con pasos simples.' },
+  { q: '¿Qué pasa con el SEO?', a: 'Todos los planes incluyen SEO básico (estructura limpia, meta, sitemap). Para mejoras continuas y posicionamiento local, tenemos el add‑on de SEO Avanzado.' },
+  { q: '¿Configuran Google Business?', a: 'Sí, dentro del add‑on SEO te ayudamos con Google Business Profile para mejorar visibilidad local.' },
+  { q: '¿Incluye analíticas?', a: 'Sí. Podemos configurar Google Analytics o una alternativa de privacidad. Podrás ver visitas y métricas básicas.' },
+  { q: '¿Incluye tienda en línea?', a: 'El plan E‑Commerce Pro ofrece catálogo, carrito y checkout manual (sin pasarela). Si necesitas pagos en línea, lo cotizamos como integración.' },
+  { q: '¿Hay límite de productos?', a: 'E‑Commerce Pro incluye hasta 20 productos. El add‑on de Catálogo Extendido agrega bloques de 20. Más de 60 normalmente requiere un plan a medida.' },
+  { q: '¿Cómo se pagan los planes?', a: 'Suscripción mensual o anual. Puedes subir de plan cuando quieras. La cancelación detiene futuras renovaciones al terminar el periodo en curso.' },
+  { q: '¿Puedo cancelar? ¿Qué me entregan?', a: 'Sí. Bajo solicitud, podemos exportar una copia estática y entregarte assets/datos dentro de lo indicado en nuestros Términos.' },
+  { q: '¿Cuántas revisiones tengo?', a: 'Trabajamos con ciclos de feedback cortos. Durante el armado incluimos rondas prácticas. Tras el lanzamiento, siguen las mejoras con la actualización mensual.' },
+  { q: '¿El sitio será rápido y mobile‑friendly?', a: 'Sí. Velocidad y diseño responsive son el estándar. Apuntamos a buenos puntajes de Lighthouse de forma realista para tu contenido.' },
+  { q: '¿Accesibilidad?', a: 'Aplicamos buenas prácticas en estructura, contrastes e interacción. Auditorías completas o certificaciones no están incluidas por defecto.' },
+  { q: '¿Backups y seguridad?', a: 'Copias automáticas, SSL incluido, stack moderno con deploys de solo lectura y dependencias al día.' },
+  { q: '¿Horarios de soporte y tiempos de respuesta?', a: 'Lunes a viernes, 9:00–18:00 (AST). Objetivos: ≤ 4h incidencias críticas, ≤ 24h soporte estándar, ≤ 48h consultas generales (ver Términos).' },
+  { q: '¿Cómo nos comunicamos?', a: 'WhatsApp y email. Consultas rápidas reciben respuesta rápida; cambios mayores entran en la actualización mensual o se cotizan.' },
+  { q: '¿Pueden migrar mi sitio actual?', a: 'Sí. Migramos páginas y assets al nuevo esquema. Blogs o tiendas complejas pueden requerir add‑on o cotización.' },
+  { q: '¿Puedo agregar un blog después?', a: 'Sí. El add‑on de Blog habilita una sección de noticias con categorías y plantillas listas para SEO.' },
+  { q: '¿Pueden integrar pagos más adelante?', a: 'Sí. Podemos cotizar pasarelas o flujos personalizados cuando lo necesites.' },
+  { q: '¿Ayuda legal/privacidad?', a: 'Configuramos analíticas y estructura básica. Los textos legales (Privacidad/Términos) los debe proveer tu negocio; los publicamos en tu sitio.' },
 ];
 ---
 
@@ -29,17 +43,6 @@ const faqs = [
     <header class="text-center mb-8">
       <h1 class="text-3xl md:text-5xl font-semibold">Preguntas Frecuentes</h1>
     </header>
-    <div class="divide-y divide-gray-200 dark:divide-gray-800">
-      {faqs.map((item) => (
-        <details class="py-4 group">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">{item.q}</span>
-            <span class="text-gray-500 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
-        </details>
-      ))}
-    </div>
+    <FAQAccordion faqs={faqs} lang="es" />
   </section>
 </Base>
-

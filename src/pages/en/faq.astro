@@ -1,34 +1,40 @@
 ---
 import Base from '../../layouts/Base.astro';
+import FAQAccordion from '../../components/FAQAccordion.astro';
 
 const title = 'FAQ — ByteWorks';
-const description = 'Common questions about our plans, delivery times, and support.';
+const description = 'Clear answers for non‑technical clients about plans, timelines, ownership, SEO, e‑commerce and support.';
 
 const faqs = [
-  {
-    q: 'How fast can you deliver my website?',
-    a: 'Start usually launches within 7-10 business days after we receive copy and assets. Pro/Elite take 2-4 weeks depending on scope and reviews.',
-  },
-  {
-    q: 'What does "monthly update" include?',
-    a: "Small, scoped tasks like text/image changes, minor layout tweaks, or product edits. They're time-boxed per plan and don't roll over (see Terms + Service Levels).",
-  },
-  {
-    q: 'Do you handle online payments?',
-    a: 'Not by default. Our E-Commerce Pro uses a manual order flow (no gateways). If you need payments later, we can quote a custom add-on.',
-  },
-  {
-    q: 'Can I track delivery orders?',
-    a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed via Google Sheets and displayed on a tracking page.',
-  },
-  {
-    q: 'Bilingual by default?',
-    a: 'Yes. English and Spanish routes/structure are included. If you only need one language, we can keep the other hidden.',
-  },
-  {
-    q: 'SEO included?',
-    a: 'All plans include basic SEO (structure, meta, sitemap). For ongoing improvements and local visibility, consider the Advanced SEO add-on.',
-  },
+  { q: 'How fast can you deliver my website?', a: 'Start usually launches in 7–10 business days after we receive copy, logo and images. Pro/Elite take 2–4 weeks depending on scope and review speed.' },
+  { q: 'What do you need from me to start?', a: 'Your logo, brand colors (if any), page outline, basic text, images (or we can use placeholders), and a contact email/phone. For e‑commerce: product names, prices and photos.' },
+  { q: 'What does the monthly update include?', a: 'Small, scoped tasks: text or image changes, minor layout tweaks, product edits, or simple section adjustments. Time is limited per plan and doesn’t roll over.' },
+  { q: 'What is not included in the monthly update?', a: 'New pages, redesigns, complex integrations, payment gateways, or large content production. Those require a quote or a plan/add‑on change.' },
+  { q: 'Do you write the copy?', a: 'We provide structure and guidance, and can lightly polish text. Full copywriting is not included by default but can be quoted.' },
+  { q: 'Do you design logos or brand kits?', a: 'Yes. Our Basic Branding add‑on includes logo (primary/alternate), color palette, typography suggestions and social avatars/banners.' },
+  { q: 'Do you work with a CMS?', a: 'By default we avoid heavy CMS for speed and reliability. We maintain your site for you. If you truly need a CMS, we can quote a suitable option.' },
+  { q: 'Is bilingual included?', a: 'Yes. English and Spanish routes are included by default. If you only need one language we can keep the other hidden.' },
+  { q: 'How does hosting work?', a: 'Hosting, SSL and basic monitoring are included in every plan. We deploy on reliable infrastructure and handle technical bits for you.' },
+  { q: 'Do I own my domain and content?', a: 'Yes. You own your domain and all content. We operate the technical stack while your subscription is active.' },
+  { q: 'Can you use my existing domain?', a: 'Yes. We help point your DNS to the new site. We can also help you buy a new domain if needed.' },
+  { q: 'Do you create email accounts?', a: 'Email hosting is not included. We recommend Google Workspace or your preferred provider and can share simple setup steps.' },
+  { q: 'What about SEO?', a: 'All plans include basic SEO (clean structure, meta, sitemap). For ongoing improvements and local positioning we offer the Advanced SEO add‑on.' },
+  { q: 'Do you set up Google Business?', a: 'Yes, as part of the SEO add‑on we assist with Google Business Profile setup/updates to improve local visibility.' },
+  { q: 'Analytics included?', a: 'Yes. We can set up Google Analytics or a privacy‑friendly option. You’ll be able to see visits and basic metrics.' },
+  { q: 'E‑commerce included?', a: 'The E‑Commerce Pro plan enables a simple catalog, cart and manual checkout (no gateways). If you need online payments, we can quote a custom integration.' },
+  { q: 'Product limits?', a: 'E‑Commerce Pro covers up to 20 products. The Extended Catalog add‑on lets you add blocks of 20. Over 60 products usually requires a custom plan.' },
+  { q: 'How are payments handled?', a: 'Monthly or yearly subscription. You can upgrade anytime. Cancellation stops future renewals at the end of the current term.' },
+  { q: 'Can I cancel anytime? What do I get?', a: 'Yes. On request, we can export a static copy and provide your assets/data within the limits described in our Terms.' },
+  { q: 'How many revisions do I get?', a: 'We aim for short feedback loops. During build, we include practical review rounds. After launch, the monthly updates keep improving the site.' },
+  { q: 'Will my site be fast and mobile‑friendly?', a: 'Yes. Performance and responsive design are part of our defaults. We target green Lighthouse scores where practical for your content.' },
+  { q: 'Accessibility?', a: 'We follow sensible accessibility practices in structure, colors and interactions. Full audits or compliance certifications are not included by default.' },
+  { q: 'Backups and security?', a: 'Backups are automatic. SSL is included. We use a small, modern stack with read‑only deploys and keep dependencies up‑to‑date.' },
+  { q: 'Support hours and response times?', a: 'Monday–Friday, 9:00–18:00 (AST). Typical targets: ≤ 4h for critical issues, ≤ 24h for standard support, ≤ 48h for general inquiries (see Terms).' },
+  { q: 'How do we communicate?', a: 'WhatsApp and email. Quick questions get quick answers; larger changes go through the monthly update or a quoted task.' },
+  { q: 'Can you migrate my current site?', a: 'Yes. We can migrate core pages and assets to the new structure. Complex blogs or stores may require an add‑on or custom quote.' },
+  { q: 'Can we add a blog later?', a: 'Yes. Our Blog add‑on enables a simple news/blog section with categories and SEO‑ready templates.' },
+  { q: 'Can you integrate payments later?', a: 'Yes. We can quote payment gateways or custom flows when you are ready.' },
+  { q: 'Legal/privacy help?', a: 'We set up basic analytics and structure. You should provide your own legal texts (Privacy/Terms). We can add them to your site.' },
 ];
 ---
 
@@ -37,17 +43,6 @@ const faqs = [
     <header class="text-center mb-8">
       <h1 class="text-3xl md:text-5xl font-semibold">FAQ</h1>
     </header>
-    <div class="divide-y divide-gray-200 dark:divide-gray-800">
-      {faqs.map((item) => (
-        <details class="py-4 group">
-          <summary class="flex cursor-pointer list-none items-center justify-between">
-            <span class="font-medium">{item.q}</span>
-            <span class="text-gray-500 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">{item.a}</p>
-        </details>
-      ))}
-    </div>
+    <FAQAccordion faqs={faqs} lang="en" />
   </section>
 </Base>
-

@@ -1,0 +1,110 @@
+---
+interface FAQItem { q: string; a: string }
+interface Props { faqs: FAQItem[]; lang?: 'en' | 'es' }
+const { faqs = [], lang = 'en' } = Astro.props as Props;
+const regionLabel = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions';
+---
+
+<div class="faq-accordion space-y-3" aria-label={regionLabel}>
+  {faqs.map((item, i) => (
+    <div class="faq-item border border-gray-200 dark:border-gray-800 rounded-lg bg-white/60 dark:bg-gray-900/60 backdrop-blur">
+      <button
+        id={`faq-btn-${i}`}
+        type="button"
+        class="w-full flex items-center justify-between gap-3 px-4 py-3 text-left"
+        aria-expanded="false"
+        aria-controls={`faq-panel-${i}`}
+      >
+        <span class="font-medium text-gray-900 dark:text-gray-100">{item.q}</span>
+        <svg
+          class="chev h-4 w-4 text-gray-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      <div
+        id={`faq-panel-${i}`}
+        role="region"
+        aria-labelledby={`faq-btn-${i}`}
+        aria-hidden="true"
+        class="answer overflow-hidden"
+        style="max-height:0px; transition:max-height 300ms ease;"
+      >
+        <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-200">
+          {item.a}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq-item:hover { background: color-mix(in srgb, var(--tw-bg-opacity,1) currentColor 0%, transparent); }
+  .faq-accordion .answer { will-change: max-height; }
+  .faq-accordion .chev { transition: transform 300ms ease; }
+  .faq-accordion .chev.open { transform: rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-accordion * { transition: none !important; }
+  }
+</style>
+
+<script is:inline>
+  (function(){
+    function onReady(fn){
+      if (document.readyState !== 'loading') fn();
+      else document.addEventListener('DOMContentLoaded', fn);
+    }
+    onReady(function(){
+      var accordions = document.querySelectorAll('.faq-accordion');
+      if (!accordions.length) return;
+      accordions.forEach(function(acc){
+        var items = acc.querySelectorAll('.faq-item');
+        function closeAll(except){
+          items.forEach(function(it){
+            if (except && it === except) return;
+            var btn = it.querySelector('button');
+            var panel = it.querySelector('.answer');
+            var chev = it.querySelector('.chev');
+            if (!btn || !panel) return;
+            btn.setAttribute('aria-expanded','false');
+            panel.setAttribute('aria-hidden','true');
+            panel.style.maxHeight = '0px';
+            if (chev) chev.classList.remove('open');
+          });
+        }
+        acc.addEventListener('click', function(ev){
+          var target = ev.target;
+          var item = target && target.closest ? target.closest('.faq-item') : null;
+          if (!item) return;
+          var btn = item.querySelector('button');
+          var panel = item.querySelector('.answer');
+          var inner = panel ? panel.firstElementChild : null;
+          var chev = item.querySelector('.chev');
+          if (!btn || !panel || !inner) return;
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          if (expanded) {
+            btn.setAttribute('aria-expanded','false');
+            panel.setAttribute('aria-hidden','true');
+            panel.style.maxHeight = '0px';
+            if (chev) chev.classList.remove('open');
+          } else {
+            closeAll(item);
+            btn.setAttribute('aria-expanded','true');
+            panel.setAttribute('aria-hidden','false');
+            // ensure measurement after style change
+            var targetH = inner.scrollHeight;
+            panel.style.maxHeight = targetH + 'px';
+            if (chev) chev.classList.add('open');
+          }
+        });
+      });
+    });
+  })();
+  </script>
