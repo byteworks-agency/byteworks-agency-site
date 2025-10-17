@@ -1,4 +1,4 @@
----
+ï»¿---
 interface Props {
   lang?: 'en' | 'es';
 }
@@ -65,7 +65,7 @@ const navLinks = isEN
   <button
     id="hamburger"
     class="md:hidden relative h-10 w-10 flex items-center justify-center text-gray-900 dark:text-white"
-    aria-label={isEN ? 'Open menu' : 'Abrir menúº'}
+    aria-label={isEN ? 'Open menu' : 'Abrir menÃºÂº'}
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -172,10 +172,17 @@ const navLinks = isEN
     const btn = btnEl;
     const menu = menuEl;
 
-    function lockScroll(on) {
+    function lockScroll() {
       try {
         const el = document.documentElement;
-        el.style.overflow = on ? 'hidden' : '';
+        el.style.overflow = 'hidden';
+      } catch {}
+    }
+
+    function unlockScroll() {
+      try {
+        const el = document.documentElement;
+        el.style.overflow = '';
       } catch {}
     }
 
@@ -190,10 +197,15 @@ const navLinks = isEN
         overlayEl.style.opacity = '1';
         overlayEl.style.pointerEvents = 'auto';
       }
-      lockScroll(true);
+      lockScroll();
       const firstLink = menu.querySelector('a');
       if (firstLink) firstLink.focus();
-      document.addEventListener('keydown', closeOnEscape);
+      if (!keydownAttached) {
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeMenu();
+        });
+        keydownAttached = true;
+      }
     }
 
     function closeMenu() {
@@ -207,14 +219,11 @@ const navLinks = isEN
         overlayEl.style.opacity = '0';
         overlayEl.style.pointerEvents = 'none';
       }
-      lockScroll(false);
-      document.removeEventListener('keydown', closeOnEscape);
+      unlockScroll();
       btn.focus();
     }
 
-    function closeOnEscape(e) {
-      if (e.key === 'Escape') closeMenu();
-    }
+    let keydownAttached = false;
 
     btn.addEventListener('click', () => {
       const expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -224,7 +233,7 @@ const navLinks = isEN
     if (overlayEl) overlayEl.addEventListener('click', () => closeMenu());
     menu.addEventListener('click', (e) => {
       const t = e.target;
-      if (t && t.tagName === 'A') closeMenu();
+      if (t instanceof Element && t.tagName === 'A') closeMenu();
     });
 
     const mql = window.matchMedia('(min-width: 768px)');
@@ -235,4 +244,5 @@ const navLinks = isEN
     }
   }
 </script>
+
 
