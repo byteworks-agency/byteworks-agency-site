@@ -80,7 +80,7 @@ const navLinks = isEN
 <!-- Overlay for mobile menu -->
 <div
   id="menu-overlay"
-  class="md:hidden fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity duration-200 ease-in-out z-[55]"
+  class="md:hidden fixed inset-0 bg-black/30 opacity-0 pointer-events-none transition-opacity duration-200 ease-in-out z-[40]"
 ></div>
 
 <!-- Mobile menu panel -->
@@ -164,5 +164,94 @@ const navLinks = isEN
 </style>
 
 
+<script>
+  (function () {
+    function deriveLangFromPath(pathname) {
+      if (pathname.startsWith('/es')) return 'es';
+      if (pathname.startsWith('/en')) return 'en';
+      return 'en';
+    }
+    function normalizePath(p) {
+      if (!p) return '/';
+      try { return p.replace(/\/+$/,'') || '/'; } catch { return p; }
+    }
+    function updateActiveLinks() {
+      const pathname = normalizePath(window.location.pathname || '/');
+      const lang = deriveLangFromPath(pathname);
+      const home = lang === 'es' ? '/es' : '/en';
+      const brandEl = document.getElementById('brand-link');
+      if (brandEl) brandEl.setAttribute('href', home);
+      const header = document.querySelector('header');
+      if (!header) return;
+      const anchors = header.querySelectorAll('nav a[href^="/"]');
+      anchors.forEach((a) => {
+        const href = a.getAttribute('href') || '';
+        const h = normalizePath(href);
+        const active = h === home ? (pathname === home || pathname === home + '/') : (pathname === h || pathname.startsWith(h + '/'));
+        if (active) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+        const inMobile = !!a.closest('#mobile-menu');
+        a.classList.toggle('font-semibold', !!active);
+        if (!inMobile) a.classList.toggle('underline', !!active);
+      });
+    }
 
+    function init() {
+      const btn = document.getElementById('hamburger');
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('menu-overlay');
+      if (!btn || !menu) return;
 
+      if (btn.getAttribute('data-bw-bound') === '1') {
+        updateActiveLinks();
+        return;
+      }
+      btn.setAttribute('data-bw-bound', '1');
+
+      function lockScroll() { try { document.documentElement.style.overflow = 'hidden'; } catch {} }
+      function unlockScroll() { try { document.documentElement.style.overflow = ''; } catch {} }
+
+      function openMenu() {
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        menu.classList.add('open');
+        menu.dataset.state = 'open';
+        menu.removeAttribute('aria-hidden');
+        if ('inert' in menu) (menu).inert = false;
+        if (overlay) { overlay.style.opacity = '1'; overlay.style.pointerEvents = 'auto'; }
+        lockScroll();
+        const firstLink = menu.querySelector('a');
+        if (firstLink) firstLink.focus();
+        if (!document.body.hasAttribute('data-bw-esc')) {
+          document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+          document.body.setAttribute('data-bw-esc', '1');
+        }
+      }
+      function closeMenu() {
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        menu.classList.remove('open');
+        menu.dataset.state = 'closed';
+        menu.setAttribute('aria-hidden', 'true');
+        if ('inert' in menu) (menu).inert = true;
+        if (overlay) { overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none'; }
+        unlockScroll();
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        if (expanded) closeMenu(); else openMenu();
+      });
+      if (overlay) overlay.addEventListener('click', () => closeMenu());
+      menu.addEventListener('click', (e) => { const t = e.target; if (t instanceof Element && t.tagName === 'A') closeMenu(); });
+
+      const mql = window.matchMedia('(min-width: 768px)');
+      if (mql && mql.addEventListener) { mql.addEventListener('change', (ev) => { if (ev.matches) closeMenu(); }); }
+
+      updateActiveLinks();
+      document.addEventListener('astro:page-load', () => { updateActiveLinks(); closeMenu(); });
+    }
+
+    init();
+    document.addEventListener('astro:page-load', init);
+  })();
+</script>
