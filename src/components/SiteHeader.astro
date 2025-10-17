@@ -34,7 +34,7 @@ const navLinks = isEN
 <header class="fixed top-0 inset-x-0 z-50 border-b border-gray-200/70 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60">
   <div class="container mx-auto px-4 py-4 flex items-center justify-between">
   <!-- Brand con logo -->
-  <a href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-white">
+  <a id="brand-link" href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-white">
     <img
       src="/logo.png"
       alt="ByteWorks logo"
@@ -163,86 +163,6 @@ const navLinks = isEN
   }
 </style>
 
-<script>
-  const btnEl = document.getElementById('hamburger');
-  const menuEl = document.getElementById('mobile-menu');
-  const overlayEl = document.getElementById('menu-overlay');
 
-  if (btnEl && menuEl) {
-    const btn = btnEl;
-    const menu = menuEl;
-
-    function lockScroll() {
-      try {
-        const el = document.documentElement;
-        el.style.overflow = 'hidden';
-      } catch {}
-    }
-
-    function unlockScroll() {
-      try {
-        const el = document.documentElement;
-        el.style.overflow = '';
-      } catch {}
-    }
-
-    function openMenu() {
-      btn.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-      menu.classList.add('open');
-      menu.dataset.state = 'open';
-      menu.removeAttribute('aria-hidden');
-      if ('inert' in menu) menu.inert = false;
-      if (overlayEl) {
-        overlayEl.style.opacity = '1';
-        overlayEl.style.pointerEvents = 'auto';
-      }
-      lockScroll();
-      const firstLink = menu.querySelector('a');
-      if (firstLink) firstLink.focus();
-      if (!keydownAttached) {
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') closeMenu();
-        });
-        keydownAttached = true;
-      }
-    }
-
-    function closeMenu() {
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('open');
-      menu.dataset.state = 'closed';
-      menu.setAttribute('aria-hidden', 'true');
-      if ('inert' in menu) menu.inert = true;
-      if (overlayEl) {
-        overlayEl.style.opacity = '0';
-        overlayEl.style.pointerEvents = 'none';
-      }
-      unlockScroll();
-      btn.focus();
-    }
-
-    let keydownAttached = false;
-
-    btn.addEventListener('click', () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      if (expanded) closeMenu(); else openMenu();
-    });
-
-    if (overlayEl) overlayEl.addEventListener('click', () => closeMenu());
-    menu.addEventListener('click', (e) => {
-      const t = e.target;
-      if (t instanceof Element && t.tagName === 'A') closeMenu();
-    });
-
-    const mql = window.matchMedia('(min-width: 768px)');
-    if (mql && mql.addEventListener) {
-      mql.addEventListener('change', (ev) => {
-        if (ev.matches) closeMenu();
-      });
-    }
-  }
-</script>
 
 
