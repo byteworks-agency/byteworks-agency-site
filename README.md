@@ -1,10 +1,10 @@
 # ByteWorks — Agency Website (Astro + Tailwind)
 
-Official website of **ByteWorks**. Built with **Astro 4** and **Tailwind CSS**.  
+Official website of **ByteWorks**. Built with **Astro 5** and **Tailwind CSS**.  
 Bilingual content (**EN/ES**), dark/light mode, and Vercel deployment.
 
 ## Tech Stack
-- **Astro 4**
+- **Astro 5**
 - **Tailwind CSS 3**
 - **TypeScript**
 - Package manager: **pnpm**

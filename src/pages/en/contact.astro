@@ -6,7 +6,7 @@ const description =
   'Let’s talk about your website or project. Contact ByteWorks via WhatsApp or our form — simple, direct, fast support.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
-const message = import.meta.env.PUBLIC_WHATSAPP_MSG || 'Hi ByteWorks, I’m interested in a website.';
+const message = import.meta.env.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I’m interested in a website.";
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 

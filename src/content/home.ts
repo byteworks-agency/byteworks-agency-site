@@ -158,3 +158,4 @@ export const HOME_FAQS: Record<'en' | 'es', readonly HomeFaq[]> = {
     },
   ],
 };
+

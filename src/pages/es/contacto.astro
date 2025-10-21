@@ -103,29 +103,29 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
       <p>¿Prefieres llamada o reunión? La agendamos después de un breve chat.</p>
       <p class="mt-2 text-xs text-gray-500">
-        Horario: Lunes a Viernes, 9:00 AM – 6:00 PM (AST)
+        Horario: Lunes a Viernes, 9:00 AM — 6:00 PM (AST)
       </p>
     </div>
   </section>
 
   <script>
     (function () {
-      const root = document.querySelector<HTMLElement>('section[data-wa]');
-      const form = document.querySelector<HTMLFormElement>('#contact-form');
-      const nameEl = document.querySelector<HTMLInputElement>('#name');
-      const emailEl = document.querySelector<HTMLInputElement>('#email');
-      const messageEl = document.querySelector<HTMLTextAreaElement>('#message');
-      const hpEl = document.querySelector<HTMLInputElement>('#website');
-      const btn = document.querySelector<HTMLButtonElement>('#submitBtn');
-      const statusEl = document.querySelector<HTMLParagraphElement>('#formStatus');
+      const root = document.querySelector('section[data-wa]');
+      const form = document.querySelector('#contact-form');
+      const nameEl = document.querySelector('#name');
+      const emailEl = document.querySelector('#email');
+      const messageEl = document.querySelector('#message');
+      const hpEl = document.querySelector('#website');
+      const btn = document.querySelector('#submitBtn');
+      const statusEl = document.querySelector('#formStatus');
       if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
 
-      let WA_NUMBER = (root?.dataset?.wa || '').trim();
-      if (!WA_NUMBER) WA_NUMBER = (document.body?.dataset?.wa || '').trim();
+      let WA_NUMBER = (root && root.dataset ? (root.dataset.wa || '').trim() : '');
+      if (!WA_NUMBER) WA_NUMBER = (document.body && document.body.dataset ? (document.body.dataset.wa || '').trim() : '');
       if (!WA_NUMBER) {
-        const waBtn = document.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]');
-        if (waBtn?.dataset?.wa) WA_NUMBER = waBtn.dataset.wa.trim();
-        else if (waBtn?.href) {
+        const waBtn = document.querySelector('a[href^="https://wa.me/"]');
+        if (waBtn && waBtn.dataset && waBtn.dataset.wa) WA_NUMBER = waBtn.dataset.wa.trim();
+        else if (waBtn && waBtn.href) {
           try {
             const u = new URL(waBtn.href);
             WA_NUMBER = u.pathname.replace('/', '').trim();
@@ -139,9 +139,9 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           if (qp) WA_NUMBER = qp.trim();
         } catch {}
       }
-      WA_NUMBER = WA_NUMBER.replace(/\D+/g, '');
+      WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
 
-      form.addEventListener('submit', async (ev: SubmitEvent) => {
+      form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
@@ -150,10 +150,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         const hp = hpEl.value.trim();
 
         if (hp) return;
-        const setStatus = (
-          message: string,
-          tone: 'info' | 'error' | 'success' = 'info'
-        ) => {
+        const setStatus = (message, tone = 'info') => {
           if (!statusEl) return;
           statusEl.textContent = message;
           statusEl.dataset.tone = tone;
@@ -230,3 +227,4 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     })();
   </script>
 </Base>
+

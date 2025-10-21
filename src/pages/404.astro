@@ -8,7 +8,7 @@ const lang = isES ? 'es' : 'en';
 const title = isES ? 'Página no encontrada — ByteWorks' : 'Page not found — ByteWorks';
 const description = isES
   ? 'La página que buscas no existe o fue movida. Encuentra lo que necesitas en estas secciones.'
-  : 'The page you are looking for doesn’t exist or was moved. Try these helpful links.';
+  : "The page you are looking for doesn't exist or was moved. Try these helpful links.";
 
 // Links por idioma
 const base = isES ? '/es' : '/en';
@@ -40,7 +40,7 @@ function altHref(targetLang: 'en' | 'es') {
       <p class="text-base md:text-lg text-gray-600 dark:text-gray-300">
         {isES
           ? 'La página que buscas no existe o fue movida.'
-          : 'The page you’re looking for doesn’t exist or was moved.'}
+          : "The page you're looking for doesn't exist or was moved."}
       </p>
     </div>
 

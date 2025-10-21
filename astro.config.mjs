@@ -7,7 +7,7 @@ const SITE = "https://byteworksagency.vercel.app";
 
 export default defineConfig({
   site: SITE,
-  adapter: vercel({ mode: "serverless" }), 
+  adapter: vercel({ mode: "edge" }), 
   output: "server",
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
 });

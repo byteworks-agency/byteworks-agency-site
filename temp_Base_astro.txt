@@ -1,4 +1,4 @@
----
+﻿---
 import Header from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
@@ -14,8 +14,8 @@ interface Props {
 }
 
 const {
-  title = 'ByteWorks — Modern web design & hosting',
-  description = 'Websites that work for you — not against you.\nBilingual, fast, and affordable.',
+  title = 'ByteWorks â€” Modern web design & hosting',
+  description = 'Websites that work for you â€” not against you.\nBilingual, fast, and affordable.',
   image = '/og-image.svg',
   lang = 'en',
   robots = 'index,follow',
@@ -41,7 +41,7 @@ function altHref(targetLang: 'en' | 'es') {
 const PLAUSIBLE = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
 
-// expone el número al DOM como data attribute (usa env o fallback temporal)
+// expone el nÃºmero al DOM como data attribute (usa env o fallback temporal)
 const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
 // Social profiles (optional) to enrich JSON-LD
 const socials = [
@@ -67,7 +67,6 @@ const siteJson = {
   url: siteOrigin,
   inLanguage: lang,
 };
-const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,nofollow');
 ---
 
 <html lang={lang}>
@@ -87,15 +86,11 @@ const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,n
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="robots" content={robotsMeta} />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#06b6d4" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={url.href} />
 
     <link rel="alternate" hreflang="en" href={altHref('en')} />
     <link rel="alternate" hreflang="es" href={altHref('es')} />
-    <link rel="alternate" hreflang="x-default" href={altHref('en')} />
 
     <script is:inline type="application/ld+json">{JSON.stringify(orgJson)}</script>
     <script is:inline type="application/ld+json">{JSON.stringify(siteJson)}</script>
@@ -139,9 +134,8 @@ const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,n
     class="min-h-screen flex flex-col font-sans text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-950"
     data-wa={WA_FROM_ENV}
   >
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[1000] bg-black text-white dark:bg-white dark:text-black px-3 py-2 rounded">Skip to content</a>
     <Header lang={lang} />
-    <main id="main" data-astro-transition-scope="page" class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10">
+    <main data-astro-transition-scope="page" class="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10">
       <slot />
     </main>
     <Footer lang={lang} />

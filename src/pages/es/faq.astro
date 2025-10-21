@@ -2,58 +2,54 @@
 import Base from '../../layouts/Base.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
 
-const title = 'Preguntas Frecuentes — ByteWorks';
-const description = 'Respuestas claras para clientes no técnicos sobre planes, tiempos, propiedad, SEO, tienda y soporte.';
+const title = 'Preguntas frecuentes — ByteWorks';
+const description = 'Respuestas claras sobre planes, tiempos, propiedad, SEO, e‑commerce y soporte.';
 
 const faqs = [
-  { q: '¿En cuánto tiempo puedo tener mi sitio?', a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos, logo e imágenes. Pro/Elite toman 2–4 semanas según alcance y velocidad de revisión.' },
-  { q: '¿Qué necesitan de mí para empezar?', a: 'Logo, colores (si tienes), esquema de páginas, textos básicos, imágenes (o usamos temporales) y datos de contacto. Para tienda: nombres de productos, precios y fotos.' },
-  { q: '¿Qué incluye la “actualización mensual”?', a: 'Tareas acotadas: cambios de texto o imagen, ajustes menores de diseño, edición de productos o pequeñas secciones. El tiempo es limitado por plan y no se acumula.' },
-  { q: '¿Qué no incluye la actualización mensual?', a: 'Páginas nuevas, rediseños, integraciones complejas, pasarelas de pago o producción de contenidos a gran escala. Eso requiere cotización o cambio de plan/add‑on.' },
-  { q: '¿Ustedes redactan los textos?', a: 'Damos estructura y guía, y podemos pulir textos. Redacción completa no está incluida por defecto, pero podemos cotizarla.' },
-  { q: '¿Hacen logos o branding?', a: 'Sí. El add‑on de Branding Básico incluye logo (principal/alternativo), paleta de colores, tipografía sugerida y avatares/banners para redes.' },
-  { q: '¿Trabajan con CMS?', a: 'Por defecto evitamos CMS pesados para priorizar velocidad y estabilidad. Nosotros mantenemos tu sitio. Si realmente necesitas CMS, lo cotizamos.' },
-  { q: '¿El sitio es bilingüe?', a: 'Sí. Rutas en Español e Inglés por defecto. Si solo necesitas un idioma, podemos ocultar el otro.' },
-  { q: '¿Cómo funciona el hosting?', a: 'Hosting, SSL y monitoreo básico están incluidos en todos los planes. Nos encargamos de la parte técnica.' },
-  { q: '¿Soy dueño de mi dominio y contenidos?', a: 'Sí. El dominio y tus contenidos son tuyos. Nosotros operamos la parte técnica mientras tu suscripción esté activa.' },
-  { q: '¿Pueden usar mi dominio actual?', a: 'Sí. Te ayudamos a apuntar el DNS al nuevo sitio. También podemos ayudarte a comprar uno nuevo si hace falta.' },
-  { q: '¿Crean cuentas de correo?', a: 'No incluimos correo. Recomendamos Google Workspace u otro proveedor. Podemos orientarte con pasos simples.' },
-  { q: '¿Qué pasa con el SEO?', a: 'Todos los planes incluyen SEO básico (estructura limpia, meta, sitemap). Para mejoras continuas y posicionamiento local, tenemos el add‑on de SEO Avanzado.' },
-  { q: '¿Configuran Google Business?', a: 'Sí, dentro del add‑on SEO te ayudamos con Google Business Profile para mejorar visibilidad local.' },
-  { q: '¿Incluye analíticas?', a: 'Sí. Podemos configurar Google Analytics o una alternativa de privacidad. Podrás ver visitas y métricas básicas.' },
-  { q: '¿Incluye tienda en línea?', a: 'El plan E‑Commerce Pro ofrece catálogo, carrito y checkout manual (sin pasarela). Si necesitas pagos en línea, lo cotizamos como integración.' },
-  { q: '¿Hay límite de productos?', a: 'E‑Commerce Pro incluye hasta 20 productos. El add‑on de Catálogo Extendido agrega bloques de 20. Más de 60 normalmente requiere un plan a medida.' },
-  { q: '¿Cómo se pagan los planes?', a: 'Suscripción mensual o anual. Puedes subir de plan cuando quieras. La cancelación detiene futuras renovaciones al terminar el periodo en curso.' },
-  { q: '¿Puedo cancelar? ¿Qué me entregan?', a: 'Sí. Bajo solicitud, podemos exportar una copia estática y entregarte assets/datos dentro de lo indicado en nuestros Términos.' },
-  { q: '¿Cuántas revisiones tengo?', a: 'Trabajamos con ciclos de feedback cortos. Durante el armado incluimos rondas prácticas. Tras el lanzamiento, siguen las mejoras con la actualización mensual.' },
-  { q: '¿El sitio será rápido y mobile‑friendly?', a: 'Sí. Velocidad y diseño responsive son el estándar. Apuntamos a buenos puntajes de Lighthouse de forma realista para tu contenido.' },
-  { q: '¿Accesibilidad?', a: 'Aplicamos buenas prácticas en estructura, contrastes e interacción. Auditorías completas o certificaciones no están incluidas por defecto.' },
-  { q: '¿Backups y seguridad?', a: 'Copias automáticas, SSL incluido, stack moderno con deploys de solo lectura y dependencias al día.' },
-  { q: '¿Horarios de soporte y tiempos de respuesta?', a: 'Lunes a viernes, 9:00–18:00 (AST). Objetivos: ≤ 4h incidencias críticas, ≤ 24h soporte estándar, ≤ 48h consultas generales (ver Términos).' },
-  { q: '¿Cómo nos comunicamos?', a: 'WhatsApp y email. Consultas rápidas reciben respuesta rápida; cambios mayores entran en la actualización mensual o se cotizan.' },
-  { q: '¿Pueden migrar mi sitio actual?', a: 'Sí. Migramos páginas y assets al nuevo esquema. Blogs o tiendas complejas pueden requerir add‑on o cotización.' },
-  { q: '¿Puedo agregar un blog después?', a: 'Sí. El add‑on de Blog habilita una sección de noticias con categorías y plantillas listas para SEO.' },
-  { q: '¿Pueden integrar pagos más adelante?', a: 'Sí. Podemos cotizar pasarelas o flujos personalizados cuando lo necesites.' },
-  { q: '¿Ayuda legal/privacidad?', a: 'Configuramos analíticas y estructura básica. Los textos legales (Privacidad/Términos) los debe proveer tu negocio; los publicamos en tu sitio.' },
+  { q: '¿En cuánto tiempo entregan mi sitio?', a: 'Start se lanza en 7–10 días hábiles luego de recibir textos, logo e imágenes. Pro/Elite toman 2–4 semanas según alcance y velocidad de revisión.' },
+  { q: '¿Qué necesitan para comenzar?', a: 'Logo, colores de marca (si tienes), esquema de páginas, textos básicos, imágenes (o placeholders) y un email/teléfono de contacto. Para e‑commerce: nombres de productos, precios y fotos.' },
+  { q: '¿Qué incluye la actualización mensual?', a: 'Tareas acotadas: cambios de texto/imagen, ajustes menores de layout, edición de productos o secciones simples. El tiempo es limitado por plan y no se acumula.' },
+  { q: '¿Qué no incluye la actualización mensual?', a: 'Páginas nuevas, rediseños, integraciones complejas, pasarelas de pago o producción de contenido grande. Eso requiere cotización o cambio de plan/add‑on.' },
+  { q: '¿Escriben los textos?', a: 'Damos estructura y pulimos ligeramente. Redacción completa no está incluida por defecto, pero podemos cotizarla.' },
+  { q: '¿Hacen logos o branding?', a: 'Sí. El add‑on de Branding Básico incluye logo (principal/alternativo), paleta de colores, tipografías sugeridas y avatares/banners para redes.' },
+  { q: '¿Trabajan con CMS?', a: 'Por defecto evitamos CMS pesados por rendimiento y confiabilidad; nosotros mantenemos tu sitio. Si realmente necesitas un CMS, lo cotizamos.' },
+  { q: '¿Es bilingüe por defecto?', a: 'Sí. Incluimos rutas en Inglés y Español. Si solo necesitas un idioma, ocultamos el otro.' },
+  { q: '¿Cómo funciona el hosting?', a: 'Todos los planes incluyen hosting, SSL y monitoreo básico. Desplegamos en infraestructura confiable y nos encargamos de lo técnico.' },
+  { q: '¿Soy dueño de mi dominio y contenido?', a: 'Sí. Tú eres dueño del dominio y del contenido. Nosotros operamos la parte técnica mientras tu suscripción esté activa.' },
+  { q: '¿Pueden usar mi dominio actual?', a: 'Sí. Te ayudamos a apuntar el DNS al nuevo sitio o a comprar un dominio si lo necesitas.' },
+  { q: '¿Crean cuentas de email?', a: 'No incluimos hosting de correo. Recomendamos Google Workspace u otro proveedor; te damos pasos simples de configuración.' },
+  { q: '¿Qué hay del SEO?', a: 'Todos los planes incluyen SEO básico (estructura limpia, meta, sitemap). Para mejoras continuas y posicionamiento local ofrecemos el add‑on de SEO Avanzado.' },
+  { q: '¿Configuran Google Business?', a: 'Sí, como parte del add‑on de SEO ayudamos a configurar/actualizar Google Business Profile para mejorar visibilidad local.' },
+  { q: '¿Incluye analítica?', a: 'Sí. Configuramos Google Analytics o una alternativa enfocada en privacidad. Podrás ver visitas y métricas básicas.' },
+  { q: '¿Incluye e‑commerce?', a: 'El plan E‑Commerce Pro habilita catálogo simple, carrito y checkout manual (sin pasarela). Si necesitas pagos online, lo cotizamos.' },
+  { q: '¿Límites de productos?', a: 'E‑Commerce Pro cubre hasta 20 productos. El add‑on de Catálogo Extendido permite sumar bloques de 20. Sobre 60 productos suele requerir plan a medida.' },
+  { q: '¿Cómo se manejan los pagos?', a: 'Suscripción mensual o anual. Puedes subir de plan en cualquier momento. La cancelación detiene futuras renovaciones al final del período actual.' },
+  { q: '¿Puedo cancelar? ¿Qué recibo?', a: 'Sí. Podemos exportar una copia estática y entregar assets/datos dentro de los límites de nuestros Términos.' },
+  { q: '¿Mi sitio será rápido y móvil‑amigable?', a: 'Sí. Rendimiento y responsive por defecto. Apuntamos a puntajes verdes de Lighthouse siempre que sea práctico para tu contenido.' },
+  { q: '¿Accesibilidad?', a: 'Buenas prácticas de estructura, color e interacción. Auditorías/certificaciones completas no están incluidas por defecto.' },
+  { q: '¿Backups y seguridad?', a: 'Backups automáticos. SSL incluido. Pila moderna y pequeña con deploys de solo lectura y dependencias actualizadas.' },
+  { q: '¿Horario y tiempos de respuesta?', a: 'Lunes–Viernes, 9:00–18:00 (AST). Objetivos: ≤ 4h crítico, ≤ 24h estándar, ≤ 48h general (ver Términos).' },
+  { q: '¿Cómo nos comunicamos?', a: 'WhatsApp y email. Dudas rápidas, respuestas rápidas; cambios grandes vía actualización mensual o tarea cotizada.' },
+  { q: '¿Pueden migrar mi sitio actual?', a: 'Sí. Migramos páginas y assets clave a la nueva estructura. Blogs o tiendas complejas pueden requerir add‑on o presupuesto.' },
 ];
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">
-  <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24">
-    <header class="text-center mb-8">
-      <h1 class="text-3xl md:text-5xl font-semibold">FAQ · Preguntas Frecuentes</h1>
+  <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-16 md:py-24">
+    <header class="text-center space-y-3 mb-8">
+      <h1 class="text-3xl md:text-5xl font-semibold">Preguntas frecuentes</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Respuestas directas sobre cómo trabajamos y qué incluye cada plan.</p>
     </header>
-    <div class="mb-8 border border-gray-200 dark:border-gray-800 rounded-lg p-5 bg-white/60 dark:bg-gray-900/60">
-      <h2 class="text-lg md:text-xl font-semibold mb-2">Qué hace ByteWorks</h2>
-      <p class="text-sm text-gray-700 dark:text-gray-200">
-        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso.
-        Nos encargamos de todo el proceso — desde el diseño hasta el mantenimiento — para que cualquier negocio,
-        marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
+
+    <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5 mb-10">
+      <h2 class="text-xl md:text-2xl font-semibold">Qué hace ByteWorks</h2>
+      <p class="mt-2 text-gray-700 dark:text-gray-200">
+        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso. Nos encargamos de todo el proceso — desde el diseño hasta el mantenimiento — para que cualquier negocio, marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
       </p>
-      <p class="mt-3 text-sm text-gray-700 dark:text-gray-200">
+      <p class="mt-2 text-gray-700 dark:text-gray-200">
         Cada sitio web está diseñado para adaptarse a celulares, verse bien en cualquier dispositivo y transmitir una imagen moderna y confiable.
       </p>
-      <div class="mt-4">
+      <div class="mt-3">
         <div class="font-medium mb-1">Incluye todo lo necesario:</div>
         <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
           <li>Dominio y hosting (no tienes que pagar aparte).</li>
@@ -67,6 +63,8 @@ const faqs = [
         En pocas palabras: tú manejas tu negocio, nosotros nos encargamos del lado digital.
       </p>
     </div>
+
     <FAQAccordion faqs={faqs} lang="es" />
   </section>
 </Base>
+
