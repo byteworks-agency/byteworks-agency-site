@@ -7,7 +7,7 @@ const regionLabel = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Q
 
 <div class="faq-accordion space-y-3" aria-label={regionLabel}>
   {faqs.map((item, i) => (
-    <div class="faq-item border border-gray-200 dark:border-gray-800 rounded-lg bg-white/60 dark:bg-gray-900/60 backdrop-blur">
+    <div class="faq-item border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-background-dark/50 backdrop-blur">
       <button
         id={`faq-btn-${i}`}
         type="button"
@@ -15,9 +15,9 @@ const regionLabel = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Q
         aria-expanded="false"
         aria-controls={`faq-panel-${i}`}
       >
-        <span class="font-medium text-gray-900 dark:text-gray-100">{item.q}</span>
+        <span class="font-medium text-gray-900 dark:text-text-primary">{item.q}</span>
         <svg
-          class="chev h-4 w-4 text-gray-500"
+          class="chev h-4 w-4 text-gray-500 dark:text-gray-400"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -37,7 +37,7 @@ const regionLabel = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Q
         class="answer overflow-hidden"
         style="max-height:0px; transition:max-height 300ms ease;"
       >
-        <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-200">
+        <div class="px-4 pb-3 text-sm text-gray-700 dark:text-gray-300">
           {item.a}
         </div>
       </div>

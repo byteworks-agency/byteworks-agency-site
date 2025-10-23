@@ -1,8 +1,7 @@
 ---
-const { lang = 'es', id = 'addons' } = Astro.props;
+const { lang = 'es', id = 'addons', summaryOnly = false } = Astro.props as { lang?: 'en' | 'es'; id?: string; summaryOnly?: boolean };
 const isEN = lang === 'en';
 
-// Flat list (no categories), preserving a clear, scannable layout
 const items = [
   {
     key: 'seo',
@@ -41,7 +40,7 @@ const items = [
       'Sección de blog con plantilla de artículos.',
       'Categorías, etiquetas y bloques editables.',
       'Estructura lista para SEO.',
-      'Publicación asistida o autogestión simple.',
+      'Publicación asistida por ByteWorks o autogestión simple.',
     ],
     footEN: 'Keep your site active and attract organic traffic.',
     footES: 'Mantén tu sitio activo y atrae tráfico orgánico.',
@@ -86,7 +85,7 @@ const items = [
       'Gestión completa desde Google Sheets.',
     ],
     footEN: 'Over 60 products may require a custom E‑Commerce Plus plan.',
-    footES: 'Más de 60 productos puede requerir un plan E‑Commerce Plus.',
+    footES: 'Más de 60 productos puede requerir un plan E‑Commerce Plus personalizado.',
   },
   {
     key: 'branding',
@@ -114,8 +113,8 @@ const items = [
 
 <section id={id} class="mt-20">
   <header class="text-center mb-8 space-y-2">
-    <h2 class="text-2xl md:text-3xl font-semibold">
-      {isEN ? 'ADD-ONS (Optional)' : 'ADD-ONS (Opcionales)'}
+    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">
+      {isEN ? 'Optional Add-ons' : 'Add-ons opcionales'}
     </h2>
     <p class="text-sm text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
       {isEN
@@ -128,28 +127,31 @@ const items = [
     </p>
   </header>
 
-  <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
     {items.map((it) => (
-      <article class="border border-gray-200 dark:border-gray-800 rounded-lg p-5 flex flex-col">
-        <h3 class="text-lg font-semibold leading-snug">
+      <article class="border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex flex-col bg-white dark:bg-background-dark/50">
+        <h3 class="text-lg font-bold leading-snug text-gray-900 dark:text-text-primary font-heading">
           {isEN ? it.titleEN : it.titleES}
         </h3>
         <div class="mt-1">
-          <span class="inline-block text-[11px] md:text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-2 py-0.5 rounded">
+          <span class="inline-block text-[11px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded">
             {isEN ? it.priceEN : it.priceES}
           </span>
         </div>
 
-        <div class="mt-3">
-          <p class="font-medium text-sm md:text-base">{isEN ? 'Includes:' : 'Incluye:'}</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 mt-1 space-y-1">
-            {(isEN ? it.bulletsEN : it.bulletsES).map((b) => <li>{b}</li>)}
-          </ul>
-        </div>
-
-        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
-          {isEN ? it.footEN : it.footES}
-        </p>
+        {!summaryOnly && (
+          <>
+            <div class="mt-3">
+              <p class="font-medium text-sm md:text-base">{isEN ? 'Includes:' : 'Incluye:'}</p>
+              <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 mt-1 space-y-1">
+                {(isEN ? it.bulletsEN : it.bulletsES).map((b) => <li>{b}</li>)}
+              </ul>
+            </div>
+            <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">
+              {isEN ? it.footEN : it.footES}
+            </p>
+          </>
+        )}
       </article>
     ))}
   </div>

@@ -1,97 +1,129 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
 import { HOME_FAQS, HOME_PLAN_ICONS, HOME_PLANS } from '../../content/home';
 
-const title = 'ByteWorks — Sitios web que trabajan a tu favor';
+const title = 'ByteWorks - Sitios web que trabajan a tu favor';
 const description =
-  'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.';
+  'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio; nosotros nos encargamos del lado digital.';
 
-// Copia simple y clara para la página de inicio
 const planesHome = HOME_PLANS.es;
 const planIcons = HOME_PLAN_ICONS;
 const faqs = HOME_FAQS.es;
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">
-  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-16 md:py-24">
+  <section class="px-4 max-w-[960px] mx-auto py-20" id="about">
     <!-- HERO -->
     <div class="text-center space-y-6">
-      <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
-        Sitios web que trabajan a tu favor — no en tu contra.
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">
+        Eleva tu marca con diseño web impactante
       </h1>
       <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Presencia profesional sin complicaciones: planes claros, mantenimiento incluido y soporte real.
-        Tú te enfocas en tu negocio — nosotros nos encargamos del lado digital.
+        Diseño y desarrollo web por suscripción para emprendedores, marcas personales y pequeños negocios.
       </p>
       <div class="flex items-center justify-center gap-3">
         <a
           href="/es/contacto"
-          class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-secondary text-white text-base font-bold tracking-[0.015em] hover:bg-secondary/90 transition-transform hover:scale-105"
         >
-          Solicitar Cotización
+          Comienza hoy
         </a>
-        <a href="/es/planes" class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-          Ver Planes
-        </a>
+        <a href="/es/planes" class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-transparent text-gray-900 dark:text-white border border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">Ver planes</a>
       </div>
     </div>
 
     <!-- BENEFICIOS -->
     <div class="grid md:grid-cols-3 gap-6 mt-16">
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Bilingüe desde el inicio</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300">Estructura en Inglés y Español con rutas amigables para SEO.</p>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Bilingüe desde el inicio</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">Estructura en inglés y español con rutas amigables para SEO.</p>
       </div>
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Precios transparentes</h3>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Precios transparentes</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300">Opciones mensuales/anuales, mantenimiento incluido y sin sorpresas.</p>
       </div>
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Rápido y seguro</h3>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Rápido y seguro</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300">Rendimiento, SSL y copias de seguridad incluidos.</p>
       </div>
     </div>
 
     <!-- PLANES -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Planes</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div class="mt-20" id="pricing">
+      <div class="flex flex-col gap-4 text-center mb-6">
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">Precios transparentes</h2>
+        <p class="text-base font-normal leading-normal max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Elige el plan que te funcione. Sin tarifas ocultas ni sorpresas.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
         {planesHome.map((p) => (
-          <div class="flex h-full flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h3 class="text-lg font-semibold flex items-center gap-3">
-              <img src={planIcons[p.name] || '/icons/plans/start.svg'} alt="" width="32" height="32" class="opacity-95 dark:invert shrink-0" />
-              {p.name}
-            </h3>
-            <p class="mt-1 text-xl">{p.price}</p>
-            <p class="text-xs text-gray-500">{p.yearly}</p>
-            <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-              {p.features.map((f) => <li>- {f}</li>)}
+          <div class={`relative flex h-full flex-col gap-6 rounded-xl bg-white dark:bg-background-dark/50 p-6 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+            {p.name === 'Pro' && (
+              <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-secondary px-3 py-1 text-center">Más Popular</p>
+            )}
+            <h3 class={`text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>{p.name}</h3>
+            <p class="mt-1 text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
+            <ul class="mt-2 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+              {p.features.map((f) => (
+                <li class="flex gap-3 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
+              ))}
             </ul>
-            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <a href="/es/planes" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Ver Planes</a>
-              <a href="/es/contacto" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Solicitar Cotización</a>
+            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <a href="/es/planes" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-transparent text-gray-900 dark:text-white border border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">Ver planes</a>
+              <a href="/es/contacto" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors">Solicitar cotización</a>
             </div>
           </div>
         ))}
       </div>
-      <p class="text-center text-xs text-gray-500 mt-3">
+      <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-3">
         Precios en USD. Para otros métodos de pago/monedas, contáctanos.
       </p>
     </div>
 
-    <!-- PROYECTOS (estado vacío por ahora) -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Proyectos</h2>
-      <div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center max-w-3xl mx-auto">
-        <p class="text-gray-600 dark:text-gray-300">
-          Aquí verás casos de estudio y proyectos de clientes muy pronto.
-        </p>
-        <a href="/es/contacto" class="mt-4 inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-          Solicitar Cotización
-        </a>
+    <AddOns lang="es" id="add-ons" summaryOnly={true} />
+
+    <!-- CÓMO FUNCIONA -->
+    <div class="mt-20" id="how-it-works">
+      <div class="flex flex-col gap-4 text-center mb-8">
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">Nuestro proceso</h2>
+        <p class="text-base font-normal leading-normal max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Seguimos un proceso claro y transparente para materializar tu visión.</p>
+      </div>
+      <div class="grid grid-cols-[auto_1fr] gap-x-8 gap-y-4 max-w-md mx-auto">
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">search</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Descubrimiento</h3>
+          <p class="text-gray-600 dark:text-gray-400">Entendemos metas, audiencia y requisitos. (1-2 semanas)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">design_services</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Diseño</h3>
+          <p class="text-gray-600 dark:text-gray-400">Diseño moderno y usable para tu sitio. (2-3 semanas)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">developer_mode</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Desarrollo</h3>
+          <p class="text-gray-600 dark:text-gray-400">Construimos con código limpio y stack moderno. (3-4 semanas)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">rocket_launch</span></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Lanzamiento</h3>
+          <p class="text-gray-600 dark:text-gray-400">Desplegamos y damos soporte para el éxito. (1 semana)</p>
+        </div>
       </div>
     </div>
 
+    
   </section>
 </Base>
-

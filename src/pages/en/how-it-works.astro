@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const title = 'How It Works — ByteWorks';
+const description = 'We follow a clear, transparent process. Here is what happens from discovery to launch, with timelines, deliverables, and how we collaborate.';
+---
+
+<Base title={title} description={description} image="/og-image.svg" lang="en">
+  <section class="px-4 max-w-[960px] mx-auto py-16 md:py-24">
+    <header class="text-center space-y-3 mb-10">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">How It Works</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        We follow a clear and transparent process to bring your vision to life.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-[auto_1fr] gap-x-8 gap-y-6">
+      <!-- Discovery -->
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
+          <span class="material-symbols-outlined">search</span>
+        </div>
+        <div class="w-px bg-gray-300 dark:bg-gray-600 flex-1"></div>
+      </div>
+      <article class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-background-dark/50 p-5">
+        <h2 class="text-lg md:text-xl font-bold font-heading text-gray-900 dark:text-text-primary">Discovery</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          We start by understanding your goals, audience, and requirements. We also review your brand assets and any existing content.
+        </p>
+        <ul class="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+          <li><span class="font-medium">What we cover:</span> target audience, site goals, tone, structure, and success criteria.</li>
+          <li><span class="font-medium">What we need:</span> logo, colors (if any), copy drafts, images (or placeholders), contact details.</li>
+          <li><span class="font-medium">Typical duration:</span> 1–2 weeks depending on availability.</li>
+        </ul>
+      </article>
+
+      <!-- Design -->
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
+          <span class="material-symbols-outlined">design_services</span>
+        </div>
+        <div class="w-px bg-gray-300 dark:bg-gray-600 flex-1"></div>
+      </div>
+      <article class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-background-dark/50 p-5">
+        <h2 class="text-lg md:text-xl font-bold font-heading text-gray-900 dark:text-text-primary">Design</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          Our team creates a stunning, user‑friendly design focused on clarity, conversion, and accessibility.
+        </p>
+        <ul class="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+          <li><span class="font-medium">Deliverables:</span> homepage concept, key inner sections, mobile-first behaviors, and style guidance.</li>
+          <li><span class="font-medium">Review rounds:</span> fast async feedback via WhatsApp/email. We iterate quickly on copy and layout.</li>
+          <li><span class="font-medium">Typical duration:</span> 2–3 weeks depending on scope and review speed.</li>
+        </ul>
+      </article>
+
+      <!-- Development -->
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
+          <span class="material-symbols-outlined">developer_mode</span>
+        </div>
+        <div class="w-px bg-gray-300 dark:bg-gray-600 flex-1"></div>
+      </div>
+      <article class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-background-dark/50 p-5">
+        <h2 class="text-lg md:text-xl font-bold font-heading text-gray-900 dark:text-text-primary">Development</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          We build your website with clean code and the latest technologies, keeping performance, security, and SEO basics in check.
+        </p>
+        <ul class="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+          <li><span class="font-medium">Stack:</span> Astro, Tailwind, accessibility‑minded components, optimized assets.</li>
+          <li><span class="font-medium">Included:</span> domain setup, hosting, SSL, backups, basic analytics, sitemap & metadata.</li>
+          <li><span class="font-medium">Typical duration:</span> 3–4 weeks based on content volume.</li>
+        </ul>
+      </article>
+
+      <!-- Launch -->
+      <div class="flex flex-col items-center gap-2">
+        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary">
+          <span class="material-symbols-outlined">rocket_launch</span>
+        </div>
+      </div>
+      <article class="border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-background-dark/50 p-5">
+        <h2 class="text-lg md:text-xl font-bold font-heading text-gray-900 dark:text-text-primary">Launch</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-300">
+          We deploy your website and provide ongoing support to ensure its success.
+        </p>
+        <ul class="mt-3 list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
+          <li><span class="font-medium">Final checks:</span> cross‑device QA, forms, performance pass, indexing signals.</li>
+          <li><span class="font-medium">Handover:</span> quick usage notes, admin links (if any), and support channel confirmation.</li>
+          <li><span class="font-medium">After launch:</span> monthly updates per plan and optional add‑ons (SEO, blog, catalog, etc.).</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="mt-12 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-background-dark/50 p-5">
+      <h2 class="text-lg md:text-xl font-bold font-heading text-gray-900 dark:text-text-primary">Timeline & Communication</h2>
+      <p class="mt-2 text-gray-600 dark:text-gray-300">
+        Small sites can go live in ~7–10 business days after we receive content. Larger scopes typically take 2–4 weeks.
+        We keep communication lightweight (WhatsApp + email) and share previews early so you can react quickly.
+      </p>
+    </div>
+  </section>
+</Base>
+
+

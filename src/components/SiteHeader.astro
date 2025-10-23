@@ -1,4 +1,5 @@
----
+﻿---
+// SiteHeader props
 interface Props {
   lang?: 'en' | 'es';
 }
@@ -14,27 +15,44 @@ function isActive(href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-const navLinks = isEN
-  ? [
-      { href: '/en', label: 'Home' },
-      { href: '/en/about', label: 'About' },
-      { href: '/en/plans', label: 'Plans' },
-      { href: '/en/faq', label: 'FAQ' },
-      { href: '/en/contact', label: 'Contact' },
-    ]
-  : [
-      { href: '/es', label: 'Inicio' },
-      { href: '/es/about', label: 'Sobre nosotros' },
-      { href: '/es/planes', label: 'Planes' },
-      { href: '/es/faq', label: 'Preguntas' },
-      { href: '/es/contacto', label: 'Contacto' },
-    ];
+const isHomePage = pathname === (isEN ? '/en' : '/es') || pathname === (isEN ? '/en/' : '/es/');
+const navLinks = isHomePage
+  ? (
+      isEN
+        ? [
+            { href: '#about', label: 'About' },
+            { href: '/en/plans', label: 'Pricing' },
+            { href: '/en/how-it-works', label: 'How It Works' },
+            { href: '/en/faq', label: 'FAQ' },
+          ]
+        : [
+            { href: '#about', label: 'Nosotros' },
+            { href: '/es/planes', label: 'Precios' },
+            { href: '/es/how-it-works', label: 'Cómo funciona' },
+            { href: '/es/faq', label: 'Preguntas' },
+          ]
+    )
+  : (
+      isEN
+        ? [
+            { href: '/en/about', label: 'About' },
+            { href: '/en/plans', label: 'Pricing' },
+            { href: '/en/how-it-works', label: 'How It Works' },
+            { href: '/en/faq', label: 'FAQ' },
+          ]
+        : [
+            { href: '/es/about', label: 'Nosotros' },
+            { href: '/es/planes', label: 'Precios' },
+            { href: '/es/how-it-works', label: 'Cómo funciona' },
+            { href: '/es/faq', label: 'Preguntas' },
+          ]
+    );
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 border-b border-gray-200/70 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-900/60">
-  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+  <div class="w-full max-w-[960px] mx-auto px-4 sm:px-10 py-3 flex items-center justify-between">
   <!-- Brand con logo -->
-  <a id="brand-link" href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-white">
+  <a id="brand-link" href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-text-primary">
     <img
       src="/logo.png"
       alt="ByteWorks logo"
@@ -49,23 +67,30 @@ const navLinks = isEN
   </a>
 
   <!-- Desktop nav -->
-  <nav class="hidden md:flex gap-6 text-gray-900 dark:text-gray-100">
+  <nav class="hidden md:flex gap-8 text-gray-700 dark:text-gray-300">
     {navLinks.map((link) => (
       <a
         href={link.href}
-        class={`hover:underline ${isActive(link.href) ? 'font-semibold underline' : ''}`}
+        class={`text-sm font-medium leading-normal text-gray-700 dark:text-gray-300 hover:text-primary ${isActive(link.href) ? 'text-gray-900 dark:text-white' : ''}`}
         aria-current={isActive(link.href) ? 'page' : undefined}
       >
         {link.label}
       </a>
     ))}
   </nav>
+  <!-- Desktop CTA -->
+  <a
+    href={isEN ? '/en/contact' : '/es/contacto'}
+    class="hidden md:inline-flex min-w-[84px] h-10 px-4 items-center justify-center rounded-lg bg-primary text-white text-sm font-bold tracking-[0.015em] hover:bg-primary/90 transition-colors"
+  >
+    {isEN ? 'Get Started' : 'Comenzar'}
+  </a>
 
   <!-- Mobile: Hamburger (usa currentColor) -->
   <button
     id="hamburger"
-    class="md:hidden relative h-10 w-10 flex items-center justify-center text-gray-900 dark:text-white"
-    aria-label={isEN ? 'Open menu' : 'Abrir menú'}
+    class="md:hidden relative h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary"
+    aria-label={isEN ? 'Open menu' : 'Abrir menÃº'}
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -87,7 +112,7 @@ const navLinks = isEN
 <nav
   id="mobile-menu"
   data-state="closed"
-  class="md:hidden fixed left-4 right-4 top-16 origin-top transform scale-y-0 opacity-0 pointer-events-none transition-transform duration-200 ease-in-out [will-change:transform,opacity] border rounded-lg bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 shadow-lg z-[60] max-h-[75vh] overflow-auto"
+  class="md:hidden fixed left-4 right-4 top-16 origin-top transform scale-y-0 opacity-0 pointer-events-none transition-transform duration-200 ease-in-out [will-change:transform,opacity] border border-gray-200 dark:border-gray-700 rounded-lg bg-white/95 dark:bg-background-dark/90 text-gray-800 dark:text-text-secondary shadow-lg z-[60] max-h-[75vh] overflow-auto"
   aria-hidden="true"
   inert
 >
@@ -95,7 +120,7 @@ const navLinks = isEN
     {navLinks.map((link, i) => (
       <a
         href={link.href}
-        class={`menu-item py-2 border-b last:border-b-0 border-gray-200 dark:border-gray-700 ${isActive(link.href) ? 'font-semibold' : ''}`}
+        class={`menu-item py-2 border-b last:border-b-0 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-primary ${isActive(link.href) ? 'text-gray-900 dark:text-white font-semibold' : ''}`}
         aria-current={isActive(link.href) ? 'page' : undefined}
         style={`--i:${i}`}
       >
@@ -255,3 +280,9 @@ const navLinks = isEN
     document.addEventListener('astro:page-load', init);
   })();
 </script>
+
+
+
+
+
+

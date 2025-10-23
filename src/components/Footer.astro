@@ -1,81 +1,72 @@
 ---
 interface Props { lang?: 'en' | 'es'; }
 const { lang = 'en' } = Astro.props;
-import { DEFAULT_WA } from '../config/whatsapp';
+const emailEnv = (import.meta.env.PUBLIC_CONTACT_EMAIL || '').toString();
+const phoneEnv = (import.meta.env.PUBLIC_CONTACT_PHONE || '').toString();
+const contactEmail = emailEnv || 'macrodriguez2512@gmail.com';
+const contactPhone = phoneEnv || '+1(868)7759858';
 
-const phone = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString(); // ej. 18687759858
-const wa = phone ? `https://wa.me/${phone}` : null;
+function formatNANP(num) {
+  try {
+    const digits = (num || '').replace(/[^0-9]/g, '');
+    if (!digits) return num || '';
+    if (digits.length === 11 && digits.startsWith('1')) {
+      const a = digits.slice(1, 4);
+      const p = digits.slice(4, 7);
+      const s = digits.slice(7, 11);
+      return `+1 (${a}) ${p}-${s}`;
+    }
+    if (digits.length === 10) {
+      const a = digits.slice(0, 3);
+      const p = digits.slice(3, 6);
+      const s = digits.slice(6, 10);
+      return `(${a}) ${p}-${s}`;
+    }
+    return num;
+  } catch { return num || ''; }
+}
+
+const displayPhone = formatNANP(contactPhone);
+const wa = contactPhone.replace(/[^0-9]/g, '') ? `https://wa.me/${contactPhone.replace(/[^0-9]/g, '')}` : '#';
 const year = new Date().getFullYear();
 
 const isEN = lang === 'en';
 const base = isEN ? '/en' : '/es';
-const home = `${base}/`;
-const plans = isEN ? `${base}/plans` : `${base}/planes`;
-const contact = isEN ? `${base}/contact` : `${base}/contacto`;
-const faq = `${base}/faq`;
 const terms = isEN ? `${base}/terms` : `${base}/terminos`;
 const privacy = isEN ? `${base}/privacy` : `${base}/privacidad`;
-const about = `${base}/about`;
-
-const t = isEN
-  ? {
-      tagline: 'Websites that work for you — not against you.',
-      links: 'Links',
-      quick: 'Contact',
-      whatsapp: 'WhatsApp',
-      rights: 'All rights reserved.',
-      footerLabel: 'Footer',
-      quickMsg: 'Reach us via WhatsApp for quick support.'
-    }
-  : {
-      tagline: 'Sitios web que trabajan a tu favor, no en tu contra.',
-      links: 'Enlaces',
-      quick: 'Contacto',
-      whatsapp: 'WhatsApp',
-      rights: 'Todos los derechos reservados.',
-      footerLabel: 'Pie de página',
-      quickMsg: 'Escríbenos por WhatsApp para soporte rápido.'
-    };
 ---
-<footer class="border-t border-gray-200/70 dark:border-gray-800 mt-16">
-  <div class="container mx-auto px-4 py-10 grid gap-8 md:grid-cols-3 text-sm">
-    <div>
-      <div class="font-display text-lg">ByteWorks</div>
-      <p class="text-gray-600 dark:text-gray-300 mt-2">{t.tagline}</p>
-    </div>
-
-    <nav aria-label={t.footerLabel} class="grid md:grid-cols-2 gap-6">
+<footer class="bg-background-light/50 dark:bg-background-dark/50 border-t border-gray-200 dark:border-gray-700">
+  <div class="px-4 lg:px-40 flex justify-center py-10">
+    <div class="max-w-[960px] w-full grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
       <div>
-        <div class="font-semibold text-gray-900 dark:text-white">{t.links}</div>
-        <ul class="mt-2 space-y-1">
-          <li><a href={home}>{isEN ? 'Home' : 'Inicio'}</a></li>
-          <li><a href={plans}>{isEN ? 'Plans' : 'Planes'}</a></li>
-          <li><a href={about}>{isEN ? 'About' : 'Sobre'}</a></li>
-          <li><a href={contact}>{isEN ? 'Contact' : 'Contacto'}</a></li>
-          <li><a href={faq}>FAQ</a></li>
-          <li><a href={terms}>{isEN ? 'Terms' : 'Términos'}</a></li>
-          <li><a href={privacy}>{isEN ? 'Privacy' : 'Privacidad'}</a></li>
-        </ul>
+        <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-text-primary font-heading">{isEN ? 'About ByteWorks' : 'Sobre ByteWorks'}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{isEN ? 'We are a creative agency dedicated to helping small businesses succeed online with beautiful, functional, and affordable web design.' : 'Somos una agencia creativa dedicada a ayudar a pequeños negocios a triunfar en línea con diseño web bello, funcional y accesible.'}</p>
       </div>
       <div>
-        <div class="font-semibold text-gray-900 dark:text-white">{t.quick}</div>
-        <ul class="mt-2 space-y-1">
-          {wa && (
-            <li>
-              <a class="inline-flex items-center gap-2 underline" href={wa} target="_blank" rel="noopener">
-                <img src="/icons/whatsapp.svg" alt="" width="14" height="14" class="opacity-80 dark:invert" />
-                {t.whatsapp}
-              </a>
-            </li>
-          )}
-        </ul>
+        <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-text-primary font-heading">{isEN ? 'Contact' : 'Contacto'}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{contactEmail}</p>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{displayPhone}</p>
       </div>
-    </nav>
-
-    <div class="md:text-right">
-      <div class="text-gray-600 dark:text-gray-300">{wa ? t.quickMsg : (isEN ? 'Support via WhatsApp.' : 'Soporte por WhatsApp.')}</div>
-      <div class="mt-2 text-gray-500">© {year} ByteWorks. {t.rights}</div>
+      <div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-text-primary font-heading">{isEN ? 'Legal' : 'Legal'}</h3>
+        <div class="flex flex-col gap-2">
+          <a class="text-gray-600 dark:text-gray-400 text-sm hover:text-primary" href={privacy}>{isEN ? 'Privacy' : 'Privacidad'}</a>
+          <a class="text-gray-600 dark:text-gray-400 text-sm hover:text-primary" href={terms}>{isEN ? 'Terms' : 'Términos'}</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-text-primary font-heading">{isEN ? 'Follow Us' : 'Síguenos'}</h3>
+        <div class="flex gap-4 justify-center md:justify-start text-2xl">
+          <a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+          <a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+          <a class="text-gray-600 dark:text-gray-400 hover:text-primary" href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a class="text-gray-600 dark:text-gray-400 hover:text-primary" href={wa} aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="px-4 lg:px-40 flex justify-center py-4 border-t border-gray-200 dark:border-gray-700">
+    <p class="text-xs text-gray-600 dark:text-gray-400">&copy; {year} ByteWorks. {isEN ? 'All Rights Reserved.' : 'Todos los derechos reservados.'}</p>
   </div>
 </footer>
 

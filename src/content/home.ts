@@ -66,8 +66,8 @@ export const HOME_PLANS: Record<'en' | 'es', readonly HomePlan[]> = {
       price: '$45/mes',
       yearly: '$459/año (ahorra 15%)',
       features: [
-        'Empieza rápido con una página clara',
-        'Se ve perfecto en el móvil',
+        'Lanza rápido con una página clara',
+        'Se ve perfecto en móviles',
         'Contacto simple para que te escriban',
       ],
     },
@@ -76,8 +76,8 @@ export const HOME_PLANS: Record<'en' | 'es', readonly HomePlan[]> = {
       price: '$55/mes',
       yearly: '$561/año (ahorra 15%)',
       features: [
-        'Sitio con varias secciones',
-        'Explica fácil lo que haces',
+        'Sitio con varias secciones para servicios',
+        'Explica con claridad lo que haces',
         'Diseño alineado a tu marca',
       ],
     },
@@ -145,7 +145,7 @@ export const HOME_FAQS: Record<'en' | 'es', readonly HomeFaq[]> = {
       a: 'Start suele salir en 7–10 días hábiles desde que recibimos textos y assets. Pro/Elite toman 2–4 semanas según alcance y revisiones.',
     },
     {
-      q: '¿Qué incluye la "actualización mensual"?',
+      q: '¿Qué incluye la “actualización mensual”?',
       a: 'Tareas pequeñas como cambios de texto/imagen, ajustes de diseño o edición de productos. Están acotadas por tiempo según plan y no se acumulan (ver Términos + SLA).',
     },
     {

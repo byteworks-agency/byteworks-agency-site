@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
 import { HOME_FAQS, HOME_PLAN_ICONS, HOME_PLANS } from '../../content/home';
 
 const title = 'ByteWorks — Websites that work for you';
@@ -9,28 +10,26 @@ const description =
 const homePlans = HOME_PLANS.en;
 const planIcons = HOME_PLAN_ICONS;
 const faqs = HOME_FAQS.en;
-
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="en">
-  <section class="px-6 md:px-10 lg:px-16 max-w-6xl mx-auto py-16 md:py-24">
+  <section class="px-4 max-w-[960px] mx-auto py-20" id="about">
     <!-- HERO -->
     <div class="text-center space-y-6">
-      <h1 class="text-3xl md:text-5xl font-semibold leading-tight">
-        Websites that work for you — not against you.
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">
+        Elevate Your Brand with Stunning Web Design
       </h1>
-      <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        Professional presence without the headache: transparent plans, maintenance included, real support.
-        You focus on your business — we handle the digital side.
+      <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Subscription-based web design and development for entrepreneurs, personal brands, and small businesses.
       </p>
       <div class="flex items-center justify-center gap-3">
         <a
           href="/en/contact"
-          class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-transparent bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-secondary text-white text-base font-bold tracking-[0.015em] hover:bg-secondary/90 transition-transform hover:scale-105"
         >
-          Request a Quote
+          Get Started Today
         </a>
-        <a href="/en/plans" class="inline-flex items-center justify-center px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+        <a href="#pricing" class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-transparent text-gray-900 dark:text-white border border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">
           See Plans
         </a>
       </div>
@@ -38,58 +37,92 @@ const faqs = HOME_FAQS.en;
 
     <!-- BENEFITS -->
     <div class="grid md:grid-cols-3 gap-6 mt-16">
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Bilingual by default</h3>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Bilingual by default</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300">English & Spanish content structure ready with SEO-friendly routes.</p>
       </div>
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Transparent pricing</h3>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Transparent pricing</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300">Clear monthly/yearly options, maintenance included, no surprises.</p>
       </div>
-      <div class="p-5 rounded-lg border border-gray-200 dark:border-gray-800">
-        <h3 class="font-semibold mb-2">Fast & secure</h3>
+      <div class="p-6 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/50">
+        <h3 class="font-heading font-bold text-gray-900 dark:text-text-primary mb-2">Fast & secure</h3>
         <p class="text-sm text-gray-600 dark:text-gray-300">Performance-focused builds, SSL, and backups included.</p>
       </div>
     </div>
 
     <!-- PLANS -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Plans</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+    <div class="mt-20" id="pricing">
+      <div class="flex flex-col gap-4 text-center mb-6">
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">Transparent Pricing</h2>
+        <p class="text-base font-normal leading-normal max-w-2xl mx-auto text-gray-600 dark:text-gray-300">Choose a plan that works for you. No hidden fees, no surprises.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
         {homePlans.map((p) => (
-          <div class="flex h-full flex-col border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-            <h3 class="text-lg font-semibold flex items-center gap-3">
-              <img src={planIcons[p.name] || '/icons/plans/start.svg'} alt="" width="32" height="32" class="opacity-95 dark:invert shrink-0" />
-              {p.name}
-            </h3>
-            <p class="mt-1 text-xl">{p.price}</p>
-            <p class="text-xs text-gray-500">{p.yearly}</p>
-            <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-              {p.features.map((f) => <li>- {f}</li>)}
+          <div class={`relative flex h-full flex-col gap-6 rounded-xl bg-white dark:bg-background-dark/50 p-6 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+            {p.name === 'Pro' && (
+              <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-secondary px-3 py-1 text-center">Most Popular</p>
+            )}
+            <h3 class={`text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>{p.name}</h3>
+            <p class="mt-1 text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
+            <ul class="mt-2 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+              {p.features.map((f) => (
+                <li class="flex gap-3 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
+              ))}
             </ul>
-            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <a href="/en/plans" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition">See Plans</a>
-              <a href="/en/contact" class="w-full inline-flex items-center justify-center px-4 py-2 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">Request a Quote</a>
+            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <a href="/en/plans" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-transparent text-gray-900 dark:text-white border border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors">See Plans</a>
+              <a href="/en/contact" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors">Request a Quote</a>
             </div>
           </div>
         ))}
       </div>
-      <p class="text-center text-xs text-gray-500 mt-3">Prices in USD. For other payment methods/currencies, contact us.</p>
+      <p class="text-center text-xs text-gray-500 dark:text-gray-400 mt-3">Prices in USD. For other payment methods/currencies, contact us.</p>
     </div>
 
-    <!-- PROJECTS (empty state for now) -->
-    <div class="mt-20">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Projects</h2>
-      <div class="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center max-w-3xl mx-auto">
-        <p class="text-gray-600 dark:text-gray-300">
-          Case studies and client projects will appear here soon.
-        </p>
-        <a href="/en/contact" class="mt-4 inline-flex items-center justify-center px-5 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition">
-          Request a Quote
-        </a>
+    <AddOns lang="en" id="add-ons" summaryOnly={true} />
+
+    <!-- HOW IT WORKS -->
+    <div class="mt-20" id="how-it-works">
+      <div class="flex flex-col gap-4 text-center mb-8">
+        <h2 class="text-3xl md:text-4xl font-extrabold leading-tight tracking-[-0.033em] text-gray-900 dark:text-text-primary font-heading">Our Structured Process</h2>
+        <p class="text-base font-normal leading-normal max-w-2xl mx-auto text-gray-600 dark:text-gray-300">We follow a clear and transparent process to bring your vision to life.</p>
+      </div>
+      <div class="grid grid-cols-[auto_1fr] gap-x-8 gap-y-4 max-w-md mx-auto">
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">search</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Discovery</h3>
+          <p class="text-gray-600 dark:text-gray-400">We start by understanding your goals, audience, and requirements. (1-2 Weeks)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">design_services</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Design</h3>
+          <p class="text-gray-600 dark:text-gray-400">Our team creates a stunning, user-friendly design for your website. (2-3 Weeks)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">developer_mode</span></div>
+          <div class="w-px bg-gray-300 dark:bg-gray-600 flex-grow"></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Development</h3>
+          <p class="text-gray-600 dark:text-gray-400">We build your website with clean code and the latest technologies. (3-4 Weeks)</p>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary"><span class="material-symbols-outlined">rocket_launch</span></div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold font-heading text-gray-900 dark:text-text-primary">Launch</h3>
+          <p class="text-gray-600 dark:text-gray-400">We deploy your website and provide ongoing support to ensure its success. (1 Week)</p>
+        </div>
       </div>
     </div>
 
   </section>
 </Base>
-

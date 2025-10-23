@@ -10,14 +10,14 @@ const faqs = [
   { q: '¿Qué necesitan para comenzar?', a: 'Logo, colores de marca (si tienes), esquema de páginas, textos básicos, imágenes (o placeholders) y un email/teléfono de contacto. Para e‑commerce: nombres de productos, precios y fotos.' },
   { q: '¿Qué incluye la actualización mensual?', a: 'Tareas acotadas: cambios de texto/imagen, ajustes menores de layout, edición de productos o secciones simples. El tiempo es limitado por plan y no se acumula.' },
   { q: '¿Qué no incluye la actualización mensual?', a: 'Páginas nuevas, rediseños, integraciones complejas, pasarelas de pago o producción de contenido grande. Eso requiere cotización o cambio de plan/add‑on.' },
-  { q: '¿Escriben los textos?', a: 'Damos estructura y pulimos ligeramente. Redacción completa no está incluida por defecto, pero podemos cotizarla.' },
+  { q: '¿Escriben los textos?', a: 'Damos estructura y hacemos una edición ligera. La redacción completa no está incluida por defecto, pero podemos cotizarla.' },
   { q: '¿Hacen logos o branding?', a: 'Sí. El add‑on de Branding Básico incluye logo (principal/alternativo), paleta de colores, tipografías sugeridas y avatares/banners para redes.' },
   { q: '¿Trabajan con CMS?', a: 'Por defecto evitamos CMS pesados por rendimiento y confiabilidad; nosotros mantenemos tu sitio. Si realmente necesitas un CMS, lo cotizamos.' },
   { q: '¿Es bilingüe por defecto?', a: 'Sí. Incluimos rutas en Inglés y Español. Si solo necesitas un idioma, ocultamos el otro.' },
   { q: '¿Cómo funciona el hosting?', a: 'Todos los planes incluyen hosting, SSL y monitoreo básico. Desplegamos en infraestructura confiable y nos encargamos de lo técnico.' },
-  { q: '¿Soy dueño de mi dominio y contenido?', a: 'Sí. Tú eres dueño del dominio y del contenido. Nosotros operamos la parte técnica mientras tu suscripción esté activa.' },
+  { q: '¿Soy dueño de mi dominio y contenido?', a: 'Sí. Tú eres dueño del dominio y del contenido. Nosotros operamos la parte técnica mientras tu suscripción está activa.' },
   { q: '¿Pueden usar mi dominio actual?', a: 'Sí. Te ayudamos a apuntar el DNS al nuevo sitio o a comprar un dominio si lo necesitas.' },
-  { q: '¿Crean cuentas de email?', a: 'No incluimos hosting de correo. Recomendamos Google Workspace u otro proveedor; te damos pasos simples de configuración.' },
+  { q: '¿Crean cuentas de email?', a: 'No incluimos hosting de correo. Recomendamos Google Workspace u otro proveedor y te damos pasos simples de configuración.' },
   { q: '¿Qué hay del SEO?', a: 'Todos los planes incluyen SEO básico (estructura limpia, meta, sitemap). Para mejoras continuas y posicionamiento local ofrecemos el add‑on de SEO Avanzado.' },
   { q: '¿Configuran Google Business?', a: 'Sí, como parte del add‑on de SEO ayudamos a configurar/actualizar Google Business Profile para mejorar visibilidad local.' },
   { q: '¿Incluye analítica?', a: 'Sí. Configuramos Google Analytics o una alternativa enfocada en privacidad. Podrás ver visitas y métricas básicas.' },
@@ -25,33 +25,33 @@ const faqs = [
   { q: '¿Límites de productos?', a: 'E‑Commerce Pro cubre hasta 20 productos. El add‑on de Catálogo Extendido permite sumar bloques de 20. Sobre 60 productos suele requerir plan a medida.' },
   { q: '¿Cómo se manejan los pagos?', a: 'Suscripción mensual o anual. Puedes subir de plan en cualquier momento. La cancelación detiene futuras renovaciones al final del período actual.' },
   { q: '¿Puedo cancelar? ¿Qué recibo?', a: 'Sí. Podemos exportar una copia estática y entregar assets/datos dentro de los límites de nuestros Términos.' },
-  { q: '¿Mi sitio será rápido y móvil‑amigable?', a: 'Sí. Rendimiento y responsive por defecto. Apuntamos a puntajes verdes de Lighthouse siempre que sea práctico para tu contenido.' },
+  { q: '¿Mi sitio será rápido y mobile‑friendly?', a: 'Sí. Rendimiento y responsive por defecto. Apuntamos a puntajes verdes de Lighthouse siempre que sea práctico para tu contenido.' },
   { q: '¿Accesibilidad?', a: 'Buenas prácticas de estructura, color e interacción. Auditorías/certificaciones completas no están incluidas por defecto.' },
   { q: '¿Backups y seguridad?', a: 'Backups automáticos. SSL incluido. Pila moderna y pequeña con deploys de solo lectura y dependencias actualizadas.' },
-  { q: '¿Horario y tiempos de respuesta?', a: 'Lunes–Viernes, 9:00–18:00 (AST). Objetivos: ≤ 4h crítico, ≤ 24h estándar, ≤ 48h general (ver Términos).' },
+  { q: '¿Horario y tiempos de respuesta?', a: 'Lunes–Viernes, 9:00–18:00 (AST). Objetivos típicos: ≤ 4h crítico, ≤ 24h estándar, ≤ 48h general (ver Términos).' },
   { q: '¿Cómo nos comunicamos?', a: 'WhatsApp y email. Dudas rápidas, respuestas rápidas; cambios grandes vía actualización mensual o tarea cotizada.' },
   { q: '¿Pueden migrar mi sitio actual?', a: 'Sí. Migramos páginas y assets clave a la nueva estructura. Blogs o tiendas complejas pueden requerir add‑on o presupuesto.' },
 ];
 ---
 
 <Base title={title} description={description} image="/og-image.svg" lang="es">
-  <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-16 md:py-24">
+  <section class="px-4 max-w-[960px] mx-auto py-20">
     <header class="text-center space-y-3 mb-8">
-      <h1 class="text-3xl md:text-5xl font-semibold">Preguntas frecuentes</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Preguntas frecuentes</h1>
       <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Respuestas directas sobre cómo trabajamos y qué incluye cada plan.</p>
     </header>
 
-    <div class="border border-gray-200 dark:border-gray-800 rounded-lg p-5 mb-10">
-      <h2 class="text-xl md:text-2xl font-semibold">Qué hace ByteWorks</h2>
-      <p class="mt-2 text-gray-700 dark:text-gray-200">
-        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso. Nos encargamos de todo el proceso — desde el diseño hasta el mantenimiento — para que cualquier negocio, marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
+    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-10 bg-white dark:bg-background-dark/50">
+      <h2 class="text-xl md:text-2xl font-bold text-text-primary font-heading">Qué hace ByteWorks</h2>
+      <p class="mt-2 text-gray-600 dark:text-gray-300">
+        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso. Nos encargamos de todo el proceso —desde el diseño hasta el mantenimiento— para que cualquier negocio, marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
       </p>
-      <p class="mt-2 text-gray-700 dark:text-gray-200">
-        Cada sitio web está diseñado para adaptarse a celulares, verse bien en cualquier dispositivo y transmitir una imagen moderna y confiable.
+      <p class="mt-2 text-gray-600 dark:text-gray-300">
+        Cada sitio está pensado para verse muy bien en móviles, adaptarse a cualquier dispositivo y transmitir una imagen moderna y confiable.
       </p>
       <div class="mt-3">
         <div class="font-medium mb-1">Incluye todo lo necesario:</div>
-        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-200 space-y-1">
+        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
           <li>Dominio y hosting (no tienes que pagar aparte).</li>
           <li>Diseño profesional y funcional.</li>
           <li>Botón de WhatsApp y formulario de contacto.</li>
@@ -59,12 +59,13 @@ const faqs = [
           <li>Mantenimiento mensual y soporte real.</li>
         </ul>
       </div>
-      <p class="mt-3 text-sm text-gray-700 dark:text-gray-200">
-        En pocas palabras: tú manejas tu negocio, nosotros nos encargamos del lado digital.
+      <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
+        En pocas palabras: tú manejas tu negocio; nosotros nos encargamos del lado digital.
       </p>
     </div>
 
     <FAQAccordion faqs={faqs} lang="es" />
   </section>
 </Base>
+
 
