@@ -1,4 +1,4 @@
-export type HomePlan = {
+﻿export type HomePlan = {
   name: string;
   price: string;
   yearly: string;
@@ -120,7 +120,7 @@ export const HOME_FAQS: Record<'en' | 'es', readonly HomeFaq[]> = {
     },
     {
       q: 'Can I track delivery orders?',
-      a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed via Google Sheets and displayed on a tracking page.',
+      a: 'Yes. Orders receive a simple internal code you can share with your customer. Status is managed in our internal dashboard and displayed on a tracking page.',
     },
     {
       q: 'Who owns the domain and content?',
@@ -154,7 +154,7 @@ export const HOME_FAQS: Record<'en' | 'es', readonly HomeFaq[]> = {
     },
     {
       q: '¿Puedo dar seguimiento a pedidos de delivery?',
-      a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en Google Sheets y se muestra en una página de tracking.',
+      a: 'Sí. Cada pedido obtiene un código interno. El estado se maneja en nuestro dashboard interno y se muestra en una página de tracking.',
     },
   ],
 };

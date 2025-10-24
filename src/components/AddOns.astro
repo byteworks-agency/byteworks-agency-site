@@ -1,4 +1,4 @@
----
+﻿---
 const { lang = 'es', id = 'addons', summaryOnly = false } = Astro.props as { lang?: 'en' | 'es'; id?: string; summaryOnly?: boolean };
 const isEN = lang === 'en';
 
@@ -12,13 +12,13 @@ const items = [
     bulletsEN: [
       'Technical and speed optimization (Core Web Vitals readiness).',
       'Schema basics and metadata hygiene.',
-      'Google Business profile setup/maintenance.',
+      'Business profile setup/maintenance (local listings).',
       'One monthly SEO improvement action.',
     ],
     bulletsES: [
       'Optimización técnica y de velocidad (Core Web Vitals).',
       'Schema básico y saneamiento de metadatos.',
-      'Alta y mantenimiento de Google Business Profile.',
+      'Alta y mantenimiento de perfil de negocio (listados locales).',
       'Una acción mensual de mejora SEO.',
     ],
     footEN: 'Sustainable SEO maintenance focused on technical foundations.',
@@ -49,19 +49,23 @@ const items = [
     key: 'mini-store',
     titleEN: 'Small Online Store (up to 10 products)',
     titleES: 'Mini tienda online (hasta 10 productos)',
-    priceEN: '+$35/month',
-    priceES: '+$35/mes',
+    priceEN: '+$20/month',
+    priceES: '+$20/mes',
     bulletsEN: [
       'Mini-store integrated into the site.',
       'Cart and manual checkout flow.',
-      'Order logging to Google Sheets.',
-      'Basic analytics via Google.',
+      'Order logging in internal dashboard.',
+      'Basic analytics in internal dashboard.',
+      'Simple billing system.',
+      'Product updates assisted by ByteWorks or simple self-management.',
     ],
     bulletsES: [
       'Mini-tienda integrada dentro del sitio.',
       'Carrito y checkout manual.',
-      'Registro de pedidos en Google Sheets.',
-      'Analíticas básicas con Google.',
+      'Registro de pedidos en el dashboard interno.',
+      'Analíticas básicas en el dashboard interno.',
+      'Sistema de facturación simple.',
+      'Actualización de productos asistida por ByteWorks o autogestión simple.',
     ],
     footEN: 'Perfect for small catalogs or pilot launches.',
     footES: 'Perfecto para catálogos pequeños o lanzamientos piloto.',
@@ -76,13 +80,13 @@ const items = [
       'Scale your catalog to 40, 60, or more products.',
       'Performance optimization and lazy loading for larger lists.',
       'Category-ready product organization.',
-      'Full management via Google Sheets.',
+      'Full management via internal dashboard.',
     ],
     bulletsES: [
       'Escala tu catálogo a 40, 60 o más productos.',
       'Optimización y carga diferida para listados grandes.',
       'Organización por categorías lista para usar.',
-      'Gestión completa desde Google Sheets.',
+      'Gestión completa desde el dashboard interno.',
     ],
     footEN: 'Over 60 products may require a custom E‑Commerce Plus plan.',
     footES: 'Más de 60 productos puede requerir un plan E‑Commerce Plus personalizado.',
@@ -156,4 +160,3 @@ const items = [
     ))}
   </div>
 </section>
-
