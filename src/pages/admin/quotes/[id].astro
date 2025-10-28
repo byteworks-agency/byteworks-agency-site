@@ -1,0 +1,166 @@
+---
+import AdminBase from '../../../layouts/AdminBase.astro';
+const { id } = Astro.params;
+const title = `Quote Details - ${id}`;
+---
+
+<AdminBase title={title} description="Quote Details" image="/og-image.png" lang="en">
+  <section class="max-w-6xl mx-auto">
+    <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-3">
+          <h1 class="text-3xl font-extrabold tracking-tight">Quote #{id}</h1>
+          <span id="qStatus" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-full">-</span>
+        </div>
+        <p class="text-sm text-gray-500">Quote full details.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="send()">
+          <span class="material-symbols-outlined">send</span>
+          Send
+        </button>
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="accept()">
+          <span class="material-symbols-outlined">thumb_up</span>
+          Accept
+        </button>
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="decline()">
+          <span class="material-symbols-outlined">thumb_down</span>
+          Decline
+        </button>
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-semibold" onclick="convert()">
+          <span class="material-symbols-outlined">request_quote</span>
+          Convert to Invoice
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2">
+        <div class="bg-white dark:bg-background-dark rounded-lg border p-6 mb-6">
+          <p class="text-xs text-gray-500 font-medium mb-1">CUSTOMER INFO</p>
+          <h2 id="billName" class="text-lg font-bold">-</h2>
+          <p id="billEmail" class="text-sm text-gray-500">-</p>
+          <p id="billPhone" class="text-sm text-gray-500"></p>
+        </div>
+        <div class="bg-white dark:bg-background-dark rounded-lg border overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-800/50">
+              <tr>
+                <th class="px-6 py-4 text-left text-xs font-semibold uppercase">Description</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Qty</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Unit</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Total</th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody" class="divide-y"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="lg:col-span-1">
+        <div class="bg-white dark:bg-background-dark rounded-lg border p-6 space-y-6">
+          <div>
+            <div class="flex justify-between py-2 border-b">
+              <p class="text-sm text-gray-500">Subtotal</p>
+              <p id="subtotal" class="text-sm font-medium text-right">-</p>
+            </div>
+            <div class="flex justify-between py-2 border-b">
+              <p class="text-sm text-gray-500">Taxes</p>
+              <p id="taxes" class="text-sm font-medium text-right">-</p>
+            </div>
+            <div class="flex justify-between pt-3">
+              <p class="text-base font-bold">Total</p>
+              <p id="total" class="text-base font-bold text-right">-</p>
+            </div>
+          </div>
+          <div class="border-t pt-4 space-y-2">
+            <div>
+              <p class="text-xs font-semibold uppercase text-gray-500">Currency</p>
+              <p id="currency" class="text-sm mt-1">-</p>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase text-gray-500">Valid until</p>
+              <p id="validUntil" class="text-sm mt-1">-</p>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase text-gray-500">Notes</p>
+              <p id="notes" class="text-sm mt-1">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sendOut" class="hidden mt-6 bg-white dark:bg-background-dark rounded-lg border p-4">
+      <p class="text-sm text-gray-600 mb-2">Message templates (ES/EN) with acceptance link:</p>
+      <pre id="sendText" class="text-xs whitespace-pre-wrap"></pre>
+      <div class="mt-2"><button class="px-3 py-1.5 bg-primary text-white text-xs rounded" onclick="copySendText()">Copy</button></div>
+    </div>
+
+    <div id="toast" class="hidden fixed bottom-5 right-5 bg-green-600 text-white py-3 px-5 rounded-lg shadow-xl flex items-center gap-2 text-sm">
+      <span class="material-symbols-outlined">check_circle</span>
+      <span>Action completed successfully.</span>
+    </div>
+
+    <script>
+      let quoteData = null;
+      document.addEventListener('DOMContentLoaded', fetchQuote);
+      function fmt(cur, v){ return `${cur} ${v}`; }
+      function showToast(msg){ const t=document.getElementById('toast'); t.children[1].textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'), 1500); }
+      async function fetchQuote(){
+        const res = await fetch('/api/quotes/{id}');
+        const j = await res.json().catch(()=>({}));
+        if (!j?.ok) return;
+        const d = j.data; quoteData = d;
+        document.getElementById('qStatus').textContent = d.status;
+        document.getElementById('billName').textContent = d.billToName || '-';
+        document.getElementById('billEmail').textContent = d.billToEmail || '-';
+        document.getElementById('billPhone').textContent = d.billToPhone || '';
+        document.getElementById('currency').textContent = d.currency;
+        document.getElementById('validUntil').textContent = d.validUntil ? new Date(d.validUntil).toISOString().slice(0,10) : '-';
+        document.getElementById('notes').textContent = d.notes || '-';
+        document.getElementById('subtotal').textContent = fmt(d.currency, d.subtotal);
+        document.getElementById('taxes').textContent = fmt(d.currency, d.taxes);
+        document.getElementById('total').textContent = fmt(d.currency, d.total);
+        const tbody = document.getElementById('itemsBody'); tbody.innerHTML = '';
+        (d.items||[]).forEach((i)=>{
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td class=\"px-6 py-4 text-sm\">${i.description}</td><td class=\"px-6 py-4 text-sm text-right\">${i.qty}</td><td class=\"px-6 py-4 text-sm text-right\">${d.currency} ${i.unitPrice}</td><td class=\"px-6 py-4 text-sm text-right\">${d.currency} ${((+i.qty)*(+i.unitPrice)).toFixed(2)}</td>`;
+          tbody.appendChild(tr);
+        });
+      }
+      async function send(){
+        const res = await fetch('/api/quotes/send', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const j = await res.json();
+        if(!j?.ok) return alert('Send failed');
+        const text = `ES\n${j.data.textES}\n\nEN\n${j.data.textEN}`;
+        document.getElementById('sendText').textContent = text;
+        document.getElementById('sendOut').classList.remove('hidden');
+        showToast('Quote sent');
+      }
+      function copySendText(){
+        const t = document.getElementById('sendText').textContent;
+        if (navigator.clipboard) navigator.clipboard.writeText(t||'');
+      }
+      async function accept(){
+        const res = await fetch('/api/quotes/accept', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const j = await res.json();
+        if(!j?.ok) return alert('Accept failed');
+        showToast('Quote accepted');
+        fetchQuote();
+      }
+      async function decline(){
+        const res = await fetch('/api/quotes/decline', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const j = await res.json();
+        if(!j?.ok) return alert('Decline failed');
+        showToast('Quote declined');
+        fetchQuote();
+      }
+      async function convert(){
+        const res = await fetch(`/api/billing/invoices/create?quoteId={id}`, { method:'POST' });
+        const j = await res.json();
+        if (!j?.ok) return alert('Convert failed');
+        location.href = `/admin/billing/invoices/${j.data.invoiceId}`;
+      }
+    </script>
+  </section>
+</AdminBase>

@@ -1,0 +1,184 @@
+---
+import AdminBase from '../../../../layouts/AdminBase.astro';
+const { id } = Astro.params;
+const title = `Invoice Details — ${id}`;
+---
+
+<AdminBase title={title} description="Invoice Details" image="/og-image.png" lang="en">
+  <section class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <a class="flex items-center text-sm text-gray-500 mb-2" href="/admin/billing/invoices">
+          <span class="material-symbols-outlined text-base mr-1">arrow_back_ios</span>
+          Back to Invoices
+        </a>
+        <p id="invTitle" class="text-4xl font-black tracking-[-0.033em]">Invoice #{id}</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-gray-200 text-gray-800 text-sm font-bold" onclick="window.print()">
+          <span class="material-symbols-outlined mr-1">print</span>
+          Print PDF
+        </button>
+        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold" data-modal-toggle="payment-modal">
+          Record payment
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="flex flex-col gap-1 rounded-lg p-6 border border-blue-500 bg-blue-50">
+        <p class="text-blue-800 text-base">Total</p>
+        <p id="kpiTotal" class="text-blue-800 text-3xl font-bold">-</p>
+      </div>
+      <div class="flex flex-col gap-1 rounded-lg p-6 border border-green-500 bg-green-50">
+        <p class="text-green-800 text-base">Paid</p>
+        <p id="kpiPaid" class="text-green-800 text-3xl font-bold">-</p>
+      </div>
+      <div class="flex flex-col gap-1 rounded-lg p-6 border border-orange-500 bg-orange-50">
+        <p class="text-orange-800 text-base">Balance</p>
+        <p id="kpiBalance" class="text-orange-800 text-3xl font-bold">-</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg border p-4">
+      <h2 class="text-lg font-bold px-2 pb-3">Payments</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b">
+              <th class="px-4 py-3 text-left text-sm">Date</th>
+              <th class="px-4 py-3 text-left text-sm">Method</th>
+              <th class="px-4 py-3 text-left text-sm">Reference</th>
+              <th class="px-4 py-3 text-left text-sm">Amount</th>
+              <th class="px-4 py-3 text-left text-sm">Proof</th>
+            </tr>
+          </thead>
+          <tbody id="paymentsBody"></tbody>
+        </table>
+        <div class="mt-3 text-right">
+          <a id="exportPayments" class="text-sm underline text-primary" target="_blank">Export payments (CSV)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg border p-4 mt-8">
+      <h2 class="text-lg font-bold px-2 pb-3">Payment Reminder</h2>
+      <div class="p-2">
+        <div class="flex gap-2 mb-4">
+          <button class="px-3 py-2 rounded bg-gray-200" onclick="preview('due_Tminus3')">T-3 Days</button>
+          <button class="px-3 py-2 rounded bg-primary text-white" onclick="preview('due_day0')">Due Day</button>
+          <button class="px-3 py-2 rounded bg-gray-200" onclick="preview('due_plus3')">T+3 Days</button>
+        </div>
+        <div class="relative">
+          <textarea id="reminderText" readonly rows="8" class="w-full p-4 border rounded bg-gray-50 text-gray-700 text-sm"></textarea>
+          <button class="absolute top-4 right-4 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded" onclick="copyReminder()">
+            <span class="material-symbols-outlined text-sm mr-1">content_copy</span>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="payment-modal" class="hidden fixed inset-0 z-50 items-center justify-center">
+      <div class="relative p-4 w-full max-w-2xl">
+        <div class="relative bg-white rounded-lg border">
+          <div class="flex justify-between items-start p-4 border-b">
+            <h3 class="text-lg font-semibold">Record payment</h3>
+            <button class="text-gray-500" data-modal-toggle="payment-modal" type="button"><span class="material-symbols-outlined">close</span></button>
+          </div>
+          <div class="p-6 space-y-6">
+            <form onsubmit="event.preventDefault(); recordPayment();">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block mb-2 text-sm">Amount</label>
+                  <input id="amount" type="number" step="0.01" class="border px-3 py-2 rounded w-full" />
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm">Method</label>
+                  <select id="method" class="border px-3 py-2 rounded w-full">
+                    <option value="transfer">Bank Transfer</option>
+                    <option value="cash">Cash</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm">Receipt Date</label>
+                  <input id="receivedDate" type="datetime-local" class="border px-3 py-2 rounded w-full" />
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm">Reference</label>
+                  <input id="ref" class="border px-3 py-2 rounded w-full" />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block mb-2 text-sm">Proof URL</label>
+                  <input id="proofUrl" type="url" class="border px-3 py-2 rounded w-full" />
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block mb-2 text-sm">Notes</label>
+                  <input id="notes" class="border px-3 py-2 rounded w-full" />
+                </div>
+              </div>
+              <div class="flex items-center gap-2 mt-4">
+                <button class="px-4 py-2 bg-primary text-white rounded" type="submit">Save</button>
+                <button class="px-4 py-2 border rounded" data-modal-toggle="payment-modal" type="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <pre id="out" class="mt-6 text-xs bg-gray-100 p-3 rounded"></pre>
+    <script>
+      document.querySelectorAll('[data-modal-toggle]').forEach((btn)=>btn.addEventListener('click',()=>{document.getElementById('payment-modal').classList.toggle('hidden'); document.getElementById('payment-modal').classList.toggle('flex');}));
+      document.addEventListener('DOMContentLoaded', fetchInvoice);
+      function fmt(cur, v){ return `${cur} ${v}`; }
+      async function fetchInvoice(){
+        const res = await fetch('/api/billing/invoices/{id}');
+        const j = await res.json().catch(()=>({}));
+        if (!j?.ok) return;
+        const d = j.data;
+        document.getElementById('invTitle').textContent = `Invoice #${d.number || d.id}`;
+        document.getElementById('kpiTotal').textContent = fmt(d.currency, d.total);
+        const paid = (Number(d.total) - Number(d.balance)).toFixed(2);
+        document.getElementById('kpiPaid').textContent = fmt(d.currency, paid);
+        document.getElementById('kpiBalance').textContent = fmt(d.currency, d.balance);
+        const tbody = document.getElementById('paymentsBody'); tbody.innerHTML='';
+        (d.payments||[]).forEach((p)=>{
+          const tr = document.createElement('tr');
+          tr.className='border-b';
+          tr.innerHTML = `<td class="px-4 py-3 text-sm text-gray-600">${p.receivedDate.slice(0,10)}</td><td class="px-4 py-3 text-sm text-gray-600">${p.method}</td><td class="px-4 py-3 text-sm text-gray-600">${p.ref}</td><td class="px-4 py-3 text-sm text-gray-600">${d.currency} ${p.amount}</td><td class="px-4 py-3 text-sm"><a class=\"text-primary underline\" href=\"${p.proofUrl||'#'}\" target=\"_blank\">View</a></td>`;
+          tbody.appendChild(tr);
+        });
+        document.getElementById('exportPayments').setAttribute('href', `/api/billing/invoices/${d.id}/payments/export.csv`);
+      }
+      async function recordPayment(){
+        const payload = {
+          invoiceId: '{id}',
+          amount: (document.getElementById('amount')).value,
+          method: (document.getElementById('method')).value,
+          receivedDate: new Date((document.getElementById('receivedDate')).value).toISOString(),
+          ref: (document.getElementById('ref')).value,
+          proofUrl: (document.getElementById('proofUrl')).value || undefined,
+          notes: (document.getElementById('notes')).value || undefined,
+          source: 'invoice_manual',
+        };
+        const res = await fetch('/api/billing/payments/create', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const j = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+        document.querySelector('[data-modal-toggle="payment-modal"]').dispatchEvent(new Event('click'));
+        fetchInvoice();
+      }
+      async function preview(template){
+        const res = await fetch('/api/billing/reminders/preview', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ invoiceId: '{id}', template }) });
+        const j = await res.json();
+        if (!j?.ok) return;
+        const { textES, textEN } = j.data;
+        (document.getElementById('reminderText')).value = `(ES)\n${textES}\n---\n(EN)\n${textEN}`;
+      }
+      function copyReminder(){
+        const t = (document.getElementById('reminderText')).value;
+        if (navigator.clipboard) navigator.clipboard.writeText(t||'');
+      }
+    </script>
+  </section>
+</AdminBase>

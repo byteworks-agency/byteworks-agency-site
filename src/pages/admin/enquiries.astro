@@ -1,0 +1,76 @@
+---
+import AdminBase from '../../layouts/AdminBase.astro';
+
+const title = 'Quote Requests';
+const rows = [
+  { id: '1234', customer: 'ABC Corp', status: 'new' },
+  { id: '1235', customer: 'XYZ Inc', status: 'in_progress' },
+  { id: '1236', customer: 'John Doe', status: 'completed' },
+  { id: '1237', customer: 'Jane Smith', status: 'cancelled' },
+  { id: '1238', customer: 'Tech Solutions', status: 'new' },
+];
+---
+
+<AdminBase title={title} description="Admin Enquiries" image="/og-image.png" lang="en">
+  <section>
+    <div class="flex justify-between items-center mb-6">
+      <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Quote Requests</p>
+      <form class="flex gap-2" onsubmit="event.preventDefault(); quickCreate();">
+        <input id="enquiryId" placeholder="Request ID" class="border px-3 py-2 rounded w-64" />
+        <button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">Generate quote</button>
+      </form>
+    </div>
+
+    <div class="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-background-dark">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-slate-50 dark:bg-slate-800">
+            <th class="px-4 py-3 text-left text-slate-600 dark:text-slate-300 text-sm font-medium">ID</th>
+            <th class="px-4 py-3 text-left text-slate-600 dark:text-slate-300 text-sm font-medium">Client</th>
+            <th class="px-4 py-3 text-left text-slate-600 dark:text-slate-300 text-sm font-medium">Status</th>
+            <th class="px-4 py-3 text-left text-slate-600 dark:text-slate-300 text-sm font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+          {rows.map((r) => (
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <td class="px-4 py-3 text-slate-700 dark:text-slate-300 text-sm">#{r.id}</td>
+              <td class="px-4 py-3 text-slate-700 dark:text-slate-300 text-sm">{r.customer}</td>
+              <td class="px-4 py-3">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 capitalize">{r.status}</span>
+              </td>
+              <td class="px-4 py-3">
+                <button class="text-primary text-sm font-bold hover:underline" onclick={`createFrom('${r.id}')`}>Generate quote</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div id="toast" class="hidden fixed bottom-5 right-5 bg-green-600 text-white py-3 px-5 rounded-lg shadow-xl text-sm">Quote created.</div>
+
+    <script>
+      async function apiCreate(id, extras = {}) {
+        const res = await fetch(`/api/quotes/create?enquiryId=${encodeURIComponent(id)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(extras)
+        });
+        return res.json();
+      }
+      async function createFrom(id){
+        const json = await apiCreate(id, {});
+        if (!json?.ok) return alert('Error: '+(json?.code||'unknown'));
+        const t = document.getElementById('toast'); t?.classList.remove('hidden'); setTimeout(()=>t?.classList.add('hidden'), 1200);
+        location.href = `/admin/quotes/${json.data.quoteId}`;
+      }
+      async function quickCreate(){
+        const id = (document.getElementById('enquiryId')).value.trim();
+        if (!id) return alert('Enter a request ID');
+        return createFrom(id);
+      }
+    </script>
+  </section>
+</AdminBase>
+

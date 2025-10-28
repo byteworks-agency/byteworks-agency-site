@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Sign In" description="Authenticate to access admin" image="/og-image.png" lang="en">
+  <section class="px-6 max-w-[720px] mx-auto py-16">
+    <h1 class="text-2xl font-bold mb-3">Sign In</h1>
+    <p class="text-sm text-gray-600 mb-4">
+      This area requires authentication via Supabase. Configure SUPABASE_URL and SUPABASE_ANON_KEY in your environment, and implement your preferred sign-in flow (email/password or magic link).
+    </p>
+    <div class="mt-4 flex items-center gap-3">
+      <button class="bg-black text-white px-4 py-2 rounded" onclick="devLogin()">Dev Login</button>
+      <span class="text-xs text-gray-500">Requires ADMIN_SECRET set in env</span>
+    </div>
+    <script is:inline>
+      // Expose globally so inline onclick can access it even if scripts are bundled as modules
+      globalThis.devLogin = async function () {
+        try {
+          const res = await fetch('/api/auth/dev-login', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Accept': 'application/json' }
+          });
+          const j = await res.json().catch(()=>({}));
+          if (!j?.ok) {
+            alert('Dev login not configured. Set ADMIN_SECRET in env.');
+            return;
+          }
+          // Replace to avoid back button returning to signin
+          window.location.replace('/admin');
+        } catch (e) {
+          console.error('Dev login failed', e);
+          alert('Dev login failed. Check console for details.');
+        }
+      }
+    </script>
+  </section>
+</Base>
+

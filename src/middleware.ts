@@ -7,9 +7,24 @@ const isAsset = (p: string) =>
   p.startsWith('/favicon') ||
   /\.(ico|png|jpg|jpeg|svg|webp|css|js|map|txt|xml)$/i.test(p);
 
-export const onRequest: MiddlewareHandler = (context, next) => {
+export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
   const { pathname, searchParams } = url;
+
+  // Allow auth routes to render (no locale redirect)
+  if (/^\/auth(\/|$)/.test(pathname)) {
+    return next();
+  }
+
+  if (/^\/admin(\/|$)/.test(pathname)) {
+    const ADMIN_SECRET = import.meta.env.ADMIN_SECRET as string | undefined;
+    if (!ADMIN_SECRET) return next();
+    const cookie = context.cookies.get('admin_session')?.value;
+    if (cookie !== ADMIN_SECRET) {
+      return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
+    }
+    return next();
+  }
 
   if (/^\/(en|es)(\/|$)/.test(pathname) || isAsset(pathname)) {
     return next(); // ya estamos en idioma o es asset

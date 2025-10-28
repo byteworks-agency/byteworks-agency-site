@@ -1,0 +1,138 @@
+// Datasource & Generator
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Enums
+enum Currency {
+  TTD
+  USD
+}
+
+enum QuoteStatus {
+  draft
+  sent
+  accepted
+  declined
+  expired
+}
+
+enum InvoiceStatus {
+  draft
+  sent
+  partial
+  paid
+  overdue
+  void
+}
+
+enum PaymentMethod {
+  transfer
+  cash
+}
+
+// Optional settings
+model BillingSettings {
+  id              String   @id @default(cuid())
+  defaultDueDays  Int?     // fallback 7 if null
+  defaultCurrency Currency? // fallback TTD if null
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// Core models
+model Quote {
+  id               String       @id @default(cuid())
+  customerId       String
+  status           QuoteStatus  @default(draft)
+  currency         Currency     @default(TTD)
+  subtotal         Decimal      @db.Decimal(10, 2)
+  taxes            Decimal      @db.Decimal(10, 2)
+  total            Decimal      @db.Decimal(10, 2)
+  billToName       String?
+  billToEmail      String?
+  billToPhone      String?
+  validUntil       DateTime?
+  notes            String?
+  originEnquiryId  String?
+  acceptToken      String?      @unique
+  sentAt           DateTime?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  items            QuoteItem[]
+
+  @@index([originEnquiryId])
+}
+
+model QuoteItem {
+  id          String  @id @default(cuid())
+  quoteId     String
+  description String
+  qty         Decimal @db.Decimal(10, 2)
+  unitPrice   Decimal @db.Decimal(10, 2)
+  sort        Int?
+
+  quote       Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  customerId     String
+  status         InvoiceStatus @default(draft)
+  currency       Currency      @default(TTD)
+  subtotal       Decimal       @db.Decimal(10, 2)
+  taxes          Decimal       @db.Decimal(10, 2)
+  total          Decimal       @db.Decimal(10, 2)
+  balance        Decimal       @db.Decimal(10, 2)
+  billToName     String?
+  billToEmail    String?
+  billToPhone    String?
+  issueDate      DateTime
+  dueDate        DateTime
+  notes          String?
+  originQuoteId  String?
+  number         String?       @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  items          InvoiceItem[]
+  payments       Payment[]
+
+  @@index([status])
+  @@index([originQuoteId])
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  invoiceId   String
+  description String
+  qty         Decimal @db.Decimal(10, 2)
+  unitPrice   Decimal @db.Decimal(10, 2)
+  sort        Int?
+
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id           String        @id @default(cuid())
+  invoiceId    String
+  method       PaymentMethod
+  amount       Decimal       @db.Decimal(10, 2)
+  receivedDate DateTime
+  ref          String
+  source       String?
+  proofUrl     String?
+  notes        String?
+  createdAt    DateTime      @default(now())
+
+  invoice      Invoice       @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@unique([invoiceId, ref])
+  @@index([receivedDate])
+}

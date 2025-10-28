@@ -3,7 +3,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 
-const SITE = "https://byteworksagency.vercel.app";
+const SITE = "https://byteworksagency.com";
 
 export default defineConfig({
   site: SITE,
