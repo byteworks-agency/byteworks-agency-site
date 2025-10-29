@@ -16,12 +16,6 @@ interface Payload {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const endpoint = import.meta.env.CONTACT_ENDPOINT;
-    if (!endpoint) {
-      return new Response(JSON.stringify({ ok: false, error: 'CONTACT_ENDPOINT not configured' }), {
-        status: 501,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
 
     const data: Payload = await request.json().catch(() => ({} as Payload));
     const name = (data?.name || '').trim();
@@ -74,6 +68,21 @@ export const POST: APIRoute = async ({ request }) => {
       });
     } catch {}
 
+    // WhatsApp-only mode: do not forward even if endpoint is set
+    if (preference === 'whatsapp') {
+      return new Response(JSON.stringify({ ok: true, forwarded: false }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    // If no CONTACT_ENDPOINT, acknowledge persistence only
+    if (!endpoint) {
+      return new Response(JSON.stringify({ ok: true, forwarded: false }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const resp = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -88,7 +97,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({ ok: true, forwarded: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });

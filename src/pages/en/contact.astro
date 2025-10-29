@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 
 const title = 'Contact — ByteWorks';
 const description =
-  'Let’s talk about your website or project. Contact ByteWorks via WhatsApp or our form — simple, direct, fast support.';
+  "Reach us via WhatsApp — quick and direct. Use the form to start the conversation.";
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
 const message = import.meta.env.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I’m interested in a website.";
@@ -15,7 +15,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     <h1 class="text-3xl md:text-5xl font-semibold">Let’s work together</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
       Ready to build a modern, bilingual website with maintenance included?
-      Reach us directly via WhatsApp or send us a message using the form below.
+      Reach us directly via WhatsApp. Use the form below to start the conversation — we’ll reply on WhatsApp.
     </p>
 
     <!-- WhatsApp quick button removed for funnel flow -->
@@ -26,29 +26,14 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         <input id="name" name="name" type="text" required placeholder="e.g. Jane Doe / ACME Inc." class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
-      <div>
-        <label class="block text-sm font-medium mb-1">Preferred contact method</label>
-        <div class="flex gap-4 text-sm">
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="preference" id="pref_whatsapp" value="whatsapp" checked class="accent-black dark:accent-white" />
-            WhatsApp
-          </label>
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="preference" id="pref_email" value="email" class="accent-black dark:accent-white" />
-            Email
-          </label>
-        </div>
-      </div>
+      <!-- Preferred contact: WhatsApp only -->
 
       <div id="phone_wrap" class="">
         <label for="phone" class="block text-sm font-medium mb-1">Phone (WhatsApp)</label>
         <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="e.g. +1 868 775 9858" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
-      <div id="email_wrap" class="hidden">
-        <label for="email" class="block text-sm font-medium mb-1">Email</label>
-        <input id="email" name="email" type="email" placeholder="you@example.com" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
-      </div>
+      <!-- Email removed for now -->
 
       <div>
         <label for="message" class="block text-sm font-medium mb-1">Message</label>
@@ -81,40 +66,25 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const root = document.querySelector('section[data-wa]');
       const form = document.querySelector('#contact-form');
       const nameEl = document.querySelector('#name');
-      const emailEl = document.querySelector('#email');
+      // Email removed in WhatsApp-only mode
       const phoneEl = document.querySelector('#phone');
       const messageEl = document.querySelector('#message');
       const hpEl = document.querySelector('#website');
       const btn = document.querySelector('#submitBtn');
-      const prefWhats = document.querySelector('#pref_whatsapp');
-      const prefEmail = document.querySelector('#pref_email');
+      // preference fixed to WhatsApp
       const statusEl = document.querySelector('#formStatus');
       if (!form || !nameEl || !messageEl || !hpEl) return;
 
       let WA_NUMBER = (root && root.dataset ? (root.dataset.wa || '').trim() : '');
       WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
 
-      const phoneWrap = document.querySelector('#phone_wrap');
-      const emailWrap = document.querySelector('#email_wrap');
-      function updatePref(){
-        const emailChecked = prefEmail && prefEmail.checked;
-        if (emailChecked) {
-          phoneWrap?.classList.add('hidden');
-          emailWrap?.classList.remove('hidden');
-        } else {
-          emailWrap?.classList.add('hidden');
-          phoneWrap?.classList.remove('hidden');
-        }
-      }
-      updatePref();
-      prefWhats?.addEventListener('change', updatePref);
-      prefEmail?.addEventListener('change', updatePref);
+      // no toggle needed; phone is always shown
 
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
-        const email = emailEl ? emailEl.value.trim() : '';
+        const email = '';
         const phone = phoneEl ? phoneEl.value.trim() : '';
         const msg = messageEl.value.trim();
         const hp = hpEl.value.trim();
@@ -149,8 +119,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           statusEl.classList.add(...toneClasses);
         };
 
-        const emailChecked = prefEmail && prefEmail.checked;
-        if (!name || !msg || (emailChecked ? !email : !phone)) {
+        if (!name || !msg || !phone) {
           setStatus('Please fill out all required fields.', 'error');
           return;
         }
@@ -165,35 +134,30 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               name,
-              email: emailChecked ? email : undefined,
-              phone: emailChecked ? undefined : phone,
+              phone,
               message: msg,
               lang: 'en',
               sourceUrl: window.location.href,
-              preference: emailChecked ? 'email' : 'whatsapp',
+              preference: 'whatsapp',
             }),
           });
           ok = resp && resp.ok;
         } catch {}
 
-        // If WhatsApp selected, open chat with prefilled text to our WA number
-        if (!emailChecked) {
-          if (!WA_NUMBER) {
-            setStatus('WhatsApp is not configured. Please try again later.', 'error');
-          } else {
-            const text =
-              `Hello ByteWorks!\n\n` +
-              `New inquiry:\n` +
-              `Name: ${name}\n` +
-              (email ? `Email: ${email}\n` : '') +
-              (phone ? `Phone: ${phone}\n` : '') +
-              `Message:\n${msg}`;
-            const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-          }
+        // Open WhatsApp with prefilled text
+        if (!WA_NUMBER) {
+          setStatus('WhatsApp is not configured. Please try again later.', 'error');
+        } else {
+          const text =
+            `Hello ByteWorks!\n\n` +
+            `New inquiry:\n` +
+            `Name: ${name}\n` +
+            (phone ? `Phone: ${phone}\n` : '') +
+            `Message:\n${msg}`;
+          const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+          window.open(url, '_blank');
         }
         nameEl.value = '';
-        if (emailEl) emailEl.value = '';
         if (phoneEl) phoneEl.value = '';
         messageEl.value = '';
         hpEl.value = '';
@@ -203,5 +167,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     })();
   </script>
 </Base>
+
+
 
 

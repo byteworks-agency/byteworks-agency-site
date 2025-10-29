@@ -1,4 +1,4 @@
-﻿---
+---
 // SiteHeader props
 interface Props {
   lang?: 'en' | 'es';
@@ -16,37 +16,20 @@ function isActive(href: string) {
 }
 
 const isHomePage = pathname === (isEN ? '/en' : '/es') || pathname === (isEN ? '/en/' : '/es/');
-const navLinks = isHomePage
-  ? (
-      isEN
-        ? [
-            { href: '#about', label: 'About' },
-            { href: '/en/plans', label: 'Pricing' },
-            { href: '/en/how-it-works', label: 'How It Works' },
-            { href: '/en/faq', label: 'FAQ' },
-          ]
-        : [
-            { href: '#about', label: 'Nosotros' },
-            { href: '/es/planes', label: 'Precios' },
-            { href: '/es/how-it-works', label: 'Cómo funciona' },
-            { href: '/es/faq', label: 'Preguntas' },
-          ]
-    )
-  : (
-      isEN
-        ? [
-            { href: '/en/about', label: 'About' },
-            { href: '/en/plans', label: 'Pricing' },
-            { href: '/en/how-it-works', label: 'How It Works' },
-            { href: '/en/faq', label: 'FAQ' },
-          ]
-        : [
-            { href: '/es/about', label: 'Nosotros' },
-            { href: '/es/planes', label: 'Precios' },
-            { href: '/es/how-it-works', label: 'Cómo funciona' },
-            { href: '/es/faq', label: 'Preguntas' },
-          ]
-    );
+
+const navLinks = isEN
+  ? [
+      { href: '/en/about', label: 'About' },
+      { href: '/en/plans', label: 'Pricing' },
+      { href: '/en/how-it-works', label: 'How It Works' },
+      { href: '/en/faq', label: 'FAQ' },
+    ]
+  : [
+      { href: '/es/about', label: 'Nosotros' },
+      { href: '/es/planes', label: 'Precios' },
+      { href: '/es/how-it-works', label: 'Cómo funciona' },
+      { href: '/es/faq', label: 'Preguntas' },
+    ];
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
@@ -90,7 +73,7 @@ const navLinks = isHomePage
   <button
     id="hamburger"
     class="md:hidden relative h-10 w-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary"
-    aria-label={isEN ? 'Open menu' : 'Abrir menÃº'}
+    aria-label={isEN ? 'Open menu' : 'Abrir menú'}
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -127,6 +110,8 @@ const navLinks = isHomePage
         {link.label}
       </a>
     ))}
+    
+    )}
   </div>
 </nav>
 
@@ -280,7 +265,6 @@ const navLinks = isHomePage
     document.addEventListener('astro:page-load', init);
   })();
 </script>
-
 
 
 

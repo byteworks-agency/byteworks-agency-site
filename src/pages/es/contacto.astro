@@ -1,9 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Contacto — ByteWorks';
+const title = 'Contacto - ByteWorks';
 const description =
-  'Conversemos sobre tu sitio web o idea de proyecto. Escríbenos por WhatsApp o usa el formulario — soporte directo, rápido y personal.';
+  'Conversemos sobre tu sitio web o idea de proyecto. Escríbenos por WhatsApp - rápido y directo. Usa el formulario para iniciar la conversación.';
 
 const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
 const message =
@@ -49,30 +49,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         />
       </div>
 
-      <div id="email_wrap" class="hidden">
-        <label for="email" class="block text-sm font-medium mb-1">Correo electrónico</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="tu@ejemplo.com"
-          class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
-        />
-      </div>
-
-      <div>
-        <label class="block text-sm font-medium mb-1">Método de contacto preferido</label>
-        <div class="flex gap-4 text-sm">
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="preference" id="pref_whatsapp" value="whatsapp" checked class="accent-black dark:accent-white" />
-            WhatsApp
-          </label>
-          <label class="inline-flex items-center gap-2">
-            <input type="radio" name="preference" id="pref_email" value="email" class="accent-black dark:accent-white" />
-            Correo
-          </label>
-        </div>
-      </div>
+      <!-- Email removido por ahora y solo WhatsApp como método -->
 
       <div>
         <label for="message" class="block text-sm font-medium mb-1">Mensaje</label>
@@ -116,7 +93,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     <div class="border-t border-gray-200 dark:border-gray-800 pt-10 mt-10 text-sm text-gray-600 dark:text-gray-400">
       <p>¿Prefieres llamada o reunión? La agendamos después de un breve chat.</p>
       <p class="mt-2 text-xs text-gray-500">
-        Horario: Lunes a Viernes, 9:00 AM — 6:00 PM (AST)
+        Horario: Lunes a Viernes, 9:00 AM - 6:00 PM (AST)
       </p>
     </div>
   </section>
@@ -130,8 +107,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const messageEl = document.querySelector('#message');
       const hpEl = document.querySelector('#website');
       const btn = document.querySelector('#submitBtn');
-      const prefWhats = document.querySelector('#pref_whatsapp');
-      const prefEmail = document.querySelector('#pref_email');
+      // preferencia fija a WhatsApp
       const statusEl = document.querySelector('#formStatus');
       if (!form || !nameEl || !messageEl || !hpEl) return;
 
@@ -139,27 +115,12 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
 
       const phoneEl = document.querySelector('#phone');
-      const phoneWrap = document.querySelector('#phone_wrap');
-      const emailWrap = document.querySelector('#email_wrap');
-      function updatePref(){
-        const emailChecked = prefEmail && prefEmail.checked;
-        if (emailChecked) {
-          phoneWrap?.classList.add('hidden');
-          emailWrap?.classList.remove('hidden');
-        } else {
-          emailWrap?.classList.add('hidden');
-          phoneWrap?.classList.remove('hidden');
-        }
-      }
-      updatePref();
-      prefWhats?.addEventListener('change', updatePref);
-      prefEmail?.addEventListener('change', updatePref);
 
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
-        const email = emailEl ? emailEl.value.trim() : '';
+        const email = '';
         const phone = phoneEl ? phoneEl.value.trim() : '';
         const msg = messageEl.value.trim();
         const hp = hpEl.value.trim();
@@ -192,8 +153,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
 
           statusEl.classList.add(...toneClasses);
         };
-        const emailChecked = prefEmail && prefEmail.checked;
-        if (!name || !msg || (emailChecked ? !email : !phone)) {
+        if (!name || !msg || !phone) {
           setStatus('Por favor completa los campos requeridos.', 'error');
           return;
         }
@@ -216,35 +176,30 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               name,
-              email: emailChecked ? email : undefined,
-              phone: emailChecked ? undefined : phone,
+              phone,
               message: msg,
               lang: 'es',
               sourceUrl: window.location.href,
-              preference: emailChecked ? 'email' : 'whatsapp',
+              preference: 'whatsapp',
             }),
           });
           ok = resp && resp.ok;
         } catch {}
 
-        // Si elige WhatsApp, abrir chat con texto prellenado a nuestro número
-        if (!emailChecked) {
-          if (!WA_NUMBER) {
-            setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
-          } else {
-            const text =
-              `¡Hola ByteWorks!\n\n` +
-              `Nuevo contacto:\n` +
-              `Nombre: ${name}\n` +
-              (email ? `Email: ${email}\n` : '') +
-              (phone ? `Teléfono: ${phone}\n` : '') +
-              `Mensaje:\n${msg}`;
-            const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-          }
+        // Abrir WhatsApp con texto prellenado a nuestro número
+        if (!WA_NUMBER) {
+          setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
+        } else {
+          const text =
+            `¡Hola ByteWorks!\n\n` +
+            `Nuevo contacto:\n` +
+            `Nombre: ${name}\n` +
+            (phone ? `Teléfono: ${phone}\n` : '') +
+            `Mensaje:\n${msg}`;
+          const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+          window.open(url, '_blank');
         }
         nameEl.value = '';
-        if (emailEl) emailEl.value = '';
         if (phoneEl) phoneEl.value = '';
         messageEl.value = '';
         hpEl.value = '';
@@ -254,5 +209,4 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     })();
   </script>
 </Base>
-
 

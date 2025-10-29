@@ -55,19 +55,19 @@ const isActive = (href: string) => {
           </button>
         </div>
         <nav class="p-4 pt-0 space-y-1">
-          <a href="/admin" class={`admin-link ${isActive('/admin') ? 'active' : ''}`}>
+          <a href="/admin" title="Dashboard" class={`admin-link ${isActive('/admin') ? 'active' : ''}`}>
             <span class="material-symbols-outlined">dashboard</span>
             <span class="label">Dashboard</span>
           </a>
-          <a href="/admin/quotes" class={`admin-link ${isActive('/admin/quotes') ? 'active' : ''}`}>
+          <a href="/admin/quotes" title="Quotes" class={`admin-link ${isActive('/admin/quotes') ? 'active' : ''}`}>
             <span class="material-symbols-outlined">receipt_long</span>
             <span class="label">Quotes</span>
           </a>
-          <a href="/admin/billing/invoices" class={`admin-link ${isActive('/admin/billing/invoices') ? 'active' : ''}`}>
+          <a href="/admin/billing/invoices" title="Invoices" class={`admin-link ${isActive('/admin/billing/invoices') ? 'active' : ''}`}>
             <span class="material-symbols-outlined">description</span>
             <span class="label">Invoices</span>
           </a>
-          <a href="/admin/plans" class={`admin-link ${isActive('/admin/plans') ? 'active' : ''}`}>
+          <a href="/admin/plans" title="Plans & Add-ons" class={`admin-link ${isActive('/admin/plans') ? 'active' : ''}`}>
             <span class="material-symbols-outlined">inventory_2</span>
             <span class="label">Plans & Add-ons</span>
           </a>
