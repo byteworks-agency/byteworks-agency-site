@@ -50,6 +50,7 @@ try {
                 <td class="p-2 uppercase">{l.lang || ''}</td>
                 <td class="p-2 text-gray-600">{new Date(l.createdAt).toISOString()}</td>
                 <td class="p-2 text-right">
+                  <span title="Lead ID" class="font-mono font-bold text-xs mr-2 select-all">{l.id}</span>
                   <button type="button" onclick={`nwq_open(${JSON.stringify({ name: l.name, email: l.email, phone: l.phone })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60">
                     New Quote
                   </button>

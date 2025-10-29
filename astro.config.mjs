@@ -7,7 +7,13 @@ const SITE = "https://byteworksagency.com";
 
 export default defineConfig({
   site: SITE,
-  adapter: vercel({ mode: "edge" }), 
+  // Use Node/serverless runtime; Prisma is not supported on edge runtimes
+  adapter: vercel({ mode: "serverless" }),
   output: "server",
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
+  vite: {
+    ssr: {
+      external: ["@prisma/client", "@prisma/engines"],
+    },
+  },
 });
