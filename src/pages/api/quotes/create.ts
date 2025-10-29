@@ -17,17 +17,35 @@ export const POST: APIRoute = async ({ request, url, cookies }) => {
     const auth = await requireRole(cookies, ['admin', 'staff']);
     if (!auth.ok) return new Response(JSON.stringify({ ok: false, code: 'forbidden' }), { status: 403 });
 
-    const qparse = createQuoteQuery.safeParse(Object.fromEntries(url.searchParams.entries()));
-    if (!qparse.success)
-      return new Response(JSON.stringify({ ok: false, code: 'validation_error', message: 'Invalid enquiryId' }), {
+    const rawParams: Record<string, string> = Object.fromEntries(url.searchParams.entries());
+    if (typeof rawParams.enquiryId === 'string' && !rawParams.enquiryId.trim()) {
+      delete rawParams.enquiryId;
+    }
+    const qparse = createQuoteQuery.safeParse(rawParams);
+    if (!qparse.success) {
+      return new Response(JSON.stringify({ ok: false, code: 'validation_error', message: 'Invalid query' }), {
         status: 400,
       });
+    }
     const body = await request.json().catch(() => ({}));
     const bparse = createQuoteBody.safeParse(body);
     if (!bparse.success)
       return new Response(JSON.stringify({ ok: false, code: 'validation_error' }), { status: 400 });
 
-    const { enquiryId } = qparse.data;
+    let enquiryId = qparse.data?.enquiryId;
+    if (!enquiryId || !enquiryId.trim()) {
+      // Auto-generate a readable enquiry id, e.g. REQ-20241029-1H2M3S-AB12
+      const dt = new Date();
+      const pad = (n: number) => n.toString().padStart(2, '0');
+      const y = dt.getFullYear();
+      const m = pad(dt.getMonth() + 1);
+      const d = pad(dt.getDate());
+      const hh = pad(dt.getHours());
+      const mm = pad(dt.getMinutes());
+      const ss = pad(dt.getSeconds());
+      const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+      enquiryId = `REQ-${y}${m}${d}-${hh}${mm}${ss}-${rand}`;
+    }
     // Resolve customer: prefer explicit customerId; otherwise allow placeholder in dev.
     let customerId = (body?.customerId as string | undefined)?.trim();
     if (!customerId) {

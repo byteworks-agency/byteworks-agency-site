@@ -22,43 +22,56 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       Escríbenos directo por WhatsApp o envíanos un mensaje con el formulario.
     </p>
 
-    <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
-      {wa && (
-        <a
-          href={wa}
-          data-wa={phone}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center px-6 py-3 rounded-md bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
-        >
-          Chatear por WhatsApp
-        </a>
-      )}
-    </div>
+    <!-- Botón de WhatsApp removido para el nuevo embudo -->
 
     <form id="contact-form" class="mt-12 text-left space-y-5 max-w-md mx-auto">
       <div>
-        <label for="name" class="block text-sm font-medium mb-1">Nombre</label>
+        <label for="name" class="block text-sm font-medium mb-1">Nombre / Marca / Empresa / Organización</label>
         <input
           id="name"
           name="name"
           type="text"
           required
-          placeholder="Tu nombre"
+          placeholder="ej. Juan Pérez / ACME S.A."
           class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
         />
       </div>
 
-      <div>
+      <div id="phone_wrap" class="">
+        <label for="phone" class="block text-sm font-medium mb-1">Teléfono (WhatsApp)</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          placeholder="ej. +1 868 775 9858"
+          class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
+        />
+      </div>
+
+      <div id="email_wrap" class="hidden">
         <label for="email" class="block text-sm font-medium mb-1">Correo electrónico</label>
         <input
           id="email"
           name="email"
           type="email"
-          required
           placeholder="tu@ejemplo.com"
           class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
         />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-1">Método de contacto preferido</label>
+        <div class="flex gap-4 text-sm">
+          <label class="inline-flex items-center gap-2">
+            <input type="radio" name="preference" id="pref_whatsapp" value="whatsapp" checked class="accent-black dark:accent-white" />
+            WhatsApp
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input type="radio" name="preference" id="pref_email" value="email" class="accent-black dark:accent-white" />
+            Correo
+          </label>
+        </div>
       </div>
 
       <div>
@@ -117,35 +130,37 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const messageEl = document.querySelector('#message');
       const hpEl = document.querySelector('#website');
       const btn = document.querySelector('#submitBtn');
+      const prefWhats = document.querySelector('#pref_whatsapp');
+      const prefEmail = document.querySelector('#pref_email');
       const statusEl = document.querySelector('#formStatus');
-      if (!form || !nameEl || !emailEl || !messageEl || !hpEl) return;
+      if (!form || !nameEl || !messageEl || !hpEl) return;
 
       let WA_NUMBER = (root && root.dataset ? (root.dataset.wa || '').trim() : '');
-      if (!WA_NUMBER) WA_NUMBER = (document.body && document.body.dataset ? (document.body.dataset.wa || '').trim() : '');
-      if (!WA_NUMBER) {
-        const waBtn = document.querySelector('a[href^="https://wa.me/"]');
-        if (waBtn && waBtn.dataset && waBtn.dataset.wa) WA_NUMBER = waBtn.dataset.wa.trim();
-        else if (waBtn && waBtn.href) {
-          try {
-            const u = new URL(waBtn.href);
-            WA_NUMBER = u.pathname.replace('/', '').trim();
-          } catch {}
+      WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
+
+      const phoneEl = document.querySelector('#phone');
+      const phoneWrap = document.querySelector('#phone_wrap');
+      const emailWrap = document.querySelector('#email_wrap');
+      function updatePref(){
+        const emailChecked = prefEmail && prefEmail.checked;
+        if (emailChecked) {
+          phoneWrap?.classList.add('hidden');
+          emailWrap?.classList.remove('hidden');
+        } else {
+          emailWrap?.classList.add('hidden');
+          phoneWrap?.classList.remove('hidden');
         }
       }
-      if (!WA_NUMBER) {
-        try {
-          const u = new URL(window.location.href);
-          const qp = u.searchParams.get('wa');
-          if (qp) WA_NUMBER = qp.trim();
-        } catch {}
-      }
-      WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
+      updatePref();
+      prefWhats?.addEventListener('change', updatePref);
+      prefEmail?.addEventListener('change', updatePref);
 
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
 
         const name = nameEl.value.trim();
-        const email = emailEl.value.trim();
+        const email = emailEl ? emailEl.value.trim() : '';
+        const phone = phoneEl ? phoneEl.value.trim() : '';
         const msg = messageEl.value.trim();
         const hp = hpEl.value.trim();
 
@@ -177,12 +192,9 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
 
           statusEl.classList.add(...toneClasses);
         };
-        if (!name || !email || !msg) {
-          setStatus('Por favor completa todos los campos.', 'error');
-          return;
-        }
-        if (!WA_NUMBER) {
-          setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
+        const emailChecked = prefEmail && prefEmail.checked;
+        if (!name || !msg || (emailChecked ? !email : !phone)) {
+          setStatus('Por favor completa los campos requeridos.', 'error');
           return;
         }
 
@@ -193,36 +205,51 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           `Email: ${email}\n` +
           `Mensaje:\n${msg}`;
 
-        const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
         const original = btn ? btn.textContent : null;
-        setStatus('Abriendo WhatsApp...', 'info');
-        if (btn) { btn.disabled = true; btn.textContent = 'Abriendo WhatsApp...'; }
+        setStatus('Enviando...', 'info');
+        if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
 
+        let ok = false;
         try {
-          await fetch('/api/contact', {
+          const resp = await fetch('/api/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               name,
-              email,
+              email: emailChecked ? email : undefined,
+              phone: emailChecked ? undefined : phone,
               message: msg,
               lang: 'es',
               sourceUrl: window.location.href,
-              waNumber: WA_NUMBER,
+              preference: emailChecked ? 'email' : 'whatsapp',
             }),
           });
+          ok = resp && resp.ok;
         } catch {}
 
-        window.open(url, '_blank');
+        // Si elige WhatsApp, abrir chat con texto prellenado a nuestro número
+        if (!emailChecked) {
+          if (!WA_NUMBER) {
+            setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
+          } else {
+            const text =
+              `¡Hola ByteWorks!\n\n` +
+              `Nuevo contacto:\n` +
+              `Nombre: ${name}\n` +
+              (email ? `Email: ${email}\n` : '') +
+              (phone ? `Teléfono: ${phone}\n` : '') +
+              `Mensaje:\n${msg}`;
+            const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+          }
+        }
         nameEl.value = '';
-        emailEl.value = '';
+        if (emailEl) emailEl.value = '';
+        if (phoneEl) phoneEl.value = '';
         messageEl.value = '';
         hpEl.value = '';
         if (btn) { btn.disabled = false; btn.textContent = original || 'Enviar mensaje'; }
-        setStatus(
-          'Abrimos WhatsApp en una nueva pestaña. Si no lo ves, revisa tu bloqueador de ventanas emergentes.',
-          'success'
-        );
+        setStatus('¡Gracias! Recibimos tu solicitud y te contactaremos pronto.', ok ? 'success' : 'info');
       });
     })();
   </script>

@@ -1,24 +1,69 @@
 ---
 import AdminBase from '../../layouts/AdminBase.astro';
+import { prisma } from '../../lib/db';
+
 const title = 'Dashboard';
+
+let leads: Array<{ id: string; name: string; email: string | null; phone: string | null; preference: string; lang: string | null; createdAt: Date }>; 
+try {
+  leads = await prisma.contactSubmission.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 20,
+    select: { id: true, name: true, email: true, phone: true, preference: true, lang: true, createdAt: true },
+  });
+} catch (err) {
+  console.warn('[dashboard] ContactSubmission table missing – showing empty list until migrations run.');
+  leads = [] as any;
+}
 ---
 
 <AdminBase title={title} description="Admin Dashboard" image="/og-image.png" lang="en">
   <section class="max-w-[1200px] mx-auto">
     <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
-    <div class="grid sm:grid-cols-3 gap-4">
-      <a href="/admin/enquiries" class="block border rounded p-4 bg-white dark:bg-background-dark hover:bg-slate-50 dark:hover:bg-background-dark/70">
-        <h2 class="font-semibold">Quote Requests</h2>
-        <p class="text-sm text-gray-600">Create a quote from an enquiry ID.</p>
-      </a>
-      <a href="/admin/quotes" class="block border rounded p-4 bg-white dark:bg-background-dark hover:bg-slate-50 dark:hover:bg-background-dark/70">
-        <h2 class="font-semibold">Quotes</h2>
-        <p class="text-sm text-gray-600">Browse and manage quotes.</p>
-      </a>
-      <a href="/admin/billing/invoices" class="block border rounded p-4 bg-white dark:bg-background-dark hover:bg-slate-50 dark:hover:bg-background-dark/70">
-        <h2 class="font-semibold">Invoices</h2>
-        <p class="text-sm text-gray-600">View invoices and payments.</p>
-      </a>
+    
+
+    <div class="border rounded bg-white dark:bg-background-dark">
+      <div class="flex items-center justify-between p-3 border-b dark:border-gray-700">
+        <h2 class="font-semibold">Recent contact submissions</h2>
+        <span class="text-xs text-gray-600">Latest 20</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-background-dark/40 text-left">
+            <tr>
+              <th class="p-2">Name</th>
+              <th class="p-2">Email</th>
+              <th class="p-2">Phone</th>
+              <th class="p-2">Preference</th>
+              <th class="p-2">Lang</th>
+              <th class="p-2">Received</th>
+              <th class="p-2 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {leads.map((l) => (
+              <tr class="border-t">
+                <td class="p-2">{l.name}</td>
+                <td class="p-2">{l.email}</td>
+                <td class="p-2">{l.phone || ''}</td>
+                <td class="p-2 capitalize">{l.preference}</td>
+                <td class="p-2 uppercase">{l.lang || ''}</td>
+                <td class="p-2 text-gray-600">{new Date(l.createdAt).toISOString()}</td>
+                <td class="p-2 text-right">
+                  <button type="button" onclick={`nwq_open(${JSON.stringify({ name: l.name, email: l.email, phone: l.phone })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60">
+                    New Quote
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {leads.length === 0 && (
+              <tr>
+                <td class="p-3 text-gray-600" colspan="7">No submissions yet.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 </AdminBase>

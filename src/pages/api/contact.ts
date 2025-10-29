@@ -1,14 +1,16 @@
 import type { APIRoute } from 'astro';
+import { prisma } from '@/lib/db';
 
 export const prerender = false;
 
 interface Payload {
   name: string;
-  email: string;
+  email?: string;
+  phone?: string;
   message: string;
   lang?: 'en' | 'es';
   sourceUrl?: string;
-  waNumber?: string;
+  preference?: 'whatsapp' | 'email';
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -24,9 +26,24 @@ export const POST: APIRoute = async ({ request }) => {
     const data: Payload = await request.json().catch(() => ({} as Payload));
     const name = (data?.name || '').trim();
     const email = (data?.email || '').trim();
+    const phone = (data?.phone || '').trim();
     const message = (data?.message || '').trim();
-    if (!name || !email || !message) {
-      return new Response(JSON.stringify({ ok: false, error: 'Missing fields' }), {
+    const preference = (data?.preference === 'email' ? 'email' : 'whatsapp');
+
+    if (!name || !message) {
+      return new Response(JSON.stringify({ ok: false, error: 'Missing name or message' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    if (preference === 'email' && !email) {
+      return new Response(JSON.stringify({ ok: false, error: 'Email is required when preference is email' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    if (preference === 'whatsapp' && !phone) {
+      return new Response(JSON.stringify({ ok: false, error: 'Phone is required when preference is whatsapp' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -35,16 +52,32 @@ export const POST: APIRoute = async ({ request }) => {
     const meta = {
       lang: (data?.lang === 'es' ? 'es' : 'en'),
       sourceUrl: data?.sourceUrl || '',
-      waNumber: (data?.waNumber || '').replace(/\D+/g, ''),
+      phone: (phone || '').replace(/\D+/g, ''),
+      preference,
       ip: (request.headers.get('x-forwarded-for') || '').split(',')[0].trim(),
       ua: request.headers.get('user-agent') || '',
       ts: new Date().toISOString(),
     };
 
+    // Persist lead for dashboard
+    try {
+      await prisma.contactSubmission.create({
+        data: {
+          name,
+          email: email || '',
+          phone: (phone || '').replace(/\D+/g, ''),
+          message,
+          preference: preference as any,
+          lang: meta.lang,
+          sourceUrl: meta.sourceUrl,
+        },
+      });
+    } catch {}
+
     const resp = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, message, meta }),
+      body: JSON.stringify({ name, email: email || '', message, meta }),
     });
 
     if (!resp.ok) {

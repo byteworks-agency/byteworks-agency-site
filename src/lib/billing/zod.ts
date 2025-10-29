@@ -10,7 +10,8 @@ export const lineItemSchema = z.object({
 });
 
 export const createQuoteQuery = z.object({
-  enquiryId: z.string().min(1),
+  // Optional: when omitted or empty, server will generate one
+  enquiryId: z.string().min(1).optional(),
 });
 
 export const createQuoteBody = z.object({

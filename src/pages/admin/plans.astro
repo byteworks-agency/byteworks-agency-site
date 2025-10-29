@@ -1,0 +1,99 @@
+---
+import AdminBase from '../../layouts/AdminBase.astro';
+import AddOns from '../../components/AddOns.astro';
+
+const title = 'Plans & Add-ons';
+
+const plans = [
+  {
+    name: 'Start',
+    price: '$45/mo',
+    yearly: '$459/yr (save 15%)',
+    bestFor: 'Solo founders, personal brands, simple presence',
+    features: [
+      'One-page modern website (responsive)',
+      'Contact form integration (email or internal dashboard)',
+      'Basic SEO (titles, meta, OG, sitemap)',
+      'Domain, hosting & maintenance included',
+      '1 monthly update (~30 min)',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mo',
+    yearly: '$561/yr (save 15%)',
+    bestFor: 'Service businesses needing 3-4 pages',
+    features: [
+      'Up to 4 pages (Home, About, Services, Contact)',
+      'Contact + internal dashboard automations',
+      'Light technical optimization and performance',
+      'Domain, hosting & maintenance included',
+      '2 monthly updates (~45 min each)',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mo',
+    yearly: '$714/yr (save 15%)',
+    bestFor: 'Growing brands needing more sections & UX',
+    features: [
+      'Up to 7 pages with custom sections',
+      'Enhanced SEO (structure, speed, indexation)',
+      'Lead capture flows + internal dashboard integrations',
+      'Domain, hosting & maintenance included',
+      '3 monthly updates (~60 min each)',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mo',
+    yearly: '$969/yr (save 15%)',
+    bestFor: 'Catalog + manual order intake (no payment gateway)',
+    features: [
+      'Product catalog (up to 20 items)',
+      'Local cart + manual checkout flow',
+      'Order logging in internal dashboard',
+      'Internal order tracking by code',
+      'Product updates assisted by ByteWorks or simple self-management',
+      '4 monthly updates (products or copy)',
+      'SSL, backups, domain & hosting included',
+    ],
+  },
+];
+---
+
+<AdminBase title={title} description="Current plans and optional add-ons" image="/og-image.png" lang="en">
+  <section class="max-w-[1200px] mx-auto">
+    <header class="mb-6">
+      <h1 class="text-2xl font-bold">Plans & Add-ons</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Internal view of public plans and optional add-ons.</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-4">
+      {plans.map((p) => (
+        <article class={`relative h-full rounded-lg p-5 flex flex-col bg-white dark:bg-background-dark/50 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+          {p.name === 'Pro' && (
+            <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-primary px-3 py-1 text-center">Most Popular</p>
+          )}
+          <h2 class={`text-xl md:text-2xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>{p.name}</h2>
+          <p class="mt-1 text-lg font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
+          <ul class="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            {p.features.map((f) => (
+              <li class="flex gap-2 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <AddOns lang="en" id="addons" />
+    </div>
+  </section>
+</AdminBase>
+

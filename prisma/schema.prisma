@@ -36,6 +36,12 @@ enum PaymentMethod {
   cash
 }
 
+// Contact/Lead capture
+enum ContactPreference {
+  whatsapp
+  email
+}
+
 // Optional settings
 model BillingSettings {
   id              String   @id @default(cuid())
@@ -135,4 +141,16 @@ model Payment {
 
   @@unique([invoiceId, ref])
   @@index([receivedDate])
+}
+
+model ContactSubmission {
+  id          String             @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  message     String
+  preference  ContactPreference  @default(whatsapp)
+  lang        String?            // 'en' | 'es'
+  sourceUrl   String?
+  createdAt   DateTime           @default(now())
 }

@@ -6,7 +6,7 @@ const title = 'Quotes';
 const page = Number(Astro.url.searchParams.get('page') || '1');
 const status = (Astro.url.searchParams.get('status') || 'all');
 const q = (Astro.url.searchParams.get('q') || '').trim();
-const pageSize = 10;
+const pageSize = 20;
 const skip = (page - 1) * pageSize;
 
 const where: any = {};
