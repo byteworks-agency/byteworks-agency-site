@@ -158,20 +158,33 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           return;
         }
 
-        const text =
-          `¡Hola ByteWorks!\n\n` +
-          `Nuevo contacto:\n` +
-          `Nombre: ${name}\n` +
-          `Email: ${email}\n` +
-          `Mensaje:\n${msg}`;
-
         const original = btn ? btn.textContent : null;
         setStatus('Enviando...', 'info');
         if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
 
-        let ok = false;
+        // Abrir WhatsApp primero (dentro del gesto del usuario) para evitar bloqueos de popups
+        if (!WA_NUMBER) {
+          setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
+          if (btn) { btn.disabled = false; btn.textContent = original || 'Enviar mensaje'; }
+          return;
+        }
+        const waText =
+          `¡Hola ByteWorks!\n\n` +
+          `Nuevo contacto:\n` +
+          `Nombre: ${name}\n` +
+          (phone ? `Teléfono: ${phone}\n` : '') +
+          `Mensaje:\n${msg}`;
+        const waUrl = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(waText)}`;
         try {
-          const resp = await fetch('/api/contact', {
+          const a = document.createElement('a'); a.href = waUrl; a.target = '_blank'; a.rel = 'noopener';
+          document.body.appendChild(a); a.click(); a.remove();
+        } catch {
+          try { window.open(waUrl, '_blank'); } catch { window.location.href = waUrl; }
+        }
+
+        // Registrar el lead sin bloquear la navegación
+        try {
+          await fetch('/api/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -182,31 +195,17 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
               sourceUrl: window.location.href,
               preference: 'whatsapp',
             }),
+            keepalive: true,
           });
-          ok = resp && resp.ok;
         } catch {}
 
-        // Abrir WhatsApp con texto prellenado a nuestro número
-        if (!WA_NUMBER) {
-          setStatus('WhatsApp no está configurado. Intenta más tarde.', 'error');
-        } else {
-          const text =
-            `¡Hola ByteWorks!\n\n` +
-            `Nuevo contacto:\n` +
-            `Nombre: ${name}\n` +
-            (phone ? `Teléfono: ${phone}\n` : '') +
-            `Mensaje:\n${msg}`;
-          const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
-          window.open(url, '_blank');
-        }
         nameEl.value = '';
         if (phoneEl) phoneEl.value = '';
         messageEl.value = '';
         hpEl.value = '';
         if (btn) { btn.disabled = false; btn.textContent = original || 'Enviar mensaje'; }
-        setStatus('¡Gracias! Recibimos tu solicitud y te contactaremos pronto.', ok ? 'success' : 'info');
+        setStatus('¡Gracias! Recibimos tu solicitud y te contactaremos pronto.', 'success');
       });
     })();
   </script>
 </Base>
-

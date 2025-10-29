@@ -123,34 +123,13 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
           setStatus('Please fill out all required fields.', 'error');
           return;
         }
-
         const original = btn ? btn.textContent : null;
         setStatus('Sending...', 'info');
         if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
 
-        // Open WhatsApp FIRST (within the user gesture) to avoid popup blockers
-        if (!WA_NUMBER) {
-          setStatus('WhatsApp is not configured. Please try again later.', 'error');
-          if (btn) { btn.disabled = false; btn.textContent = original || 'Send Message'; }
-          return;
-        }
-        const waText =
-          `Hello ByteWorks!\n\n` +
-          `New inquiry:\n` +
-          `Name: ${name}\n` +
-          (phone ? `Phone: ${phone}\n` : '') +
-          `Message:\n${msg}`;
-        const waUrl = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(waText)}`;
+        let ok = false;
         try {
-          const a = document.createElement('a'); a.href = waUrl; a.target = '_blank'; a.rel = 'noopener';
-          document.body.appendChild(a); a.click(); a.remove();
-        } catch {
-          try { window.open(waUrl, '_blank'); } catch { window.location.href = waUrl; }
-        }
-
-        // Log the lead without blocking navigation
-        try {
-          await fetch('/api/contact', {
+          const resp = await fetch('/api/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -161,20 +140,34 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
               sourceUrl: window.location.href,
               preference: 'whatsapp',
             }),
-            keepalive: true,
           });
+          ok = resp && resp.ok;
         } catch {}
 
+        // Open WhatsApp with prefilled text
+        if (!WA_NUMBER) {
+          setStatus('WhatsApp is not configured. Please try again later.', 'error');
+        } else {
+          const text =
+            `Hello ByteWorks!\n\n` +
+            `New inquiry:\n` +
+            `Name: ${name}\n` +
+            (phone ? `Phone: ${phone}\n` : '') +
+            `Message:\n${msg}`;
+          const url = `https://wa.me/${encodeURIComponent(WA_NUMBER)}?text=${encodeURIComponent(text)}`;
+          window.open(url, '_blank');
+        }
         nameEl.value = '';
         if (phoneEl) phoneEl.value = '';
         messageEl.value = '';
         hpEl.value = '';
         if (btn) { btn.disabled = false; btn.textContent = original || 'Send Message'; }
-        setStatus('Thanks! We received your request and will reach out shortly.', 'success');
+        setStatus('Thanks! We received your request and will reach out shortly.', ok ? 'success' : 'info');
       });
     })();
   </script>
 </Base>
+
 
 
 

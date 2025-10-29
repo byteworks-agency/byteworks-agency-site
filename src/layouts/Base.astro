@@ -144,6 +144,16 @@ const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,n
     </style>
 
     <ClientRouter />
+    <script is:inline>
+      (function(){
+        try {
+          var h = location.hash || '';
+          if (h && h.indexOf('access_token=') !== -1 && !location.pathname.startsWith('/auth/callback')) {
+            location.replace('/auth/callback' + h);
+          }
+        } catch {}
+      })();
+    </script>
   </head>
 
   <body
