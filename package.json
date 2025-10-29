@@ -4,12 +4,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "prisma generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev --name init",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
