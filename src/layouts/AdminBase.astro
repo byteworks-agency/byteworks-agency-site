@@ -42,13 +42,21 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
         <a class={`text-sm ${isActive('/admin/billing/invoices') ? 'text-primary font-bold' : 'text-slate-600 dark:text-slate-300'}`} href="/admin/billing/invoices">Invoices</a>
         <a class={`text-sm ${isActive('/admin/quotes') ? 'text-primary font-bold' : 'text-slate-600 dark:text-slate-300'}`} href="/admin/quotes">Quotes</a>
       </nav>
-      <a href="/admin/enquiries" class="flex min-w-[84px] items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">
-        New Request
-      </a>
+      <div class="flex items-center gap-2">
+        <a href="/admin/enquiries" class="flex min-w-[84px] items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">
+          New Request
+        </a>
+        <button onclick="logout()" class="flex min-w-[84px] items-center justify-center rounded-lg h-10 px-4 border text-sm font-bold">Logout</button>
+      </div>
     </header>
     <main class="px-6 lg:px-10 py-8">
       <slot />
     </main>
+    <script is:inline>
+      async function logout(){
+        try { await fetch('/api/auth/logout', { method: 'POST' }); location.replace('/auth/signin'); } catch {}
+      }
+    </script>
   </body>
   
 </html>

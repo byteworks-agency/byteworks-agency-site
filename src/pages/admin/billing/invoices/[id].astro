@@ -128,12 +128,13 @@ const title = `Invoice Details — ${id}`;
     </div>
 
     <pre id="out" class="mt-6 text-xs bg-gray-100 p-3 rounded"></pre>
-    <script>
+    <script is:inline>
+      const INV_ID = {JSON.stringify(id)};
       document.querySelectorAll('[data-modal-toggle]').forEach((btn)=>btn.addEventListener('click',()=>{document.getElementById('payment-modal').classList.toggle('hidden'); document.getElementById('payment-modal').classList.toggle('flex');}));
       document.addEventListener('DOMContentLoaded', fetchInvoice);
       function fmt(cur, v){ return `${cur} ${v}`; }
       async function fetchInvoice(){
-        const res = await fetch('/api/billing/invoices/{id}');
+        const res = await fetch(`/api/billing/invoices/${INV_ID}`);
         const j = await res.json().catch(()=>({}));
         if (!j?.ok) return;
         const d = j.data;
@@ -153,7 +154,7 @@ const title = `Invoice Details — ${id}`;
       }
       async function recordPayment(){
         const payload = {
-          invoiceId: '{id}',
+          invoiceId: INV_ID,
           amount: (document.getElementById('amount')).value,
           method: (document.getElementById('method')).value,
           receivedDate: new Date((document.getElementById('receivedDate')).value).toISOString(),
@@ -169,7 +170,7 @@ const title = `Invoice Details — ${id}`;
         fetchInvoice();
       }
       async function preview(template){
-        const res = await fetch('/api/billing/reminders/preview', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ invoiceId: '{id}', template }) });
+        const res = await fetch('/api/billing/reminders/preview', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ invoiceId: INV_ID, template }) });
         const j = await res.json();
         if (!j?.ok) return;
         const { textES, textEN } = j.data;

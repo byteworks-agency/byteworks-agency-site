@@ -8,29 +8,51 @@ import Base from '../../layouts/Base.astro';
     <p class="text-sm text-gray-600 mb-4">
       This area requires authentication via Supabase. Configure SUPABASE_URL and SUPABASE_ANON_KEY in your environment, and implement your preferred sign-in flow (email/password or magic link).
     </p>
-    <div class="mt-4 flex items-center gap-3">
-      <button class="bg-black text-white px-4 py-2 rounded" onclick="devLogin()">Dev Login</button>
-      <span class="text-xs text-gray-500">Requires ADMIN_SECRET set in env</span>
+    <div class="mt-6 grid gap-4 max-w-sm">
+      <form id="magic-form" class="grid gap-2" onsubmit="return sendMagicLink(event)">
+        <label class="text-sm text-gray-600">Email</label>
+        <input id="email" type="email" required class="border rounded px-3 py-2" placeholder="you@example.com" />
+        <button type="submit" class="bg-black text-white px-4 py-2 rounded mt-2">Send Magic Link</button>
+      </form>
+      {!import.meta.env.PROD && (
+        <div class="flex items-center gap-3">
+          <button class="bg-gray-800 text-white px-4 py-2 rounded" onclick="devLogin()">Dev Login</button>
+          <span class="text-xs text-gray-500">Dev only (ADMIN_SECRET)</span>
+        </div>
+      )}
     </div>
     <script is:inline>
-      // Expose globally so inline onclick can access it even if scripts are bundled as modules
-      globalThis.devLogin = async function () {
+      async function sendMagicLink(ev){
+        ev.preventDefault();
+        const email = document.getElementById('email').value.trim();
         try {
-          const res = await fetch('/api/auth/dev-login', {
+          const res = await fetch('/api/auth/magic-link', {
             method: 'POST',
-            credentials: 'same-origin',
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
           });
           const j = await res.json().catch(()=>({}));
-          if (!j?.ok) {
-            alert('Dev login not configured. Set ADMIN_SECRET in env.');
-            return;
+          if (!res.ok || !j?.ok) {
+            alert('Could not send magic link');
+            return false;
           }
-          // Replace to avoid back button returning to signin
+          alert('Check your email for the sign-in link.');
+          return false;
+        } catch (e) {
+          console.error('Magic link failed', e);
+          alert('Failed to send magic link.');
+          return false;
+        }
+      }
+      async function devLogin(){
+        try {
+          const res = await fetch('/api/auth/dev-login', { method: 'POST', headers: { 'Accept': 'application/json' } });
+          const j = await res.json().catch(()=>({}));
+          if (!j?.ok) { alert('Dev login not configured. Set ADMIN_SECRET in env.'); return; }
           window.location.replace('/admin');
         } catch (e) {
           console.error('Dev login failed', e);
-          alert('Dev login failed. Check console for details.');
+          alert('Dev login failed.');
         }
       }
     </script>

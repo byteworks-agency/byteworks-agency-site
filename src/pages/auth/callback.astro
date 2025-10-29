@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+const title = 'Signing In';
+---
+
+<Base title={title} description="Completing sign-in" image="/og-image.png" lang="en">
+  <section class="px-6 max-w-[720px] mx-auto py-16">
+    <h1 class="text-2xl font-bold mb-3">Signing you in…</h1>
+    <p class="text-sm text-gray-600 mb-6">Please wait a moment.</p>
+    <script is:inline>
+      (async function(){
+        try {
+          const hash = location.hash?.slice(1) || '';
+          const params = new URLSearchParams(hash);
+          const access_token = params.get('access_token');
+          const refresh_token = params.get('refresh_token');
+          if (!access_token) {
+            location.replace('/auth/signin?status=invalid');
+            return;
+          }
+          const res = await fetch('/api/auth/session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ access_token, refresh_token })
+          });
+          const j = await res.json().catch(()=>({}));
+          if (!res.ok || !j?.ok) {
+            location.replace('/auth/signin?status=forbidden');
+            return;
+          }
+          location.replace('/admin');
+        } catch (e) {
+          console.error('callback failed', e);
+          location.replace('/auth/signin?status=error');
+        }
+      })();
+    </script>
+  </section>
+</Base>
+

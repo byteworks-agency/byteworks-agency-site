@@ -101,13 +101,14 @@ const title = `Quote Details - ${id}`;
       <span>Action completed successfully.</span>
     </div>
 
-    <script>
+    <script is:inline>
+      const QUOTE_ID = {JSON.stringify(id)};
       let quoteData = null;
       document.addEventListener('DOMContentLoaded', fetchQuote);
       function fmt(cur, v){ return `${cur} ${v}`; }
       function showToast(msg){ const t=document.getElementById('toast'); t.children[1].textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'), 1500); }
       async function fetchQuote(){
-        const res = await fetch('/api/quotes/{id}');
+        const res = await fetch(`/api/quotes/${QUOTE_ID}`);
         const j = await res.json().catch(()=>({}));
         if (!j?.ok) return;
         const d = j.data; quoteData = d;
@@ -129,7 +130,7 @@ const title = `Quote Details - ${id}`;
         });
       }
       async function send(){
-        const res = await fetch('/api/quotes/send', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const res = await fetch('/api/quotes/send', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
         const j = await res.json();
         if(!j?.ok) return alert('Send failed');
         const text = `ES\n${j.data.textES}\n\nEN\n${j.data.textEN}`;
@@ -142,21 +143,21 @@ const title = `Quote Details - ${id}`;
         if (navigator.clipboard) navigator.clipboard.writeText(t||'');
       }
       async function accept(){
-        const res = await fetch('/api/quotes/accept', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const res = await fetch('/api/quotes/accept', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
         const j = await res.json();
         if(!j?.ok) return alert('Accept failed');
         showToast('Quote accepted');
         fetchQuote();
       }
       async function decline(){
-        const res = await fetch('/api/quotes/decline', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: '{id}' })});
+        const res = await fetch('/api/quotes/decline', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
         const j = await res.json();
         if(!j?.ok) return alert('Decline failed');
         showToast('Quote declined');
         fetchQuote();
       }
       async function convert(){
-        const res = await fetch(`/api/billing/invoices/create?quoteId={id}`, { method:'POST' });
+        const res = await fetch(`/api/billing/invoices/create?quoteId=${QUOTE_ID}`, { method:'POST' });
         const j = await res.json();
         if (!j?.ok) return alert('Convert failed');
         location.href = `/admin/billing/invoices/${j.data.invoiceId}`;
