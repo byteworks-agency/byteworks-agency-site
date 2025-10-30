@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import adminUrl from '../scripts/admin.js?url';
 
 interface Props {
   title?: string;
@@ -22,6 +23,9 @@ const isActive = (href: string) => {
   if (href === '/admin') return pathname === '/admin';
   return pathname === href || pathname.startsWith(href + '/');
 };
+
+// Resolve client script to ensure correct asset path in production
+// Script path handled via inline ESM import so Vite/Astro resolves it in prod
 ---
 
 <html lang={lang}>
@@ -213,7 +217,7 @@ const isActive = (href: string) => {
         #sidebarBackdrop { display: none !important; }
       }
     </style>
-    <script type="module" src="/src/scripts/admin.js"></script>
+    <script type="module" src={adminUrl}></script>
   </body>
   
 </html>
