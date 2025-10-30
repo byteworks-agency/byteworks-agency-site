@@ -10,7 +10,21 @@ export const GET: APIRoute = async ({ params, cookies }) => {
     if (!auth.ok) return new Response(JSON.stringify({ ok: false, code: 'forbidden' }), { status: 403 });
 
     const id = params.id as string | undefined;
-    if (!id) return new Response(JSON.stringify({ ok: false, code: 'validation_error' }), { status: 400 });
+    if (!id) {
+      return new Response(
+        JSON.stringify({ ok: false, code: 'validation_error', message: 'Missing quote id' }),
+        { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } },
+      );
+    }
+
+    // Guard against placeholder paths like /api/quotes/{id}
+    const isPlaceholder = id === '{id}' || id.includes('{') || id.includes('}');
+    if (isPlaceholder) {
+      return new Response(
+        JSON.stringify({ ok: false, code: 'validation_error', message: 'Replace {id} with a real quote id' }),
+        { status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } },
+      );
+    }
 
     const q = await prisma.quote.findUnique({
       where: { id },

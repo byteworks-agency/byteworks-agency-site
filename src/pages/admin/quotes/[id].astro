@@ -5,7 +5,7 @@ const title = `Quote Details`;
 ---
 
 <AdminBase title={title} description="Quote Details" image="/og-image.png" lang="en">
-  <section class="max-w-6xl mx-auto" data-quote-id="{id}">
+  <section class="max-w-6xl mx-auto" data-quote-id={id}>
     <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
       <div class="flex flex-col gap-2">
         <div class="flex items-center gap-3">
@@ -15,19 +15,19 @@ const title = `Quote Details`;
         <p class="text-sm text-gray-500">Quote full details.</p>
       </div>
       <div class="flex items-center gap-2">
-        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="send()">
+        <button id="btnSend" class="flex items-center gap-2 rounded-lg h-10 px-4 bg-black text-white dark:bg-white dark:text-black text-sm font-semibold" onclick="send()">
           <span class="material-symbols-outlined">send</span>
           Send
         </button>
-        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="accept()">
-          <span class="material-symbols-outlined">thumb_up</span>
+        <button id="btnAccept" disabled class="flex items-center gap-2 rounded-lg h-10 px-4 bg-green-600 text-white disabled:opacity-50 disabled:pointer-events-none text-sm font-semibold" onclick="accept()">
+          <span class="material-symbols-outlined">check_circle</span>
           Accept
         </button>
-        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-white border text-sm font-semibold" onclick="decline()">
-          <span class="material-symbols-outlined">thumb_down</span>
+        <button id="btnDecline" disabled class="flex items-center gap-2 rounded-lg h-10 px-4 bg-red-600 text-white disabled:opacity-50 disabled:pointer-events-none text-sm font-semibold" onclick="decline()">
+          <span class="material-symbols-outlined">cancel</span>
           Decline
         </button>
-        <button class="flex items-center gap-2 rounded-lg h-10 px-4 bg-primary text-white text-sm font-semibold" onclick="convert()">
+        <button id="btnConvert" disabled class="flex items-center gap-2 rounded-lg h-10 px-4 bg-gray-500 text-white disabled:opacity-50 disabled:pointer-events-none text-sm font-semibold">
           <span class="material-symbols-outlined">request_quote</span>
           Convert to Invoice
         </button>
@@ -83,7 +83,11 @@ const title = `Quote Details`;
             </div>
             <div>
               <p class="text-xs font-semibold uppercase text-gray-500">Notes</p>
-              <p id="notes" class="text-sm mt-1">-</p>
+              <textarea id="notesInput" class="w-full mt-1 border rounded px-3 py-2 text-sm" rows="4" placeholder="Add notes..."></textarea>
+              <div class="mt-2 flex gap-2 items-center">
+                <button class="px-3 py-1.5 bg-black text-white dark:bg-white dark:text-black rounded text-xs" onclick="saveNotes()">Save Notes</button>
+                <span id="notesStatus" class="text-xs text-gray-500"></span>
+              </div>
             </div>
           </div>
         </div>
