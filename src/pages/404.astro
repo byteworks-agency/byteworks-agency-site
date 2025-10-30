@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+const ENV = process.env as Record<string, string | undefined>;
 
 const pathname = Astro.url.pathname || '/';
 const isES = pathname.startsWith('/es');
@@ -16,8 +17,8 @@ const home = `${base}/`;
 const plans = isES ? `${base}/planes` : `${base}/plans`;
 const contact = isES ? `${base}/contacto` : `${base}/contact`;
 
-// WhatsApp opcional
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE; // ej. 18687759858
+// WhatsApp opcional (server env)
+const phone = ENV.PUBLIC_WHATSAPP_PHONE || '';
 const wa = phone ? `https://wa.me/${phone}` : null;
 
 // Alternar idioma manteniendo path equivalente

@@ -13,6 +13,7 @@ const where: any = {};
 if (status && status !== 'all') where.status = status as any;
 if (q) {
   where.OR = [
+    { originEnquiryId: { contains: q, mode: 'insensitive' as any } },
     { id: { contains: q, mode: 'insensitive' as any } },
     { billToName: { contains: q, mode: 'insensitive' as any } },
     { customerId: { contains: q, mode: 'insensitive' as any } },
@@ -29,7 +30,7 @@ const [rows, totalCount, counts] = await Promise.all([
     skip,
     take: pageSize,
     where,
-    select: { id: true, status: true, currency: true, total: true, updatedAt: true, billToName: true, customerId: true },
+    select: { id: true, status: true, currency: true, total: true, updatedAt: true, billToName: true, customerId: true, originEnquiryId: true },
   }),
   prisma.quote.count({ where }),
   Promise.all(QUOTE_STATUSES.map((s) => prisma.quote.count({ where: { ...(whereBase as any), status: s as any } }))),
@@ -66,7 +67,7 @@ const nextHref = `/admin/quotes?${nextQS.toString()}`;
         </div>
         <div class="md:col-span-2">
           <label class="block text-xs mb-1">Search</label>
-          <input name="q" value={q} placeholder="Search by ID, customer, bill to" class="border px-3 py-2 rounded w-full" />
+          <input name="q" value={q} placeholder="Search by Ref, customer, bill to" class="border px-3 py-2 rounded w-full" />
         </div>
         <div class="md:col-span-3 flex gap-2">
           <button class="bg-primary text-white px-3 py-2 rounded" type="submit">Apply</button>
@@ -81,31 +82,53 @@ const nextHref = `/admin/quotes?${nextQS.toString()}`;
         ))}
       </div>
     </header>
-    <div class="overflow-x-auto border rounded">
-      <table class="w-full text-sm bg-white dark:bg-background-dark">
+    <!-- Desktop table -->
+    <div class="hidden lg:block overflow-x-auto border rounded">
+      <table class="w-full text-sm bg-white dark:bg-background-dark table-fixed">
         <thead>
           <tr class="bg-gray-50 dark:bg-background-dark/40 text-left">
-            <th class="p-2">ID</th>
-            <th class="p-2">Customer</th>
-            <th class="p-2">Status</th>
-            <th class="p-2">Total</th>
-            <th class="p-2">Updated</th>
-            <th class="p-2"></th>
+            <th class="p-2 w-[26%]">ID</th>
+            <th class="p-2 w-[28%]">Customer</th>
+            <th class="p-2 w-[14%]">Status</th>
+            <th class="p-2 w-[14%]">Total</th>
+            <th class="p-2 w-[14%] hidden xl:table-cell">Updated</th>
+            <th class="p-2 w-[4%]"></th>
           </tr>
         </thead>
         <tbody>
           {rows.map((q) => (
             <tr class="border-t">
-              <td class="p-2 font-mono text-xs">{q.id}</td>
-              <td class="p-2">{q.billToName || q.customerId}</td>
+              <td class="p-2 font-mono text-xs break-all">{q.originEnquiryId || q.id}</td>
+              <td class="p-2 truncate" title={q.billToName || q.customerId}>{q.billToName || q.customerId}</td>
               <td class="p-2 capitalize">{q.status}</td>
-              <td class="p-2">{q.currency} {q.total.toString()}</td>
-              <td class="p-2">{new Date(q.updatedAt).toISOString()}</td>
-              <td class="p-2 text-right"><a class="text-primary underline" href={`/admin/quotes/${q.id}`}>Open</a></td>
+              <td class="p-2 whitespace-nowrap">{q.currency} {q.total.toString()}</td>
+              <td class="p-2 hidden xl:table-cell whitespace-nowrap">{new Date(q.updatedAt).toISOString()}</td>
+              <td class="p-2 text-right whitespace-nowrap"><a class="text-primary underline" href={`/admin/quotes/${q.id}`}>Open</a></td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
+    <!-- Mobile cards -->
+    <div class="lg:hidden space-y-3">
+      {rows.map((q) => (
+        <article class="p-3 rounded border bg-white dark:bg-background-dark">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h3 class="font-semibold leading-tight">{q.billToName || q.customerId}</h3>
+              <p class="text-xs text-gray-600 font-mono break-all">{q.originEnquiryId || q.id}</p>
+            </div>
+            <div class="text-right">
+              <span class="px-2 py-0.5 rounded-full text-[11px] capitalize border">{q.status}</span>
+              <p class="mt-1 text-xs text-gray-700">{(Date.prototype.toLocaleString ? new Date(q.updatedAt).toLocaleString() : new Date(q.updatedAt).toISOString())}</p>
+            </div>
+          </div>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-sm font-medium">{q.currency} {q.total.toString()}</span>
+            <a class="text-primary underline text-sm" href={`/admin/quotes/${q.id}`}>Open</a>
+          </div>
+        </article>
+      ))}
     </div>
     <div class="flex items-center justify-between mt-4 text-sm">
       <a class={`px-3 py-1 rounded border ${page <= 1 ? 'pointer-events-none opacity-50' : ''}`} href={page <= 1 ? '#' : prevHref}>Prev</a>

@@ -22,6 +22,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
 
     const data = {
       id: inv.id,
+      number: inv.number || null,
       status: inv.status,
       currency: inv.currency,
       subtotal: inv.subtotal.toString(),

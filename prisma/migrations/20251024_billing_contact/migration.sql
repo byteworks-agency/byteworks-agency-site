@@ -1,8 +1,7 @@
-ALTER TABLE "Quote" ADD COLUMN "billToName" text;
-ALTER TABLE "Quote" ADD COLUMN "billToEmail" text;
-ALTER TABLE "Quote" ADD COLUMN "billToPhone" text;
+ALTER TABLE "Quote" ADD COLUMN IF NOT EXISTS "billToName" text;
+ALTER TABLE "Quote" ADD COLUMN IF NOT EXISTS "billToEmail" text;
+ALTER TABLE "Quote" ADD COLUMN IF NOT EXISTS "billToPhone" text;
 
-ALTER TABLE "Invoice" ADD COLUMN "billToName" text;
-ALTER TABLE "Invoice" ADD COLUMN "billToEmail" text;
-ALTER TABLE "Invoice" ADD COLUMN "billToPhone" text;
-
+ALTER TABLE "Invoice" ADD COLUMN IF NOT EXISTS "billToName" text;
+ALTER TABLE "Invoice" ADD COLUMN IF NOT EXISTS "billToEmail" text;
+ALTER TABLE "Invoice" ADD COLUMN IF NOT EXISTS "billToPhone" text;

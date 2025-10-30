@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+const ENV = process.env as Record<string, string | undefined>;
 ---
 
 <Base title="Sign In" description="Authenticate to access admin" image="/og-image.png" lang="en">
@@ -14,7 +15,7 @@ import Base from '../../layouts/Base.astro';
         <input id="email" type="email" required class="border rounded px-3 py-2" placeholder="you@example.com" />
         <button type="submit" class="bg-black text-white px-4 py-2 rounded mt-2">Send Magic Link</button>
       </form>
-      {!import.meta.env.PROD && (
+      {!ENV.PROD && (
         <div class="flex items-center gap-3">
           <button class="bg-gray-800 text-white px-4 py-2 rounded" onclick="devLogin()">Dev Login</button>
           <span class="text-xs text-gray-500">Dev only (ADMIN_SECRET)</span>

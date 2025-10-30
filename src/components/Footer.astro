@@ -1,10 +1,13 @@
 ---
 interface Props { lang?: 'en' | 'es'; }
+const ENV = process.env as Record<string, string | undefined>;
+import { DEFAULT_WA } from '../config/whatsapp';
+import { DEFAULT_EMAIL } from '../config/contact';
 const { lang = 'en' } = Astro.props;
-const emailEnv = (import.meta.env.PUBLIC_CONTACT_EMAIL || '').toString();
-const phoneEnv = (import.meta.env.PUBLIC_CONTACT_PHONE || '').toString();
-const contactEmail = emailEnv || 'macrodriguez2512@gmail.com';
-const contactPhone = phoneEnv || '+1(868)7759858';
+const emailEnv = (ENV.PUBLIC_CONTACT_EMAIL || '').toString();
+const phoneEnv = (ENV.PUBLIC_CONTACT_PHONE || '').toString();
+const contactEmail = emailEnv || DEFAULT_EMAIL;
+const contactPhone = phoneEnv || DEFAULT_WA;
 
 function formatNANP(num) {
   try {

@@ -1,12 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
+const ENV = process.env as Record<string, string | undefined>;
 
 const title = 'Contact — ByteWorks';
 const description =
   "Reach us via WhatsApp — quick and direct. Use the form to start the conversation.";
 
-const phone = import.meta.env.PUBLIC_WHATSAPP_PHONE;
-const message = import.meta.env.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I’m interested in a website.";
+const phone = ENV.PUBLIC_WHATSAPP_PHONE || '';
+const message = ENV.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I'm interested in a website.";
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
@@ -75,7 +76,11 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const statusEl = document.querySelector('#formStatus');
       if (!form || !nameEl || !messageEl || !hpEl) return;
 
+      // Prefer page-level WA number; fallback to <body data-wa> configured in Base.astro
       let WA_NUMBER = (root && root.dataset ? (root.dataset.wa || '').trim() : '');
+      if (!WA_NUMBER) {
+        try { WA_NUMBER = (document.body?.dataset?.wa || '').trim(); } catch {}
+      }
       WA_NUMBER = (WA_NUMBER || '').replace(/\D+/g, '');
 
       // no toggle needed; phone is always shown

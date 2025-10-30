@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+const env = import.meta.env;
 import type { APIContext } from 'astro';
 
 type SupaUser = {
@@ -8,8 +9,8 @@ type SupaUser = {
 } | null;
 
 function getEnv() {
-  const url = import.meta.env.SUPABASE_URL as string | undefined;
-  const anon = import.meta.env.SUPABASE_ANON_KEY as string | undefined;
+  const url = env.SUPABASE_URL as string | undefined;
+  const anon = env.SUPABASE_ANON_KEY as string | undefined;
   return { url, anon };
 }
 
@@ -50,4 +51,3 @@ export async function getSupabaseUserFromCookies(cookies: APIContext['cookies'])
     return null;
   }
 }
-

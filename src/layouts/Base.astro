@@ -4,6 +4,8 @@ import Footer from '../components/Footer.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+// Use Node's process.env in frontmatter to avoid esbuild issues with import.meta.env
+const ENV = process.env as Record<string, string | undefined>;
 
 interface Props {
   title?: string;
@@ -38,19 +40,19 @@ function altHref(targetLang: 'en' | 'es') {
   return `/${parts.join('/')}/`;
 }
 
-const PLAUSIBLE = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const CF_TOKEN = import.meta.env.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN;
+const PLAUSIBLE = ENV.PUBLIC_PLAUSIBLE_DOMAIN || '';
+const CF_TOKEN = ENV.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN || '';
 
 // expone el número al DOM como data attribute (usa env o fallback temporal)
-const WA_FROM_ENV = (import.meta.env.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
+const WA_FROM_ENV = (ENV.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
 // Social profiles (optional) to enrich JSON-LD
 const socials = [
-  import.meta.env.PUBLIC_SOCIAL_TWITTER,
-  import.meta.env.PUBLIC_SOCIAL_LINKEDIN,
-  import.meta.env.PUBLIC_SOCIAL_INSTAGRAM,
-  import.meta.env.PUBLIC_SOCIAL_FACEBOOK,
-  import.meta.env.PUBLIC_SOCIAL_YOUTUBE,
-  import.meta.env.PUBLIC_SOCIAL_GITHUB,
+  ENV.PUBLIC_SOCIAL_TWITTER,
+  ENV.PUBLIC_SOCIAL_LINKEDIN,
+  ENV.PUBLIC_SOCIAL_INSTAGRAM,
+  ENV.PUBLIC_SOCIAL_FACEBOOK,
+  ENV.PUBLIC_SOCIAL_YOUTUBE,
+  ENV.PUBLIC_SOCIAL_GITHUB,
 ].filter((x) => typeof x === 'string' && x);
 const orgJson = {
   '@context': 'https://schema.org',
@@ -67,7 +69,7 @@ const siteJson = {
   url: siteOrigin,
   inLanguage: lang,
 };
-const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,nofollow');
+const robotsMeta = robots ?? ((process.env.NODE_ENV === 'production') ? 'index,follow' : 'noindex,nofollow');
 ---
 
 <html lang={lang}>
@@ -97,7 +99,7 @@ const robotsMeta = robots ?? (import.meta.env.PROD ? 'index,follow' : 'noindex,n
     <link rel="alternate" hreflang="es" href={altHref('es')} />
     <link rel="alternate" hreflang="x-default" href={altHref('en')} />
 
-    
+
 
     <script is:inline type="application/ld+json">{JSON.stringify(orgJson)}</script>
     <script is:inline type="application/ld+json">{JSON.stringify(siteJson)}</script>

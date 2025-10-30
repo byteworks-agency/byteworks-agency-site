@@ -45,6 +45,7 @@ export const POST: APIRoute = async ({ url, cookies }) => {
         issueDate,
         dueDate,
         notes: `From Quote ${quote.id}`,
+        number: quote.originEnquiryId || null,
         originQuoteId: quote.id,
         items: {
           create: quote.items.map((i) => ({

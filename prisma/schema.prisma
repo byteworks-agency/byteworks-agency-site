@@ -2,6 +2,8 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  // Use a direct, non-pooled connection for prisma migrate/introspect when production uses PgBouncer
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -153,4 +155,16 @@ model ContactSubmission {
   lang        String?            // 'en' | 'es'
   sourceUrl   String?
   createdAt   DateTime           @default(now())
+  // Admin workflow fields (v2)
+  archived    Boolean            @default(false)
+  status      LeadStatus         @default(new)
+  updatedAt   DateTime           @updatedAt
+}
+
+// Admin workflow for contact submissions
+enum LeadStatus {
+  new
+  quoting
+  converted
+  archived
 }

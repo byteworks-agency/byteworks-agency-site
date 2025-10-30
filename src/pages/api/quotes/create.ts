@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
 import { createQuoteBody, createQuoteQuery } from '../../../lib/billing/zod';
 import { computeTotals, getBillingDefaults } from '../../../lib/billing/util';
+import { companyRefPrefix } from '../../../lib/billing/ids';
 import { requireRole } from '@/lib/auth';
 
 export const prerender = false;
@@ -34,17 +35,10 @@ export const POST: APIRoute = async ({ request, url, cookies }) => {
 
     let enquiryId = qparse.data?.enquiryId;
     if (!enquiryId || !enquiryId.trim()) {
-      // Auto-generate a readable enquiry id, e.g. REQ-20241029-1H2M3S-AB12
-      const dt = new Date();
-      const pad = (n: number) => n.toString().padStart(2, '0');
-      const y = dt.getFullYear();
-      const m = pad(dt.getMonth() + 1);
-      const d = pad(dt.getDate());
-      const hh = pad(dt.getHours());
-      const mm = pad(dt.getMinutes());
-      const ss = pad(dt.getSeconds());
+      // Auto-generate a readable company reference, e.g. BW-202510-AB12
+      const prefix = companyRefPrefix(new Date());
       const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-      enquiryId = `REQ-${y}${m}${d}-${hh}${mm}${ss}-${rand}`;
+      enquiryId = `${prefix}-${rand}`;
     }
     // Resolve customer: prefer explicit customerId; otherwise allow placeholder in dev.
     let customerId = (body?.customerId as string | undefined)?.trim();

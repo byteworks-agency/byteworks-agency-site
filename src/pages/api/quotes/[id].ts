@@ -20,6 +20,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
 
     const data = {
       id: q.id,
+      originEnquiryId: q.originEnquiryId || null,
       status: q.status,
       currency: q.currency,
       subtotal: q.subtotal.toString(),

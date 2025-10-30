@@ -1,5 +1,6 @@
 import type { MiddlewareHandler } from 'astro';
 import { getSupabaseUserFromCookies } from './lib/supabase';
+const env = import.meta.env;
 
 const isAsset = (p: string) =>
   p.startsWith('/_astro') ||
@@ -20,13 +21,13 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   if (/^\/admin(\/|$)/.test(pathname)) {
     // Prefer Supabase Auth session if available and email is allowed
     const supaUser = await getSupabaseUserFromCookies(context.cookies);
-    const ALLOWED = (import.meta as any).env?.ADMIN_EMAIL as string | undefined;
+    const ALLOWED = env.ADMIN_EMAIL as string | undefined;
     if (supaUser && (!ALLOWED || (supaUser.email?.toLowerCase?.() === ALLOWED.toLowerCase()))) {
       return next();
     }
 
     // Fallback simple gate with ADMIN_SECRET for development
-    const ADMIN_SECRET = import.meta.env.ADMIN_SECRET as string | undefined;
+    const ADMIN_SECRET = env.ADMIN_SECRET as string | undefined;
     if (!ADMIN_SECRET) {
       return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
     }

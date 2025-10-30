@@ -1,4 +1,6 @@
 -- Minimal SQL compatible with Postgres (Supabase)
+-- Ensure pgcrypto is available for gen_random_uuid()
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE TYPE "Currency" AS ENUM ('TTD','USD');
 CREATE TYPE "QuoteStatus" AS ENUM ('draft','sent','accepted','declined','expired');
 CREATE TYPE "InvoiceStatus" AS ENUM ('draft','sent','partial','paid','overdue','void');
@@ -82,4 +84,3 @@ CREATE TABLE "Payment" (
 );
 CREATE UNIQUE INDEX "Payment_invoice_ref_unique" ON "Payment"("invoiceId","ref");
 CREATE INDEX "Payment_receivedDate_idx" ON "Payment"("receivedDate");
-

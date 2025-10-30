@@ -1,15 +1,15 @@
 ---
 import AdminBase from '../../../layouts/AdminBase.astro';
 const { id } = Astro.params;
-const title = `Quote Details - ${id}`;
+const title = `Quote Details`;
 ---
 
 <AdminBase title={title} description="Quote Details" image="/og-image.png" lang="en">
-  <section class="max-w-6xl mx-auto">
+  <section class="max-w-6xl mx-auto" data-quote-id="{id}">
     <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
       <div class="flex flex-col gap-2">
         <div class="flex items-center gap-3">
-          <h1 class="text-3xl font-extrabold tracking-tight">Quote #{id}</h1>
+          <h1 id="qTitle" class="text-3xl font-extrabold tracking-tight">Quote #{id}</h1>
           <span id="qStatus" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-full">-</span>
         </div>
         <p class="text-sm text-gray-500">Quote full details.</p>
@@ -42,14 +42,14 @@ const title = `Quote Details - ${id}`;
           <p id="billEmail" class="text-sm text-gray-500">-</p>
           <p id="billPhone" class="text-sm text-gray-500"></p>
         </div>
-        <div class="bg-white dark:bg-background-dark rounded-lg border overflow-hidden">
-          <table class="w-full">
+        <div class="bg-white dark:bg-background-dark rounded-lg border overflow-x-auto">
+          <table class="w-full min-w-[640px] table-fixed">
             <thead class="bg-gray-50 dark:bg-gray-800/50">
               <tr>
-                <th class="px-6 py-4 text-left text-xs font-semibold uppercase">Description</th>
-                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Qty</th>
-                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Unit</th>
-                <th class="px-6 py-4 text-right text-xs font-semibold uppercase">Total</th>
+                <th class="px-6 py-4 text-left text-xs font-semibold uppercase w-[55%]">Description</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase w-[15%]">Qty</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase w-[15%]">Unit</th>
+                <th class="px-6 py-4 text-right text-xs font-semibold uppercase w-[15%]">Total</th>
               </tr>
             </thead>
             <tbody id="itemsBody" class="divide-y"></tbody>
@@ -101,67 +101,8 @@ const title = `Quote Details - ${id}`;
       <span>Action completed successfully.</span>
     </div>
 
-    <script is:inline>
-      const QUOTE_ID = {JSON.stringify(id)};
-      let quoteData = null;
-      document.addEventListener('DOMContentLoaded', fetchQuote);
-      function fmt(cur, v){ return `${cur} ${v}`; }
-      function showToast(msg){ const t=document.getElementById('toast'); t.children[1].textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'), 1500); }
-      async function fetchQuote(){
-        const res = await fetch(`/api/quotes/${QUOTE_ID}`);
-        const j = await res.json().catch(()=>({}));
-        if (!j?.ok) return;
-        const d = j.data; quoteData = d;
-        document.getElementById('qStatus').textContent = d.status;
-        document.getElementById('billName').textContent = d.billToName || '-';
-        document.getElementById('billEmail').textContent = d.billToEmail || '-';
-        document.getElementById('billPhone').textContent = d.billToPhone || '';
-        document.getElementById('currency').textContent = d.currency;
-        document.getElementById('validUntil').textContent = d.validUntil ? new Date(d.validUntil).toISOString().slice(0,10) : '-';
-        document.getElementById('notes').textContent = d.notes || '-';
-        document.getElementById('subtotal').textContent = fmt(d.currency, d.subtotal);
-        document.getElementById('taxes').textContent = fmt(d.currency, d.taxes);
-        document.getElementById('total').textContent = fmt(d.currency, d.total);
-        const tbody = document.getElementById('itemsBody'); tbody.innerHTML = '';
-        (d.items||[]).forEach((i)=>{
-          const tr = document.createElement('tr');
-          tr.innerHTML = `<td class=\"px-6 py-4 text-sm\">${i.description}</td><td class=\"px-6 py-4 text-sm text-right\">${i.qty}</td><td class=\"px-6 py-4 text-sm text-right\">${d.currency} ${i.unitPrice}</td><td class=\"px-6 py-4 text-sm text-right\">${d.currency} ${((+i.qty)*(+i.unitPrice)).toFixed(2)}</td>`;
-          tbody.appendChild(tr);
-        });
-      }
-      async function send(){
-        const res = await fetch('/api/quotes/send', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
-        const j = await res.json();
-        if(!j?.ok) return alert('Send failed');
-        const text = `ES\n${j.data.textES}\n\nEN\n${j.data.textEN}`;
-        document.getElementById('sendText').textContent = text;
-        document.getElementById('sendOut').classList.remove('hidden');
-        showToast('Quote sent');
-      }
-      function copySendText(){
-        const t = document.getElementById('sendText').textContent;
-        if (navigator.clipboard) navigator.clipboard.writeText(t||'');
-      }
-      async function accept(){
-        const res = await fetch('/api/quotes/accept', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
-        const j = await res.json();
-        if(!j?.ok) return alert('Accept failed');
-        showToast('Quote accepted');
-        fetchQuote();
-      }
-      async function decline(){
-        const res = await fetch('/api/quotes/decline', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ quoteId: QUOTE_ID })});
-        const j = await res.json();
-        if(!j?.ok) return alert('Decline failed');
-        showToast('Quote declined');
-        fetchQuote();
-      }
-      async function convert(){
-        const res = await fetch(`/api/billing/invoices/create?quoteId=${QUOTE_ID}`, { method:'POST' });
-        const j = await res.json();
-        if (!j?.ok) return alert('Convert failed');
-        location.href = `/admin/billing/invoices/${j.data.invoiceId}`;
-      }
-    </script>
+    <script type="module" src="/src/scripts/quote-detail.js"></script>
   </section>
 </AdminBase>
+
+

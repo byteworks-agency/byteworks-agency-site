@@ -1,0 +1,91 @@
+              </div>
+              <div>
+                <label class="block text-xs mb-1">Unit Price</label>
+                <input data-nwq="price" type="number" step="0.01" value="0" class="border px-3 py-2 rounded w-full" />
+              </div>
+            </div>
+            <div class="mt-2 flex gap-2">
+              <button type="button" class="px-3 py-2 border rounded text-sm" onclick="nwq_addItem()">Add Item</button>
+              <button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold">Create quote</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <style is:inline>
+      #adminSidebar.collapsed { width: 60px; }
+      #adminSidebar .label { display: inline; }
+      #adminSidebar.collapsed .label { display: none; }
+      #adminSidebar nav a.admin-link { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; color: rgb(51 65 85); }
+      #adminSidebar nav a.admin-link:hover { background: rgba(148,163,184,0.15); }
+      .dark #adminSidebar nav a.admin-link { color: rgb(203 213 225); }
+      #adminSidebar nav a.admin-link.active { background: rgba(17,115,212,0.1); color: rgb(17,115,212); font-weight: 600; }
+      #adminSidebar.collapsed nav a.admin-link { justify-content: center; }
+      #sidebarToggleIcon { transition: transform 150ms ease; }
+      #adminSidebar.collapsed #sidebarToggleIcon { transform: rotate(180deg); }
+    </style>
+    <script is:inline>
+      async function logout(){
+        try { await fetch('/api/auth/logout', { method: 'POST' }); location.replace('/auth/signin'); } catch {}
+      }
+      (function(){
+        const key = 'bwAdminSidebarCollapsed';
+        const aside = document.getElementById('adminSidebar');
+        const icon = document.getElementById('sidebarToggleIcon');
+        function setIcon(){ if (!icon || !aside) return; icon.textContent = aside.classList.contains('collapsed') ? 'chevron_right' : 'chevron_left'; }
+        function setCollapsed(v){ if (!aside) return; aside.classList.toggle('collapsed', v); localStorage.setItem(key, v ? '1' : '0'); setIcon(); }
+        const stored = localStorage.getItem(key);
+        if (stored === '1') setCollapsed(true); else setIcon();
+        window.toggleSidebar = function(){ setCollapsed(!(aside?.classList.contains('collapsed'))); };
+      })();
+      function nwq_open(prefill){
+        const m = document.getElementById('nwq_modal');
+        m?.classList.remove('hidden');
+        m?.classList.add('flex');
+        const idWrap = document.getElementById('nwq_enquiryId_wrap');
+        const nameEl = document.getElementById('nwq_billToName');
+        const emailEl = document.getElementById('nwq_billToEmail');
+        const phoneEl = document.getElementById('nwq_billToPhone');
+        const idEl = document.getElementById('nwq_enquiryId');
+        // reset defaults
+        if (!prefill) {
+          idWrap?.classList.remove('hidden');
+          if (nameEl) nameEl.value = '';
+          if (emailEl) emailEl.value = '';
+          if (phoneEl) phoneEl.value = '';
+          if (idEl) idEl.value = '';
+          setTimeout(()=> (idEl?.focus?.()), 0);
+          return;
+        }
+        // hide ID (auto-generated) when invoked from leads
+        idWrap?.classList.add('hidden');
+        if (nameEl && prefill.name) nameEl.value = prefill.name;
+        if (emailEl && prefill.email) emailEl.value = prefill.email;
+        if (phoneEl && prefill.phone) phoneEl.value = prefill.phone;
+        setTimeout(()=> (nameEl?.focus?.()), 0);
+      }
+      function nwq_close(){
+        const m = document.getElementById('nwq_modal');
+        m?.classList.add('hidden');
+        m?.classList.remove('flex');
+      }
+      async function nwq_apiCreate(id, extras = {}){
+        const qs = id && id.trim() ? `?enquiryId=${encodeURIComponent(id.trim())}` : '';
+        const res = await fetch(`/api/quotes/create${qs}` , {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(extras)
+        });
+        return res.json();
+      }
+      function nwq_gatherItems(){
+        const container = document.getElementById('nwq_items');
+        const descs = container.querySelectorAll('input[data-nwq="desc"]');
+        const qtys = container.querySelectorAll('input[data-nwq="qty"]');
+        const prices = container.querySelectorAll('input[data-nwq="price"]');
+        const items = [];
+        for (let i=0;i<descs.length;i++){
+          const description = (descs[i].value||'').trim();
+          if (!description) continue;
+          const qtyN = Number(qtys[i]?.value||'0');
+          const priceN = Number(prices[i]?.value||'0');
+          const qty = (qtyN > 0 ? qtyN : 0).toFixed(2);

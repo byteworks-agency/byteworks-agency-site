@@ -15,5 +15,11 @@ export default defineConfig({
     ssr: {
       external: ["@prisma/client", "@prisma/engines"],
     },
+    build: {
+      target: "es2019",
+    },
+    esbuild: {
+      target: "es2019",
+    },
   },
 });

@@ -136,7 +136,7 @@ const title = `Invoice Details — ${id}`;
       async function fetchInvoice(){
         const res = await fetch(`/api/billing/invoices/${INV_ID}`);
         const j = await res.json().catch(()=>({}));
-        if (!j?.ok) return;
+        if (!j || !j.ok) return;
         const d = j.data;
         document.getElementById('invTitle').textContent = `Invoice #${d.number || d.id}`;
         document.getElementById('kpiTotal').textContent = fmt(d.currency, d.total);
@@ -172,7 +172,7 @@ const title = `Invoice Details — ${id}`;
       async function preview(template){
         const res = await fetch('/api/billing/reminders/preview', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ invoiceId: INV_ID, template }) });
         const j = await res.json();
-        if (!j?.ok) return;
+        if (!j || !j.ok) return;
         const { textES, textEN } = j.data;
         (document.getElementById('reminderText')).value = `(ES)\n${textES}\n---\n(EN)\n${textEN}`;
       }
