@@ -26,16 +26,19 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
       return next();
     }
 
-    // Fallback simple gate with ADMIN_SECRET for development
-    const ADMIN_SECRET = env.ADMIN_SECRET as string | undefined;
-    if (!ADMIN_SECRET) {
-      return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
+    // Fallback simple gate with ADMIN_SECRET (development only)
+    if (!env.PROD) {
+      const ADMIN_SECRET = env.ADMIN_SECRET as string | undefined;
+      if (!ADMIN_SECRET) {
+        return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
+      }
+      const cookie = context.cookies.get('admin_session')?.value;
+      if (cookie !== ADMIN_SECRET) {
+        return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
+      }
+      return next();
     }
-    const cookie = context.cookies.get('admin_session')?.value;
-    if (cookie !== ADMIN_SECRET) {
-      return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
-    }
-    return next();
+    return new Response(null, { status: 307, headers: { Location: '/auth/signin' } });
   }
 
   if (/^\/(en|es)(\/|$)/.test(pathname) || isAsset(pathname)) {

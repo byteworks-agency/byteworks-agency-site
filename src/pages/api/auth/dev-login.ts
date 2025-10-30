@@ -3,6 +3,13 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ cookies }) => {
+  // Disable dev login entirely in production
+  if (import.meta.env.PROD) {
+    return new Response(JSON.stringify({ ok: false, code: 'disabled' }), {
+      status: 404,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
   const secret = (import.meta as any).env?.ADMIN_SECRET as string | undefined;
   if (!secret) {
     return new Response(
