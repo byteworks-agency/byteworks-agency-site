@@ -5,7 +5,7 @@ const title = `Invoice Details — ${id}`;
 ---
 
 <AdminBase title={title} description="Invoice Details" image="/og-image.png" lang="en">
-  <section class="max-w-6xl mx-auto">
+  <section class="max-w-6xl mx-auto" data-invoice-id={id}>
     <div class="flex items-center justify-between mb-6">
       <div>
         <a class="flex items-center text-sm text-gray-500 mb-2" href="/admin/billing/invoices">
@@ -129,11 +129,13 @@ const title = `Invoice Details — ${id}`;
 
     <pre id="out" class="mt-6 text-xs bg-gray-100 p-3 rounded"></pre>
     <script is:inline>
-      const INV_ID = {JSON.stringify(id)};
+      const root = document.querySelector('[data-invoice-id]');
+      const INV_ID = (root?.dataset?.invoiceId ?? '').toString();
       document.querySelectorAll('[data-modal-toggle]').forEach((btn)=>btn.addEventListener('click',()=>{document.getElementById('payment-modal').classList.toggle('hidden'); document.getElementById('payment-modal').classList.toggle('flex');}));
       document.addEventListener('DOMContentLoaded', fetchInvoice);
       function fmt(cur, v){ return `${cur} ${v}`; }
       async function fetchInvoice(){
+        if (!INV_ID) return;
         const res = await fetch(`/api/billing/invoices/${INV_ID}`);
         const j = await res.json().catch(()=>({}));
         if (!j || !j.ok) return;
@@ -153,6 +155,7 @@ const title = `Invoice Details — ${id}`;
         document.getElementById('exportPayments').setAttribute('href', `/api/billing/invoices/${d.id}/payments/export.csv`);
       }
       async function recordPayment(){
+        if (!INV_ID) return;
         const payload = {
           invoiceId: INV_ID,
           amount: (document.getElementById('amount')).value,
@@ -170,6 +173,7 @@ const title = `Invoice Details — ${id}`;
         fetchInvoice();
       }
       async function preview(template){
+        if (!INV_ID) return;
         const res = await fetch('/api/billing/reminders/preview', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ invoiceId: INV_ID, template }) });
         const j = await res.json();
         if (!j || !j.ok) return;

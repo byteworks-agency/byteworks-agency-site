@@ -1,4 +1,4 @@
-import { InvoiceStatus, Prisma, QuoteStatus } from '@prisma/client';
+import { InvoiceStatus, Prisma } from '@prisma/client';
 import type { PrismaClient } from '@prisma/client';
 
 export function sumDecimal(values: Prisma.Decimal[]): Prisma.Decimal {
@@ -36,4 +36,3 @@ export async function getBillingDefaults(prisma: PrismaClient) {
     currency: s?.defaultCurrency ?? 'TTD',
   } as const;
 }
-

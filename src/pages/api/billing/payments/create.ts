@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
 import { paymentCreateBody } from '../../../../lib/billing/zod';
 import { updateInvoiceStatusByDates } from '../../../../lib/billing/util';
+import { requireRole } from '@/lib/auth';
 
 export const prerender = false;
 
@@ -50,4 +51,3 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     return new Response(JSON.stringify({ ok: false, code: 'unexpected', message: err?.message }), { status: 500 });
   }
 };
-import { requireRole } from '@/lib/auth';
