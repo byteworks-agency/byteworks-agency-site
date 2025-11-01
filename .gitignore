@@ -1,26 +1,42 @@
-# deps & build
+# Dependencies & build output
 node_modules/
 dist/
 .astro/
-
-# editor / os
-.vscode/
-.DS_Store
-Thumbs.db
-
-# env
-.env
-.env.*
-!.env.example
-
-# vercel
 .vercel/
+coverage/
+*.lcov
 
-# logs
+# Logs
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Environment files
+.env
+.env.*
+!.env.example
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+
+# OS / Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Prisma misc
+prisma/migrations/*/tmp*
+prisma/migrations/*/README.md
+prisma/migrations/*/notes.txt
+
+# Docs cache
+docs/screens/*.DS_Store
+
+# Keep public assets tracked
 !public/**
 !public/icons/**

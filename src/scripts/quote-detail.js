@@ -13,11 +13,22 @@
     return id;
   }
   const QUOTE_ID = getQuoteId();
+  const root = document.querySelector('[data-quote-id]');
+  const QUOTE_LABEL = root && root.dataset ? root.dataset.quoteLabel || '' : '';
   if (!QUOTE_ID) return;
 
   let quoteData = null;
   function fmt(cur, v){ return `${cur} ${v}`; }
   function showToast(msg){ const t=document.getElementById('toast'); if(!t) return; t.children[1].textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'), 1500); }
+  function prettyId(val, dateIso){
+    if (!val) return '-';
+    if (val.includes('-')) return val.toUpperCase();
+    const cleaned = val.replace(/[^A-Za-z0-9]/g, '').slice(0,6).toUpperCase() || 'XXXXXX';
+    const dt = dateIso ? new Date(dateIso) : new Date();
+    const y = dt.getUTCFullYear();
+    const m = String(dt.getUTCMonth()+1).padStart(2,'0');
+    return `BW-${y}${m}-${cleaned}`;
+  }
 
   async function fetchQuote(){
     const res = await fetch(`/api/quotes/${QUOTE_ID}`);
@@ -25,7 +36,7 @@
     if (!j || !j.ok) return;
     const d = j.data; quoteData = d;
     const tEl = document.getElementById('qTitle');
-    if (tEl) tEl.textContent = `Quote #${d.originEnquiryId || d.id}`;
+    if (tEl) tEl.textContent = `Quote #${prettyId(d.originEnquiryId || d.id, d.createdAt)}`;
     const st = document.getElementById('qStatus'); if (st) st.textContent = d.status;
     const bn = document.getElementById('billName'); if (bn) bn.textContent = d.billToName || '-';
     const be = document.getElementById('billEmail'); if (be) be.textContent = d.billToEmail || '-';
@@ -51,7 +62,7 @@
       tbody.innerHTML = '';
       (d.items||[]).forEach((i)=>{
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td class="px-6 py-4 text-sm">${i.description}</td><td class="px-6 py-4 text-sm text-right">${i.qty}</td><td class="px-6 py-4 text-sm text-right">${d.currency} ${i.unitPrice}</td><td class="px-6 py-4 text-sm text-right">${d.currency} ${((+i.qty)*(+i.unitPrice)).toFixed(2)}</td>`;
+        tr.innerHTML = `<td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-200">${i.description}</td><td class="px-6 py-4 text-sm text-right text-gray-700 dark:text-gray-200">${i.qty}</td><td class="px-6 py-4 text-sm text-right text-gray-700 dark:text-gray-200">${d.currency} ${i.unitPrice}</td><td class="px-6 py-4 text-sm text-right text-gray-700 dark:text-gray-200">${d.currency} ${((+i.qty)*(+i.unitPrice)).toFixed(2)}</td>`;
         tbody.appendChild(tr);
       });
     }

@@ -19,6 +19,7 @@ export function updateInvoiceStatusByDates(
   dueDate: Date,
   now = new Date()
 ): InvoiceStatus {
+  if (current === InvoiceStatus.archived) return InvoiceStatus.archived;
   if (balance.eq(0)) return InvoiceStatus.paid;
   if (balance.gt(0) && balance.lt(total)) return InvoiceStatus.partial;
   if (now > dueDate) return InvoiceStatus.overdue;

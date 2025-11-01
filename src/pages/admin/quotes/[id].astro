@@ -1,18 +1,27 @@
 ---
 import AdminBase from '../../../layouts/AdminBase.astro';
 const { id } = Astro.params;
-const title = `Quote Details`;
+const formatId = (value?: string | null, date = new Date()) => {
+  if (!value) return '-';
+  if (value.includes('-')) return value.toUpperCase();
+  const cleaned = value.replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase() || 'XXXXXX';
+  const y = date.getUTCFullYear();
+  const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+  return `BW-${y}${m}-${cleaned}`;
+};
+const formattedId = formatId(id);
+const title = `Quote Details — ${formattedId}`;
 ---
 
 <AdminBase title={title} description="Quote Details" image="/og-image.png" lang="en">
-  <section class="max-w-6xl mx-auto" data-quote-id={id}>
+  <section class="max-w-6xl mx-auto" data-quote-id={id} data-quote-label={formattedId}>
     <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
       <div class="flex flex-col gap-2">
         <div class="flex items-center gap-3">
-          <h1 id="qTitle" class="text-3xl font-extrabold tracking-tight">Quote #{id}</h1>
+          <h1 id="qTitle" class="text-3xl font-extrabold tracking-tight">Quote #{formattedId}</h1>
           <span id="qStatus" class="px-3 py-1 text-sm font-semibold text-white bg-gray-500 rounded-full">-</span>
         </div>
-        <p class="text-sm text-gray-500">Quote full details.</p>
+        <p class="text-sm text-gray-500 dark:text-gray-300">Quote full details.</p>
       </div>
       <div class="flex items-center gap-2">
         <button id="btnSend" class="flex items-center gap-2 rounded-lg h-10 px-4 bg-black text-white dark:bg-white dark:text-black text-sm font-semibold" onclick="send()">
@@ -36,15 +45,15 @@ const title = `Quote Details`;
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <div class="lg:col-span-2">
-        <div class="bg-white dark:bg-background-dark rounded-lg border p-6 mb-6">
-          <p class="text-xs text-gray-500 font-medium mb-1">CUSTOMER INFO</p>
+        <div class="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <p class="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">CUSTOMER INFO</p>
           <h2 id="billName" class="text-lg font-bold">-</h2>
-          <p id="billEmail" class="text-sm text-gray-500">-</p>
-          <p id="billPhone" class="text-sm text-gray-500"></p>
+          <p id="billEmail" class="text-sm text-gray-500 dark:text-gray-300">-</p>
+          <p id="billPhone" class="text-sm text-gray-500 dark:text-gray-300"></p>
         </div>
-        <div class="bg-white dark:bg-background-dark rounded-lg border overflow-x-auto">
+        <div class="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 overflow-x-auto">
           <table class="w-full min-w-[640px] table-fixed">
-            <thead class="bg-gray-50 dark:bg-gray-800/50">
+            <thead class="bg-gray-50 dark:bg-gray-800/60 text-gray-600 dark:text-gray-200">
               <tr>
                 <th class="px-6 py-4 text-left text-xs font-semibold uppercase w-[55%]">Description</th>
                 <th class="px-6 py-4 text-right text-xs font-semibold uppercase w-[15%]">Qty</th>
@@ -57,14 +66,14 @@ const title = `Quote Details`;
         </div>
       </div>
       <div class="lg:col-span-1">
-        <div class="bg-white dark:bg-background-dark rounded-lg border p-6 space-y-6">
+        <div class="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 p-6 space-y-6">
           <div>
             <div class="flex justify-between py-2 border-b">
-              <p class="text-sm text-gray-500">Subtotal</p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Subtotal</p>
               <p id="subtotal" class="text-sm font-medium text-right">-</p>
             </div>
             <div class="flex justify-between py-2 border-b">
-              <p class="text-sm text-gray-500">Taxes</p>
+              <p class="text-sm text-gray-500 dark:text-gray-300">Taxes</p>
               <p id="taxes" class="text-sm font-medium text-right">-</p>
             </div>
             <div class="flex justify-between pt-3">
@@ -74,19 +83,19 @@ const title = `Quote Details`;
           </div>
           <div class="border-t pt-4 space-y-2">
             <div>
-              <p class="text-xs font-semibold uppercase text-gray-500">Currency</p>
-              <p id="currency" class="text-sm mt-1">-</p>
+              <p class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-300">Currency</p>
+              <p id="currency" class="text-sm mt-1 text-gray-700 dark:text-gray-200">-</p>
             </div>
             <div>
-              <p class="text-xs font-semibold uppercase text-gray-500">Valid until</p>
-              <p id="validUntil" class="text-sm mt-1">-</p>
+              <p class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-300">Valid until</p>
+              <p id="validUntil" class="text-sm mt-1 text-gray-700 dark:text-gray-200">-</p>
             </div>
             <div>
-              <p class="text-xs font-semibold uppercase text-gray-500">Notes</p>
-              <textarea id="notesInput" class="w-full mt-1 border rounded px-3 py-2 text-sm" rows="4" placeholder="Add notes..."></textarea>
+              <p class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-300">Notes</p>
+              <textarea id="notesInput" class="w-full mt-1 border border-gray-200 dark:border-gray-700 rounded px-3 py-2 text-sm bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400" rows="4" placeholder="Add notes..."></textarea>
               <div class="mt-2 flex gap-2 items-center">
                 <button class="px-3 py-1.5 bg-black text-white dark:bg-white dark:text-black rounded text-xs" onclick="saveNotes()">Save Notes</button>
-                <span id="notesStatus" class="text-xs text-gray-500"></span>
+                <span id="notesStatus" class="text-xs text-gray-500 dark:text-gray-400"></span>
               </div>
             </div>
           </div>
@@ -94,9 +103,9 @@ const title = `Quote Details`;
       </div>
     </div>
 
-    <div id="sendOut" class="hidden mt-6 bg-white dark:bg-background-dark rounded-lg border p-4">
-      <p class="text-sm text-gray-600 mb-2">Message templates (ES/EN) with acceptance link:</p>
-      <pre id="sendText" class="text-xs whitespace-pre-wrap"></pre>
+    <div id="sendOut" class="hidden mt-6 bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Message templates (ES/EN) with acceptance link:</p>
+      <pre id="sendText" class="text-xs whitespace-pre-wrap bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-100 p-3 rounded"></pre>
       <div class="mt-2"><button class="px-3 py-1.5 bg-primary text-white text-xs rounded" onclick="copySendText()">Copy</button></div>
     </div>
 

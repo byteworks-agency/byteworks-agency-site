@@ -31,6 +31,7 @@ enum InvoiceStatus {
   paid
   overdue
   void
+  archived
 }
 
 enum PaymentMethod {

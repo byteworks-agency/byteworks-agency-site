@@ -68,7 +68,7 @@ try {
           id="toggle-archived"
           type="button"
           title="Toggle archived"
-          class="inline-flex items-center gap-2 px-3 py-2 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60 dark:border-gray-700"
+          class="inline-flex items-center gap-2 px-3 py-2 rounded border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-background-dark hover:bg-slate-50 dark:hover:bg-background-dark/60"
         >
           {showArchived ? 'Show active' : 'Show archived'}
         </button>
@@ -78,40 +78,39 @@ try {
         <table class="w-full text-sm table-fixed">
           <thead class="bg-gray-50 dark:bg-background-dark/40 text-left">
             <tr>
-              <th class="p-2 w-[18%]">ID</th>
-              <th class="p-2 w-[22%]">Name</th>
-              <th class="p-2 w-[16%]">Phone</th>
-              <th class="p-2 w-[20%] hidden xl:table-cell">Email</th>
-              <th class="p-2 w-[14%]">Received</th>
-              <th class="p-2 w-[6%]">Status</th>
-              <th class="p-2 w-[4%] text-right">Actions</th>
+              <th class="p-2 w-[40%]">Lead</th>
+              <th class="p-2 w-[24%]">Received</th>
+              <th class="p-2 w-[12%]">Status</th>
+              <th class="p-2 w-[12%] text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="leads_tbody">
             {leads.map((l) => (
               <tr class="border-t" data-raw-id={l.id} data-id={`${companyRefFromSeed(new Date(l.createdAt), l.id)} ${l.id}`} data-name={l.name} data-email={l.email || ''} data-phone={l.phone || ''} data-archived={(l.archived ? 'true' : 'false')} data-status={(l.status as any) || 'new'}>
-                <td class="p-2 font-mono text-xs break-all">{companyRefFromSeed(new Date(l.createdAt), l.id)}</td>
-                <td class="p-2 truncate" title={l.name}>{l.name}</td>
-                <td class="p-2 whitespace-nowrap">{l.phone || ''}</td>
-                <td class="p-2 break-all hidden xl:table-cell">{l.email}</td>
-                <td class="p-2 text-gray-600 whitespace-nowrap">{fmtDate(l.createdAt)}</td>
-                <td class="p-2"><span class="px-2 py-0.5 rounded-full text-[11px] border capitalize">{(l.status as any) || 'new'}</span></td>
+                <td class="p-2 align-top">
+                  <p class="font-mono text-xs break-all">#{companyRefFromSeed(new Date(l.createdAt), l.id)}</p>
+                  <p class="text-sm text-gray-800 dark:text-gray-200 truncate" title={l.name}>{l.name}</p>
+                  {l.phone && <p class="text-xs text-gray-600 dark:text-gray-300">📞 {l.phone}</p>}
+                  {l.email && <p class="text-xs text-gray-600 dark:text-gray-300">✉️ {l.email}</p>}
+                </td>
+                <td class="p-2 text-gray-600 dark:text-gray-300 whitespace-nowrap">{fmtDate(l.createdAt)}</td>
+                <td class="p-2"><span class="px-2 py-0.5 rounded-full text-[11px] border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 capitalize">{(l.status as any) || 'new'}</span></td>
                 <td class="p-2 text-right whitespace-nowrap">
-                  <button type="button" onclick={`nwq_open(${JSON.stringify({ leadId: l.id, name: l.name, email: l.email, phone: l.phone, enquiryId: companyRefFromSeed(new Date(l.createdAt), l.id) })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60 mr-2">
+                  <button type="button" onclick={`nwq_open(${JSON.stringify({ leadId: l.id, name: l.name, email: l.email, phone: l.phone, enquiryId: companyRefFromSeed(new Date(l.createdAt), l.id) })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-background-dark/60 mr-2">
                     Open
                   </button>
-                  <button type="button" class="lead-archive inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60" data-id={l.id}>
+                  <button type="button" class="lead-archive inline-flex items-center gap-1 px-3 py-1.5 rounded border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-background-dark/60" data-id={l.id}>
                     Archive
                   </button>
                 </td>
               </tr>
             ))}
             <tr id="leads_empty_row" class="hidden">
-              <td class="p-3 text-gray-600" colspan="7">No results</td>
+              <td class="p-3 text-gray-600" colspan="4">No results</td>
             </tr>
             {leads.length === 0 && (
               <tr>
-                <td class="p-3 text-gray-600" colspan="7">No submissions yet.</td>
+                <td class="p-3 text-gray-600" colspan="4">No submissions yet.</td>
               </tr>
             )}
           </tbody>
@@ -126,24 +125,24 @@ try {
           <article class="p-3 bg-white dark:bg-background-dark" data-raw-id={l.id} data-id={`${companyRefFromSeed(new Date(l.createdAt), l.id)} ${l.id}`} data-name={l.name} data-email={l.email || ''} data-phone={l.phone || ''} data-archived={(l.archived ? 'true' : 'false')} data-status={(l.status as any) || 'new'}>
             <div class="flex items-start justify-between gap-3">
               <div>
-                <h3 class="font-semibold leading-tight">{l.name}</h3>
-                <p class="text-[11px] text-gray-600 font-mono break-all">{companyRefFromSeed(new Date(l.createdAt), l.id)}</p>
-                <p class="text-sm text-gray-800 dark:text-gray-200">{l.phone || ''}</p>
-                <p class="text-xs text-gray-600 break-all">{l.email}</p>
+                <h3 class="font-semibold leading-tight text-gray-900 dark:text-gray-100">{l.name}</h3>
+                <p class="text-[11px] text-gray-600 dark:text-gray-300 font-mono break-all">#{companyRefFromSeed(new Date(l.createdAt), l.id)}</p>
+                {l.phone && <p class="text-sm text-gray-800 dark:text-gray-200">📞 {l.phone}</p>}
+                {l.email && <p class="text-xs text-gray-600 dark:text-gray-300 break-all">✉️ {l.email}</p>}
               </div>
               <div class="text-right">
                 <span class="block text-[10px] uppercase tracking-wide text-gray-500">Received</span>
-                <time class="text-xs text-gray-700">{fmtDate(l.createdAt)}</time>
+                <time class="text-xs text-gray-700 dark:text-gray-300">{fmtDate(l.createdAt)}</time>
               </div>
             </div>
             <div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
-              <span class="px-2 py-0.5 rounded-full border capitalize">{(l.status as any) || 'new'}</span>
+              <span class="px-2 py-0.5 rounded-full border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 capitalize">{(l.status as any) || 'new'}</span>
             </div>
             <div class="mt-3 flex justify-end gap-2">
-              <button type="button" onclick={`nwq_open(${JSON.stringify({ leadId: l.id, name: l.name, email: l.email, phone: l.phone, enquiryId: companyRefFromSeed(new Date(l.createdAt), l.id) })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60">
+              <button type="button" onclick={`nwq_open(${JSON.stringify({ leadId: l.id, name: l.name, email: l.email, phone: l.phone, enquiryId: companyRefFromSeed(new Date(l.createdAt), l.id) })})`} class="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-background-dark/60">
                 Open
               </button>
-              <button type="button" class="lead-archive inline-flex items-center gap-1 px-3 py-1.5 rounded border text-sm hover:bg-slate-50 dark:hover:bg-background-dark/60" data-id={l.id}>
+              <button type="button" class="lead-archive inline-flex items-center gap-1 px-3 py-1.5 rounded border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-background-dark/60" data-id={l.id}>
                 Archive
               </button>
             </div>

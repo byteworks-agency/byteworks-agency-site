@@ -16,6 +16,7 @@ interface Payload {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const endpoint = import.meta.env.CONTACT_ENDPOINT;
+    const slackWebhook = (import.meta.env as Record<string, string | undefined>).SLACK_WEBHOOK_URL;
 
     const data: Payload = await request.json().catch(() => ({} as Payload));
     const name = (data?.name || '').trim();
@@ -67,6 +68,23 @@ export const POST: APIRoute = async ({ request }) => {
         },
       });
     } catch {}
+
+    if (slackWebhook) {
+      const lines = [
+        `:incoming_envelope: *New lead (${preference.toUpperCase()})*`,
+        `*Name:* ${name}`,
+        email ? `*Email:* ${email}` : null,
+        phone ? `*Phone:* ${meta.phone}` : null,
+        `*Message:* ${message}`,
+        meta.sourceUrl ? `*Source:* ${meta.sourceUrl}` : null,
+      ].filter(Boolean).join('\n');
+
+      fetch(slackWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: lines }),
+      }).catch(() => {});
+    }
 
     // WhatsApp-only mode: do not forward even if endpoint is set
     if (preference === 'whatsapp') {

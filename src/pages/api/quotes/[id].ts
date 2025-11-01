@@ -40,6 +40,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
       subtotal: q.subtotal.toString(),
       taxes: q.taxes.toString(),
       total: q.total.toString(),
+      createdAt: q.createdAt.toISOString(),
       validUntil: q.validUntil?.toISOString() || null,
       notes: q.notes || null,
       billToName: q.billToName || null,

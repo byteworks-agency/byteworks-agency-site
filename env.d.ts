@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly BILLING_ALLOW_PLACEHOLDER?: string;
   readonly SUPABASE_URL?: string;
   readonly SUPABASE_ANON_KEY?: string;
+  readonly SLACK_WEBHOOK_URL?: string;
 
   // Public (exposed to client)
   readonly PUBLIC_WHATSAPP_PHONE?: string;
