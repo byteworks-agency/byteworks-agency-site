@@ -1,0 +1,62 @@
+---
+interface ContactPoint {
+  '@type'?: string;
+  telephone: string;
+  contactType?: string;
+  areaServed?: (string | Record<string, unknown>)[];
+  availableLanguage?: string[];
+  email?: string;
+}
+
+interface Props {
+  id?: string;
+  name: string;
+  url: string;
+  logo?: string;
+  sameAs?: string[];
+  contactPoint?: ContactPoint[];
+}
+
+const { id, name, url, logo, sameAs = [], contactPoint = [] } = Astro.props as Props;
+
+function prune<T>(value: T): T | undefined {
+  if (Array.isArray(value)) {
+    const cleaned = value
+      .map((entry) => prune(entry))
+      .filter((entry) => {
+        if (entry === undefined) return false;
+        if (Array.isArray(entry)) return entry.length > 0;
+        if (typeof entry === 'object' && entry !== null) return Object.keys(entry).length > 0;
+        return true;
+      });
+    return (cleaned.length ? (cleaned as unknown as T) : undefined);
+  }
+  if (value && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>).reduce<Record<string, unknown>>((acc, [key, val]) => {
+      const pruned = prune(val);
+      if (pruned === undefined) return acc;
+      if (Array.isArray(pruned) && pruned.length === 0) return acc;
+      if (typeof pruned === 'object' && pruned !== null && !Array.isArray(pruned) && Object.keys(pruned).length === 0) return acc;
+      acc[key] = pruned;
+      return acc;
+    }, {});
+    return (Object.keys(entries).length ? (entries as unknown as T) : undefined);
+  }
+  if (value === undefined || value === null || value === '') return undefined;
+  return value;
+}
+
+const schema = prune({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': id,
+  name,
+  url,
+  logo,
+  sameAs,
+  contactPoint: contactPoint.length ? contactPoint.map((cp) => ({ '@type': 'ContactPoint', ...cp })) : undefined,
+});
+
+const json = schema ? JSON.stringify(schema) : '';
+---
+{json && <script is:inline type="application/ld+json">{json}</script>}

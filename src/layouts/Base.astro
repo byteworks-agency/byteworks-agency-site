@@ -1,7 +1,11 @@
 ---
 import Header from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
+import OrganizationJsonLd from '../components/seo/OrganizationJsonLd.astro';
+import LocalBusinessJsonLd from '../components/seo/LocalBusinessJsonLd.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
+import { DEFAULT_EMAIL } from '../config/contact';
+import logo from '../assets/logo.png';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 // Use Node's process.env in frontmatter to avoid esbuild issues with import.meta.env
@@ -40,11 +44,37 @@ function altHref(targetLang: 'en' | 'es') {
   return `/${parts.join('/')}/`;
 }
 
+const logoUrl = new URL(logo.src, siteOrigin).href;
+
+function toE164(raw: string) {
+  const trimmed = (raw || '').trim();
+  if (!trimmed) return '';
+  if (trimmed.startsWith('+')) {
+    const digits = trimmed.replace(/[^\d]/g, '');
+    return digits ? `+${digits}` : '';
+  }
+  const digits = trimmed.replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
+  if (digits.length === 10) return `+1${digits}`;
+  return `+${digits}`;
+}
+
 const PLAUSIBLE = ENV.PUBLIC_PLAUSIBLE_DOMAIN || '';
 const CF_TOKEN = ENV.PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN || '';
 
 // expone el número al DOM como data attribute (usa env o fallback temporal)
 const WA_FROM_ENV = (ENV.PUBLIC_WHATSAPP_PHONE || DEFAULT_WA || '').toString();
+const contactEmail = (ENV.PUBLIC_CONTACT_EMAIL || DEFAULT_EMAIL || '').toString();
+const contactPhoneRaw = (ENV.PUBLIC_WHATSAPP_PHONE || ENV.PUBLIC_CONTACT_PHONE || DEFAULT_WA || '').toString();
+const contactPhoneE164 = toE164(contactPhoneRaw);
+const organizationId = `${siteOrigin}#organization`;
+const localBusinessId = `${siteOrigin}#local-business`;
+const areaServed = [
+  { '@type': 'Country', name: 'Trinidad and Tobago' },
+  { '@type': 'Country', name: 'United States' },
+];
+
 // Social profiles (optional) to enrich JSON-LD
 const socials = [
   ENV.PUBLIC_SOCIAL_TWITTER,
@@ -54,14 +84,6 @@ const socials = [
   ENV.PUBLIC_SOCIAL_YOUTUBE,
   ENV.PUBLIC_SOCIAL_GITHUB,
 ].filter((x) => typeof x === 'string' && x);
-const orgJson = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'ByteWorks',
-  url: siteOrigin,
-  logo: siteOrigin + '/logo.png',
-  ...(socials.length ? { sameAs: socials } : {}),
-};
 const siteJson = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -69,6 +91,27 @@ const siteJson = {
   url: siteOrigin,
   inLanguage: lang,
 };
+const organizationContactPoint = contactPhoneE164
+  ? [
+      {
+        telephone: contactPhoneE164,
+        contactType: 'customer support',
+        areaServed,
+        availableLanguage: ['en', 'es'],
+        email: contactEmail || undefined,
+      },
+    ]
+  : [];
+const localBusinessAddress = {
+  addressCountry: 'TT',
+};
+const localBusinessAreaServed = [
+  ...areaServed,
+  'Remote',
+];
+const localBusinessServiceType = ['Web Design', 'Web Development', 'SEO Consulting'];
+const localBusinessContactPoint = organizationContactPoint;
+const localBusinessTypes = ['ProfessionalService'];
 const robotsMeta = robots ?? ((process.env.NODE_ENV === 'production') ? 'index,follow' : 'noindex,nofollow');
 ---
 
@@ -101,7 +144,30 @@ const robotsMeta = robots ?? ((process.env.NODE_ENV === 'production') ? 'index,f
 
 
 
-    <script is:inline type="application/ld+json">{JSON.stringify(orgJson)}</script>
+    <OrganizationJsonLd
+      id={organizationId}
+      name="ByteWorks"
+      url={siteOrigin}
+      logo={logoUrl}
+      sameAs={socials}
+      contactPoint={organizationContactPoint}
+    />
+    <LocalBusinessJsonLd
+      id={localBusinessId}
+      name="ByteWorks Agency"
+      url={siteOrigin}
+      image={ogImage}
+      logo={logoUrl}
+      telephone={contactPhoneE164 || undefined}
+      email={contactEmail || undefined}
+      priceRange="$$"
+      sameAs={socials}
+      address={localBusinessAddress}
+      areaServed={localBusinessAreaServed}
+      serviceType={localBusinessServiceType}
+      contactPoint={localBusinessContactPoint}
+      types={localBusinessTypes}
+    />
     <script is:inline type="application/ld+json">{JSON.stringify(siteJson)}</script>
 
     <!-- Fonts -->

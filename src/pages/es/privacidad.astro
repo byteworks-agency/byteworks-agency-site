@@ -14,72 +14,118 @@ const description = 'Cómo manejamos, almacenamos y protegemos tus datos en Byte
 
     <article class="space-y-6 text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">
       <section>
-        <h2 class="text-lg font-semibold mb-2">1. Introducción</h2>
+        <h2 class="text-lg font-semibold mb-2">1. Quiénes somos</h2>
         <p>
-          ByteWorks ("nosotros") respeta tu privacidad y se compromete a proteger tus datos personales. Esta política explica cómo recopilamos, usamos y protegemos tu información cuando utilizas nuestro sitio web o servicios.
+          ByteWorks (“nosotros”, “nuestro”) es un estudio de diseño y mantenimiento web 100% en línea.
+          Diseñamos, alojamos y mantenemos sitios para emprendedores y pequeñas empresas. Esta política describe cómo tratamos
+          los datos personales cuando navegas nuestro sitio, solicitas una cotización o utilizas las herramientas administrativas
+          que ponemos a disposición de nuestros clientes.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">2. Datos que recopilamos</h2>
-        <p>Podemos recopilar datos personales que nos proporcionas voluntariamente, como:</p>
+        <p>Recabamos únicamente la información necesaria para prestar y mejorar nuestros servicios:</p>
         <ul class="list-disc list-inside mt-2 space-y-1">
-          <li>Nombre e información de contacto (correo electrónico, teléfono).</li>
-          <li>Mensajes o detalles enviados mediante formularios de contacto o cotización.</li>
-          <li>Datos técnicos como IP, navegador y dispositivo (recopilados automáticamente mediante analítica básica).
-          </li>
+          <li><span class="font-medium">Datos de contacto</span>: nombre, correo, teléfono, nombre comercial, objetivos del proyecto y cualquier mensaje que envíes mediante formularios.</li>
+          <li><span class="font-medium">Datos de cuenta</span>: si accedes al portal administrativo, almacenamos el correo de acceso, información básica de perfil y metadatos de autenticación proporcionados por Supabase Auth.</li>
+          <li><span class="font-medium">Registros de facturación</span>: historial de compras, facturas, cotizaciones, monedas y referencias de pago administradas en nuestra base de datos PostgreSQL (Prisma).</li>
+          <li><span class="font-medium">Datos de uso</span>: métricas de visitas anonimizadas (páginas vistas, origen aproximado) generadas por analítica enfocada en privacidad y registros del servidor. No incluimos identificadores publicitarios.</li>
+          <li><span class="font-medium">Diagnóstico técnico</span>: dirección IP, navegador, tipo de dispositivo y trazas de error recopiladas automáticamente para proteger la plataforma y solucionar incidencias.</li>
         </ul>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">3. Dashboard interno e integraciones</h2>
-        <p>
-          Utilizamos un dashboard interno de ByteWorks para procesar formularios, gestionar pedidos y ver analíticas enfocadas en privacidad. Los datos almacenados se limitan a lo necesario para brindar el servicio (por ejemplo, datos de contacto, referencias de pedidos, métricas agregadas de visitas). No usamos rastreadores de terceros por defecto.
+        <h2 class="text-lg font-semibold mb-2">3. Cómo utilizamos los datos</h2>
+        <p>Procesamos datos personales con los siguientes fines:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Responder consultas, preparar propuestas y gestionar el alta de proyectos.</li>
+          <li>Operar nuestro dashboard interno: administrar cotizaciones, facturas, leads, recordatorios y actualizaciones de contenido.</li>
+          <li>Brindar soporte técnico, monitorear disponibilidad, generar respaldos y mejorar la experiencia de usuario.</li>
+          <li>Enviar comunicaciones esenciales (ventanas de mantenimiento, avisos de políticas, recordatorios de pago).</li>
+          <li>Cumplir obligaciones contractuales y legales, incluyendo contabilidad y prevención de fraude.</li>
+        </ul>
+        <p class="mt-2">
+          Nos basamos en interés legítimo para asegurar nuestra infraestructura y ejecutar analítica, y en la necesidad contractual o tu consentimiento para el resto.
+          Cuando la ley lo exige, solicitamos autorización explícita (por ejemplo, envíos comerciales).
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">4. Formularios de contacto</h2>
+        <h2 class="text-lg font-semibold mb-2">4. Proveedores y transferencias internacionales</h2>
         <p>
-          La información enviada a través de nuestros formularios se usa únicamente para responder tu solicitud, preparar una cotización o brindar el servicio solicitado. Los datos se almacenan de forma segura y se eliminan bajo solicitud o tras 12 meses de inactividad.
+          Alojamos infraestructura en Vercel (regiones UE/EE.UU.) y almacenamos datos operativos en Supabase (EE.UU./UE) mediante bases de datos PostgreSQL cifradas.
+          La información de pagos se gestiona con los procesadores indicados en cada factura (por ejemplo, Stripe o transferencias directas); no guardamos datos completos de tarjetas.
+        </p>
+        <p class="mt-2">
+          Cuando involucramos subencargados exigimos contratos con obligaciones de confidencialidad y seguridad alineadas con esta política.
+          Los datos pueden transferirse fuera de tu jurisdicción y se protegen mediante cláusulas contractuales estándar u otras salvaguardas equivalentes.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">5. Cookies y analítica</h2>
         <p>
-          Este sitio puede usar cookies propias para recordar preferencias básicas y habilitar una analítica ligera y privada dentro de nuestro dashboard interno. Puedes desactivar cookies desde tu navegador; algunas funciones podrían verse afectadas.
+          Nuestro sitio público utiliza cookies propias para recordar preferencias (por ejemplo, idioma) y estado de sesión. También aplicamos analítica ligera
+          (Plausible o Cloudflare Insights) que mide tendencias agregadas sin identificadores personales. Puedes bloquear cookies en tu navegador; sin embargo,
+          ciertas funciones esenciales como el acceso al portal administrativo podrían requerirlas.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">6. Conservación de datos</h2>
         <p>
-          Los datos personales relacionados con consultas o formularios se conservan hasta 12 meses, salvo solicitud de eliminación anticipada. Copias de seguridad con metadatos mínimos pueden conservarse de forma segura para continuidad operativa.
+          Conservamos datos de consultas hasta 12 meses después de la última interacción. Los registros de clientes (cotizaciones, facturas, acuerdos) se mantienen
+          por siete (7) años para cumplir obligaciones contables, salvo que la ley exija un plazo mayor. Las copias de seguridad se cifran, se guardan hasta por 30 días
+          y luego se eliminan. Si solicitas la supresión, eliminamos la información de los sistemas activos y programamos su borrado en la siguiente rotación de respaldos.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">7. Seguridad</h2>
+        <h2 class="text-lg font-semibold mb-2">7. Medidas de seguridad</h2>
         <p>
-          Usamos cifrado SSL, hosting seguro y controles de acceso. Ningún sistema es 100% infalible, pero aplicamos buenas prácticas para reducir riesgos de acceso no autorizado, pérdida o alteración.
+          Aplicamos control de acceso por roles, cifrado (HTTPS), actualizaciones automáticas y monitoreo continuo de vulnerabilidades.
+          Las credenciales de producción se almacenan en variables de entorno seguras y el acceso administrativo requiere autenticación multifactor.
+          Aunque ningún sistema es infalible, investigamos y notificamos cualquier incidente que afecte materialmente tus datos.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">8. Tus derechos</h2>
-        <p>
-          Puedes solicitar acceso, corrección o eliminación de tus datos en cualquier momento escribiendo a <span class="font-medium">privacy@byteworks.agency</span>.
+        <p>Puedes:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Solicitar una copia de los datos personales que conservamos.</li>
+          <li>Pedir la rectificación de datos inexactos o su eliminación cuando la ley lo permita.</li>
+          <li>Restringir u oponerte a ciertos tratamientos (por ejemplo, cookies de analítica).</li>
+          <li>Exportar tus datos administrativos (cotizaciones, facturas, formularios) en formatos accesibles.</li>
+        </ul>
+        <p class="mt-2">
+          Escríbenos mediante cualquiera de los enlaces sociales disponibles en la sección “Síguenos” del footer. Respondemos en un plazo máximo de 30 días y podemos solicitar verificación de identidad antes de procesar la solicitud.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">9. Actualizaciones de esta política</h2>
+        <h2 class="text-lg font-semibold mb-2">9. Menores de edad</h2>
         <p>
-          Podemos actualizar esta política cuando sea necesario. La versión vigente siempre estará disponible en esta página.
+          Nuestros servicios están dirigidos a negocios y equipos. No recopilamos de forma consciente datos de menores de 16 años.
+          Si crees que un menor nos proporcionó información personal, contáctanos para eliminarla de inmediato.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold mb-2">10. Cambios a esta política</h2>
+        <p>
+          Actualizaremos este aviso cuando cambien nuestras prácticas. La fecha de “vigencia” indica la revisión más reciente.
+          Los cambios relevantes se comunicarán a clientes activos vía correo o panel administrativo.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold mb-2">11. Contacto</h2>
+        <p>
+          Para preguntas sobre privacidad o para presentar un reclamo, contáctanos por cualquiera de nuestras redes sociales enlazadas en “Síguenos” en el footer.
         </p>
       </section>
     </article>
   </section>
 </Base>
-

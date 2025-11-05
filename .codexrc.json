@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "autoContext": true,
+  "mode": "diff-only",
+  "contextFiles": [
+    "./codex.context.md"
+  ],
+  "rulesFiles": [
+    "./codex.rules.md"
+  ],
+  "adrDirectories": [
+    "./docs/decisions"
+  ],
+  "ignoreFile": "./.codexignore"
+}

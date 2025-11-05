@@ -1,0 +1,284 @@
+---
+import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
+
+const title = 'Plans — ByteWorks';
+const description =
+  'Transparent plans with maintenance included. Pick the plan that fits your stage; upgrade anytime. Hosting, SSL, backups and monthly updates included.';
+
+const plans = [
+  {
+    name: 'Start',
+    price: '$45/mo',
+    yearly: '$459/yr (save 15%)',
+    bestFor: 'Solo founders, personal brands, simple presence',
+    features: [
+      'One-page modern website (responsive)',
+      'Contact form integration (email or internal dashboard)',
+      'Basic SEO (titles, meta, OG, sitemap)',
+      'Domain, hosting & maintenance included',
+      '1 monthly update',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mo',
+    yearly: '$561/yr (save 15%)',
+    bestFor: 'Service businesses needing 3–4 pages',
+    features: [
+      'Up to 4 pages (Home, About, Services, Contact)',
+      'Contact + internal dashboard automations',
+      'Light technical optimization and performance',
+      'Domain, hosting & maintenance included',
+      '2 monthly updates',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mo',
+    yearly: '$714/yr (save 15%)',
+    bestFor: 'Growing brands needing more sections & UX',
+    features: [
+      'Up to 7 pages with custom sections',
+      'Enhanced SEO (structure, speed, indexation)',
+      'Lead capture flows + internal dashboard integrations',
+      'Domain, hosting & maintenance included',
+      '3 monthly updates',
+      'SSL, backups',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mo',
+    yearly: '$969/yr (save 15%)',
+    bestFor: 'Catalog + manual order intake (no payment gateway)',
+    features: [
+      'Product catalog (up to 20 items)',
+      'Local cart + manual checkout flow',
+      'Order logging in internal dashboard',
+      'Internal order tracking by code',
+      'Product updates assisted by ByteWorks or simple self-management',
+      '4 monthly updates (products or copy)',
+      'SSL, backups, domain & hosting included',
+    ],
+  },
+];
+
+const planMeta: Record<
+  string,
+  {
+    pages: string;
+    updates: string;
+    seo: string;
+    automation: string;
+  }
+> = {
+  'Start': {
+    pages: 'Single-page site',
+    updates: '1 update',
+    seo: 'Foundational SEO setup',
+    automation: 'Contact form to email/dashboard',
+  },
+  'Pro': {
+    pages: 'Up to 4 pages',
+    updates: '2 updates',
+    seo: 'Light technical optimisation',
+    automation: 'Lead automations + dashboard',
+  },
+  'Elite': {
+    pages: 'Up to 7 pages',
+    updates: '3 updates',
+    seo: 'Enhanced SEO & speed',
+    automation: 'Advanced capture flows',
+  },
+  'E-Commerce Pro': {
+    pages: 'Product catalog (20 items)',
+    updates: '4 updates (products or copy)',
+    seo: 'Enhanced SEO + catalog upkeep',
+    automation: 'Order logging & internal tracking',
+  },
+};
+---
+
+<Base title={title} description={description} image="/og-image.png" lang="en">
+  <section class="px-4 max-w-[960px] mx-auto py-16 md:py-24">
+    <header class="text-center space-y-3">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Plans</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Clear pricing with maintenance included. Bilingual structure by default.
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mt-10">
+      {plans.map((p) => (
+        <article class={`relative h-full rounded-xl p-6 flex flex-col bg-white dark:bg-background-dark/50 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+          {p.name === 'Pro' && (
+            <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-secondary px-3 py-1 text-center">Most Popular</p>
+          )}
+          <h2 class={`text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>
+            {p.name}
+          </h2>
+          <p class="mt-1 text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
+          <ul class="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            {p.features.map((f) => (
+              <li class="flex gap-3 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
+            ))}
+          </ul>
+          <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+            <a href="/en/contact" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors">Request a Quote</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <button
+        id="comparison-toggle"
+        type="button"
+        class="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+        aria-expanded="false"
+        data-open-label="Compare plans"
+        data-close-label="Hide comparison"
+      >
+        Compare plans
+      </button>
+    </div>
+
+    <section id="plan-comparison" class="mt-16" hidden>
+      <header class="text-center space-y-2 mb-8">
+        <h2 class="text-2xl md:text-3xl font-heading font-extrabold text-gray-900 dark:text-text-primary">Compare plans at a glance</h2>
+        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300">
+          Key differences in scope, monthly care, and SEO focus so you can pick the right fit.
+        </p>
+      </header>
+      <div class="hidden md:block">
+        <div class="overflow-x-auto">
+          <table class="w-full md:min-w-[720px] border-collapse text-sm text-left bg-white dark:bg-background-dark/60 rounded-xl shadow-sm">
+            <thead>
+              <tr class="bg-background-light dark:bg-background-dark/80 text-gray-900 dark:text-text-primary">
+                <th scope="col" class="px-4 py-3 font-semibold">What you get</th>
+                {plans.map((p) => (
+                  <th scope="col" class="px-4 py-3 font-semibold text-center">{p.name}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Best for</th>
+                {plans.map((p) => (
+                  <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{p.bestFor}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Pages included</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.pages}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Monthly updates</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.updates}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">SEO & performance</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.seo}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Automation & CRM</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.automation}</td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-4">
+        {plans.map((p) => {
+          const meta = planMeta[p.name] || planMeta['Start'];
+          return (
+            <article class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/60 p-4 shadow-sm">
+              <h3 class="text-lg font-heading font-semibold text-gray-900 dark:text-text-primary">{p.name}</h3>
+              <dl class="mt-3 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Best for</dt>
+                  <dd>{p.bestFor}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Pages included</dt>
+                  <dd>{meta.pages}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Monthly updates</dt>
+                  <dd>{meta.updates}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">SEO & performance</dt>
+                  <dd>{meta.seo}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Automation & CRM</dt>
+                  <dd>{meta.automation}</dd>
+                </div>
+              </dl>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <AddOns lang="en" id="addons" />
+  </section>
+
+  <script is:inline>
+    (() => {
+      const btn = document.getElementById('comparison-toggle');
+      const section = document.getElementById('plan-comparison');
+      if (!btn || !section) return;
+      const openLabel = (btn.dataset.openLabel || btn.textContent || 'Compare plans').trim();
+      const closeLabel = (btn.dataset.closeLabel || 'Hide comparison').trim();
+
+      function toggle(expand) {
+        btn.setAttribute('aria-expanded', String(expand));
+        btn.textContent = expand ? closeLabel : openLabel;
+        if (expand) {
+          section.removeAttribute('hidden');
+          try {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } catch {}
+        } else {
+          section.setAttribute('hidden', '');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        toggle(!expanded);
+      });
+
+      toggle(false);
+    })();
+  </script>
+</Base>
+

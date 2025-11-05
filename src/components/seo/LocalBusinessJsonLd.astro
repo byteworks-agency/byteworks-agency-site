@@ -1,0 +1,102 @@
+---
+interface ContactPoint {
+  '@type'?: string;
+  telephone: string;
+  contactType?: string;
+  areaServed?: (string | Record<string, unknown>)[];
+  availableLanguage?: string[];
+  email?: string;
+}
+
+interface PostalAddress {
+  '@type'?: string;
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  addressCountry?: string;
+}
+
+interface Props {
+  id?: string;
+  name: string;
+  url: string;
+  image?: string;
+  logo?: string;
+  telephone?: string;
+  email?: string;
+  priceRange?: string;
+  sameAs?: string[];
+  address?: PostalAddress;
+  areaServed?: (string | Record<string, unknown>)[];
+  serviceType?: string[];
+  contactPoint?: ContactPoint[];
+  types?: string[];
+}
+
+const {
+  id,
+  name,
+  url,
+  image,
+  logo,
+  telephone,
+  email,
+  priceRange,
+  sameAs = [],
+  address,
+  areaServed,
+  serviceType,
+  contactPoint,
+  types = [],
+} = Astro.props as Props;
+
+function prune<T>(value: T): T | undefined {
+  if (Array.isArray(value)) {
+    const cleaned = value
+      .map((entry) => prune(entry))
+      .filter((entry) => {
+        if (entry === undefined) return false;
+        if (Array.isArray(entry)) return entry.length > 0;
+        if (typeof entry === 'object' && entry !== null) return Object.keys(entry).length > 0;
+        return true;
+      });
+    return (cleaned.length ? (cleaned as unknown as T) : undefined);
+  }
+  if (value && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>).reduce<Record<string, unknown>>((acc, [key, val]) => {
+      const pruned = prune(val);
+      if (pruned === undefined) return acc;
+      if (Array.isArray(pruned) && pruned.length === 0) return acc;
+      if (typeof pruned === 'object' && pruned !== null && !Array.isArray(pruned) && Object.keys(pruned).length === 0) return acc;
+      acc[key] = pruned;
+      return acc;
+    }, {});
+    return (Object.keys(entries).length ? (entries as unknown as T) : undefined);
+  }
+  if (value === undefined || value === null || value === '') return undefined;
+  return value;
+}
+
+const baseType = types.length ? ['LocalBusiness', ...types] : 'LocalBusiness';
+const schema = prune({
+  '@context': 'https://schema.org',
+  '@type': baseType,
+  '@id': id,
+  name,
+  image,
+  url,
+  logo,
+  telephone,
+  email,
+  priceRange,
+  sameAs,
+  address: address ? { '@type': 'PostalAddress', ...address } : undefined,
+  areaServed,
+  serviceType,
+  contactPoint: contactPoint?.length ? contactPoint.map((cp) => ({ '@type': 'ContactPoint', ...cp })) : undefined,
+});
+
+const json = schema ? JSON.stringify(schema) : '';
+---
+{json && <script is:inline type="application/ld+json">{json}</script>}

@@ -4,7 +4,7 @@ const ENV = process.env as Record<string, string | undefined>;
 
 const title = 'Contact — ByteWorks';
 const description =
-  "Reach us via WhatsApp — quick and direct. Use the form to start the conversation.";
+  'Reach us through the social links in the footer. Use the form to share context before we connect.';
 
 const phone = ENV.PUBLIC_WHATSAPP_PHONE || '';
 const message = ENV.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I'm interested in a website.";
@@ -16,7 +16,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
     <h1 class="text-3xl md:text-5xl font-semibold">Let’s work together</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
       Ready to build a modern, bilingual website with maintenance included?
-      Reach us directly via WhatsApp. Use the form below to start the conversation — we’ll reply on WhatsApp.
+      Pick any social link from the “Follow Us” section (WhatsApp, Instagram, etc.). The form below gives us the essentials so we can respond fast on the channel you prefer.
     </p>
 
     <!-- WhatsApp quick button removed for funnel flow -->
@@ -27,11 +27,11 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
         <input id="name" name="name" type="text" required placeholder="e.g. Jane Doe / ACME Inc." class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
-      <!-- Preferred contact: WhatsApp only -->
+      <!-- Preferred contact detail -->
 
       <div id="phone_wrap" class="">
-        <label for="phone" class="block text-sm font-medium mb-1">Phone (WhatsApp)</label>
-        <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="e.g. +1 868 775 9858" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
+        <label for="phone" class="block text-sm font-medium mb-1">Preferred contact (WhatsApp or social handle)</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="e.g. @brandhandle or +1 868 775 9858" class="w-full rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white" />
       </div>
 
       <!-- Email removed for now -->
@@ -67,12 +67,12 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
       const root = document.querySelector('section[data-wa]');
       const form = document.querySelector('#contact-form');
       const nameEl = document.querySelector('#name');
-      // Email removed in WhatsApp-only mode
+      // Email removed in social-first contact mode
       const phoneEl = document.querySelector('#phone');
       const messageEl = document.querySelector('#message');
       const hpEl = document.querySelector('#website');
       const btn = document.querySelector('#submitBtn');
-      // preference fixed to WhatsApp
+      // preference defaults to WhatsApp but we log whatever the client prefers
       const statusEl = document.querySelector('#formStatus');
       if (!form || !nameEl || !messageEl || !hpEl) return;
 
@@ -135,7 +135,7 @@ const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` 
 
         // Open WhatsApp FIRST (within the user gesture) to avoid popup blockers
         if (!WA_NUMBER) {
-          setStatus('WhatsApp is not configured. Please try again later.', 'error');
+          setStatus('Social contact is not configured. Please try again later.', 'error');
           if (btn) { btn.disabled = false; btn.textContent = original || 'Send Message'; }
           return;
         }

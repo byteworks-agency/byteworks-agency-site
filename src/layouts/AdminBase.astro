@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import adminUrl from '../scripts/admin.js?url';
+import logo from '../assets/logo.png';
 
 interface Props {
   title?: string;
@@ -46,7 +47,7 @@ const isActive = (href: string) => {
         <button id="hamburgerBtn" type="button" class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Toggle menu" aria-expanded="false">
           <span class="material-symbols-outlined">menu</span>
         </button>
-        <img src="/logo.png" alt="Logo" width="28" height="28" class="block" />
+        <img src={logo.src} alt="ByteWorks logo" width="28" height="28" class="block" loading="lazy" decoding="async" fetchpriority="low" />
         <h2 class="text-lg font-bold">Dashboard</h2>
       </div>
       <div class="flex items-center gap-2">

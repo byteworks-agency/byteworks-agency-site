@@ -14,71 +14,110 @@ const description = 'ByteWorks respects your privacy. Learn how we handle, store
 
     <article class="space-y-6 text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">
       <section>
-        <h2 class="text-lg font-semibold mb-2">1. Introduction</h2>
+        <h2 class="text-lg font-semibold mb-2">1. Who we are</h2>
         <p>
-          ByteWorks ("we", "our", "us") respects your privacy and is committed to protecting your personal data. This policy explains how we collect, use, and safeguard your information when you interact with our website or services.
+          ByteWorks (“we”, “us”, “our”) is an online web design and maintenance studio.
+          We design, host, and maintain marketing and transactional websites for entrepreneurs and small businesses.
+          This policy describes how we process personal data when you browse our sites, request a quote, or use the
+          admin tools we provide to our clients.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">2. Information We Collect</h2>
-        <p>
-          We may collect personal data that you voluntarily provide, such as:
-        </p>
+        <h2 class="text-lg font-semibold mb-2">2. Personal data we collect</h2>
+        <p>We only collect the data we need to deliver and improve our services:</p>
         <ul class="list-disc list-inside mt-2 space-y-1">
-          <li>Name and contact information (email, phone number).</li>
-          <li>Messages or details submitted through contact or quote forms.</li>
-          <li>Technical data such as IP address, browser type, and device information (collected automatically through analytics tools).</li>
+          <li><span class="font-medium">Inquiry details</span>: name, email, phone, business name, project goals, and any message you share through our contact or quote forms.</li>
+          <li><span class="font-medium">Account data</span>: if you access the ByteWorks admin portal, we store the email used for login, basic profile information, and authentication metadata provided by Supabase Auth.</li>
+          <li><span class="font-medium">Billing records</span>: purchase history, invoices, quotes, currencies, and payment references managed through our Prisma/PostgreSQL database.</li>
+          <li><span class="font-medium">Usage data</span>: anonymised visit metrics (page views, referrers, approximate location) produced by privacy-friendly analytics and server logs. These do not include advertising identifiers.</li>
+          <li><span class="font-medium">Technical diagnostics</span>: IP address, browser, device type, error traces collected automatically to secure the platform and troubleshoot incidents.</li>
         </ul>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">3. Internal Dashboard & Integrations</h2>
-        <p>
-          We use a ByteWorks internal dashboard to process form submissions, manage orders, and view privacy-friendly analytics. Data stored is limited to what is necessary to provide our services (e.g., contact details, order references, aggregate visit metrics). We do not use third-party trackers by default.
+        <h2 class="text-lg font-semibold mb-2">3. How we use the data</h2>
+        <p>We process personal data for the following purposes:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Responding to inquiries, preparing proposals, and onboarding new projects.</li>
+          <li>Operating our admin dashboard: managing quotes, invoices, lead submissions, reminders, and content updates.</li>
+          <li>Providing technical support, monitoring uptime, generating backups, and improving user experience.</li>
+          <li>Sending essential service communications (maintenance windows, policy updates, billing notices).</li>
+          <li>Meeting contractual and legal obligations, including accounting and fraud prevention.</li>
+        </ul>
+        <p class="mt-2">
+          We rely on legitimate interest to secure our infrastructure and run analytics, and on contractual necessity or your consent for the rest. Where required, we request explicit permission (for example, opt-in marketing emails).
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">4. Contact Form Data Handling</h2>
+        <h2 class="text-lg font-semibold mb-2">4. Providers &amp; international transfers</h2>
         <p>
-          Information submitted through our contact or quote forms is used solely to respond to your request, provide a quotation, or deliver the requested service. All data is securely stored and deleted upon request or within 12 months of inactivity.
+          We host infrastructure on Vercel (EU/US regions) and store operational data in Supabase (USA/EU) using encrypted PostgreSQL databases.
+          Payment information is handled via the processors stated on each invoice (e.g. Stripe or direct bank transfer); we never store raw card data.
+        </p>
+        <p class="mt-2">
+          When we engage sub-processors, we make sure contracts include confidentiality and security obligations aligned with this policy. Data may be transferred outside your jurisdiction and is protected by standard contractual clauses or equivalent safeguards.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">5. Cookies and Analytics</h2>
+        <h2 class="text-lg font-semibold mb-2">5. Cookies &amp; analytics</h2>
         <p>
-          Our site may use first-party cookies to remember basic preferences and to enable a lightweight, privacy-focused analytics within our internal dashboard. You can disable cookies in your browser settings at any time; some features may be affected.
+          Our public site uses first-party cookies to remember language preferences and session state. We also run lightweight analytics
+          (Plausible or Cloudflare Insights) that track aggregate trends without personal identifiers. You can block cookies in your browser;
+          essential features such as the admin session may require them.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">6. Data Retention</h2>
+        <h2 class="text-lg font-semibold mb-2">6. Data retention</h2>
         <p>
-          Personal data related to service inquiries or form submissions is retained for up to 12 months, unless deletion is requested earlier. Backups containing limited metadata may be stored securely for operational continuity.
+          Inquiry data is stored for up to 12 months after the last interaction. Client records (quotes, invoices, signed agreements) are retained for seven (7) years to comply with accounting rules unless laws require a longer period.
+          Backups are encrypted, stored for up to 30 days, and then purged. If you ask us to delete information, we remove it from active systems and schedule deletion from backups during the next cycle.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">7. Data Security</h2>
+        <h2 class="text-lg font-semibold mb-2">7. Security practices</h2>
         <p>
-          We use SSL encryption, secure hosting, and access controls to protect your data. While no system is completely secure, ByteWorks applies best practices to reduce risk of unauthorized access, loss, or alteration.
+          We implement role-based access control, HTTPS everywhere, automatic dependency updates, and continuous vulnerability monitoring.
+          Production credentials are stored in environment secrets, and admin access requires multi-factor authentication. Despite best efforts, no system is infallible; we investigate and disclose any breach that materially affects your data.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">8. Your Rights</h2>
-        <p>
-          You may request access, correction, or deletion of your personal data at any time by writing to
-          <span class="font-medium">privacy@byteworks.agency</span>.
+        <h2 class="text-lg font-semibold mb-2">8. Your choices &amp; rights</h2>
+        <p>You can:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1">
+          <li>Request a copy of the personal data we hold about you.</li>
+          <li>Ask us to correct inaccurate information or delete it when permitted by law.</li>
+          <li>Restrict or object to certain processing (for example, analytics cookies).</li>
+          <li>Export your admin data (quotes, invoices, submissions) in accessible formats.</li>
+        </ul>
+        <p class="mt-2">
+        Reach out through any of our social links in the “Follow Us” footer section. We respond within 30 days and may verify your identity before acting on the request.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold mb-2">9. Policy Updates</h2>
+        <h2 class="text-lg font-semibold mb-2">9. Children</h2>
         <p>
-          We may update this policy when necessary. The current version will always be available on this page.
+          Our services target business owners and teams. We do not knowingly collect data from children under 16. If you believe a child has provided personal information, please reach out so we can delete it promptly.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold mb-2">10. Changes to this policy</h2>
+        <p>
+          We will update this notice whenever our practices change. The “effective” date above indicates the latest revision. Substantial updates are communicated to active clients via email or the admin dashboard.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold mb-2">11. Contact</h2>
+        <p>
+          For questions about privacy or to lodge a complaint, contact us through the social links available in the “Follow Us” section of the footer.
         </p>
       </section>
     </article>

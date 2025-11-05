@@ -1,5 +1,7 @@
 ---
 // SiteHeader props
+import logo from '../assets/logo.png';
+
 interface Props {
   lang?: 'en' | 'es';
 }
@@ -20,13 +22,13 @@ const isHomePage = pathname === (isEN ? '/en' : '/es') || pathname === (isEN ? '
 const navLinks = isEN
   ? [
       { href: '/en/about', label: 'About' },
-      { href: '/en/plans', label: 'Pricing' },
+      { href: '/en/pricing', label: 'Pricing' },
       { href: '/en/how-it-works', label: 'How It Works' },
       { href: '/en/faq', label: 'FAQ' },
     ]
   : [
       { href: '/es/about', label: 'Nosotros' },
-      { href: '/es/planes', label: 'Precios' },
+      { href: '/es/pricing', label: 'Precios' },
       { href: '/es/how-it-works', label: 'Cómo funciona' },
       { href: '/es/faq', label: 'Preguntas' },
     ];
@@ -37,14 +39,14 @@ const navLinks = isEN
   <!-- Brand con logo -->
   <a id="brand-link" href={isEN ? '/en' : '/es'} class="flex items-center gap-2 text-gray-900 dark:text-text-primary">
     <img
-      src="/logo.png"
+      src={logo.src}
       alt="ByteWorks logo"
       width="28"
       height="28"
-      loading="eager"
+      loading={isHomePage ? 'eager' : 'lazy'}
       decoding="async"
+      fetchpriority={isHomePage ? 'high' : 'low'}
       class="block"
-      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
     />
     <span class="font-display text-xl">ByteWorks</span>
   </a>

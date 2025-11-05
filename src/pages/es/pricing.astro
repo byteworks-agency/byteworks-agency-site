@@ -1,0 +1,283 @@
+---
+import Base from '../../layouts/Base.astro';
+import AddOns from '../../components/AddOns.astro';
+
+const title = 'Planes - ByteWorks';
+const description =
+  'Planes transparentes con mantenimiento incluido. Elige el plan que se ajuste a tu etapa; puedes subir cuando lo necesites. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
+
+const plans = [
+  {
+    name: 'Start',
+    price: '$45/mes',
+    yearly: '$459/año (ahorra 15%)',
+    bestFor: 'Emprendedores, marcas personales y presencia simple',
+    features: [
+      'Sitio de una sola página (responsive)',
+      'Integración de formulario de contacto (dashboard interno)',
+      'SEO básico (títulos, meta, OG, sitemap)',
+      'Dominio, hosting y mantenimiento incluidos',
+      '1 actualización mensual',
+      'SSL y copias de seguridad',
+    ],
+  },
+  {
+    name: 'Pro',
+    price: '$55/mes',
+    yearly: '$561/año (ahorra 15%)',
+    bestFor: 'Negocios de servicios que necesitan 3-4 páginas',
+    features: [
+      'Hasta 4 páginas (Inicio, Nosotros, Servicios, Contacto)',
+      'Automatizaciones de contacto + dashboard interno',
+      'Optimización técnica ligera y rendimiento',
+      'Dominio, hosting y mantenimiento incluidos',
+      '2 actualizaciones mensuales',
+      'SSL y copias de seguridad',
+    ],
+  },
+  {
+    name: 'Elite',
+    price: '$70/mes',
+    yearly: '$714/año (ahorra 15%)',
+    bestFor: 'Marcas en crecimiento que necesitan más secciones y mejor UX',
+    features: [
+      'Hasta 7 páginas con secciones personalizadas',
+      'SEO mejorado (estructura, velocidad, indexación)',
+      'Flujos de captación + integraciones con dashboard interno',
+      'Dominio, hosting y mantenimiento incluidos',
+      '3 actualizaciones mensuales',
+      'SSL y copias de seguridad',
+    ],
+  },
+  {
+    name: 'E-Commerce Pro',
+    price: '$95/mes',
+    yearly: '$969/año (ahorra 15%)',
+    bestFor: 'Catálogo + pedidos manuales (sin pasarela de pago)',
+    features: [
+      'Catálogo de productos (hasta 20 artículos)',
+      'Carrito local + flujo de checkout manual',
+      'Registro de pedidos por el dashboard interno',
+      'Seguimiento interno por código',
+      'Actualización de productos asistida por ByteWorks o autogestión simple',
+      '4 actualizaciones mensuales (productos o textos)',
+      'SSL, copias, dominio y hosting incluidos',
+    ],
+  },
+];
+
+const planMeta: Record<
+  string,
+  {
+    pages: string;
+    updates: string;
+    seo: string;
+    automation: string;
+  }
+> = {
+  'Start': {
+    pages: 'Sitio de una página',
+    updates: '1 actualización',
+    seo: 'SEO base configurado',
+    automation: 'Formulario a email/dashboard',
+  },
+  'Pro': {
+    pages: 'Hasta 4 páginas',
+    updates: '2 actualizaciones',
+    seo: 'Optimización técnica ligera',
+    automation: 'Automatizaciones de leads',
+  },
+  'Elite': {
+    pages: 'Hasta 7 páginas',
+    updates: '3 actualizaciones',
+    seo: 'SEO mejorado + velocidad',
+    automation: 'Flujos avanzados de captación',
+  },
+  'E-Commerce Pro': {
+    pages: 'Catálogo (20 productos)',
+    updates: '4 actualizaciones (productos o copy)',
+    seo: 'SEO mejorado + catálogo',
+    automation: 'Pedidos y seguimiento interno',
+  },
+};
+---
+
+<Base title={title} description={description} image="/og-image.png" lang="es">
+  <section class="px-4 max-w-[960px] mx-auto py-16 md:py-24">
+    <header class="text-center space-y-3">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Planes</h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Precios claros con mantenimiento incluido. Estructura bilingüe por defecto.
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 mt-10">
+      {plans.map((p) => (
+        <article class={`relative h-full rounded-xl p-6 flex flex-col bg-white dark:bg-background-dark/50 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+          {p.name === 'Pro' && (
+            <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-secondary px-3 py-1 text-center">Más Popular</p>
+          )}
+          <h2 class={`text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>
+            {p.name}
+          </h2>
+          <p class="mt-1 text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.bestFor}</p>
+          <ul class="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            {p.features.map((f) => (
+              <li class="flex gap-3 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
+            ))}
+          </ul>
+          <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+            <a href="/es/contacto" class="w-full inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary text-white font-bold hover:bg-primary/90 transition-colors">Solicitar cotización</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-10 flex justify-center">
+      <button
+        id="comparison-toggle"
+        type="button"
+        class="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+        aria-expanded="false"
+        data-open-label="Comparar planes"
+        data-close-label="Ocultar comparación"
+      >
+        Comparar planes
+      </button>
+    </div>
+
+    <section id="plan-comparison" class="mt-16" hidden>
+      <header class="text-center space-y-2 mb-8">
+        <h2 class="text-2xl md:text-3xl font-heading font-extrabold text-gray-900 dark:text-text-primary">Compara los planes en segundos</h2>
+        <p class="text-sm md:text-base text-gray-600 dark:text-gray-300">
+          Diferencias clave en alcance, mantenimiento mensual y enfoque SEO para elegir con confianza.
+        </p>
+      </header>
+      <div class="hidden md:block">
+        <div class="overflow-x-auto">
+          <table class="w-full md:min-w-[720px] border-collapse text-sm text-left bg-white dark:bg-background-dark/60 rounded-xl shadow-sm">
+            <thead>
+              <tr class="bg-background-light dark:bg-background-dark/80 text-gray-900 dark:text-text-primary">
+                <th scope="col" class="px-4 py-3 font-semibold">Qué incluye</th>
+                {plans.map((p) => (
+                  <th scope="col" class="px-4 py-3 font-semibold text-center">{p.name}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Ideal para</th>
+                {plans.map((p) => (
+                  <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{p.bestFor}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Páginas incluidas</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.pages}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Actualizaciones mensuales</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.updates}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">SEO y rendimiento</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.seo}</td>
+                  );
+                })}
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-gray-700 dark:text-gray-200">Automatización y CRM</th>
+                {plans.map((p) => {
+                  const meta = planMeta[p.name] || planMeta['Start'];
+                  return (
+                    <td class="px-4 py-3 text-center text-gray-600 dark:text-gray-300">{meta.automation}</td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="md:hidden space-y-4">
+        {plans.map((p) => {
+          const meta = planMeta[p.name] || planMeta['Start'];
+          return (
+            <article class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark/60 p-4 shadow-sm">
+              <h3 class="text-lg font-heading font-semibold text-gray-900 dark:text-text-primary">{p.name}</h3>
+              <dl class="mt-3 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Ideal para</dt>
+                  <dd>{p.bestFor}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Páginas incluidas</dt>
+                  <dd>{meta.pages}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Actualizaciones mensuales</dt>
+                  <dd>{meta.updates}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">SEO y rendimiento</dt>
+                  <dd>{meta.seo}</dd>
+                </div>
+                <div>
+                  <dt class="font-medium text-gray-900 dark:text-text-primary">Automatización y CRM</dt>
+                  <dd>{meta.automation}</dd>
+                </div>
+              </dl>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <AddOns lang="es" id="addons" />
+  </section>
+
+  <script is:inline>
+    (() => {
+      const btn = document.getElementById('comparison-toggle');
+      const section = document.getElementById('plan-comparison');
+      if (!btn || !section) return;
+      const openLabel = (btn.dataset.openLabel || btn.textContent || 'Comparar planes').trim();
+      const closeLabel = (btn.dataset.closeLabel || 'Ocultar comparación').trim();
+
+      function toggle(expand) {
+        btn.setAttribute('aria-expanded', String(expand));
+        btn.textContent = expand ? closeLabel : openLabel;
+        if (expand) {
+          section.removeAttribute('hidden');
+          try {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } catch {}
+        } else {
+          section.setAttribute('hidden', '');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        toggle(!expanded);
+      });
+
+      toggle(false);
+    })();
+  </script>
+</Base>
