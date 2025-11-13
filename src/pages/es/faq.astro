@@ -6,31 +6,106 @@ const title = 'Preguntas frecuentes - ByteWorks';
 const description = 'Respuestas claras sobre planes, tiempos, propiedad, SEO, e-commerce y soporte.';
 
 const faqs = [
-  { q: '¿En cuánto tiempo entregan mi sitio?', a: 'Start se lanza en 7–10 días hábiles luego de recibir textos, logo e imágenes. Pro/Elite toman 2–4 semanas según alcance y velocidad de revisión.' },
-  { q: '¿Qué necesitan para comenzar?', a: 'Logo, colores de marca (si tienes), esquema de páginas, textos básicos, imágenes (o placeholders) y un email/teléfono de contacto. Para e-commerce: nombres de productos, precios y fotos.' },
-  { q: '¿Qué incluye la actualización mensual?', a: 'Tareas acotadas: cambios de texto/imagen, ajustes menores de layout, edición de productos o secciones simples. El tiempo es limitado por plan y no se acumula.' },
-  { q: '¿Qué no incluye la actualización mensual?', a: 'Páginas nuevas, rediseños, integraciones complejas, pasarelas de pago o producción de contenido grande. Eso requiere cotización o cambio de plan/add-on.' },
-  { q: '¿Escriben los textos?', a: 'Damos estructura y hacemos una edición ligera. La redacción completa no está incluida por defecto, pero podemos cotizarla.' },
-  { q: '¿Hacen logos o branding?', a: 'Sí. El add-on de Branding Básico incluye logo (principal/alternativo), paleta de colores, tipografías sugeridas y avatares/banners para redes.' },
-  { q: '¿Trabajan con CMS?', a: 'Por defecto evitamos CMS pesados por rendimiento y confiabilidad; nosotros mantenemos tu sitio. Si realmente necesitas un CMS, lo cotizamos.' },
-  { q: '¿Es bilingüe por defecto?', a: 'Sí. Incluimos rutas en Inglés y Español. Si solo necesitas un idioma, ocultamos el otro.' },
-  { q: '¿Cómo funciona el hosting?', a: 'Todos los planes incluyen hosting, SSL y monitoreo básico. Desplegamos en infraestructura confiable y nos encargamos de lo técnico.' },
-  { q: '¿Soy dueño de mi dominio y contenido?', a: 'Sí. Tú eres dueño del dominio y del contenido. Nosotros operamos la parte técnica mientras tu suscripción está activa.' },
-  { q: '¿Pueden usar mi dominio actual?', a: 'Sí. Te ayudamos a apuntar el DNS al nuevo sitio o a comprar un dominio si lo necesitas.' },
-  { q: '¿Crean cuentas de email?', a: 'No incluimos hosting de correo. Recomendamos usar tu proveedor de correo preferido y te damos pasos simples de configuración.' },
-  { q: '¿Qué hay del SEO?', a: 'Todos los planes incluyen SEO básico (estructura limpia, meta, sitemap). Para mejoras continuas y posicionamiento local ofrecemos el add-on de SEO Avanzado.' },
-  { q: '¿Configuran perfiles de negocio?', a: 'Sí, como parte del add-on de SEO ayudamos a configurar/actualizar perfiles de negocio para mejorar la visibilidad local.' },
-  { q: '¿Incluye analítica?', a: 'Sí. Incluimos analítica ligera y enfocada en privacidad mediante nuestro dashboard interno. Podrás ver visitas y métricas básicas.' },
-  { q: '¿Incluye e-commerce?', a: 'El plan E-Commerce Pro habilita catálogo simple, carrito y checkout manual (sin pasarela). Si necesitas pagos online, lo cotizamos.' },
-  { q: '¿Límites de productos?', a: 'E-Commerce Pro cubre hasta 20 productos. El add-on de Catálogo Extendido permite sumar bloques de 20. Sobre 60 productos suele requerir plan a medida.' },
-  { q: '¿Cómo se manejan los pagos?', a: 'Suscripción mensual o anual. Puedes subir de plan en cualquier momento. La cancelación detiene futuras renovaciones al final del período actual.' },
-  { q: '¿Puedo cancelar? ¿Qué recibo?', a: 'Sí. Podemos exportar una copia estática y entregar assets/datos dentro de los límites de nuestros Términos.' },
-  { q: '¿Mi sitio será rápido y mobile-friendly?', a: 'Sí. Rendimiento y responsive por defecto. Apuntamos a puntajes verdes de Lighthouse siempre que sea práctico para tu contenido.' },
-  { q: '¿Accesibilidad?', a: 'Buenas prácticas de estructura, color e interacción. Auditorías/certificaciones completas no están incluidas por defecto.' },
-  { q: '¿Backups y seguridad?', a: 'Backups automáticos. SSL incluido. Pila moderna y pequeña con deploys de solo lectura y dependencias actualizadas.' },
-  { q: '¿Horario y tiempos de respuesta?', a: 'Lunes-Viernes, 9:00–18:00 (AST). Objetivos típicos: ≤ 4h crítico, ≤ 24h estándar, ≤ 48h general (ver Términos).' },
-  { q: '¿Cómo nos comunicamos?', a: 'Usa cualquiera de nuestras redes enlazadas en “Síguenos” (WhatsApp, Instagram, etc.). Dudas rápidas se atienden rápido; cambios grandes van por actualización mensual o tarea cotizada.' },
-  { q: '¿Pueden migrar mi sitio actual?', a: 'Sí. Migramos páginas y assets clave a la nueva estructura. Blogs o tiendas complejas pueden requerir add-on o presupuesto.' },
+  {
+    q: '¿Qué tan rápido pueden entregar mi sitio web?',
+    a: 'Los sitios pequeños pueden lanzarse en 7–10 días hábiles una vez que recibimos todo el contenido. Alcances más grandes suelen tomar 2–4 semanas.',
+  },
+  {
+    q: '¿Qué necesitan de mi parte para comenzar?',
+    a: 'Logo y colores de marca (si existen), esquema de páginas o secciones clave, textos básicos, imágenes o placeholders y un email/teléfono de contacto. Para e-commerce también necesitamos nombres, precios y fotos de productos.',
+  },
+  {
+    q: '¿Qué incluye la actualización mensual?',
+    a: 'Puedes solicitar cambios de texto o contenido, nuevas imágenes, pequeños ajustes de layout, mejoras SEO menores, actualización de servicios o correcciones en secciones existentes. El alcance depende de tu plan.',
+  },
+  {
+    q: '¿Qué NO incluye la actualización mensual?',
+    a: 'Rediseños completos o páginas nuevas, funcionalidades grandes, expansiones masivas de catálogo, integraciones/automatizaciones a medida o branding nuevo. Eso se maneja como upgrade o tarea puntual.',
+  },
+  {
+    q: '¿Escriben el copy?',
+    a: 'Sí — podemos dar forma o mejorar el copy con la información que compartas. La redacción completa está incluida en el plan o como add-on.',
+  },
+  {
+    q: '¿Diseñan logos o brand kits?',
+    a: 'Sí — ofrecemos el Paquete Básico de Branding con logo, colores, tipografía y assets para redes.',
+  },
+  {
+    q: '¿Trabajan con un CMS?',
+    a: 'Usamos una stack moderna y de alto rendimiento (Astro + Vercel). En sitios simples no hace falta CMS porque las actualizaciones están cubiertas en tu plan. Para blogs o catálogos usamos un dashboard interno ligero o contenido estructurado.',
+  },
+  {
+    q: '¿El sitio es bilingüe?',
+    a: 'Sí — todos los planes incluyen Inglés + Español por defecto, con rutas listas para SEO.',
+  },
+  {
+    q: '¿Cómo funciona el hosting?',
+    a: 'Hosting, SSL y backups se gestionan por completo y están incluidos en tu plan mensual.',
+  },
+  {
+    q: '¿Soy dueño de mi dominio y contenido?',
+    a: 'Por supuesto. El dominio puede estar a tu nombre y todo el contenido es tuyo.',
+  },
+  {
+    q: '¿Pueden usar mi dominio actual?',
+    a: 'Sí — conectamos cualquier dominio que ya tengas.',
+  },
+  {
+    q: '¿Crean cuentas de correo?',
+    a: 'Podemos guiarte o configurar reenvíos. Correos corporativos (ej. Google Workspace) se agregan por separado si los necesitas.',
+  },
+  {
+    q: '¿Qué hay del SEO?',
+    a: 'Todos los sitios incluyen estructura limpia, sitemap, páginas indexables, metadatos/Open Graph y rendimiento rápido. El add-on de SEO Avanzado y Posicionamiento Local está disponible si quieres más.',
+  },
+  {
+    q: '¿Configuran perfiles de negocio?',
+    a: 'Sí — viene incluido en el add-on de SEO Avanzado y Posicionamiento Local (Google Business Profile, listados locales, etc.).',
+  },
+  {
+    q: '¿Incluyen analíticas?',
+    a: 'Sí — integramos analíticas básicas en tu sitio o dashboard.',
+  },
+  {
+    q: '¿Incluyen e-commerce?',
+    a: 'Sí — mediante el plan E-Commerce Pro o el add-on de Mini Tienda Online.',
+  },
+  {
+    q: '¿Límites de productos?',
+    a: 'Mini tienda online: hasta 10 productos. E-Commerce Pro: hasta 20 productos. Puedes sumar bloques extra de 20 como add-on y, si el catálogo es más grande, ver un plan a medida.',
+  },
+  {
+    q: '¿Cómo manejan los pagos?',
+    a: 'Soportamos checkout manual para pedidos locales y podemos guiarte en opciones de pasarela de pago si lo necesitas.',
+  },
+  {
+    q: '¿Puedo cancelar cuando quiera? ¿Qué recibo?',
+    a: 'Sí — conservas tu dominio y contenido, y podemos entregar un backup estático si lo solicitas. El hosting y las actualizaciones se detienen después de cancelar.',
+  },
+  {
+    q: '¿Mi sitio será rápido y mobile-friendly?',
+    a: 'Totalmente — el diseño mobile-first y la optimización de rendimiento son la base de cada proyecto.',
+  },
+  {
+    q: '¿Accesibilidad?',
+    a: 'Seguimos buenas prácticas de accesibilidad para que el sitio sea claro y usable para todos.',
+  },
+  {
+    q: '¿Backups y seguridad?',
+    a: 'Backups automáticos, SSL y prácticas modernas de seguridad están incluidos en todos los planes.',
+  },
+  {
+    q: '¿Horarios y tiempos de respuesta?',
+    a: 'Atendemos por nuestras redes (WhatsApp, Instagram) y email, con respuestas habituales dentro de las 24 horas.',
+  },
+  {
+    q: '¿Cómo nos comunicamos?',
+    a: 'Comunicación ágil por WhatsApp, Instagram o email — tú eliges. También compartimos previews tempranos para que revises rápido.',
+  },
+  {
+    q: '¿Pueden migrar mi sitio actual?',
+    a: 'Sí — podemos reconstruir o migrar tu sitio a nuestro sistema moderno. Si la migración es compleja, podría requerir una cotización a medida.',
+  },
 ];
 ---
 
@@ -44,23 +119,23 @@ const faqs = [
     <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-10 bg-white dark:bg-background-dark/50">
       <h2 class="text-xl md:text-2xl font-bold text-text-primary font-heading">Qué hace ByteWorks</h2>
       <p class="mt-2 text-gray-600 dark:text-gray-300">
-        En ByteWorks creemos que tener una página web profesional no debería ser complicado ni costoso. Nos encargamos de todo el proceso —desde el diseño hasta el mantenimiento— para que cualquier negocio, marca o emprendimiento pueda tener una presencia digital sólida sin preocuparse por lo técnico.
+        En ByteWorks creemos que tener un sitio profesional no debería ser complicado ni caro. Nos encargamos de todo —diseño, desarrollo, hosting, seguridad, actualizaciones y soporte— para que puedas enfocarte en tu negocio.
       </p>
       <p class="mt-2 text-gray-600 dark:text-gray-300">
-        Cada sitio está pensado para verse muy bien en móviles, adaptarse a cualquier dispositivo y transmitir una imagen moderna y confiable.
+        Cada sitio que construimos es rápido, moderno, mobile-friendly y está diseñado para generar confianza desde el primer contacto.
       </p>
       <div class="mt-3">
-        <div class="font-medium mb-1">Incluye todo lo necesario:</div>
+        <div class="font-medium mb-1">Qué incluye:</div>
         <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1">
-          <li>Dominio y hosting (no tienes que pagar aparte).</li>
-          <li>Diseño profesional y funcional.</li>
-          <li>Redes sociales (ver “Síguenos”) y formulario de contacto.</li>
-          <li>SEO básico para aparecer en buscadores.</li>
-          <li>Mantenimiento mensual y soporte real.</li>
+          <li>Dominio + hosting (sin pagos extra)</li>
+          <li>Diseño limpio, profesional y funcional</li>
+          <li>Enlaces a redes y formulario de contacto</li>
+          <li>SEO básico para aparecer en buscadores</li>
+          <li>Mantenimiento mensual y soporte real</li>
         </ul>
       </div>
       <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
-        En pocas palabras: tú manejas tu negocio; nosotros nos encargamos del lado digital.
+        En resumen: tú manejas tu negocio — nosotros cuidamos la parte digital.
       </p>
     </div>
 

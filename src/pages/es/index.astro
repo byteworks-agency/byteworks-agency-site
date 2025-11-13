@@ -1,14 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AddOns from '../../components/AddOns.astro';
-import { HOME_FAQS, HOME_PLAN_ICONS, HOME_PLANS } from '../../content/home';
+import { HOME_FAQS, HOME_PLANS } from '../../content/home';
 
 const title = 'ByteWorks - Sitios web que trabajan a tu favor';
 const description =
   'Webs modernas y bilingües. Precios claros, mantenimiento incluido y soporte real. Tú te enfocas en tu negocio; nosotros nos encargamos del lado digital.';
 
 const planesHome = HOME_PLANS.es;
-const planIcons = HOME_PLAN_ICONS;
 const faqs = HOME_FAQS.es;
 ---
 
@@ -51,14 +50,78 @@ const faqs = HOME_FAQS.es;
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
         {planesHome.map((p) => (
-          <div class={`relative flex h-full flex-col gap-6 rounded-xl bg-white dark:bg-background-dark/50 p-6 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
+          <div class={`relative flex h-full flex-col rounded-xl bg-white dark:bg-background-dark/50 p-6 ${p.name === 'Pro' ? 'border-2 border-primary' : 'border border-gray-200 dark:border-gray-700'}`}>
             {p.name === 'Pro' && (
               <p class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 text-white text-xs font-medium tracking-[0.015em] rounded-full bg-secondary px-3 py-1 text-center">Más Popular</p>
             )}
-            <h3 class={`text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>{p.name}</h3>
-            <p class="mt-1 text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">{p.yearly}</p>
-            <ul class="mt-2 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <div class="space-y-1">
+              <h3 class={`flex items-center gap-3 text-2xl md:text-3xl font-extrabold tracking-[-0.025em] font-heading ${p.name === 'Pro' ? 'text-primary' : 'text-gray-900 dark:text-text-primary'}`}>
+                {p.name === 'Start' && (
+                  <svg
+                    class="h-[1.35em] w-[1.35em] text-primary"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m6.516 14.323l-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4l4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454l-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713zm2.853-4.326a1 1 0 0 0 .832-.586L12 5.43l1.799 3.981a1 1 0 0 0 .832.586l3.972.315l-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385l-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603l1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962z"
+                    />
+                  </svg>
+                )}
+                {p.name === 'Pro' && (
+                  <svg
+                    class="h-[1.35em] w-[1.35em] text-primary"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M20.92 2.38A15.7 15.7 0 0 0 17.5 2a8.26 8.26 0 0 0-6 2.06Q9.89 5.67 8.31 7.27c-1.21-.13-4.08-.2-6 1.74a1 1 0 0 0 0 1.41l11.3 11.32a1 1 0 0 0 1.41 0c1.95-2 1.89-4.82 1.77-6l3.21-3.2c3.19-3.19 1.74-9.18 1.68-9.43a1 1 0 0 0-.76-.73m-2.36 8.75L15 14.67a1 1 0 0 0-.27.9a6.8 6.8 0 0 1-.54 3.94L4.52 9.82a6.67 6.67 0 0 1 4-.5A1 1 0 0 0 9.39 9s1.4-1.45 3.51-3.56A6.6 6.6 0 0 1 17.5 4a14.5 14.5 0 0 1 2.33.2c.24 1.43.62 5.04-1.27 6.93"
+                    />
+                    <circle cx="15.73" cy="8.3" r="2" fill="currentColor" />
+                    <path fill="currentColor" d="M5 16c-2 1-2 5-2 5a7.8 7.8 0 0 0 5-2z" />
+                  </svg>
+                )}
+                {p.name === 'Elite' && (
+                  <svg
+                    class="h-[1.35em] w-[1.35em] text-primary"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M11.219 3.375L8 7.399L4.781 3.375A1.002 1.002 0 0 0 3 4v15c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4a1.002 1.002 0 0 0-1.781-.625L16 7.399l-3.219-4.024c-.381-.474-1.181-.474-1.562 0M5 19v-2h14.001v2zm10.219-9.375c.381.475 1.182.475 1.563 0L19 6.851L19.001 15H5V6.851l2.219 2.774c.381.475 1.182.475 1.563 0L12 5.601z"
+                    />
+                  </svg>
+                )}
+                {p.name === 'E-Commerce Pro' && (
+                  <svg
+                    class="h-[1.35em] w-[1.35em] text-primary"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.99 1.99 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921M17.307 15h-6.64l-2.5-6h11.39z"
+                    />
+                    <circle cx="10.5" cy="19.5" r="1.5" fill="currentColor" />
+                    <circle cx="17.5" cy="19.5" r="1.5" fill="currentColor" />
+                  </svg>
+                )}
+                {p.name}
+              </h3>
+              <div class="flex items-center gap-2">
+                <p class="text-lg md:text-xl font-semibold text-gray-900 dark:text-text-primary">{p.price}</p>
+                <span class="inline-block text-[11px] md:text-xs font-medium bg-primary/10 text-primary px-2 py-0.5 rounded">
+                  {p.yearly}
+                </span>
+              </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-300">
               {p.features.map((f) => (
                 <li class="flex gap-3 items-center"><span class="material-symbols-outlined text-primary text-base">check</span>{f}</li>
               ))}
