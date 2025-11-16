@@ -1,11 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Política de Privacidad - ByteWorks';
-const description = 'Cómo manejamos, almacenamos y protegemos tus datos en ByteWorks.';
+const title = 'Política de Privacidad — ByteWorks';
+const description = 'Cómo ByteWorks recopila, almacena y protege tus datos en proyectos y hosting.';
+const breadcrumb = [
+  { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
+  { name: 'Privacidad', url: 'https://byteworksagency.com/es/privacidad/' },
+];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es">
+<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
   <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-14 md:py-20 space-y-8">
     <header class="text-center mb-10">
       <h1 class="text-3xl md:text-5xl font-semibold">Política de Privacidad</h1>

@@ -3,7 +3,11 @@ import Base from '../../layouts/Base.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
 
 const title = 'FAQ — ByteWorks';
-const description = 'Clear answers for non-technical clients about plans, timelines, ownership, SEO, e-commerce, and support.';
+const description = 'Straightforward answers about plans, timelines, ownership, SEO, e-commerce, and support for non-technical clients.';
+const breadcrumb = [
+  { name: 'Home', url: 'https://byteworksagency.com/en/' },
+  { name: 'FAQ', url: 'https://byteworksagency.com/en/faq/' },
+];
 
 const faqs = [
   {
@@ -109,7 +113,7 @@ const faqs = [
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en">
+<Base title={title} description={description} image="/og-image.png" lang="en" breadcrumb={breadcrumb}>
   <section class="px-4 max-w-[960px] mx-auto py-20">
     <header class="text-center space-y-3 mb-8">
       <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">FAQ</h1>

@@ -2,8 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
 
-const title = 'Preguntas frecuentes - ByteWorks';
-const description = 'Respuestas claras sobre planes, tiempos, propiedad, SEO, e-commerce y soporte.';
+const title = 'Preguntas frecuentes — ByteWorks';
+const description = 'Respuestas claras sobre planes, tiempos, propiedad, SEO, ecommerce y soporte para clientes no técnicos.';
+const breadcrumb = [
+  { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
+  { name: 'Preguntas frecuentes', url: 'https://byteworksagency.com/es/faq/' },
+];
 
 const faqs = [
   {
@@ -109,7 +113,7 @@ const faqs = [
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es">
+<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
   <section class="px-4 max-w-[960px] mx-auto py-20">
     <header class="text-center space-y-3 mb-8">
       <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Preguntas frecuentes</h1>

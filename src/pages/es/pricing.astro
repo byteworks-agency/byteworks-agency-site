@@ -2,9 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import AddOns from '../../components/AddOns.astro';
 
-const title = 'Planes - ByteWorks';
+const title = 'Planes y precios — ByteWorks';
 const description =
-  'Planes transparentes con mantenimiento incluido. Elige el plan que se ajuste a tu etapa; puedes subir cuando lo necesites. Hosting, SSL, copias y actualizaciones mensuales incluidas.';
+  'Planes transparentes con hosting, SSL, copias y actualizaciones mensuales incluidas. Elige el plan que se ajuste a tu etapa y sube cuando lo necesites.';
+const breadcrumb = [
+  { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
+  { name: 'Planes', url: 'https://byteworksagency.com/es/pricing/' },
+];
 
 const plans = [
   {

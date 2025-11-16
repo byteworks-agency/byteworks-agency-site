@@ -2,16 +2,20 @@
 import Base from '../../layouts/Base.astro';
 const ENV = process.env as Record<string, string | undefined>;
 
-const title = 'Contact — ByteWorks';
+const title = 'Contact ByteWorks — Start your bilingual website';
 const description =
-  'Reach us through the social links in the footer. Use the form to share context before we connect.';
+  'Tell us about your site or project idea. We’ll design, build, host, and maintain it with transparent pricing and support.';
+const breadcrumb = [
+  { name: 'Home', url: 'https://byteworksagency.com/en/' },
+  { name: 'Contact', url: 'https://byteworksagency.com/en/contact/' },
+];
 
 const phone = ENV.PUBLIC_WHATSAPP_PHONE || '';
 const message = ENV.PUBLIC_WHATSAPP_MSG || "Hi ByteWorks, I'm interested in a website.";
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en">
+<Base title={title} description={description} image="/og-image.png" lang="en" breadcrumb={breadcrumb}>
   <section class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8" data-wa={phone || ''}>
     <h1 class="text-3xl md:text-5xl font-semibold">Let’s work together</h1>
     <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">

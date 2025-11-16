@@ -2,10 +2,14 @@
 import Base from '../../layouts/Base.astro';
 
 const title = 'Terms — ByteWorks';
-const description = 'Service Levels & Updates Policy, support hours, backups and ownership Terms.';
+const description = 'Service Level terms: updates, support hours, backups, ownership, and hosting for ByteWorks websites.';
+const breadcrumb = [
+  { name: 'Home', url: 'https://byteworksagency.com/en/' },
+  { name: 'Terms', url: 'https://byteworksagency.com/en/terms/' },
+];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en">
+<Base title={title} description={description} image="/og-image.png" lang="en" breadcrumb={breadcrumb}>
   <section class="px-6 md:px-10 lg:px-16 max-w-4xl mx-auto py-14 md:py-20">
     <header class="mb-8 text-center">
       <h1 class="text-3xl md:text-5xl font-semibold">Terms</h1>

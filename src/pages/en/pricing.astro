@@ -2,9 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import AddOns from '../../components/AddOns.astro';
 
-const title = 'Plans — ByteWorks';
+const title = 'Plans & Pricing — ByteWorks';
 const description =
-  'Transparent plans with maintenance included. Pick the plan that fits your stage; upgrade anytime. Hosting, SSL, backups and monthly updates included.';
+  'Transparent plans with hosting, SSL, backups, and monthly updates included. Choose the plan for your stage and upgrade whenever you need.';
+const breadcrumb = [
+  { name: 'Home', url: 'https://byteworksagency.com/en/' },
+  { name: 'Pricing', url: 'https://byteworksagency.com/en/pricing/' },
+];
 
 const plans = [
   {
@@ -102,7 +106,7 @@ const planMeta: Record<
 };
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en">
+<Base title={title} description={description} image="/og-image.png" lang="en" breadcrumb={breadcrumb}>
   <section class="px-4 max-w-[960px] mx-auto py-16 md:py-24">
     <header class="text-center space-y-3">
       <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Plans</h1>

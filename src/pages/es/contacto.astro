@@ -2,16 +2,20 @@
 import Base from '../../layouts/Base.astro';
 const ENV = process.env as Record<string, string | undefined>;
 
-const title = 'Contacto - ByteWorks';
+const title = 'Contacto — ByteWorks';
 const description =
-  'Conversemos sobre tu sitio web o idea de proyecto. Escríbenos mediante las redes del footer y usa el formulario para darnos contexto.';
+  'Cuéntanos sobre tu sitio o proyecto. Diseñamos, construimos, alojamos y mantenemos tu web bilingüe con precios claros y soporte.';
+const breadcrumb = [
+  { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
+  { name: 'Contacto', url: 'https://byteworksagency.com/es/contacto/' },
+];
 
 const phone = ENV.PUBLIC_WHATSAPP_PHONE || '';
 const message = ENV.PUBLIC_WHATSAPP_MSG || 'Hola ByteWorks, estoy interesado en un sitio web.';
 const wa = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es">
+<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
   <section
     class="px-6 md:px-10 lg:px-16 max-w-3xl mx-auto py-16 md:py-24 text-center space-y-8"
     data-wa={phone || ''}

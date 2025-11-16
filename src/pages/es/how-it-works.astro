@@ -1,11 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
 
-const title = 'Cómo Funciona - ByteWorks';
-const description = 'Proceso claro y transparente, de descubrimiento a lanzamiento. Detallamos plazos, entregables y cómo colaboramos.';
+const title = 'Cómo funciona — ByteWorks';
+const description = 'Proceso claro de descubrimiento a lanzamiento: plazos, entregables y cómo colaboramos para lanzar tu sitio rápido.';
+const breadcrumb = [
+  { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
+  { name: 'Cómo funciona', url: 'https://byteworksagency.com/es/how-it-works/' },
+];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es">
+<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
   <section class="px-4 max-w-[960px] mx-auto py-16 md:py-24">
     <header class="text-center space-y-3 mb-10">
       <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Cómo funciona</h1>
