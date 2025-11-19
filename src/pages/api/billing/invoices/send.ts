@@ -1,7 +1,7 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
-import { invoiceNumberPrefix, formatInvoiceNumber } from '../../../../lib/billing/ids';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
+import { formatInvoiceNumber, invoiceNumberPrefix } from '../../../../lib/billing/ids';
 
 export const prerender = false;
 
@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       number = formatInvoiceNumber(prefix, count + 1);
     }
 
-    inv = await prisma.invoice.update({ where: { id: invoiceId }, data: { status: 'sent', number } });
+    await prisma.invoice.update({ where: { id: invoiceId }, data: { status: 'sent', number } });
     return new Response(JSON.stringify({ ok: true, data: { invoiceId, number } }), { status: 200 });
   } catch (err: any) {
     return new Response(JSON.stringify({ ok: false, code: 'unexpected', message: err?.message }), { status: 500 });

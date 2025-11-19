@@ -10,7 +10,7 @@ export const POST: APIRoute = async ({ cookies }) => {
       headers: { 'Content-Type': 'application/json' },
     });
   }
-  const secret = (import.meta as any).env?.ADMIN_SECRET as string | undefined;
+  const secret = (import.meta.env as any).ADMIN_SECRET as string | undefined;
   if (!secret) {
     return new Response(
       JSON.stringify({ ok: false, code: 'not_configured', message: 'ADMIN_SECRET is not set' }),
@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ cookies }) => {
   cookies.set('admin_session', secret, {
     path: '/',
     httpOnly: true,
-    sameSite: 'Lax',
+    sameSite: 'lax',
     // Use secure cookies only in production (HTTPS). In dev (http://localhost), secure cookies won't be set.
     secure: !!import.meta.env.PROD,
     maxAge: 60 * 60 * 24 * 7,

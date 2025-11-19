@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ cookies }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
   try {
     // Standard app cookies
     const names = [
@@ -14,9 +14,10 @@ export const POST: APIRoute = async ({ cookies }) => {
 
     // Also remove any Supabase helper cookies if present (sb-<project>-auth-token)
     try {
-      const all = cookies.getAll();
-      for (const c of all) {
-        if (/^sb-.*-auth-token$/i.test(c.name)) names.push(c.name);
+      const cookieHeader = request.headers.get('cookie') || '';
+      const allCookies = cookieHeader.split(';').map(c => c.trim().split('=')[0]);
+      for (const name of allCookies) {
+        if (/^sb-.*-auth-token$/i.test(name)) names.push(name);
       }
     } catch {}
 
@@ -26,7 +27,7 @@ export const POST: APIRoute = async ({ cookies }) => {
         path: '/',
         maxAge: 0,
         httpOnly: true,
-        sameSite: 'Lax',
+        sameSite: 'lax',
         secure,
       });
     }

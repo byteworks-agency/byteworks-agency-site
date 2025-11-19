@@ -1,8 +1,8 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
-import { acceptQuoteBody } from '../../../lib/billing/zod';
-import { isQuoteExpired } from '../../../lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
+import { isQuoteExpired } from '../../../lib/billing/util';
+import { acceptQuoteBody } from '../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -34,7 +34,7 @@ export const POST: APIRoute = async ({ request, url, cookies }) => {
     if (isQuoteExpired(quote.validUntil))
       return new Response(JSON.stringify({ ok: false, code: 'quote_expired' }), { status: 400 });
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.quote.update({ where: { id: quote.id }, data: { status: 'accepted' } });
       const email = (quote.billToEmail || '').trim();
       const phone = (quote.billToPhone || '').replace(/\D+/g, '');

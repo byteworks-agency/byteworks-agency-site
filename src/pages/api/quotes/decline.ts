@@ -1,7 +1,7 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
-import { declineQuoteBody } from '../../../lib/billing/zod';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
+import { declineQuoteBody } from '../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -17,7 +17,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const q = await prisma.quote.findUnique({ where: { id: quoteId }, select: { id: true, billToEmail: true, billToPhone: true } });
     if (!q) return new Response(JSON.stringify({ ok: false, code: 'quote_not_found' }), { status: 404 });
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       // Mark declined
       await tx.quote.update({ where: { id: quoteId }, data: { status: 'declined' } });
       // Delete related contact submissions (best-effort by email/phone)

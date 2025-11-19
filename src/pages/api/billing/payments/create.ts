@@ -1,9 +1,9 @@
-import type { APIRoute } from 'astro';
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
-import { paymentCreateBody } from '../../../../lib/billing/zod';
-import { updateInvoiceStatusByDates } from '../../../../lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import { Prisma } from '@prisma/client';
+import type { APIRoute } from 'astro';
+import { updateInvoiceStatusByDates } from '../../../../lib/billing/util';
+import { paymentCreateBody } from '../../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const existing = await prisma.payment.findFirst({ where: { invoiceId, ref } });
     if (existing) return new Response(JSON.stringify({ ok: false, code: 'idempotent_conflict' }), { status: 409 });
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.payment.create({
         data: {
           invoiceId,

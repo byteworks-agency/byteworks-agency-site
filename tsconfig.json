@@ -10,8 +10,7 @@
     "jsx": "preserve",
     "types": [
       "astro/client"
-    ],
-    "ignoreDeprecations": "6.0"
+    ]
   },
   "include": [
     "src",

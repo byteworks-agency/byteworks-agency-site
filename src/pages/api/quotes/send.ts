@@ -1,9 +1,9 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
-import { sendQuoteBody } from '../../../lib/billing/zod';
-import { isQuoteExpired } from '../../../lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 import { generateAcceptToken } from '../../../lib/billing/ids';
+import { isQuoteExpired } from '../../../lib/billing/util';
+import { sendQuoteBody } from '../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -34,11 +34,13 @@ export const POST: APIRoute = async ({ request, cookies, url }) => {
     const validUntil = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
     await prisma.quote.update({ where: { id: quoteId }, data: { status: 'sent', sentAt: now, validUntil } });
     // Reload with updated values
-    quote = await prisma.quote.findUnique({ where: { id: quoteId }, include: { items: true } })!;
+    const updatedQuote = await prisma.quote.findUnique({ where: { id: quoteId }, include: { items: true } });
+    if (!updatedQuote) throw new Error('Quote disappeared');
+    quote = updatedQuote;
 
     const itemsText = quote.items
-      .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
-      .map((i) => `- ${i.description} x ${i.qty.toString()} @ ${i.unitPrice.toString()}`)
+      .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
+      .map((i: any) => `- ${i.description} x ${i.qty.toString()} @ ${i.unitPrice.toString()}`)
       .join('\n');
 
     const origin = url.origin;
