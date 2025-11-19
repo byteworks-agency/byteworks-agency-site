@@ -10,6 +10,7 @@ export default defineConfig({
   // Use Node/serverless runtime; Prisma is not supported on edge runtimes
   adapter: vercel({ mode: "serverless" }),
   output: "server",
+  compressHTML: true,
   integrations: [tailwind({ applyBaseStyles: true }), sitemap()],
   vite: {
     ssr: {
