@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -25,18 +25,18 @@ export const GET: APIRoute = async ({ url, cookies }) => {
     orderBy: { updatedAt: 'desc' },
     include: { items: true, payments: true },
   });
-  const data = rows.map((r) => ({
+  const data = rows.map((r: any) => ({
     ...r,
     subtotal: r.subtotal.toString(),
     taxes: r.taxes.toString(),
     total: r.total.toString(),
     balance: r.balance.toString(),
     items: r.items
-      .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
-      .map((i) => ({ ...i, qty: i.qty.toString(), unitPrice: i.unitPrice.toString() })),
+      .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
+      .map((i: any) => ({ ...i, qty: i.qty.toString(), unitPrice: i.unitPrice.toString() })),
     payments: r.payments
-      .sort((a, b) => a.receivedDate.getTime() - b.receivedDate.getTime())
-      .map((p) => ({ ...p, amount: p.amount.toString() })),
+      .sort((a: any, b: any) => a.receivedDate.getTime() - b.receivedDate.getTime())
+      .map((p: any) => ({ ...p, amount: p.amount.toString() })),
   }));
   return new Response(JSON.stringify({ ok: true, data }), { status: 200, headers: { 'Content-Type': 'application/json' } });
 };

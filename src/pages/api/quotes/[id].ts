@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -47,8 +47,8 @@ export const GET: APIRoute = async ({ params, cookies }) => {
       billToEmail: q.billToEmail || null,
       billToPhone: q.billToPhone || null,
       items: q.items
-        .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
-        .map((i) => ({
+        .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
+        .map((i: any) => ({
           id: i.id,
           description: i.description,
           qty: i.qty.toString(),

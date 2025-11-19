@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -18,7 +18,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
     });
     if (!inv) return new Response(JSON.stringify({ ok: false, code: 'invoice_not_found' }), { status: 404 });
 
-    const paid = inv.payments.reduce((acc, p) => acc.add(p.amount), inv.total.minus(inv.total));
+    const paid = inv.payments.reduce((acc: any, p: any) => acc.add(p.amount), inv.total.minus(inv.total));
 
     const data = {
       id: inv.id,
@@ -37,8 +37,8 @@ export const GET: APIRoute = async ({ params, cookies }) => {
       billToEmail: inv.billToEmail || null,
       billToPhone: inv.billToPhone || null,
       items: inv.items
-        .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
-        .map((i) => ({
+        .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
+        .map((i: any) => ({
           id: i.id,
           description: i.description,
           qty: i.qty.toString(),
@@ -46,8 +46,8 @@ export const GET: APIRoute = async ({ params, cookies }) => {
           sort: i.sort ?? null,
         })),
       payments: inv.payments
-        .sort((a, b) => a.receivedDate.getTime() - b.receivedDate.getTime())
-        .map((p) => ({
+        .sort((a: any, b: any) => a.receivedDate.getTime() - b.receivedDate.getTime())
+        .map((p: any) => ({
           id: p.id,
           method: p.method,
           amount: p.amount.toString(),

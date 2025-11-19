@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
   if (!inv) return new Response('invoice_not_found', { status: 404 });
   const header = ['id','method','amount','receivedDate','ref','source','proofUrl','notes'];
   const lines = [header.join(',')];
-  for (const p of inv.payments.sort((a,b)=>a.receivedDate.getTime()-b.receivedDate.getTime())) {
+  for (const p of inv.payments.sort((a: any, b: any) => a.receivedDate.getTime() - b.receivedDate.getTime())) {
     const vals = [
       p.id,
       p.method,
@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ params, cookies }) => {
       p.source || '',
       p.proofUrl || '',
       p.notes || '',
-    ].map((v) => {
+    ].map((v: any) => {
       const s = String(v);
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
     });

@@ -1,9 +1,9 @@
-import type { APIRoute } from 'astro';
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
-import { updateQuoteBody } from '../../../lib/billing/zod';
-import { computeTotals } from '../../../lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import { Prisma } from '@prisma/client';
+import type { APIRoute } from 'astro';
+import { computeTotals } from '../../../lib/billing/util';
+import { updateQuoteBody } from '../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         status: 400,
       });
 
-    const mapped = items.map((i) => ({
+    const mapped = items.map((i: any) => ({
       description: i.description,
       qty: new Prisma.Decimal(i.qty),
       unitPrice: new Prisma.Decimal(i.unitPrice),
@@ -32,7 +32,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     }));
     const totals = computeTotals(mapped);
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.quoteItem.deleteMany({ where: { quoteId } });
       await tx.quote.update({
         where: { id: quoteId },

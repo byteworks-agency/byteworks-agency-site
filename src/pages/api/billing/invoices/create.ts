@@ -1,9 +1,8 @@
-import type { APIRoute } from 'astro';
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
-import { createInvoiceQuery } from '../../../../lib/billing/zod';
-import { computeTotals, getBillingDefaults } from '../../../../lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
+import { computeTotals, getBillingDefaults } from '../../../../lib/billing/util';
+import { createInvoiceQuery } from '../../../../lib/billing/zod';
 
 export const prerender = false;
 
@@ -22,8 +21,8 @@ export const POST: APIRoute = async ({ url, cookies }) => {
       return new Response(JSON.stringify({ ok: false, code: 'quote_not_acceptable' }), { status: 400 });
 
     const items = quote.items
-      .sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0))
-      .map((i) => ({ qty: i.qty, unitPrice: i.unitPrice }));
+      .sort((a: any, b: any) => (a.sort ?? 0) - (b.sort ?? 0))
+      .map((i: any) => ({ qty: i.qty, unitPrice: i.unitPrice }));
     const totals = computeTotals(items);
     const defaults = await getBillingDefaults(prisma);
 
@@ -48,7 +47,7 @@ export const POST: APIRoute = async ({ url, cookies }) => {
         number: quote.originEnquiryId || null,
         originQuoteId: quote.id,
         items: {
-          create: quote.items.map((i) => ({
+          create: quote.items.map((i: any) => ({
             description: i.description,
             qty: i.qty,
             unitPrice: i.unitPrice,

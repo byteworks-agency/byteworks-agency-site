@@ -1,9 +1,9 @@
-import type { APIRoute } from 'astro';
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
-import { updateInvoiceBody } from '@/lib/billing/zod';
-import { computeTotals, updateInvoiceStatusByDates } from '@/lib/billing/util';
 import { requireRole } from '@/lib/auth';
+import { computeTotals, updateInvoiceStatusByDates } from '@/lib/billing/util';
+import { updateInvoiceBody } from '@/lib/billing/zod';
+import { prisma } from '@/lib/db';
+import { Prisma } from '@prisma/client';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -24,18 +24,18 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         status: 400,
       });
 
-    const mapped = items.map((i) => ({
+    const mapped = items.map((i: any) => ({
       description: i.description,
       qty: new Prisma.Decimal(i.qty),
       unitPrice: new Prisma.Decimal(i.unitPrice),
       sort: i.sort ?? null,
     }));
     const totals = computeTotals(mapped);
-    const paid = invoice.payments.reduce((acc, p) => acc.add(p.amount), new Prisma.Decimal(0));
+    const paid = invoice.payments.reduce((acc: any, p: any) => acc.add(p.amount), new Prisma.Decimal(0));
     const newBalance = totals.total.sub(paid);
     const newStatus = updateInvoiceStatusByDates('draft', newBalance, totals.total, invoice.dueDate);
 
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       await tx.invoiceItem.deleteMany({ where: { invoiceId } });
       await tx.invoice.update({
         where: { id: invoiceId },

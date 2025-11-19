@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-const env = import.meta.env;
 import type { APIContext } from 'astro';
+const env = import.meta.env;
 
 type SupaUser = {
   id: string;
@@ -20,15 +20,28 @@ function extractAccessToken(cookies: APIContext['cookies']): string | undefined 
   if (direct) return direct;
 
   // 2) Auth helpers cookie: sb-<project-ref>-auth-token (JSON string)
-  const all = cookies.getAll();
-  for (const c of all) {
-    if (/^sb-.*-auth-token$/.test(c.name) || c.name === 'supabase-auth-token') {
-      try {
-        const parsed = JSON.parse(decodeURIComponent(c.value));
-        const token = parsed?.access_token || parsed?.currentSession?.access_token;
-        if (typeof token === 'string' && token) return token;
-      } catch {}
-    }
+  // We derive the project ref from SUPABASE_URL to avoid scanning all cookies (cookies.getAll is not available)
+  const { url } = getEnv();
+  let tokenCookieName = 'supabase-auth-token';
+  if (url) {
+    try {
+      const u = new URL(url);
+      const hostname = u.hostname; // e.g. "xyz.supabase.co"
+      const parts = hostname.split('.');
+      if (parts.length > 0) {
+        const ref = parts[0];
+        tokenCookieName = `sb-${ref}-auth-token`;
+      }
+    } catch {}
+  }
+
+  const c = cookies.get(tokenCookieName) || cookies.get('supabase-auth-token');
+  if (c?.value) {
+    try {
+      const parsed = JSON.parse(decodeURIComponent(c.value));
+      const token = parsed?.access_token || parsed?.currentSession?.access_token;
+      if (typeof token === 'string' && token) return token;
+    } catch {}
   }
   return undefined;
 }

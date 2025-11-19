@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
-import { prisma } from '@/lib/db';
 import { requireRole } from '@/lib/auth';
+import { prisma } from '@/lib/db';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       where: { id },
       data: { status: status as any },
       select: { id: true, archived: true, status: true },
-    }).catch((err) => {
+    }).catch((err: any) => {
       if ((err as any)?.code === 'P2025') return null;
       throw err;
     });

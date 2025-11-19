@@ -1,5 +1,5 @@
-import type { APIRoute } from 'astro';
 import { createClient } from '@supabase/supabase-js';
+import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
@@ -46,7 +46,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const secure = !!import.meta.env.PROD;
     cookies.set('sb-access-token', access_token, {
       httpOnly: true,
-      sameSite: 'Lax',
+      sameSite: 'lax',
       secure,
       path: '/',
       maxAge: 60 * 60,
@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     if (refresh_token) {
       cookies.set('sb-refresh-token', refresh_token, {
         httpOnly: true,
-        sameSite: 'Lax',
+        sameSite: 'lax',
         secure,
         path: '/',
         maxAge: 60 * 60 * 24 * 7,

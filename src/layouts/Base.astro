@@ -7,6 +7,7 @@ import { DEFAULT_EMAIL } from '../config/contact';
 import logo from '../assets/logo.png';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import  SpeedInsights  from "@vercel/speed-insights/astro";
 // Use Node's process.env in frontmatter to avoid esbuild issues with import.meta.env
 const ENV = process.env as Record<string, string | undefined>;
 
@@ -236,5 +237,6 @@ const breadcrumbJson =
       <slot />
     </main>
     <Footer lang={lang} />
+    <SpeedInsights />
   </body>
 </html>
