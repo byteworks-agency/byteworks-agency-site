@@ -2,7 +2,6 @@
 import Header from '../components/SiteHeader.astro';
 import Footer from '../components/Footer.astro';
 import OrganizationJsonLd from '../components/seo/OrganizationJsonLd.astro';
-import LocalBusinessJsonLd from '../components/seo/LocalBusinessJsonLd.astro';
 import { DEFAULT_WA } from '../config/whatsapp';
 import { DEFAULT_EMAIL } from '../config/contact';
 import logo from '../assets/logo.png';
@@ -77,49 +76,26 @@ const contactEmail = (ENV.PUBLIC_CONTACT_EMAIL || DEFAULT_EMAIL || '').toString(
 const contactPhoneRaw = (ENV.PUBLIC_WHATSAPP_PHONE || ENV.PUBLIC_CONTACT_PHONE || DEFAULT_WA || '').toString();
 const contactPhoneE164 = toE164(contactPhoneRaw);
 const organizationId = `${siteOrigin}#organization`;
-const localBusinessId = `${siteOrigin}#local-business`;
-const areaServed = [
+const socials = ['https://www.instagram.com/byteworksagency/'];
+const servedCountries = [
   { '@type': 'Country', name: 'Trinidad and Tobago' },
   { '@type': 'Country', name: 'United States' },
 ];
+const orgContactPoint = {
+  '@type': 'ContactPoint',
+  telephone: contactPhoneE164,
+  contactType: 'Customer Service',
+  email: contactEmail,
+  areaServed: servedCountries,
+  availableLanguage: ['en', 'es']
+};
 
-// Social profiles (optional) to enrich JSON-LD
-const socials = [
-  ENV.PUBLIC_SOCIAL_TWITTER,
-  ENV.PUBLIC_SOCIAL_LINKEDIN,
-  ENV.PUBLIC_SOCIAL_INSTAGRAM,
-  ENV.PUBLIC_SOCIAL_FACEBOOK,
-  ENV.PUBLIC_SOCIAL_YOUTUBE,
-  ENV.PUBLIC_SOCIAL_GITHUB,
-].filter((x) => typeof x === 'string' && x);
-const siteJson = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'ByteWorks',
-  url: siteOrigin,
-  inLanguage: lang,
-};
-const organizationContactPoint = contactPhoneE164
-  ? [
-      {
-        telephone: contactPhoneE164,
-        contactType: 'customer support',
-        areaServed,
-        availableLanguage: ['en', 'es'],
-        email: contactEmail || undefined,
-      },
-    ]
-  : [];
-const localBusinessAddress = {
-  addressCountry: 'TT',
-};
-const localBusinessAreaServed = [
-  ...areaServed,
+const orgAreaServed = [
+  ...servedCountries,
   'Remote',
 ];
-const localBusinessServiceType = ['Web Design', 'Web Development', 'SEO Consulting'];
-const localBusinessContactPoint = organizationContactPoint;
-const localBusinessTypes = ['ProfessionalService'];
+const orgServiceType = ['Web Design', 'Web Development', 'SEO Consulting'];
+const orgTypes = ['ProfessionalService'];
 const robotsMeta = robots ?? ((process.env.NODE_ENV === 'production') ? 'index,follow' : 'noindex,nofollow');
 const webPageJson = {
   '@context': 'https://schema.org',
@@ -181,25 +157,18 @@ const breadcrumbJson =
       url={siteOrigin}
       logo={logoUrl}
       sameAs={socials}
-      contactPoint={organizationContactPoint}
+      contactPoint={[{
+        '@type': 'ContactPoint',
+        telephone: contactPhoneE164,
+        contactType: 'Customer Service',
+        email: contactEmail,
+        areaServed: servedCountries,
+        availableLanguage: ['en', 'es']
+      }]}
+      areaServed={[...servedCountries, 'Remote']}
+      serviceType={orgServiceType}
+      types={orgTypes}
     />
-    <LocalBusinessJsonLd
-      id={localBusinessId}
-      name="ByteWorks Agency"
-      url={siteOrigin}
-      image={ogImage}
-      logo={logoUrl}
-      telephone={contactPhoneE164 || undefined}
-      email={contactEmail || undefined}
-      priceRange="$$"
-      sameAs={socials}
-      address={localBusinessAddress}
-      areaServed={localBusinessAreaServed}
-      serviceType={localBusinessServiceType}
-      contactPoint={localBusinessContactPoint}
-      types={localBusinessTypes}
-    />
-    <script is:inline type="application/ld+json">{JSON.stringify(siteJson)}</script>
     <script is:inline type="application/ld+json">{JSON.stringify(webPageJson)}</script>
     {breadcrumbJson && <script is:inline type="application/ld+json">{JSON.stringify(breadcrumbJson)}</script>}
 

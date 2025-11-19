@@ -15,9 +15,12 @@ interface Props {
   logo?: string;
   sameAs?: string[];
   contactPoint?: ContactPoint[];
+  areaServed?: (string | Record<string, unknown>)[];
+  serviceType?: string[];
+  types?: string[];
 }
 
-const { id, name, url, logo, sameAs = [], contactPoint = [] } = Astro.props as Props;
+const { id, name, url, logo, sameAs = [], contactPoint = [], areaServed, serviceType, types = [] } = Astro.props as Props;
 
 function prune<T>(value: T): T | undefined {
   if (Array.isArray(value)) {
@@ -46,15 +49,18 @@ function prune<T>(value: T): T | undefined {
   return value;
 }
 
+const baseType = types.length ? ['Organization', ...types] : 'Organization';
 const schema = prune({
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': baseType,
   '@id': id,
   name,
   url,
   logo,
   sameAs,
   contactPoint: contactPoint.length ? contactPoint.map((cp) => ({ '@type': 'ContactPoint', ...cp })) : undefined,
+  areaServed,
+  serviceType,
 });
 
 const json = schema ? JSON.stringify(schema) : '';
