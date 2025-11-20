@@ -6,7 +6,7 @@ const pathname = Astro.url.pathname || '/';
 const isES = pathname.startsWith('/es');
 const lang = isES ? 'es' : 'en';
 
-const title = isES ? 'Página no encontrada — ByteWorks.' : 'Page not found — ByteWorks';
+const title = isES ? 'Página no encontrada — ByteWorks' : 'Page not found — ByteWorks';
 const description = isES
   ? 'La página que buscas no existe o fue movida. Encuentra lo que necesitas en estas secciones.'
   : "The page you are looking for doesn't exist or was moved. Try these helpful links.";
