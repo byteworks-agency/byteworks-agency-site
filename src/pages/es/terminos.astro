@@ -2,14 +2,21 @@
 import Base from '../../layouts/Base.astro';
 
 const title = 'Términos — ByteWorks';
-const description = 'Política de servicio: actualizaciones (SLA), soporte, copias de seguridad y propiedad para sitios ByteWorks.';
+const description =
+  'Política de servicio: actualizaciones (SLA), soporte, copias de seguridad y propiedad para sitios ByteWorks.';
 const breadcrumb = [
   { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
   { name: 'Términos', url: 'https://byteworksagency.com/es/terminos/' },
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
+<Base
+  title={title}
+  description={description}
+  image="/og-image.png"
+  lang="es"
+  breadcrumb={breadcrumb}
+>
   <section class="px-6 md:px-10 lg:px-16 max-w-4xl mx-auto py-14 md:py-20">
     <header class="mb-8 text-center">
       <h1 class="text-3xl md:text-5xl font-semibold">Términos</h1>
@@ -23,17 +30,26 @@ const breadcrumb = [
 
       <h3>1. Alcance del servicio</h3>
       <p>
-        Estos términos regulan los planes de suscripción, mantenimientos y add-ons de ByteWorks. Al suscribirte autorizas que administremos, alojemos y actualicemos tu sitio conforme al plan elegido. Cualquier trabajo adicional fuera del alcance se cotiza aparte y requiere aprobación escrita (correo electrónico es suficiente).
+        Estos términos regulan los planes de suscripción, mantenimientos y add-ons de ByteWorks. Al
+        suscribirte autorizas que administremos, alojemos y actualicemos tu sitio conforme al plan
+        elegido. Cualquier trabajo adicional fuera del alcance se cotiza aparte y requiere
+        aprobación escrita (correo electrónico es suficiente).
       </p>
 
       <h3>2. Entregables y alcance</h3>
       <p>
-        Cada plan incluye un número definido de páginas, sistema de diseño, estructura bilingüe (EN/ES), optimización técnica y el número de actualizaciones mensuales publicado en la página de precios. Las actualizaciones cubren ajustes de contenido, cambios menores de layout y tareas de mantenimiento. Funcionalidades nuevas, integraciones complejas o rediseños totales se tratan como proyectos o add-ons adicionales.
+        Cada plan incluye un número definido de páginas, sistema de diseño, estructura bilingüe
+        (EN/ES), optimización técnica y el número de actualizaciones mensuales publicado en la
+        página de precios. Las actualizaciones cubren ajustes de contenido, cambios menores de
+        layout y tareas de mantenimiento. Funcionalidades nuevas, integraciones complejas o
+        rediseños totales se tratan como proyectos o add-ons adicionales.
       </p>
 
       <h3>3. Horario y tiempos de respuesta</h3>
       <p>
-        El soporte opera de lunes a viernes, 9:00 AM – 6:00 PM (AST), principalmente a través de nuestras redes sociales listadas en “Síguenos” en el footer (por ejemplo, WhatsApp, Instagram). Objetivos de respuesta:
+        El soporte opera de lunes a viernes, 9:00 AM – 6:00 PM (AST), principalmente a través de
+        nuestras redes sociales listadas en “Síguenos” en el footer (por ejemplo, WhatsApp,
+        Instagram). Objetivos de respuesta:
       </p>
 
       <div class="overflow-x-auto">
@@ -65,12 +81,16 @@ const breadcrumb = [
         </table>
       </div>
       <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
-        Solicitudes fuera de horario se atienden el siguiente día hábil. Los clientes activos pueden solicitar un número de emergencia para incidentes críticos.
+        Solicitudes fuera de horario se atienden el siguiente día hábil. Los clientes activos pueden
+        solicitar un número de emergencia para incidentes críticos.
       </p>
 
       <h3>4. Actualizaciones mensuales</h3>
       <p>
-        Las inclusiones se renuevan el primer día de cada ciclo de facturación y no se acumulan. Las tareas habituales abarcan secciones nuevas, cambios de texto, reemplazo de imágenes o pequeños flujos automatizados. Integraciones complejas, funnels o desarrollos a medida se presupuestan por separado.
+        Las inclusiones se renuevan el primer día de cada ciclo de facturación y no se acumulan. Las
+        tareas habituales abarcan secciones nuevas, cambios de texto, reemplazo de imágenes o
+        pequeños flujos automatizados. Integraciones complejas, funnels o desarrollos a medida se
+        presupuestan por separado.
       </p>
       <div class="overflow-x-auto">
         <table class="table-auto w-full text-sm">
@@ -103,52 +123,83 @@ const breadcrumb = [
 
       <h3>5. Hosting, respaldos y seguridad</h3>
       <p>
-        Provisionamos hosting en Vercel u otra plataforma gestionada equivalente. Incluye certificados SSL, CDN y distribución edge. Realizamos respaldos cifrados al menos cada 7 días y los conservamos hasta 30 días. La seguridad abarca actualización de dependencias, controles de acceso y escaneo de malware. Las restauraciones derivadas de cambios externos del cliente cuentan como parte de las actualizaciones mensuales.
+        Provisionamos hosting en plataformas de infraestructura gestionada de nivel empresarial.
+        Incluye certificados SSL, CDN y distribución edge. Realizamos respaldos cifrados al menos
+        cada 7 días y los conservamos hasta 30 días. La seguridad abarca actualización de
+        dependencias, controles de acceso y escaneo de malware. Las restauraciones derivadas de
+        cambios externos del cliente cuentan como parte de las actualizaciones mensuales.
       </p>
 
       <h3>6. SEO y rendimiento</h3>
       <p>
-        Implementamos fundamentos SEO (metadatos estructurados, sitemap, schema, alternates) y optimizamos el sitio según Core Web Vitals. No garantizamos posiciones específicas; entregamos una base técnica sólida para SEO sostenible. Campañas personalizadas, investigación de palabras clave o link-building se contratan como servicios adicionales.
+        Implementamos fundamentos SEO (metadatos estructurados, sitemap, schema, alternates) y
+        optimizamos el sitio según Core Web Vitals. No garantizamos posiciones específicas;
+        entregamos una base técnica sólida para SEO sostenible. Campañas personalizadas,
+        investigación de palabras clave o link-building se contratan como servicios adicionales.
       </p>
 
       <h3>7. Responsabilidades del cliente</h3>
       <p>
-        Debes proporcionar contenido, aprobaciones y accesos a sistemas externos (correo, DNS, analítica) en tiempo y forma. Eres responsable de la legalidad y exactitud del material publicado. ByteWorks no asume demoras provocadas por la falta de insumos o feedback; dichas demoras pueden mover fechas o requerir presupuesto extra.
+        Debes proporcionar contenido, aprobaciones y accesos a sistemas externos (correo, DNS,
+        analítica) en tiempo y forma. Eres responsable de la legalidad y exactitud del material
+        publicado. ByteWorks no asume demoras provocadas por la falta de insumos o feedback; dichas
+        demoras pueden mover fechas o requerir presupuesto extra.
       </p>
 
       <h3>8. Integraciones y terceros</h3>
       <p>
-        Integramos Supabase (auth, base de datos), servicios de correo y analítica opcional. Los términos de esos proveedores aplican además de los nuestros. No nos responsabilizamos por caídas o cambios de políticas de terceros, aunque asesoramos sobre mitigaciones o migraciones dentro del plan.
+        Integramos servicios de autenticación y base de datos, plataformas de correo y analítica
+        opcional. Los términos de esos proveedores aplican además de los nuestros. No nos
+        responsabilizamos por caídas o cambios de políticas de terceros, aunque asesoramos sobre
+        mitigaciones o migraciones dentro del plan.
       </p>
 
       <h3>9. Propiedad y licencias</h3>
       <p>
-        Conservas la propiedad de tu marca, contenido y textos personalizados. ByteWorks mantiene la propiedad de herramientas internas, librerías y componentes reutilizables (licenciados durante la suscripción). Al cancelar, entregamos un export estático o snapshot del repositorio si lo solicitas. El uso continuo de nuestros componentes fuera de una suscripción activa requiere una licencia aparte.
+        Conservas la propiedad de tu marca, contenido y textos personalizados. ByteWorks mantiene la
+        propiedad de herramientas internas, librerías y componentes reutilizables (licenciados
+        durante la suscripción). Al cancelar, entregamos un export estático o snapshot del
+        repositorio si lo solicitas. El uso continuo de nuestros componentes fuera de una
+        suscripción activa requiere una licencia aparte.
       </p>
 
       <h3>10. Pagos y cancelaciones</h3>
       <p>
-        La facturación es anticipada mensual o anual. Las facturas deben pagarse en un máximo de 7 días, salvo pacto distinto. Pagos tardíos pueden suspender el servicio hasta regularizar el saldo. Para cancelar, avísanos al menos 5 días hábiles antes de la renovación; el servicio se mantiene hasta finalizar el periodo abonado. Reactivar después de cancelar puede implicar un cargo de setup.
+        La facturación es anticipada mensual o anual. Las facturas deben pagarse en un máximo de 7
+        días, salvo pacto distinto. Pagos tardíos pueden suspender el servicio hasta regularizar el
+        saldo. Para cancelar, avísanos al menos 5 días hábiles antes de la renovación; el servicio
+        se mantiene hasta finalizar el periodo abonado. Reactivar después de cancelar puede implicar
+        un cargo de setup.
       </p>
 
       <h3>11. Suspensión</h3>
       <p>
-        Podemos suspender el servicio por falta de pago, riesgos de seguridad o uso indebido (spam, contenido ilegal, tráfico abusivo). Daremos aviso y ruta de remediación siempre que sea posible. Incumplimientos reiterados nos facultan a terminar el acuerdo.
+        Podemos suspender el servicio por falta de pago, riesgos de seguridad o uso indebido (spam,
+        contenido ilegal, tráfico abusivo). Daremos aviso y ruta de remediación siempre que sea
+        posible. Incumplimientos reiterados nos facultan a terminar el acuerdo.
       </p>
 
       <h3>12. Responsabilidad</h3>
       <p>
-        En la medida máxima permitida por ley, la responsabilidad agregada de ByteWorks bajo estos términos se limita a los honorarios pagados en los tres (3) meses previos. No somos responsables de daños indirectos, lucro cesante ni perjuicios originados por fallas de terceros, eventos de fuerza mayor o cambios no autorizados fuera de nuestro control.
+        En la medida máxima permitida por ley, la responsabilidad agregada de ByteWorks bajo estos
+        términos se limita a los honorarios pagados en los tres (3) meses previos. No somos
+        responsables de daños indirectos, lucro cesante ni perjuicios originados por fallas de
+        terceros, eventos de fuerza mayor o cambios no autorizados fuera de nuestro control.
       </p>
 
       <h3>13. Ley aplicable</h3>
       <p>
-        Estos términos se interpretan conforme a la legislación vigente en tu lugar de residencia, privilegiando la negociación de buena fe para resolver cualquier disputa. Si no se alcanza acuerdo, las partes podrán convenir arbitraje o acudir a tribunales competentes definidos de mutuo acuerdo.
+        Estos términos se interpretan conforme a la legislación vigente en tu lugar de residencia,
+        privilegiando la negociación de buena fe para resolver cualquier disputa. Si no se alcanza
+        acuerdo, las partes podrán convenir arbitraje o acudir a tribunales competentes definidos de
+        mutuo acuerdo.
       </p>
 
       <h3>14. Actualizaciones</h3>
       <p>
-        Podemos actualizar estos términos para reflejar nuevos servicios o requisitos legales. La fecha de vigencia figura al inicio de la página. Los cambios materiales se comunicarán a suscriptores activos por correo o panel administrativo con al menos 14 días de anticipación.
+        Podemos actualizar estos términos para reflejar nuevos servicios o requisitos legales. La
+        fecha de vigencia figura al inicio de la página. Los cambios materiales se comunicarán a
+        suscriptores activos por correo o panel administrativo con al menos 14 días de anticipación.
       </p>
     </section>
   </section>

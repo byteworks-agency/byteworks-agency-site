@@ -2,14 +2,21 @@
 import Base from '../../layouts/Base.astro';
 
 const title = 'Terms — ByteWorks';
-const description = 'Service Level terms: updates, support hours, backups, ownership, and hosting for ByteWorks websites.';
+const description =
+  'Service Level terms: updates, support hours, backups, ownership, and hosting for ByteWorks websites.';
 const breadcrumb = [
   { name: 'Home', url: 'https://byteworksagency.com/en/' },
   { name: 'Terms', url: 'https://byteworksagency.com/en/terms/' },
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="en" breadcrumb={breadcrumb}>
+<Base
+  title={title}
+  description={description}
+  image="/og-image.png"
+  lang="en"
+  breadcrumb={breadcrumb}
+>
   <section class="px-6 md:px-10 lg:px-16 max-w-4xl mx-auto py-14 md:py-20">
     <header class="mb-8 text-center">
       <h1 class="text-3xl md:text-5xl font-semibold">Terms</h1>
@@ -23,17 +30,26 @@ const breadcrumb = [
 
       <h3>1. Engagement</h3>
       <p>
-        These Terms govern the subscription plans, maintenance retainers, and add-ons offered by ByteWorks. By subscribing, you authorise us to host, manage, and update your website in accordance with the selected plan. Any bespoke work outside plan inclusions is quoted separately and accepted in writing (email is sufficient).
+        These Terms govern the subscription plans, maintenance retainers, and add-ons offered by
+        ByteWorks. By subscribing, you authorise us to host, manage, and update your website in
+        accordance with the selected plan. Any bespoke work outside plan inclusions is quoted
+        separately and accepted in writing (email is sufficient).
       </p>
 
       <h3>2. Deliverables &amp; scope</h3>
       <p>
-        Each plan includes a defined page count, design system, bilingual setup (EN/ES), performance optimisation aligned with Core Web Vitals, and the number of monthly updates listed on the pricing page. Updates cover content edits, small layout tweaks, and maintenance tasks. New features, integrations, or complex redesigns are billed as add-ons or project work.
+        Each plan includes a defined page count, design system, bilingual setup (EN/ES), performance
+        optimisation aligned with Core Web Vitals, and the number of monthly updates listed on the
+        pricing page. Updates cover content edits, small layout tweaks, and maintenance tasks. New
+        features, integrations, or complex redesigns are billed as add-ons or project work.
       </p>
 
       <h3>3. Support hours &amp; response time</h3>
       <p>
-        Support operates Monday to Friday, 9:00 AM – 6:00 PM (AST), primarily through our social channels listed in the “Follow Us” footer (e.g., WhatsApp, Instagram). Target response windows:</p>
+        Support operates Monday to Friday, 9:00 AM – 6:00 PM (AST), primarily through our social
+        channels listed in the “Follow Us” footer (e.g., WhatsApp, Instagram). Target response
+        windows:
+      </p>
       <div class="overflow-x-auto">
         <table class="table-auto w-full text-sm">
           <thead>
@@ -62,11 +78,17 @@ const breadcrumb = [
           </tbody>
         </table>
       </div>
-      <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">Requests submitted outside support hours are triaged the next business day. Emergency escalation phone numbers are provided to active clients on request.</p>
+      <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+        Requests submitted outside support hours are triaged the next business day. Emergency
+        escalation phone numbers are provided to active clients on request.
+      </p>
 
       <h3>4. Monthly updates</h3>
       <p>
-        Plan inclusions reset on the first day of each billing cycle and do not roll over. Typical tasks include new sections, copy edits, imagery swaps, or simple automations. Large feature builds, third-party integrations, or marketing funnels are considered project work and quoted separately.
+        Plan inclusions reset on the first day of each billing cycle and do not roll over. Typical
+        tasks include new sections, copy edits, imagery swaps, or simple automations. Large feature
+        builds, third-party integrations, or marketing funnels are considered project work and
+        quoted separately.
       </p>
       <div class="overflow-x-auto">
         <table class="table-auto w-full text-sm">
@@ -99,55 +121,82 @@ const breadcrumb = [
 
       <h3>5. Hosting, backups &amp; security</h3>
       <p>
-        ByteWorks provisions hosting on Vercel or an equivalent managed platform. SSL certificates, CDN cache, and global edge delivery are included. We take encrypted backups at least every 7 days and retain them for 30 days. Security hardening covers dependency updates, access control, and malware scanning. Restores triggered by client-side edits are counted as part of the monthly update allowance.
+        ByteWorks provisions hosting on enterprise-grade managed infrastructure platforms. SSL
+        certificates, CDN cache, and global edge delivery are included. We take encrypted backups at
+        least every 7 days and retain them for 30 days. Security hardening covers dependency
+        updates, access control, and malware scanning. Restores triggered by client-side edits are
+        counted as part of the monthly update allowance.
       </p>
 
       <h3>6. SEO &amp; performance</h3>
       <p>
-        We implement on-page SEO fundamentals (structured metadata, sitemaps, schema markup, language alternates) and optimise assets for Core Web Vitals. We do not guarantee specific rankings; instead we provide the technical foundation for sustainable SEO. Tailored campaigns, keyword research, or link-building are available as separate engagements.
+        We implement on-page SEO fundamentals (structured metadata, sitemaps, schema markup,
+        language alternates) and optimise assets for Core Web Vitals. We do not guarantee specific
+        rankings; instead we provide the technical foundation for sustainable SEO. Tailored
+        campaigns, keyword research, or link-building are available as separate engagements.
       </p>
 
       <h3>7. Client responsibilities</h3>
       <p>
-        You agree to provide timely content, approvals, and access to required third-party systems (e.g., email providers, DNS, analytics). You are responsible for the accuracy and legality of all content. ByteWorks is not liable for delays caused by missing assets or late feedback; such delays may shift delivery dates or require additional budget.
+        You agree to provide timely content, approvals, and access to required third-party systems
+        (e.g., email providers, DNS, analytics). You are responsible for the accuracy and legality
+        of all content. ByteWorks is not liable for delays caused by missing assets or late
+        feedback; such delays may shift delivery dates or require additional budget.
       </p>
 
       <h3>8. Integrations &amp; third parties</h3>
       <p>
-        We integrate with Supabase (authentication, database), email delivery services, and optional analytics tools. Their respective terms apply in addition to ours. We are not liable for outages or policy changes introduced by these providers but will advise on mitigation or migration paths as part of your plan.
+        We integrate with authentication and database services, email delivery platforms, and
+        optional analytics tools. Their respective terms apply in addition to ours. We are not
+        liable for outages or policy changes introduced by these providers but will advise on
+        mitigation or migration paths as part of your plan.
       </p>
 
       <h3>9. Ownership &amp; licences</h3>
       <p>
-        You retain ownership of brand assets, content, and custom copy. ByteWorks retains ownership of internal tooling, component libraries, and reusable code (licensed to you for the duration of the subscription). Upon cancellation, we deliver a static export or repository snapshot on request. Continued use of our proprietary components outside an active subscription requires a separate licence.
+        You retain ownership of brand assets, content, and custom copy. ByteWorks retains ownership
+        of internal tooling, component libraries, and reusable code (licensed to you for the
+        duration of the subscription). Upon cancellation, we deliver a static export or repository
+        snapshot on request. Continued use of our proprietary components outside an active
+        subscription requires a separate licence.
       </p>
 
       <h3>10. Payments &amp; cancellation</h3>
       <p>
-        Plans are billed monthly or yearly in advance. Invoices are due within 7 days unless otherwise stated. Late payments may pause service until the balance is cleared. Cancellation requests must be submitted at least 5 business days before renewal; service continues until the end of the paid term. Reactivation after cancellation may incur a setup fee.
+        Plans are billed monthly or yearly in advance. Invoices are due within 7 days unless
+        otherwise stated. Late payments may pause service until the balance is cleared. Cancellation
+        requests must be submitted at least 5 business days before renewal; service continues until
+        the end of the paid term. Reactivation after cancellation may incur a setup fee.
       </p>
 
       <h3>11. Suspension</h3>
       <p>
-        We may suspend service for non-payment, security risks, or misuse (including spam, illegal content, or abusive traffic). We will provide written notice and a remediation path wherever feasible. Persistent violations entitle us to terminate the agreement.
+        We may suspend service for non-payment, security risks, or misuse (including spam, illegal
+        content, or abusive traffic). We will provide written notice and a remediation path wherever
+        feasible. Persistent violations entitle us to terminate the agreement.
       </p>
 
       <h3>12. Liability</h3>
       <p>
-        To the fullest extent permitted by law, ByteWorks’ aggregate liability under these Terms is limited to the fees paid in the preceding three (3) months. We are not liable for indirect losses, lost profits, or damages arising from third-party failures, force majeure events, or unauthorised changes made outside our control.
+        To the fullest extent permitted by law, ByteWorks’ aggregate liability under these Terms is
+        limited to the fees paid in the preceding three (3) months. We are not liable for indirect
+        losses, lost profits, or damages arising from third-party failures, force majeure events, or
+        unauthorised changes made outside our control.
       </p>
 
       <h3>13. Governing law</h3>
       <p>
-        These Terms are governed by the laws applicable in your residence, with any disputes handled through good-faith negotiation first. If no resolution is reached, parties may agree on arbitration or competent courts mutually designated.
+        These Terms are governed by the laws applicable in your residence, with any disputes handled
+        through good-faith negotiation first. If no resolution is reached, parties may agree on
+        arbitration or competent courts mutually designated.
       </p>
 
       <h3>14. Updates</h3>
       <p>
-        We may update these Terms to reflect new services or legal requirements. The effective date appears at the top of the page. Material changes are communicated to active subscribers via email or the admin dashboard at least 14 days prior to enforcement.
+        We may update these Terms to reflect new services or legal requirements. The effective date
+        appears at the top of the page. Material changes are communicated to active subscribers via
+        email or the admin dashboard at least 14 days prior to enforcement.
       </p>
     </section>
   </section>
 </Base>
-
-

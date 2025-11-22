@@ -1,9 +1,10 @@
 ---
-import Base from '../../layouts/Base.astro';
 import FAQAccordion from '../../components/FAQAccordion.astro';
+import Base from '../../layouts/Base.astro';
 
 const title = 'Preguntas Frecuentes | ByteWorks Servicios Web';
-const description = '¿Tienes preguntas sobre nuestras suscripciones de diseño web? Encuentra respuestas sobre nuestro proceso, precios, SEO, propiedad del contenido y qué incluyen nuestros planes.';
+const description =
+  '¿Tienes preguntas sobre nuestras suscripciones de diseño web? Encuentra respuestas sobre nuestro proceso, precios, SEO, propiedad del contenido y qué incluyen nuestros planes.';
 const breadcrumb = [
   { name: 'Inicio', url: 'https://byteworksagency.com/es/' },
   { name: 'Preguntas frecuentes', url: 'https://byteworksagency.com/es/faq/' },
@@ -36,7 +37,7 @@ const faqs = [
   },
   {
     q: '¿Trabajan con un CMS?',
-    a: 'Usamos una stack moderna y de alto rendimiento (Astro + Vercel). En sitios simples no hace falta CMS porque las actualizaciones están cubiertas en tu plan. Para blogs o catálogos usamos un dashboard interno ligero o contenido estructurado.',
+    a: 'Usamos una stack moderna y de alto rendimiento con frameworks de última generación. En sitios simples no hace falta CMS porque las actualizaciones están cubiertas en tu plan. Para blogs o catálogos usamos un dashboard interno ligero o contenido estructurado.',
   },
   {
     q: '¿El sitio es bilingüe?',
@@ -113,20 +114,39 @@ const faqs = [
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
+<Base
+  title={title}
+  description={description}
+  image="/og-image.png"
+  lang="es"
+  breadcrumb={breadcrumb}
+>
   <section class="px-4 max-w-[960px] mx-auto py-20">
     <header class="text-center space-y-3 mb-8">
-      <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading">Preguntas frecuentes</h1>
-      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Respuestas directas sobre cómo trabajamos y qué incluye cada plan.</p>
+      <h1
+        class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-text-primary font-heading"
+      >
+        Preguntas frecuentes
+      </h1>
+      <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Respuestas directas sobre cómo trabajamos y qué incluye cada plan.
+      </p>
     </header>
 
-    <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-10 bg-white dark:bg-background-dark/50">
-      <h2 class="text-xl md:text-2xl font-bold text-text-primary font-heading">Qué hace ByteWorks</h2>
+    <div
+      class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-10 bg-white dark:bg-background-dark/50"
+    >
+      <h2 class="text-xl md:text-2xl font-bold text-text-primary font-heading">
+        Qué hace ByteWorks
+      </h2>
       <p class="mt-2 text-gray-600 dark:text-gray-300">
-        En ByteWorks creemos que tener un sitio profesional no debería ser complicado ni caro. Nos encargamos de todo —diseño, desarrollo, hosting, seguridad, actualizaciones y soporte— para que puedas enfocarte en tu negocio.
+        En ByteWorks creemos que tener un sitio profesional no debería ser complicado ni caro. Nos
+        encargamos de todo —diseño, desarrollo, hosting, seguridad, actualizaciones y soporte— para
+        que puedas enfocarte en tu negocio.
       </p>
       <p class="mt-2 text-gray-600 dark:text-gray-300">
-        Cada sitio que construimos es rápido, moderno, mobile-friendly y está diseñado para generar confianza desde el primer contacto.
+        Cada sitio que construimos es rápido, moderno, mobile-friendly y está diseñado para generar
+        confianza desde el primer contacto.
       </p>
       <div class="mt-3">
         <div class="font-medium mb-1">Qué incluye:</div>

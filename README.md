@@ -1,10 +1,12 @@
 <div align="center">
   <img src="https://byteworksagency.com/og-image.png" alt="ByteWorks" width="180" />
 
-  # ByteWorks — Official Agency Website
-  *Modern, bilingual web experiences tailored for entrepreneurs and small businesses.*
+# ByteWorks — Official Agency Website
 
-  [Live Site](https://byteworksagency.com)
+_Modern, bilingual web experiences tailored for entrepreneurs and small businesses._
+
+[Live Site](https://byteworksagency.com)
+
 </div>
 
 ---
@@ -14,6 +16,7 @@
 This repository powers ByteWorks' public marketing site and the internal admin portal. It is built with Astro and TypeScript, features a bilingual content strategy (English/Spanish), and integrates a custom billing pipeline that manages quotes, invoices, and automated reminders.
 
 ### Highlights
+
 - Bilingual content with SEO-friendly routes (EN/ES)
 - Light/dark theme with client persistence
 - `/admin` dashboard secured with Supabase Auth (plus dev fallback)
@@ -25,24 +28,27 @@ This repository powers ByteWorks' public marketing site and the internal admin p
 ## Development Setup
 
 ### Requirements
+
 - Node 20+
 - pnpm ≥ 9
 - PostgreSQL (local or Supabase/Neon)
 
 ### Install & Run
+
 ```bash
 pnpm install
 pnpm dev           # http://localhost:4321
 ```
 
 ### Handy Scripts
-| Command            | Purpose                                 |
-|--------------------|-----------------------------------------|
-| `pnpm dev`         | Start the dev server (Astro)            |
-| `pnpm build`       | Production build (Vercel adapter)       |
-| `pnpm db:generate` | Prisma client generation                |
-| `pnpm db:migrate`  | Apply database migrations               |
-| `pnpm db:seed`     | Seed demo data for billing/quotes       |
+
+| Command            | Purpose                           |
+| ------------------ | --------------------------------- |
+| `pnpm dev`         | Start the dev server (Astro)      |
+| `pnpm build`       | Production build                  |
+| `pnpm db:generate` | Prisma client generation          |
+| `pnpm db:migrate`  | Apply database migrations         |
+| `pnpm db:seed`     | Seed demo data for billing/quotes |
 
 ---
 
@@ -57,6 +63,7 @@ pnpm dev           # http://localhost:4321
 ---
 
 ## Short Roadmap
+
 - Add e-signature support when accepting quotes.
 - Integrate online payments (Stripe).
 - Automate bilingual reminder emails.

@@ -9,33 +9,63 @@ const breadcrumb = [
 ];
 ---
 
-<Base title={title} description={description} image="/og-image.png" lang="es" breadcrumb={breadcrumb}>
+<Base
+  title={title}
+  description={description}
+  image="/og-image.png"
+  lang="es"
+  breadcrumb={breadcrumb}
+>
   <section class="px-6 md:px-10 lg:px-16 max-w-5xl mx-auto py-14 md:py-20 space-y-8">
     <header class="text-center mb-10">
       <h1 class="text-3xl md:text-5xl font-semibold">Política de Privacidad</h1>
       <p class="text-gray-600 dark:text-gray-300 mt-2">Vigente desde octubre de 2025</p>
     </header>
 
-    <article class="space-y-6 text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed">
+    <article
+      class="space-y-6 text-gray-700 dark:text-gray-200 text-sm md:text-base leading-relaxed"
+    >
       <section>
         <h2 class="text-lg font-semibold mb-2">1. Quiénes somos</h2>
         <p>
-          ByteWorks (“nosotros”, “nuestro”) es un estudio de diseño y mantenimiento web 100% en línea.
-          Diseñamos, alojamos y mantenemos sitios para emprendedores y pequeñas empresas. Esta política describe cómo tratamos
-          los datos personales cuando navegas nuestro sitio, solicitas una cotización o utilizas las herramientas administrativas
-          que ponemos a disposición de nuestros clientes.
+          ByteWorks (“nosotros”, “nuestro”) es un estudio de diseño y mantenimiento web 100% en
+          línea. Diseñamos, alojamos y mantenemos sitios para emprendedores y pequeñas empresas.
+          Esta política describe cómo tratamos los datos personales cuando navegas nuestro sitio,
+          solicitas una cotización o utilizas las herramientas administrativas que ponemos a
+          disposición de nuestros clientes.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">2. Datos que recopilamos</h2>
-        <p>Recabamos únicamente la información necesaria para prestar y mejorar nuestros servicios:</p>
+        <p>
+          Recabamos únicamente la información necesaria para prestar y mejorar nuestros servicios:
+        </p>
         <ul class="list-disc list-inside mt-2 space-y-1">
-          <li><span class="font-medium">Datos de contacto</span>: nombre, correo, teléfono, nombre comercial, objetivos del proyecto y cualquier mensaje que envíes mediante formularios.</li>
-          <li><span class="font-medium">Datos de cuenta</span>: si accedes al portal administrativo, almacenamos el correo de acceso, información básica de perfil y metadatos de autenticación proporcionados por Supabase Auth.</li>
-          <li><span class="font-medium">Registros de facturación</span>: historial de compras, facturas, cotizaciones, monedas y referencias de pago administradas en nuestra base de datos PostgreSQL (Prisma).</li>
-          <li><span class="font-medium">Datos de uso</span>: métricas de visitas anonimizadas (páginas vistas, origen aproximado) generadas por analítica enfocada en privacidad y registros del servidor. No incluimos identificadores publicitarios.</li>
-          <li><span class="font-medium">Diagnóstico técnico</span>: dirección IP, navegador, tipo de dispositivo y trazas de error recopiladas automáticamente para proteger la plataforma y solucionar incidencias.</li>
+          <li>
+            <span class="font-medium">Datos de contacto</span>: nombre, correo, teléfono, nombre
+            comercial, objetivos del proyecto y cualquier mensaje que envíes mediante formularios.
+          </li>
+          <li>
+            <span class="font-medium">Datos de cuenta</span>: si accedes al portal administrativo,
+            almacenamos el correo de acceso, información básica de perfil y metadatos de
+            autenticación proporcionados por nuestro sistema de gestión de identidades.
+          </li>
+          <li>
+            <span class="font-medium">Registros de facturación</span>: historial de compras,
+            facturas, cotizaciones, monedas y referencias de pago administradas en nuestra base de
+            datos PostgreSQL (Prisma).
+          </li>
+          <li>
+            <span class="font-medium">Datos de uso</span>: métricas de visitas anonimizadas (páginas
+            vistas, origen aproximado) generadas por analítica enfocada en privacidad y registros
+            del servidor. No incluimos identificadores publicitarios.
+          </li>
+          <li>
+            <span class="font-medium">Diagnóstico técnico</span>: dirección IP, navegador, tipo de
+            dispositivo y trazas de error recopiladas automáticamente para proteger la plataforma y
+            solucionar incidencias.
+          </li>
         </ul>
       </section>
 
@@ -44,53 +74,78 @@ const breadcrumb = [
         <p>Procesamos datos personales con los siguientes fines:</p>
         <ul class="list-disc list-inside mt-2 space-y-1">
           <li>Responder consultas, preparar propuestas y gestionar el alta de proyectos.</li>
-          <li>Operar nuestro dashboard interno: administrar cotizaciones, facturas, leads, recordatorios y actualizaciones de contenido.</li>
-          <li>Brindar soporte técnico, monitorear disponibilidad, generar respaldos y mejorar la experiencia de usuario.</li>
-          <li>Enviar comunicaciones esenciales (ventanas de mantenimiento, avisos de políticas, recordatorios de pago).</li>
-          <li>Cumplir obligaciones contractuales y legales, incluyendo contabilidad y prevención de fraude.</li>
+          <li>
+            Operar nuestro dashboard interno: administrar cotizaciones, facturas, leads,
+            recordatorios y actualizaciones de contenido.
+          </li>
+          <li>
+            Brindar soporte técnico, monitorear disponibilidad, generar respaldos y mejorar la
+            experiencia de usuario.
+          </li>
+          <li>
+            Enviar comunicaciones esenciales (ventanas de mantenimiento, avisos de políticas,
+            recordatorios de pago).
+          </li>
+          <li>
+            Cumplir obligaciones contractuales y legales, incluyendo contabilidad y prevención de
+            fraude.
+          </li>
         </ul>
         <p class="mt-2">
-          Nos basamos en interés legítimo para asegurar nuestra infraestructura y ejecutar analítica, y en la necesidad contractual o tu consentimiento para el resto.
-          Cuando la ley lo exige, solicitamos autorización explícita (por ejemplo, envíos comerciales).
+          Nos basamos en interés legítimo para asegurar nuestra infraestructura y ejecutar
+          analítica, y en la necesidad contractual o tu consentimiento para el resto. Cuando la ley
+          lo exige, solicitamos autorización explícita (por ejemplo, envíos comerciales).
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">4. Proveedores y transferencias internacionales</h2>
         <p>
-          Alojamos infraestructura en Vercel (regiones UE/EE.UU.) y almacenamos datos operativos en Supabase (EE.UU./UE) mediante bases de datos PostgreSQL cifradas.
-          La información de pagos se gestiona con los procesadores indicados en cada factura (por ejemplo, Stripe o transferencias directas); no guardamos datos completos de tarjetas.
+          Alojamos infraestructura en plataformas de nube empresarial (regiones UE/EE.UU.) y
+          almacenamos datos operativos en servicios de base de datos gestionados (EE.UU./UE)
+          mediante bases de datos PostgreSQL cifradas. La información de pagos se gestiona con los
+          procesadores indicados en cada factura (por ejemplo, Stripe o transferencias directas); no
+          guardamos datos completos de tarjetas.
         </p>
         <p class="mt-2">
-          Cuando involucramos subencargados exigimos contratos con obligaciones de confidencialidad y seguridad alineadas con esta política.
-          Los datos pueden transferirse fuera de tu jurisdicción y se protegen mediante cláusulas contractuales estándar u otras salvaguardas equivalentes.
+          Cuando involucramos subencargados exigimos contratos con obligaciones de confidencialidad
+          y seguridad alineadas con esta política. Los datos pueden transferirse fuera de tu
+          jurisdicción y se protegen mediante cláusulas contractuales estándar u otras salvaguardas
+          equivalentes.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">5. Cookies y analítica</h2>
         <p>
-          Nuestro sitio público utiliza cookies propias para recordar preferencias (por ejemplo, idioma) y estado de sesión. También aplicamos analítica ligera
-          (Plausible o Cloudflare Insights) que mide tendencias agregadas sin identificadores personales. Puedes bloquear cookies en tu navegador; sin embargo,
-          ciertas funciones esenciales como el acceso al portal administrativo podrían requerirlas.
+          Nuestro sitio público utiliza cookies propias para recordar preferencias (por ejemplo,
+          idioma) y estado de sesión. También aplicamos analítica ligera (Plausible o Cloudflare
+          Insights) que mide tendencias agregadas sin identificadores personales. Puedes bloquear
+          cookies en tu navegador; sin embargo, ciertas funciones esenciales como el acceso al
+          portal administrativo podrían requerirlas.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">6. Conservación de datos</h2>
         <p>
-          Conservamos datos de consultas hasta 12 meses después de la última interacción. Los registros de clientes (cotizaciones, facturas, acuerdos) se mantienen
-          por siete (7) años para cumplir obligaciones contables, salvo que la ley exija un plazo mayor. Las copias de seguridad se cifran, se guardan hasta por 30 días
-          y luego se eliminan. Si solicitas la supresión, eliminamos la información de los sistemas activos y programamos su borrado en la siguiente rotación de respaldos.
+          Conservamos datos de consultas hasta 12 meses después de la última interacción. Los
+          registros de clientes (cotizaciones, facturas, acuerdos) se mantienen por siete (7) años
+          para cumplir obligaciones contables, salvo que la ley exija un plazo mayor. Las copias de
+          seguridad se cifran, se guardan hasta por 30 días y luego se eliminan. Si solicitas la
+          supresión, eliminamos la información de los sistemas activos y programamos su borrado en
+          la siguiente rotación de respaldos.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">7. Medidas de seguridad</h2>
         <p>
-          Aplicamos control de acceso por roles, cifrado (HTTPS), actualizaciones automáticas y monitoreo continuo de vulnerabilidades.
-          Las credenciales de producción se almacenan en variables de entorno seguras y el acceso administrativo requiere autenticación multifactor.
-          Aunque ningún sistema es infalible, investigamos y notificamos cualquier incidente que afecte materialmente tus datos.
+          Aplicamos control de acceso por roles, cifrado (HTTPS), actualizaciones automáticas y
+          monitoreo continuo de vulnerabilidades. Las credenciales de producción se almacenan en
+          variables de entorno seguras y el acceso administrativo requiere autenticación
+          multifactor. Aunque ningún sistema es infalible, investigamos y notificamos cualquier
+          incidente que afecte materialmente tus datos.
         </p>
       </section>
 
@@ -99,35 +154,45 @@ const breadcrumb = [
         <p>Puedes:</p>
         <ul class="list-disc list-inside mt-2 space-y-1">
           <li>Solicitar una copia de los datos personales que conservamos.</li>
-          <li>Pedir la rectificación de datos inexactos o su eliminación cuando la ley lo permita.</li>
+          <li>
+            Pedir la rectificación de datos inexactos o su eliminación cuando la ley lo permita.
+          </li>
           <li>Restringir u oponerte a ciertos tratamientos (por ejemplo, cookies de analítica).</li>
-          <li>Exportar tus datos administrativos (cotizaciones, facturas, formularios) en formatos accesibles.</li>
+          <li>
+            Exportar tus datos administrativos (cotizaciones, facturas, formularios) en formatos
+            accesibles.
+          </li>
         </ul>
         <p class="mt-2">
-          Escríbenos mediante cualquiera de los enlaces sociales disponibles en la sección “Síguenos” del footer. Respondemos en un plazo máximo de 30 días y podemos solicitar verificación de identidad antes de procesar la solicitud.
+          Escríbenos mediante cualquiera de los enlaces sociales disponibles en la sección
+          “Síguenos” del footer. Respondemos en un plazo máximo de 30 días y podemos solicitar
+          verificación de identidad antes de procesar la solicitud.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">9. Menores de edad</h2>
         <p>
-          Nuestros servicios están dirigidos a negocios y equipos. No recopilamos de forma consciente datos de menores de 16 años.
-          Si crees que un menor nos proporcionó información personal, contáctanos para eliminarla de inmediato.
+          Nuestros servicios están dirigidos a negocios y equipos. No recopilamos de forma
+          consciente datos de menores de 16 años. Si crees que un menor nos proporcionó información
+          personal, contáctanos para eliminarla de inmediato.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">10. Cambios a esta política</h2>
         <p>
-          Actualizaremos este aviso cuando cambien nuestras prácticas. La fecha de “vigencia” indica la revisión más reciente.
-          Los cambios relevantes se comunicarán a clientes activos vía correo o panel administrativo.
+          Actualizaremos este aviso cuando cambien nuestras prácticas. La fecha de “vigencia” indica
+          la revisión más reciente. Los cambios relevantes se comunicarán a clientes activos vía
+          correo o panel administrativo.
         </p>
       </section>
 
       <section>
         <h2 class="text-lg font-semibold mb-2">11. Contacto</h2>
         <p>
-          Para preguntas sobre privacidad o para presentar un reclamo, contáctanos por cualquiera de nuestras redes sociales enlazadas en “Síguenos” en el footer.
+          Para preguntas sobre privacidad o para presentar un reclamo, contáctanos por cualquiera de
+          nuestras redes sociales enlazadas en “Síguenos” en el footer.
         </p>
       </section>
     </article>
